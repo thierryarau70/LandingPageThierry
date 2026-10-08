@@ -59,9 +59,9 @@ h1 em{font-style:normal;background:linear-gradient(135deg,#a78bfa,var(--p2));-we
 .faq summary{cursor:pointer;font-weight:600}
 .faq details p{color:var(--mut);margin-top:10px}
 .contact{text-align:center}
-#form{max-width:520px;margin:auto;display:grid;gap:14px}
-#form input,#form select,#form textarea{width:100%;padding:14px 18px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--txt);font:inherit}
-#form input:focus,#form select:focus,#form textarea:focus{outline:2px solid var(--p);border-color:transparent}
+form{max-width:520px;margin:auto;display:grid;gap:14px}
+form input,form select,form textarea{width:100%;padding:14px 18px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--txt);font:inherit}
+form input:focus,form select:focus,form textarea:focus{outline:2px solid var(--p);border-color:transparent}
 .alt{margin-top:20px;color:var(--mut)}.alt a{color:var(--p2)}
 footer{text-align:center;padding:40px 5vw;color:var(--mut);border-top:1px solid var(--line);font-size:.9rem}
 .fab{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;background:#25d366;display:grid;place-items:center;font-size:1.6rem;cursor:pointer;box-shadow:0 8px 25px rgba(37,211,102,.5);z-index:20;text-decoration:none}
