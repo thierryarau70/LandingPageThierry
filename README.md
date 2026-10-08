@@ -1,11 +1,17 @@
 # Landing Page Thierry
 
-Site de divulgação e venda de landing pages. HTML/CSS/JS puro, sem build.
+Site de divulgação e venda de landing pages feito com Nuxt 4 + TypeScript.
 
-- WhatsApp: (95) 99143-2677 (editar em `script.js`, constante `WA`)
-- E-mail: thierryaraujo309@gmail.com
+- WhatsApp e e-mail: `app/utils/site.ts`
+- Planos, serviços e FAQ: `app/utils/site.ts`
+- Estilos: `app/assets/css/main.css`
 
-## Publicar
-O workflow `.github/workflows/pages.yml` publica no GitHub Pages ao dar push na `main`.
-Em Settings > Pages, selecione "GitHub Actions". Para domínio próprio, crie um arquivo `CNAME`
-com o domínio e aponte o DNS para o GitHub Pages.
+## Rodar
+```
+npm install
+npm run dev
+```
+
+## Deploy na Vercel
+Importe o repositório em vercel.com/new. O preset Nuxt é detectado automaticamente
+(build: `npm run build`). Para domínio próprio: Project > Settings > Domains.
