@@ -5,6 +5,7 @@
     <main id="topo">
       <HeroSection />
       <ServicesSection />
+      <PortfolioSection />
       <PlansSection />
       <StepsSection />
       <AboutSection />
