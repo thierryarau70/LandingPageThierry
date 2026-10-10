@@ -8,7 +8,7 @@
       <a class="btn btn-ghost" href="#portfolio">Ver portfólio</a>
     </div>
     <ul class="stats">
-      <li><b>{{ projects.length }} sistemas</b><span>no ar no portfólio</span></li>
+      <li><b>{{ projects.length }} sistemas</b><span>em destaque, entre outros</span></li>
       <li><b>5 dias</b><span>prazo médio de entrega</span></li>
       <li><b>100%</b><span>responsivo no celular</span></li>
     </ul>
