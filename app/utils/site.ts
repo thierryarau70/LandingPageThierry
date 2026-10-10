@@ -1,5 +1,6 @@
 export const WHATSAPP = '5595991432677'
 export const EMAIL = 'thierryaraujo309@gmail.com'
+export const EXPERIENCE_YEARS = 4
 
 export const waLink = (text: string): string =>
   `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`
@@ -51,4 +52,40 @@ export const faq = [
   { q: 'Preciso ter domínio?', a: 'Não. Posso te orientar no registro e configurar tudo para você.' },
   { q: 'Posso pedir ajustes?', a: 'Sim. Cada plano inclui rodadas de ajustes até você aprovar.' },
   { q: 'Vai funcionar nos anúncios?', a: 'Sim. A página já sai preparada para Pixel, conversões e campanhas.' }
+]
+
+export interface Project {
+  name: string
+  category: string
+  description: string
+  url: string
+  image: string
+  tags: string[]
+}
+
+export const projects: Project[] = [
+  {
+    name: 'Agrovet',
+    category: 'Sistema veterinário',
+    description: 'Gestão reprodutiva bovina: fazendas, lotes, animais e protocolos IATF, com sincronização na nuvem e suporte offline.',
+    url: 'https://agrovet-xi.vercel.app/welcome',
+    image: '/portfolio/agrovet.webp',
+    tags: ['Gestão', 'Offline', 'Nuvem']
+  },
+  {
+    name: 'Attletto Teams',
+    category: 'Gestão esportiva',
+    description: 'Plataforma para clubes e escolinhas: elencos, presenças, treinos, jogos, documentos e pagamentos em um só lugar.',
+    url: 'https://attletto.vercel.app',
+    image: '/portfolio/attletto.webp',
+    tags: ['SaaS', 'Relatórios', 'Pagamentos']
+  },
+  {
+    name: 'Cursinho Alpha',
+    category: 'Plataforma EAD',
+    description: 'Cursinho online com videoaulas, materiais em PDF, banco de questões, simulados e acompanhamento de progresso do aluno.',
+    url: 'https://studyead.vercel.app',
+    image: '/portfolio/studyead.webp',
+    tags: ['EAD', 'Videoaulas', 'Simulados']
+  }
 ]
