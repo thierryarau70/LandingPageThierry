@@ -8,7 +8,7 @@ export default defineNuxtConfig({
       title: 'Thierry Araújo | Landing Pages que vendem',
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Landing pages profissionais, rápidas e feitas para converter. Escolha seu plano e fale comigo direto no WhatsApp.' },
+        { name: 'description', content: 'Landing pages, sites institucionais, plataformas EAD e sistemas web sob medida. Veja o portfólio e fale comigo direto no WhatsApp.' },
         { name: 'theme-color', content: '#0b0b1a' },
         { property: 'og:title', content: 'Thierry Araújo | Landing Pages que vendem' },
         { property: 'og:description', content: 'Sua página no ar em poucos dias. Veja os planos e peça seu orçamento.' },
