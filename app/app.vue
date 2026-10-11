@@ -6,6 +6,7 @@
       <HeroSection />
       <ServicesSection />
       <PortfolioSection />
+      <ProductsSection />
       <PlansSection />
       <StepsSection />
       <AboutSection />

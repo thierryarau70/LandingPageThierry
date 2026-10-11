@@ -51,6 +51,7 @@ export const faq = [
   { q: 'Quanto tempo leva para ficar pronta?', a: 'Em média de 5 a 7 dias, dependendo do plano e da rapidez nas aprovações.' },
   { q: 'Preciso ter domínio?', a: 'Não. Posso te orientar no registro e configurar tudo para você.' },
   { q: 'Posso pedir ajustes?', a: 'Sim. Cada plano inclui rodadas de ajustes até você aprovar.' },
+  { q: 'Você faz só landing page?', a: 'Não. Também desenvolvo sites institucionais, sistemas web, plataformas de cursos e outros projetos sob medida. Me chama no WhatsApp para conversar sobre a sua ideia.' },
   { q: 'Vai funcionar nos anúncios?', a: 'Sim. A página já sai preparada para Pixel, conversões e campanhas.' }
 ]
 
@@ -64,6 +65,22 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  {
+    name: 'Dra. Emile Vitória',
+    category: 'Site para dentista',
+    description: 'Site da cirurgiã-dentista em Boa Vista (RR): tratamentos de clínica geral e harmonização orofacial, resultados, dúvidas e agendamento de avaliação.',
+    url: 'https://emilevitoria.vercel.app',
+    image: '/portfolio/emile.webp',
+    tags: ['Landing page', 'Saúde', 'Agendamento']
+  },
+  {
+    name: 'Centro de Isoladas',
+    category: 'Cursinho preparatório',
+    description: 'Site do cursinho focado em UFRR e UERR: turmas presenciais, cursos online com videoaulas e área do aluno com acompanhamento de progresso.',
+    url: 'https://centro-de-isoladas.vercel.app',
+    image: '/portfolio/isoladas.webp',
+    tags: ['Educação', 'Cursos online', 'Área do aluno']
+  },
   {
     name: 'Agrovet',
     category: 'Sistema veterinário',
@@ -79,13 +96,14 @@ export const projects: Project[] = [
     url: 'https://attletto.vercel.app',
     image: '/portfolio/attletto.webp',
     tags: ['SaaS', 'Relatórios', 'Pagamentos']
-  },
-  {
-    name: 'Cursinho Alpha',
-    category: 'Plataforma EAD',
-    description: 'Cursinho online com videoaulas, materiais em PDF, banco de questões, simulados e acompanhamento de progresso do aluno.',
-    url: 'https://studyead.vercel.app',
-    image: '/portfolio/studyead.webp',
-    tags: ['EAD', 'Videoaulas', 'Simulados']
   }
+]
+
+export const products = [
+  { ico: '🏢', title: 'Sites institucionais', text: 'Site completo para empresas, clínicas e profissionais, com várias páginas e visual da sua marca.' },
+  { ico: '🛠️', title: 'Sistemas web sob medida', text: 'Sistemas de gestão com login, cadastros, relatórios e painel administrativo para o seu negócio.' },
+  { ico: '🎓', title: 'Plataformas de cursos', text: 'Área do aluno com videoaulas, materiais, questões e acompanhamento de progresso.' },
+  { ico: '📊', title: 'Painéis e dashboards', text: 'Seus dados organizados em gráficos e indicadores para decidir mais rápido.' },
+  { ico: '📅', title: 'Agendamento online', text: 'Seus clientes marcam horário direto pelo site, sem precisar ligar ou esperar resposta.' },
+  { ico: '🔌', title: 'Integrações', text: 'Conexão com WhatsApp, pagamentos, planilhas e outras ferramentas que você já usa.' }
 ]
