@@ -1,7 +1,7 @@
 <template>
   <section id="portfolio" class="section">
     <h2>Portfólio</h2>
-    <p class="sub">Alguns dos sistemas que desenvolvi e estão no ar, entre outros projetos feitos em empresas. Clique para ver funcionando.</p>
+    <p class="sub">Alguns dos sites e sistemas que desenvolvi e estão no ar, entre outros projetos feitos em empresas. Clique para ver funcionando.</p>
     <div class="portfolio">
       <article v-for="p in projects" :key="p.name" class="project">
         <a :href="p.url" target="_blank" rel="noopener" class="shot" :aria-label="`Abrir ${p.name} em nova aba`">

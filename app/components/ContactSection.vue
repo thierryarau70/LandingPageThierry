@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-const options = [...plans.map(p => p.name), 'Ainda não sei']
+const options = [...plans.map(p => p.name), 'Outro projeto (site, sistema...)', 'Ainda não sei']
 const form = reactive({ nome: '', plano: '', msg: '' })
 
 function send() {

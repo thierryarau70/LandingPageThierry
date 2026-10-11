@@ -4,6 +4,7 @@
     <nav>
       <a href="#servicos">Serviços</a>
       <a href="#portfolio">Portfólio</a>
+      <a href="#solucoes">Soluções</a>
       <a href="#planos">Planos</a>
       <a href="#sobre">Sobre</a>
       <a href="#faq">FAQ</a>
