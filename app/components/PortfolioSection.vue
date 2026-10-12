@@ -3,7 +3,7 @@
     <h2>Projetos</h2>
     <p class="sub">Alguns dos sites e sistemas que desenvolvi e estão no ar. Clique para ver funcionando.</p>
     <div class="portfolio">
-      <article v-for="p in projects" :key="p.name" class="project">
+      <article v-for="p in list" :key="p.name" class="project">
         <a :href="p.url" target="_blank" rel="noopener" class="shot" :aria-label="`Abrir ${p.name} em nova aba`">
           <div class="bar">
             <i /><i /><i />
@@ -29,3 +29,13 @@
     </p>
   </section>
 </template>
+
+<script setup lang="ts">
+const props = defineProps<{ order?: string[] }>()
+// Na página de nicho, mostra primeiro os projetos mais parecidos com o negócio do visitante
+const list = computed(() => {
+  if (!props.order?.length) return projects
+  const first = props.order.map(n => projects.find(p => p.name === n)).filter((p): p is Project => !!p)
+  return [...first, ...projects.filter(p => !first.includes(p))]
+})
+</script>

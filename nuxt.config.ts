@@ -2,6 +2,14 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: false },
   css: ['~/assets/css/main.css'],
+  runtimeConfig: {
+    public: {
+      // Preencha pelas variáveis de ambiente da Vercel (Settings > Environment Variables)
+      siteUrl: '', // NUXT_PUBLIC_SITE_URL, ex.: https://thierrydev.com.br
+      metaPixelId: '', // NUXT_PUBLIC_META_PIXEL_ID
+      gaId: '' // NUXT_PUBLIC_GA_ID, ex.: G-XXXXXXXXXX
+    }
+  },
   app: {
     head: {
       htmlAttrs: { lang: 'pt-BR' },

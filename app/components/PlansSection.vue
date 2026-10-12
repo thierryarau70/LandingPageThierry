@@ -13,7 +13,7 @@
         <a
           class="btn"
           :class="{ 'btn-ghost': !p.featured }"
-          :href="waLink(`Olá Thierry! Quero um orçamento do pacote ${p.name.toUpperCase()} de landing page.`)"
+          :href="waLink(`Olá Thierry! Quero um orçamento do pacote ${p.name.toUpperCase()} de landing page.${waSuffix}`)"
           target="_blank"
           rel="noopener"
         >Solicitar orçamento</a>
@@ -27,3 +27,7 @@
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+withDefaults(defineProps<{ waSuffix?: string }>(), { waSuffix: '' })
+</script>

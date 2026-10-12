@@ -1,6 +1,6 @@
 <template>
   <header class="nav">
-    <a href="#topo" class="logo">thierry<span>.</span>dev</a>
+    <NuxtLink to="/" class="logo">thierry<span>.</span>dev</NuxtLink>
     <nav>
       <a href="#portfolio">Projetos</a>
       <a href="#planos">Pacotes</a>
