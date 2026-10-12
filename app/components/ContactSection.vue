@@ -21,6 +21,7 @@ const form = reactive({ nome: '', plano: '', msg: '' })
 
 function send() {
   const text = `Olá Thierry! Meu nome é ${form.nome}.\nPlano de interesse: ${form.plano}.\n${form.msg}`
+  trackLead('formulario')
   window.open(waLink(text), '_blank', 'noopener')
 }
 </script>

@@ -122,3 +122,86 @@ export const projects: Project[] = [
     delivery: 'Design e desenvolvimento da plataforma.'
   }
 ]
+
+export interface Testimonial {
+  name: string
+  role: string
+  text: string
+}
+
+// Adicione aqui depoimentos reais de clientes. A seção só aparece no site quando houver pelo menos um.
+export const testimonials: Testimonial[] = []
+
+export interface Niche {
+  slug: string
+  label: string
+  seoTitle: string
+  title: string
+  highlight: string
+  text: string
+  shots: string[]
+  projects: string[]
+  pointsTitle: string
+  points: { ico: string, title: string, text: string }[]
+}
+
+// Páginas específicas para anúncios: /para/<slug>
+export const niches: Niche[] = [
+  {
+    slug: 'clinicas',
+    label: 'clínicas',
+    seoTitle: 'Site para clínicas e consultórios',
+    title: 'Um site para a sua clínica que transforma visitas em agendamentos.',
+    highlight: 'transforma visitas em agendamentos',
+    text: 'Landing pages para clínicas, consultórios e profissionais de saúde: tratamentos explicados com clareza, resultados, dúvidas frequentes e agendamento pelo WhatsApp.',
+    shots: ['/portfolio/emile.webp', '/portfolio/isoladas.webp'],
+    projects: ['Dra. Emile Vitória'],
+    pointsTitle: 'Feito para a rotina de uma clínica',
+    points: [
+      { ico: '🦷', title: 'Tratamentos bem explicados', text: 'Cada serviço com descrição clara, para o paciente entender antes de marcar.' },
+      { ico: '📅', title: 'Agendamento pelo WhatsApp', text: 'Botões de agendamento em toda a página, direto para a sua recepção.' },
+      { ico: '📍', title: 'Endereço e horários', text: 'Mapa, horário de atendimento e formas de contato fáceis de achar.' },
+      { ico: '⭐', title: 'Confiança', text: 'Espaço para sua formação, registro profissional e depoimentos de pacientes.' },
+      { ico: '📱', title: 'Perfeito no celular', text: 'A maioria dos pacientes chega pelo Instagram, então tudo é pensado para o celular.' },
+      { ico: '📈', title: 'Pronto para anúncios', text: 'Pixel e medição de contatos para saber quanto custa cada paciente novo.' }
+    ]
+  },
+  {
+    slug: 'cursos',
+    label: 'cursos',
+    seoTitle: 'Site para cursos e escolas',
+    title: 'Um site para o seu curso que enche as turmas.',
+    highlight: 'enche as turmas',
+    text: 'Landing pages para cursinhos, escolas e professores: turmas, matrículas, cursos online e contato pelo WhatsApp em uma página rápida e bonita.',
+    shots: ['/portfolio/isoladas.webp', '/portfolio/emile.webp'],
+    projects: ['Centro de Isoladas'],
+    pointsTitle: 'Feito para quem vende cursos',
+    points: [
+      { ico: '🎓', title: 'Turmas e matrículas', text: 'Datas, horários e vagas organizados para o aluno decidir rápido.' },
+      { ico: '💻', title: 'Cursos online', text: 'Vitrine dos cursos gravados e, se precisar, área do aluno com videoaulas.' },
+      { ico: '🏆', title: 'Aprovações e resultados', text: 'Destaque para aprovados e depoimentos de alunos.' },
+      { ico: '💬', title: 'Matrícula pelo WhatsApp', text: 'O aluno tira dúvidas e se matricula falando direto com a sua equipe.' },
+      { ico: '📱', title: 'Perfeito no celular', text: 'Pensado para quem chega pelo Instagram e pelo TikTok.' },
+      { ico: '📈', title: 'Pronto para anúncios', text: 'Ideal para campanhas de matrícula, com medição de contatos.' }
+    ]
+  },
+  {
+    slug: 'servicos',
+    label: 'prestadores de serviço',
+    seoTitle: 'Site para prestadores de serviço',
+    title: 'Um site profissional para o seu serviço receber mais pedidos.',
+    highlight: 'receber mais pedidos',
+    text: 'Landing pages para advogados, salões, oficinas, arquitetos, personal trainers e outros prestadores de serviço, com orçamento pelo WhatsApp.',
+    shots: ['/portfolio/emile.webp', '/portfolio/isoladas.webp'],
+    projects: [],
+    pointsTitle: 'Feito para quem vende serviço',
+    points: [
+      { ico: '🧰', title: 'Serviços em destaque', text: 'O que você faz, para quem e como funciona, explicado em poucos segundos.' },
+      { ico: '💬', title: 'Orçamento pelo WhatsApp', text: 'O cliente chama você com a mensagem já pronta.' },
+      { ico: '🖼️', title: 'Seus trabalhos', text: 'Galeria de antes e depois, fotos e resultados.' },
+      { ico: '⭐', title: 'Depoimentos', text: 'Avaliações de clientes para quem ainda não conhece o seu trabalho.' },
+      { ico: '📱', title: 'Perfeito no celular', text: 'Rápido e fácil de usar em qualquer celular.' },
+      { ico: '📈', title: 'Pronto para anúncios', text: 'Medição de contatos para saber o retorno de cada real investido.' }
+    ]
+  }
+]
