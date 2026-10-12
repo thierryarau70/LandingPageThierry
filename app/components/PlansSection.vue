@@ -1,12 +1,13 @@
 <template>
   <section id="planos" class="section">
     <h2>Pacotes</h2>
-    <p class="sub">Escolha pelo objetivo da página. O valor é combinado na conversa, conforme o seu projeto.</p>
+    <p class="sub">Escolha pelo objetivo da página. O valor final é confirmado na conversa, conforme o seu projeto.</p>
     <div class="plans">
       <article v-for="p in plans" :key="p.name" class="plan" :class="{ featured: p.featured }">
         <span v-if="p.featured" class="badge">Recomendado para quem anuncia</span>
         <span class="goal">{{ p.goal }}</span>
         <h3>{{ p.name }}</h3>
+        <p class="price"><small>a partir de</small> R$ {{ p.price.toLocaleString('pt-BR') }}</p>
         <p class="tag">{{ p.tag }}</p>
         <ul><li v-for="f in p.features" :key="f">{{ f }}</li></ul>
         <a

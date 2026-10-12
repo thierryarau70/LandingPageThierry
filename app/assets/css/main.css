@@ -114,3 +114,5 @@ footer{text-align:center;padding:40px 5vw;color:var(--mut);border-top:1px solid 
 .badge{white-space:nowrap}
 .plan.featured{padding-top:36px}
 .hero h1{font-size:clamp(2rem,3.6vw,2.9rem)}
+.price{font-family:'Space Grotesk';font-size:2rem;font-weight:700;margin:6px 0 8px;line-height:1.1}
+.price small{display:block;font-family:Inter;font-size:.78rem;font-weight:500;color:var(--mut)}
