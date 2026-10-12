@@ -1,17 +1,9 @@
 <template>
-  <section id="solucoes" class="section">
-    <h2>Não é só landing page</h2>
-    <p class="sub">Além de landing pages, desenvolvo outros produtos digitais para o seu negócio.</p>
-    <div class="grid3">
-      <article v-for="p in products" :key="p.title" class="card">
-        <div class="ico">{{ p.ico }}</div>
-        <h3>{{ p.title }}</h3>
-        <p>{{ p.text }}</p>
-      </article>
+  <section id="solucoes" class="section products-strip">
+    <div>
+      <h3>Precisa de algo além de uma landing page?</h3>
+      <p>Também desenvolvo sites institucionais, sistemas web sob medida e plataformas de cursos.</p>
     </div>
-    <p class="portfolio-cta">
-      Tem outra ideia em mente?
-      <a :href="waLink('Olá Thierry! Vi seu site e quero um orçamento para outro tipo de projeto.')" target="_blank" rel="noopener">Me conta no WhatsApp</a>
-    </p>
+    <a class="btn btn-ghost" :href="waLink('Olá Thierry! Vi seu site e quero um orçamento para outro tipo de projeto.')" target="_blank" rel="noopener">Conversar sobre o projeto</a>
   </section>
 </template>

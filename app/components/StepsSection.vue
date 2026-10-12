@@ -1,5 +1,5 @@
 <template>
-  <section class="section">
+  <section id="como-funciona" class="section">
     <h2>Como funciona</h2>
     <ol class="steps">
       <li v-for="(s, i) in steps" :key="s.title">

@@ -4,11 +4,11 @@
     <SiteHeader />
     <main id="topo">
       <HeroSection />
-      <ServicesSection />
       <PortfolioSection />
-      <ProductsSection />
+      <ServicesSection />
       <PlansSection />
       <StepsSection />
+      <ProductsSection />
       <AboutSection />
       <FaqSection />
       <ContactSection />

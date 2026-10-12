@@ -1,16 +1,17 @@
 <template>
   <section class="hero">
-    <span class="pill">💻 {{ EXPERIENCE_YEARS }} anos de experiência em programação</span>
-    <h1>Landing pages que <em>transformam cliques</em> em clientes</h1>
-    <p>Páginas modernas, rápidas e prontas para anúncios. Do design ao ar em poucos dias, com foco total em conversão. E se precisar de mais, também desenvolvo sites completos e sistemas web.</p>
-    <div class="cta">
-      <a class="btn" href="#planos">Ver planos</a>
-      <a class="btn btn-ghost" href="#portfolio">Ver portfólio</a>
+    <div class="hero-text">
+      <span class="pill">💻 {{ EXPERIENCE_YEARS }} anos de experiência · atendimento direto</span>
+      <h1>Seu negócio com um site profissional e um <em>caminho direto</em> para novos contatos.</h1>
+      <p>Crio landing pages para clínicas, cursos e prestadores de serviços, com design personalizado, versão para celular e contato pelo WhatsApp. Você fala diretamente comigo, da criação à publicação.</p>
+      <div class="cta">
+        <a class="btn" :href="waLink('Olá Thierry! Vim pelo site e quero um orçamento de landing page.')" target="_blank" rel="noopener">Pedir orçamento no WhatsApp</a>
+        <a class="btn btn-ghost" href="#portfolio">Ver projetos</a>
+      </div>
     </div>
-    <ul class="stats">
-      <li><b>{{ projects.length }} projetos</b><span>em destaque, entre outros</span></li>
-      <li><b>5 dias</b><span>prazo médio de entrega</span></li>
-      <li><b>100%</b><span>responsivo no celular</span></li>
-    </ul>
+    <div class="hero-shots" aria-hidden="true">
+      <img class="s1" src="/portfolio/emile.webp" alt="" width="1200" height="616">
+      <img class="s2" src="/portfolio/isoladas.webp" alt="" width="1200" height="616">
+    </div>
   </section>
 </template>
