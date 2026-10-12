@@ -7,6 +7,7 @@ export const waLink = (text: string): string =>
 
 export interface Plan {
   name: string
+  goal: string
   tag: string
   features: string[]
   featured?: boolean
@@ -15,24 +16,33 @@ export interface Plan {
 export const plans: Plan[] = [
   {
     name: 'Essencial',
-    tag: 'Para começar a vender online',
-    features: ['1 página (one-page)', 'Design personalizado', 'Responsivo', 'Botão de WhatsApp', 'Entrega em até 5 dias']
+    goal: 'Captar contatos',
+    tag: 'Uma página direta para quem quer receber pedidos pelo WhatsApp.',
+    features: ['1 página (one-page)', 'Design personalizado', 'Versão para celular', 'Botão de WhatsApp', 'Entrega em até 5 dias úteis']
   },
   {
     name: 'Profissional',
-    tag: 'Para quem vai anunciar',
+    goal: 'Anunciar',
+    tag: 'Preparada para receber tráfego de anúncios e medir os resultados.',
     featured: true,
-    features: ['Tudo do Essencial', 'Formulário de captação', 'Pixel Meta + Google Analytics', 'SEO básico', 'Domínio e publicação', '7 dias de ajustes grátis']
+    features: ['Tudo do Essencial', 'Formulário de captação', 'Pixel do Meta e Google Analytics', 'SEO básico', 'Configuração de domínio e publicação', '7 dias de ajustes após a entrega']
   },
   {
     name: 'Premium',
-    tag: 'Presença completa',
-    features: ['Tudo do Profissional', 'Animações avançadas', 'Redação dos textos (copy)', 'Até 3 seções extras', '30 dias de suporte']
+    goal: 'Apresentar sua empresa',
+    tag: 'Mais espaço para mostrar serviços, diferenciais e a história do negócio.',
+    features: ['Tudo do Profissional', 'Até 3 seções extras', 'Redação dos textos', 'Animações personalizadas', '30 dias de suporte após a entrega']
   }
 ]
 
+export const planNotes = [
+  { title: 'Prazo', text: 'Os dias úteis contam a partir do recebimento dos textos, imagens e informações do negócio.' },
+  { title: 'Domínio e publicação', text: 'Configuro o domínio que você registrar (o custo do registro fica por sua conta) e deixo o site no ar com certificado de segurança.' },
+  { title: 'Ajustes e suporte', text: 'Ajustes cobrem mudanças de texto, imagens e cores no que já foi criado. Novas seções ou páginas são orçadas à parte.' }
+]
+
 export const services = [
-  { ico: '⚡', title: 'Carregamento rápido', text: 'Código leve e otimizado. Melhor nota no Google e menos desistência.' },
+  { ico: '⚡', title: 'Carregamento rápido', text: 'Página otimizada para carregar rápido e facilitar a navegação.' },
   { ico: '📱', title: 'Mobile first', text: 'Pensada para o celular, onde está a maioria do seu público.' },
   { ico: '🎯', title: 'Foco em conversão', text: 'Textos, botões e estrutura desenhados para gerar contatos e vendas.' },
   { ico: '📈', title: 'Pronta para anúncios', text: 'Integração com Pixel do Meta, Google Ads e Analytics.' },
@@ -48,11 +58,11 @@ export const steps = [
 ]
 
 export const faq = [
-  { q: 'Quanto tempo leva para ficar pronta?', a: 'Em média de 5 a 7 dias, dependendo do plano e da rapidez nas aprovações.' },
+  { q: 'Quanto tempo leva para ficar pronta?', a: 'De 5 a 7 dias úteis, contados a partir do recebimento dos textos e imagens. O prazo exato depende do plano e da rapidez nas aprovações.' },
   { q: 'Preciso ter domínio?', a: 'Não. Posso te orientar no registro e configurar tudo para você.' },
-  { q: 'Posso pedir ajustes?', a: 'Sim. Cada plano inclui rodadas de ajustes até você aprovar.' },
+  { q: 'Posso pedir ajustes?', a: 'Sim. Antes da entrega, ajusto até você aprovar. Depois, cada plano tem um período de ajustes de texto, imagens e cores.' },
   { q: 'Você faz só landing page?', a: 'Não. Também desenvolvo sites institucionais, sistemas web, plataformas de cursos e outros projetos sob medida. Me chama no WhatsApp para conversar sobre a sua ideia.' },
-  { q: 'Vai funcionar nos anúncios?', a: 'Sim. A página já sai preparada para Pixel, conversões e campanhas.' }
+  { q: 'Vai funcionar nos anúncios?', a: 'A página sai pronta para receber anúncios, com Pixel e medição de conversões nos planos Profissional e Premium.' }
 ]
 
 export interface Project {
@@ -62,6 +72,8 @@ export interface Project {
   url: string
   image: string
   tags: string[]
+  goal: string
+  delivery: string
 }
 
 export const projects: Project[] = [
@@ -71,7 +83,9 @@ export const projects: Project[] = [
     description: 'Site da cirurgiã-dentista em Boa Vista (RR): tratamentos de clínica geral e harmonização orofacial, resultados, dúvidas e agendamento de avaliação.',
     url: 'https://emilevitoria.vercel.app',
     image: '/portfolio/emile.webp',
-    tags: ['Landing page', 'Saúde', 'Agendamento']
+    tags: ['Landing page', 'Saúde', 'Agendamento'],
+    goal: 'Apresentar os tratamentos e facilitar o agendamento de avaliações.',
+    delivery: 'Design, desenvolvimento e integração com WhatsApp.'
   },
   {
     name: 'Centro de Isoladas',
@@ -79,7 +93,9 @@ export const projects: Project[] = [
     description: 'Site do cursinho focado em UFRR e UERR: turmas presenciais, cursos online com videoaulas e área do aluno com acompanhamento de progresso.',
     url: 'https://centro-de-isoladas.vercel.app',
     image: '/portfolio/isoladas.webp',
-    tags: ['Educação', 'Cursos online', 'Área do aluno']
+    tags: ['Educação', 'Cursos online', 'Área do aluno'],
+    goal: 'Divulgar as turmas e levar o aluno para os cursos online.',
+    delivery: 'Design, desenvolvimento do site e da área do aluno.'
   },
   {
     name: 'Agrovet',
@@ -87,7 +103,9 @@ export const projects: Project[] = [
     description: 'Gestão reprodutiva bovina: fazendas, lotes, animais e protocolos IATF, com sincronização na nuvem e suporte offline.',
     url: 'https://agrovet-xi.vercel.app/welcome',
     image: '/portfolio/agrovet.webp',
-    tags: ['Gestão', 'Offline', 'Nuvem']
+    tags: ['Gestão', 'Offline', 'Nuvem'],
+    goal: 'Organizar o manejo reprodutivo do rebanho, mesmo sem internet no campo.',
+    delivery: 'Design e desenvolvimento do sistema completo.'
   },
   {
     name: 'Attletto Teams',
@@ -95,15 +113,8 @@ export const projects: Project[] = [
     description: 'Plataforma para clubes e escolinhas: elencos, presenças, treinos, jogos, documentos e pagamentos em um só lugar.',
     url: 'https://attletto.vercel.app',
     image: '/portfolio/attletto.webp',
-    tags: ['SaaS', 'Relatórios', 'Pagamentos']
+    tags: ['SaaS', 'Relatórios', 'Pagamentos'],
+    goal: 'Centralizar a gestão de times, atletas e pagamentos.',
+    delivery: 'Design e desenvolvimento da plataforma.'
   }
-]
-
-export const products = [
-  { ico: '🏢', title: 'Sites institucionais', text: 'Site completo para empresas, clínicas e profissionais, com várias páginas e visual da sua marca.' },
-  { ico: '🛠️', title: 'Sistemas web sob medida', text: 'Sistemas de gestão com login, cadastros, relatórios e painel administrativo para o seu negócio.' },
-  { ico: '🎓', title: 'Plataformas de cursos', text: 'Área do aluno com videoaulas, materiais, questões e acompanhamento de progresso.' },
-  { ico: '📊', title: 'Painéis e dashboards', text: 'Seus dados organizados em gráficos e indicadores para decidir mais rápido.' },
-  { ico: '📅', title: 'Agendamento online', text: 'Seus clientes marcam horário direto pelo site, sem precisar ligar ou esperar resposta.' },
-  { ico: '🔌', title: 'Integrações', text: 'Conexão com WhatsApp, pagamentos, planilhas e outras ferramentas que você já usa.' }
 ]
