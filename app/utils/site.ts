@@ -8,6 +8,7 @@ export const waLink = (text: string): string =>
 export interface Plan {
   name: string
   goal: string
+  price: number
   tag: string
   features: string[]
   featured?: boolean
@@ -17,12 +18,14 @@ export const plans: Plan[] = [
   {
     name: 'Essencial',
     goal: 'Captar contatos',
+    price: 600,
     tag: 'Uma página direta para quem quer receber pedidos pelo WhatsApp.',
     features: ['1 página (one-page)', 'Design personalizado', 'Versão para celular', 'Botão de WhatsApp', 'Entrega em até 5 dias úteis']
   },
   {
     name: 'Profissional',
     goal: 'Anunciar',
+    price: 900,
     tag: 'Preparada para receber tráfego de anúncios e medir os resultados.',
     featured: true,
     features: ['Tudo do Essencial', 'Formulário de captação', 'Pixel do Meta e Google Analytics', 'SEO básico', 'Configuração de domínio e publicação', '7 dias de ajustes após a entrega']
@@ -30,6 +33,7 @@ export const plans: Plan[] = [
   {
     name: 'Premium',
     goal: 'Apresentar sua empresa',
+    price: 1500,
     tag: 'Mais espaço para mostrar serviços, diferenciais e a história do negócio.',
     features: ['Tudo do Profissional', 'Até 3 seções extras', 'Redação dos textos', 'Animações personalizadas', '30 dias de suporte após a entrega']
   }
