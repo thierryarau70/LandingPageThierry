@@ -9,7 +9,7 @@
             <i /><i /><i />
             <span>{{ p.url.replace(/^https:\/\//, '') }}</span>
           </div>
-          <img :src="p.image" :alt="`Tela inicial do ${p.name}`" width="1200" height="616" loading="lazy">
+          <img :src="p.image" :alt="p.screenshots ? `Demonstração fictícia de busca no ${p.name}` : `Tela inicial do ${p.name}`" width="1200" height="616" loading="lazy">
         </a>
         <div class="info">
           <span class="cat">{{ p.category }}</span>
@@ -21,6 +21,18 @@
           </dl>
           <a :href="p.url" target="_blank" rel="noopener" class="live">Abrir o site ↗</a>
         </div>
+        <details v-if="p.screenshots" class="project-demo">
+          <summary>Ver prints do funcionamento fictício</summary>
+          <p class="demo-note">Telas ilustrativas com empresas e dados fictícios. A busca no site requer login.</p>
+          <div class="demo-gallery">
+            <figure v-for="screen in p.screenshots" :key="screen.image">
+              <a :href="screen.image" target="_blank" rel="noopener" :aria-label="`Ampliar: ${screen.caption} (nova aba)`">
+                <img :src="screen.image" :alt="`${screen.caption} — demonstração com dados fictícios`" width="1200" height="616" loading="lazy">
+              </a>
+              <figcaption>{{ screen.caption }}</figcaption>
+            </figure>
+          </div>
+        </details>
       </article>
     </div>
     <p class="portfolio-cta">

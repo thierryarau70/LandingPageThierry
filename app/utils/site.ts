@@ -78,9 +78,25 @@ export interface Project {
   tags: string[]
   goal: string
   delivery: string
+  screenshots?: { image: string, caption: string }[]
 }
 
 export const projects: Project[] = [
+  {
+    name: 'Radar de Clientes',
+    category: 'Plataforma de prospecção',
+    description: 'Busca de negócios por cidade e segmento, com mapa, pontuação de prioridade e funil para acompanhar oportunidades de criação de sites.',
+    url: 'https://cacar-site-com-ia.vercel.app/busca',
+    image: '/portfolio/radar-busca.svg',
+    tags: ['Prospecção', 'Mapa', 'Kanban'],
+    goal: 'Encontrar oportunidades locais e organizar o acompanhamento de possíveis clientes.',
+    delivery: 'Interface de busca, análise de oportunidades e organização do funil de contatos.',
+    screenshots: [
+      { image: '/portfolio/radar-busca.svg', caption: '01 · Busca por cidade e segmento' },
+      { image: '/portfolio/radar-analise.svg', caption: '02 · Análise de uma oportunidade' },
+      { image: '/portfolio/radar-funil.svg', caption: '03 · Acompanhamento no funil' }
+    ]
+  },
   {
     name: 'Dra. Emile Vitória',
     category: 'Site para dentista',
