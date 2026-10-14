@@ -3,7 +3,7 @@
     <NuxtLink to="/" class="logo">thierry<span>.</span>dev</NuxtLink>
     <nav>
       <a href="#portfolio">Projetos</a>
-      <a href="#planos">Pacotes</a>
+      <a href="#planos">Investimento</a>
       <a href="#como-funciona">Como funciona</a>
       <a href="#sobre">Sobre</a>
       <a href="#faq">FAQ</a>
