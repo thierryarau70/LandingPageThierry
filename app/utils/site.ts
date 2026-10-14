@@ -16,26 +16,11 @@ export interface Plan {
 
 export const plans: Plan[] = [
   {
-    name: 'Essencial',
-    goal: 'Captar contatos',
+    name: 'Landing page',
+    goal: 'Seu negócio no ar',
     price: 600,
-    tag: 'Uma página direta para quem quer receber pedidos pelo WhatsApp.',
-    features: ['1 página (one-page)', 'Design personalizado', 'Versão para celular', 'Botão de WhatsApp', 'Entrega em até 5 dias úteis']
-  },
-  {
-    name: 'Profissional',
-    goal: 'Anunciar',
-    price: 900,
-    tag: 'Preparada para receber tráfego de anúncios e medir os resultados.',
-    featured: true,
-    features: ['Tudo do Essencial', 'Formulário de captação', 'Pixel do Meta e Google Analytics', 'SEO básico', 'Configuração de domínio e publicação', '7 dias de ajustes após a entrega']
-  },
-  {
-    name: 'Premium',
-    goal: 'Apresentar sua empresa',
-    price: 1500,
-    tag: 'Mais espaço para mostrar serviços, diferenciais e a história do negócio.',
-    features: ['Tudo do Profissional', 'Até 3 seções extras', 'Redação dos textos', 'Animações personalizadas', '30 dias de suporte após a entrega']
+    tag: 'Uma página personalizada para apresentar seu negócio e receber contatos.',
+    features: ['1 página com design personalizado', 'Layout adaptado para celular', 'Botão de contato pelo WhatsApp', 'Configuração de domínio e publicação', 'Entrega em até 5 dias úteis']
   }
 ]
 
@@ -49,24 +34,24 @@ export const services = [
   { ico: '⚡', title: 'Carregamento rápido', text: 'Página otimizada para carregar rápido e facilitar a navegação.' },
   { ico: '📱', title: 'Mobile first', text: 'Pensada para o celular, onde está a maioria do seu público.' },
   { ico: '🎯', title: 'Foco em conversão', text: 'Textos, botões e estrutura desenhados para gerar contatos e vendas.' },
-  { ico: '📈', title: 'Pronta para anúncios', text: 'Integração com Pixel do Meta, Google Ads e Analytics.' },
+  { ico: '📈', title: 'Pronta para divulgar', text: 'Uma página para compartilhar nas redes sociais e usar como destino dos seus anúncios.' },
   { ico: '💬', title: 'WhatsApp integrado', text: 'Botão direto que leva o cliente para sua conversa.' },
   { ico: '🌐', title: 'Domínio e publicação', text: 'Coloco no ar com seu domínio próprio e certificado seguro.' }
 ]
 
 export const steps = [
   { title: 'Conversa', text: 'Você me conta sobre o negócio e o objetivo.' },
-  { title: 'Proposta', text: 'Defino o plano e o prazo com você.' },
+  { title: 'Proposta', text: 'Alinhamos o escopo e o prazo do projeto.' },
   { title: 'Criação', text: 'Desenvolvo e você acompanha e aprova.' },
   { title: 'No ar', text: 'Publico e deixo pronta para seus anúncios.' }
 ]
 
 export const faq = [
-  { q: 'Quanto tempo leva para ficar pronta?', a: 'De 5 a 7 dias úteis, contados a partir do recebimento dos textos e imagens. O prazo exato depende do plano e da rapidez nas aprovações.' },
+  { q: 'Quanto tempo leva para ficar pronta?', a: 'A landing page fica pronta em até 5 dias úteis após o recebimento dos textos, imagens e informações. Para outros projetos, o prazo é definido no orçamento.' },
   { q: 'Preciso ter domínio?', a: 'Não. Posso te orientar no registro e configurar tudo para você.' },
-  { q: 'Posso pedir ajustes?', a: 'Sim. Antes da entrega, ajusto até você aprovar. Depois, cada plano tem um período de ajustes de texto, imagens e cores.' },
+  { q: 'Posso pedir ajustes?', a: 'Sim. Antes da entrega, ajusto até você aprovar. Ajustes e suporte após a entrega são combinados na proposta.' },
   { q: 'Você faz só landing page?', a: 'Não. Também desenvolvo sites institucionais, sistemas web, plataformas de cursos e outros projetos sob medida. Me chama no WhatsApp para conversar sobre a sua ideia.' },
-  { q: 'Vai funcionar nos anúncios?', a: 'A página sai pronta para receber anúncios, com Pixel e medição de conversões nos planos Profissional e Premium.' }
+  { q: 'Vai funcionar nos anúncios?', a: 'Sim, a landing page pode receber tráfego dos seus anúncios. Integrações com Pixel e medição de conversões são combinadas no orçamento.' }
 ]
 
 export interface Project {
