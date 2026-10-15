@@ -1,15 +1,18 @@
 <template>
   <div>
-    <div class="bg-orb orb1" /><div class="bg-orb orb2" />
-    <SiteHeader />
-    <NuxtPage />
-    <footer><p>© {{ new Date().getFullYear() }} Thierry Araújo. Todos os direitos reservados.</p></footer>
-    <a class="fab" :href="waLink('Olá Thierry! Vim pelo site.')" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+    <template v-if="!isProfile">
+      <div class="bg-orb orb1" /><div class="bg-orb orb2" />
+      <SiteHeader />
+    </template>
+    <NuxtLayout><NuxtPage /></NuxtLayout>
+    <footer v-if="!isProfile"><p>© {{ new Date().getFullYear() }} Thierry Araújo. Todos os direitos reservados.</p></footer>
+    <a v-if="!isProfile" class="fab" :href="waLink('Olá Thierry! Vim pelo site.')" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
   </div>
 </template>
 
 <script setup lang="ts">
 const route = useRoute()
+const isProfile = computed(() => route.meta.layout === 'profile')
 const { siteUrl } = useRuntimeConfig().public
 useHead(() => {
   if (!siteUrl) return {}
