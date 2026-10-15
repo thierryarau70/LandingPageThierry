@@ -2,7 +2,7 @@
 import { siteOffer } from '../utils/offer'
 import { projects as allProjects, waLink, EXPERIENCE_YEARS } from '../utils/site'
 definePageMeta({ layout: 'profile' })
-const selectedProjects = allProjects.filter(p => ['https://emilevitoria.vercel.app', 'https://centro-de-isoladas.vercel.app'].includes(p.url))
+const selectedProjects = allProjects.filter(p => ['https://cacar-site-com-ia.vercel.app/', 'https://emilevitoria.vercel.app', 'https://centro-de-isoladas.vercel.app'].includes(p.url))
 const contact = waLink('Olá, Thierry! Quero um site de até 5 páginas por R$ 600. Podemos conversar?')
 useSeoMeta({ title: 'Site em até 5 dias por R$ 600 | Thierry Araújo', description: 'Primeira versão em 35 horas. Site de até 5 páginas ou landing page por R$ 600, com textos, versão para celular e domínio .com.br incluso.', ogTitle: 'Seu site em até 5 dias | Thierry Araújo', ogDescription: 'Até 5 páginas, textos e domínio .com.br por R$ 600. Primeira versão em 35 horas.' })
 </script>
