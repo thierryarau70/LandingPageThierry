@@ -63,6 +63,16 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    name: 'Radar de Clientes',
+    category: 'Plataforma de prospecção',
+    description: 'Plataforma para encontrar negócios por cidade e segmento e organizar o acompanhamento de oportunidades.',
+    url: 'https://cacar-site-com-ia.vercel.app/',
+    image: '/portfolio/radar-clientes.png',
+    tags: ['Prospecção', 'Negócios locais', 'Organização'],
+    goal: 'Encontrar negócios e acompanhar oportunidades de novos projetos.',
+    delivery: 'Design e desenvolvimento da plataforma.'
+  },
+  {
     name: 'Dra. Emile Vitória',
     category: 'Site para dentista',
     description: 'Site da cirurgiã-dentista em Boa Vista (RR): tratamentos de clínica geral e harmonização orofacial, resultados, dúvidas e agendamento de avaliação.',
