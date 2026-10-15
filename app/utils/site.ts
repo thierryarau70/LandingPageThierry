@@ -1,3 +1,5 @@
+import { siteOffer } from './offer'
+
 export const WHATSAPP = '5595991432677'
 export const EMAIL = 'thierryaraujo309@gmail.com'
 export const EXPERIENCE_YEARS = 4
@@ -16,17 +18,17 @@ export interface Plan {
 
 export const plans: Plan[] = [
   {
-    name: 'Landing page',
+    name: 'Site completo',
     goal: 'Seu negócio no ar',
     price: 600,
-    tag: 'Uma página personalizada para apresentar seu negócio e receber contatos.',
-    features: ['1 página com design personalizado', 'Layout adaptado para celular', 'Botão de contato pelo WhatsApp', 'Configuração de domínio e publicação', 'Entrega em até 5 dias úteis']
+    tag: 'Até 5 páginas ou uma landing page, com textos, domínio .com.br e publicação.',
+    features: ['Até 5 páginas ou uma landing page', 'Textos e design personalizados', 'Versão para celular', 'WhatsApp e formulário por e-mail', 'Domínio .com.br incluso no seu nome', 'Primeira versão em 35 horas', 'Publicação em até 5 dias']
   }
 ]
 
 export const planNotes = [
-  { title: 'Prazo', text: 'Os dias úteis contam a partir do recebimento dos textos, imagens e informações do negócio.' },
-  { title: 'Domínio e publicação', text: 'Configuro o domínio que você registrar (o custo do registro fica por sua conta) e deixo o site no ar com certificado de segurança.' },
+  { title: 'Prazo', text: 'Primeira versão em até 35 horas e publicação em até 5 dias após o alinhamento e recebimento das informações, com ajustes e aprovação no período combinado.' },
+  { title: 'Domínio e publicação', text: 'Domínio .com.br incluso e registrado no seu nome. Condições de renovação alinhadas antes da contratação.' },
   { title: 'Ajustes e suporte', text: 'Ajustes cobrem mudanças de texto, imagens e cores no que já foi criado. Novas seções ou páginas são orçadas à parte.' }
 ]
 
@@ -46,13 +48,7 @@ export const steps = [
   { title: 'No ar', text: 'Publico e deixo pronta para seus anúncios.' }
 ]
 
-export const faq = [
-  { q: 'Quanto tempo leva para ficar pronta?', a: 'A landing page fica pronta em até 5 dias úteis após o recebimento dos textos, imagens e informações. Para outros projetos, o prazo é definido no orçamento.' },
-  { q: 'Preciso ter domínio?', a: 'Não. Posso te orientar no registro e configurar tudo para você.' },
-  { q: 'Posso pedir ajustes?', a: 'Sim. Antes da entrega, ajusto até você aprovar. Ajustes e suporte após a entrega são combinados na proposta.' },
-  { q: 'Você faz só landing page?', a: 'Não. Também desenvolvo sites institucionais, sistemas web, plataformas de cursos e outros projetos sob medida. Me chama no WhatsApp para conversar sobre a sua ideia.' },
-  { q: 'Vai funcionar nos anúncios?', a: 'Sim, a landing page pode receber tráfego dos seus anúncios. Integrações com Pixel e medição de conversões são combinadas no orçamento.' }
-]
+export const faq = siteOffer.questions
 
 export interface Project {
   name: string
