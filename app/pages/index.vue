@@ -11,7 +11,7 @@ useSeoMeta({ title: 'Site em até 5 dias por R$ 600 | Thierry Araújo', descript
   <main class="sales-page">
     <section class="sales-hero" aria-labelledby="sales-title">
       <div class="sales-hero-copy">
-        <h1 id="sales-title">Seu site no ar<br>em até <span>5 dias.</span></h1>
+        <h1 id="sales-title">Seu site no ar<br>em até 5 dias.</h1>
         <p class="sales-lead">Você cuida do negócio.<br>Eu cuido do seu site.</p>
         <p class="sales-description">Design, textos, versão para celular e domínio .com.br. Você vê a primeira versão em <strong>35 horas</strong>, pede os ajustes e acompanha tudo direto comigo.</p>
         <div class="sales-hero-price"><span>Site completo por</span><strong>R$ {{ siteOffer.price }}</strong><span>Domínio incluso, no seu nome.</span></div>
@@ -20,9 +20,10 @@ useSeoMeta({ title: 'Site em até 5 dias por R$ 600 | Thierry Araújo', descript
         <a class="sales-underlink" href="#projetos">Ver projetos publicados <span aria-hidden="true">↓</span></a>
       </div>
       <div class="sales-hero-proof">
+        <div class="sales-delivery"><span>Do primeiro contato à primeira versão.</span><p>35<span>horas</span></p><span>Você vê. A gente ajusta. Seu site vai ao ar.</span></div>
         <a class="sales-showcase" href="https://emilevitoria.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Abrir site de Emile Vitória em nova aba">
-          <div class="sales-showcase-top"><span class="sales-live">Publicado</span><span>emilevitoria.vercel.app <span aria-hidden="true">↗</span></span></div>
           <img src="/portfolio/emile.webp" alt="Site da Dra. Emile Vitória, desenvolvido por Thierry" width="1200" height="616" fetchpriority="high">
+          <div class="sales-showcase-top"><span class="sales-live">Projeto publicado</span><span>Emile Vitória <span aria-hidden="true">↗</span></span></div>
         </a>
         <ol class="sales-timeline" aria-label="Prazo de criação do site"><li><strong>Começamos</strong><span>Sua ideia e referências</span></li><li><strong>Até 35 horas</strong><span>Primeira versão</span></li><li><strong>Até 5 dias</strong><span>Site publicado</span></li></ol>
         <p class="sales-deadline-note">Prazos após o alinhamento e recebimento das informações. Ajustes e aprovação dentro do período combinado.</p>
@@ -41,7 +42,7 @@ useSeoMeta({ title: 'Site em até 5 dias por R$ 600 | Thierry Araújo', descript
 
     <section id="incluso" class="sales-section sales-offer" aria-labelledby="offer-title">
       <div class="sales-section-title"><h2 id="offer-title">Seu site, do texto ao domínio.</h2><p>O que está incluso nos R$ {{ siteOffer.price }}.</p></div>
-      <div class="sales-offer-layout"><ul class="sales-includes"><li v-for="(item,index) in siteOffer.includes" :key="item.title"><span class="sales-item-number">0{{ index+1 }}</span><div><h3>{{ item.title }}</h3><p>{{ item.text }}</p></div></li></ul>
+      <div class="sales-offer-layout"><ul class="sales-includes"><li v-for="item in siteOffer.includes" :key="item.title"><div><h3>{{ item.title }}</h3><p>{{ item.text }}</p></div></li></ul>
         <aside class="sales-price-card" aria-label="Resumo da oferta"><h3>Até 5 páginas.<br>Um preço fechado.</h3><p class="sales-price-value"><span>R$</span> {{ siteOffer.price }}</p><p>Ou uma landing page para seus anúncios.</p><ul><li>Primeira versão em 35 horas</li><li>Publicado em até 5 dias</li><li>Domínio .com.br incluso</li><li>Atendimento direto comigo</li></ul><a class="sales-button" :href="contact" target="_blank" rel="noopener noreferrer">Quero meu site em 5 dias <span aria-hidden="true">↗</span></a><p class="sales-price-note">Prazos do pacote base, após receber as informações e alinhar o projeto.</p></aside>
       </div>
       <div class="sales-extras"><div><h3>Precisa de mais?</h3><p>Definimos o escopo antes de começar.</p></div><div><h4>Loja virtual, login, sistema ou 10+ páginas</h4><p class="sales-extra-price">+ R$ {{ siteOffer.extraPrice }}</p><p>Adicional ao pacote base. Prazo alinhado na proposta.</p></div><div><h4>SaaS, integrações e projetos maiores</h4><a :href="waLink('Olá, Thierry! Quero consultar o valor de um projeto maior. Minha ideia é:')" target="_blank" rel="noopener noreferrer">Consultar valor <span aria-hidden="true">↗</span></a><p>Uma proposta de acordo com sua ideia.</p></div></div>
