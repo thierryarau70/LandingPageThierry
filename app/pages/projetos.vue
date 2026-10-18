@@ -2,7 +2,7 @@
 import { projects as allProjects } from '../utils/site'
 definePageMeta({ layout: 'profile' })
 useSeoMeta({ title: 'Projetos | Thierry Araújo', description: 'Conheça o Radar de Clientes e os sites de Emile Vitória e Centro de Isoladas desenvolvidos por Thierry Araújo.' })
-const selectedProjects = allProjects.filter(project => ['https://cacar-site-com-ia.vercel.app/', 'https://emilevitoria.vercel.app', 'https://centro-de-isoladas.vercel.app'].includes(project.url))
+const selectedProjects = allProjects.filter(project => ['https://www.radardecliente.com.br', 'https://emilevitoria.vercel.app', 'https://centro-de-isoladas.vercel.app'].includes(project.url))
 </script>
 
 <template>

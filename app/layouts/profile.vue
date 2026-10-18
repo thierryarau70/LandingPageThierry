@@ -38,3 +38,4 @@ const navigation = computed(() => route.path === '/' ? [
 
 <style src="../assets/css/profile.css"></style>
 <style src="../assets/css/sales.css"></style>
+<style src="../assets/css/motion.css"></style>
