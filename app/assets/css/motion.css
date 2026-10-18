@@ -83,3 +83,9 @@
 }
 .sales-delivery>p>.sales-count{font-size:inherit;margin:0;font-weight:inherit;letter-spacing:inherit}
 html{overflow-x:clip}
+
+/* Corta qualquer enfeite que passe da largura da tela. No iPhone o corte no <html> não impede
+   o zoom out, então o corte fica num contêiner. "clip" mantém o cartão de preço fixo (sticky). */
+.site-root{overflow-x:hidden;max-width:100%}
+@supports (overflow:clip){.site-root{overflow-x:clip}}
+@media(max-width:760px){.sales-hero::before{left:-3rem;width:14rem;height:14rem}.sales-close::after{right:-6rem;width:18rem;height:18rem}}
