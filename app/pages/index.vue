@@ -2,8 +2,22 @@
 import { siteOffer } from '../utils/offer'
 import { projects as allProjects, waLink, EXPERIENCE_YEARS } from '../utils/site'
 definePageMeta({ layout: 'profile' })
-const selectedProjects = allProjects.filter(p => ['https://cacar-site-com-ia.vercel.app/', 'https://emilevitoria.vercel.app', 'https://centro-de-isoladas.vercel.app'].includes(p.url))
+const selectedProjects = allProjects.filter(p => ['https://www.radardecliente.com.br', 'https://emilevitoria.vercel.app', 'https://centro-de-isoladas.vercel.app'].includes(p.url))
 const contact = waLink('Olá, Thierry! Quero um site de até 5 páginas por R$ 600. Podemos conversar?')
+// Contador "35 horas" anima de 0 a 35 ao abrir a página (sem animação para quem prefere movimento reduzido)
+const hours = ref(35)
+onMounted(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  hours.value = 0
+  const start = performance.now()
+  const tick = (now: number) => {
+    const t = Math.min((now - start) / 1400, 1)
+    hours.value = Math.round(35 * (1 - Math.pow(1 - t, 3)))
+    if (t < 1) requestAnimationFrame(tick)
+  }
+  requestAnimationFrame(tick)
+})
+const marquee = ['Landing pages', 'Sites institucionais', 'Versão para celular', 'Domínio .com.br', 'Integração com WhatsApp', 'Sistemas web', 'Pronto para anúncios', 'Atendimento direto']
 useSeoMeta({ title: 'Site em até 5 dias por R$ 600 | Thierry Araújo', description: 'Primeira versão em 35 horas. Site de até 5 páginas ou landing page por R$ 600, com textos, versão para celular e domínio .com.br incluso.', ogTitle: 'Seu site em até 5 dias | Thierry Araújo', ogDescription: 'Até 5 páginas, textos e domínio .com.br por R$ 600. Primeira versão em 35 horas.' })
 </script>
 
@@ -11,7 +25,7 @@ useSeoMeta({ title: 'Site em até 5 dias por R$ 600 | Thierry Araújo', descript
   <main class="sales-page">
     <section class="sales-hero" aria-labelledby="sales-title">
       <div class="sales-hero-copy">
-        <h1 id="sales-title">Seu site no ar<br>em até 5 dias.</h1>
+        <h1 id="sales-title" class="sales-title-anim"><span class="line"><span>Seu site no ar</span></span><span class="line"><span>em até <em class="sales-mark">5 dias</em>.</span></span></h1>
         <p class="sales-lead">Você cuida do negócio.<br>Eu cuido do seu site.</p>
         <p class="sales-description">Design, textos, versão para celular e domínio .com.br. Você vê a primeira versão em <strong>35 horas</strong>, pede os ajustes e acompanha tudo direto comigo.</p>
         <div class="sales-hero-price"><span>Site completo por</span><strong>R$ {{ siteOffer.price }}</strong><span>Domínio incluso, no seu nome.</span></div>
@@ -20,7 +34,7 @@ useSeoMeta({ title: 'Site em até 5 dias por R$ 600 | Thierry Araújo', descript
         <a class="sales-underlink" href="#projetos">Ver projetos publicados <span aria-hidden="true">↓</span></a>
       </div>
       <div class="sales-hero-proof">
-        <div class="sales-delivery"><span>Do primeiro contato à primeira versão.</span><p>35<span>horas</span></p><span>Você vê. A gente ajusta. Seu site vai ao ar.</span></div>
+        <div class="sales-delivery"><span>Do primeiro contato à primeira versão.</span><p><span class="sales-count" aria-label="35">{{ hours }}</span><span>horas</span></p><span>Você vê. A gente ajusta. Seu site vai ao ar.</span></div>
         <a class="sales-showcase" href="https://emilevitoria.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Abrir site de Emile Vitória em nova aba">
           <img src="/portfolio/emile.webp" alt="Site da Dra. Emile Vitória, desenvolvido por Thierry" width="1200" height="616" fetchpriority="high">
           <div class="sales-showcase-top"><span class="sales-live">Projeto publicado</span><span>Emile Vitória <span aria-hidden="true">↗</span></span></div>
@@ -29,6 +43,8 @@ useSeoMeta({ title: 'Site em até 5 dias por R$ 600 | Thierry Araújo', descript
         <p class="sales-deadline-note">Prazos após o alinhamento e recebimento das informações. Ajustes e aprovação dentro do período combinado.</p>
       </div>
     </section>
+
+ <div class="sales-marquee" aria-hidden="true"><div class="sales-marquee-track"><span v-for="(item, i) in [...marquee, ...marquee]" :key="i">{{ item }}<b>✦</b></span></div></div>
 
     <section id="como-funciona" class="sales-section sales-process" aria-labelledby="process-title">
       <div class="sales-section-title"><h2 id="process-title">Da sua ideia ao site publicado.</h2><p>Sem complicar o que pode ser simples.</p></div>

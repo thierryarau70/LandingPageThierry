@@ -65,11 +65,11 @@ export const projects: Project[] = [
   {
     name: 'Radar de Clientes',
     category: 'Plataforma de prospecção',
-    description: 'Plataforma para encontrar negócios por cidade e segmento e organizar o acompanhamento de oportunidades.',
-    url: 'https://cacar-site-com-ia.vercel.app/',
-    image: '/portfolio/radar-clientes.png',
+    description: 'Plataforma para quem cria sites e vende serviços digitais: encontra negócios locais sem site informado, mostra os contatos disponíveis e organiza a prospecção.',
+    url: 'https://www.radardecliente.com.br',
+    image: '/portfolio/radar-clientes.webp',
     tags: ['Prospecção', 'Negócios locais', 'Organização'],
-    goal: 'Encontrar negócios e acompanhar oportunidades de novos projetos.',
+    goal: 'Encontrar negócios locais sem site e organizar a prospecção de novos clientes.',
     delivery: 'Design e desenvolvimento da plataforma.'
   },
   {

@@ -1,0 +1,85 @@
+/* Animações e acabamento visual. Tudo é desligado para quem prefere movimento reduzido. */
+@keyframes motion-rise{from{opacity:0;transform:translateY(110%)}to{opacity:1;transform:none}}
+@keyframes motion-mark{from{background-size:0 38%}to{background-size:100% 38%}}
+@keyframes motion-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-.5rem)}}
+@keyframes motion-shine{0%{transform:translateX(-120%) skewX(-20deg)}60%,100%{transform:translateX(260%) skewX(-20deg)}}
+@keyframes motion-pulse{0%{box-shadow:0 0 0 0 #308655aa}70%{box-shadow:0 0 0 .5rem #30865500}100%{box-shadow:0 0 0 0 #30865500}}
+@keyframes motion-marquee{to{transform:translateX(-50%)}}
+@keyframes motion-line{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes motion-blob{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(3rem,-2rem) scale(1.08)}66%{transform:translate(-2rem,1.5rem) scale(.95)}}
+@keyframes motion-glow{0%,100%{opacity:.55}50%{opacity:1}}
+
+/* Fundo do topo com manchas de cor em movimento lento */
+.sales-hero{position:relative;isolation:isolate}
+.sales-hero::before,.sales-hero::after{content:'';position:absolute;z-index:-1;border-radius:50%;filter:blur(70px);pointer-events:none}
+.sales-hero::before{width:26rem;height:26rem;background:#c9bfff;opacity:.45;top:-6rem;left:-8rem;animation:motion-blob 18s ease-in-out infinite}
+.sales-hero::after{width:22rem;height:22rem;background:#a7e3f0;opacity:.4;bottom:-4rem;right:-6rem;animation:motion-blob 22s ease-in-out infinite reverse}
+
+/* Título entra linha por linha e o "5 dias" ganha um marca-texto */
+.sales-title-anim .line{display:block;overflow:hidden;padding-bottom:.08em}
+.sales-title-anim .line>span{display:inline-block;animation:motion-rise .9s var(--sales-ease) both}
+.sales-title-anim .line:nth-child(2)>span{animation-delay:.12s}
+.sales-hero .sales-title-anim span{color:inherit}
+.sales-mark{font-style:normal;color:var(--p);background:linear-gradient(#d9d2ff,#d9d2ff) no-repeat 0 88%/100% 38%;animation:motion-mark .8s .7s var(--sales-ease) both}
+
+/* Botão principal com brilho passando e seta que se mexe */
+.sales-button{position:relative;overflow:hidden;box-shadow:0 .5rem 1.5rem #5745cb33;transition:transform .25s var(--sales-ease),box-shadow .25s,background .2s}
+.sales-button::after{content:'';position:absolute;inset:0 auto 0 0;width:40%;background:linear-gradient(90deg,transparent,#ffffff55,transparent);animation:motion-shine 4.5s 1.5s ease-in-out infinite;pointer-events:none}
+.sales-button:hover{transform:translateY(-.1875rem);box-shadow:0 .875rem 2rem #5745cb4d}
+.sales-button span{transition:transform .25s var(--sales-ease)}
+.sales-button:hover span{transform:translate(.1875rem,-.1875rem)}
+.sales-underlink span{transition:transform .25s var(--sales-ease)}
+.sales-underlink:hover span{transform:translateY(.1875rem)}
+
+/* "35 horas" e vitrine do projeto */
+.sales-count{display:inline-block;min-width:1.15em;font-variant-numeric:tabular-nums;background:linear-gradient(135deg,var(--p),#06b6d4);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sales-showcase{animation:motion-float 6s ease-in-out infinite;box-shadow:0 1.5rem 3rem #18294714;transition:box-shadow .3s,transform .3s var(--sales-ease)}
+.sales-showcase:hover{animation-play-state:paused;box-shadow:0 2rem 4rem #18294724}
+.sales-showcase img{transition:transform .6s var(--sales-ease)}
+.sales-showcase:hover img{transform:scale(1.03)}
+.sales-live::before{animation:motion-pulse 2s infinite}
+.sales-timeline{position:relative;border-top-color:transparent}
+.sales-timeline::before{content:'';position:absolute;top:-.0625rem;left:0;right:0;height:.125rem;background:linear-gradient(90deg,var(--p),#06b6d4);transform-origin:left;animation:motion-line 1.4s .6s var(--sales-ease) both}
+
+/* Faixa rolando com o que está incluso */
+.sales-marquee{overflow:hidden;border-block:.0625rem solid var(--line);margin:0 0 4rem;padding:1rem 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.sales-marquee-track{display:flex;width:max-content;animation:motion-marquee 32s linear infinite}
+.sales-marquee:hover .sales-marquee-track{animation-play-state:paused}
+.sales-marquee span{display:inline-flex;align-items:center;gap:1.5rem;padding-right:1.5rem;font-family:'Space Grotesk',sans-serif;font-size:1.25rem;letter-spacing:-.02em;white-space:nowrap;color:var(--txt)}
+.sales-marquee b{color:var(--p);font-size:.875rem}
+
+/* Etapas, projetos e cards respondem ao mouse */
+.sales-steps li{transition:transform .3s var(--sales-ease)}
+.sales-steps li:hover{transform:translateY(-.25rem)}
+.sales-steps li>span{display:inline-grid;place-items:center;width:2.25rem;height:2.25rem;border-radius:50%;background:#fff;color:var(--p)!important;font-weight:600;box-shadow:0 .25rem .75rem #5745cb1f}
+.sales-project{position:relative}
+.sales-project>img{transition:transform .45s var(--sales-ease),box-shadow .45s}
+.sales-project:hover>img{transform:translateY(-.5rem) scale(1.015);box-shadow:0 1.75rem 3.5rem #1829472b}
+.sales-project h3 span{transition:transform .25s var(--sales-ease),color .25s}
+.sales-project:hover h3 span{transform:translate(.25rem,-.25rem);color:var(--p)}
+.sales-project>div{background:linear-gradient(var(--p),var(--p)) no-repeat 0 100%/0 .125rem;transition:background-size .5s var(--sales-ease)}
+.sales-project:hover>div{background-size:100% .125rem}
+.sales-includes>li{transition:padding-left .3s var(--sales-ease)}
+.sales-includes>li:hover{padding-left:.5rem}
+.sales-price-card{overflow:hidden;isolation:isolate}
+.sales-price-card::before{content:'';position:absolute;z-index:-1;width:18rem;height:18rem;top:-8rem;right:-8rem;border-radius:50%;background:radial-gradient(#7c6cf0,transparent 70%);animation:motion-glow 5s ease-in-out infinite}
+.sales-price-value{background:linear-gradient(135deg,#fff,#c9bfff);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+.profile-questions details{transition:background .25s}
+.profile-questions details[open] summary span{transform:rotate(45deg)}
+.profile-questions summary span{display:inline-block;transition:transform .3s var(--sales-ease)}
+.sales-close{position:relative;overflow:hidden;isolation:isolate}
+.sales-close::after{content:'';position:absolute;z-index:-1;width:30rem;height:30rem;right:-10rem;bottom:-14rem;border-radius:50%;background:radial-gradient(#c9bfff,transparent 70%);animation:motion-blob 20s ease-in-out infinite}
+
+/* Revelação ao rolar (classe adicionada pelo plugin reveal.client.ts) */
+.reveal{opacity:0;transform:translateY(1.75rem);transition:opacity .7s var(--sales-ease,ease),transform .7s var(--sales-ease,ease);transition-delay:var(--reveal-delay,0ms)}
+.reveal.is-visible{opacity:1;transform:none}
+.sales-project.reveal.is-visible:hover>img{transition-delay:0ms}
+
+@media(max-width:760px){.sales-marquee{margin-bottom:2.5rem}.sales-marquee span{font-size:1rem}.sales-hero::before{width:16rem;height:16rem}.sales-hero::after{display:none}}
+@media(prefers-reduced-motion:reduce){
+  .sales-hero::before,.sales-hero::after,.sales-close::after,.sales-price-card::before,.sales-button::after{animation:none!important}
+  .sales-marquee-track{animation:none!important;flex-wrap:wrap}
+  .reveal{opacity:1;transform:none}
+}
+.sales-delivery>p>.sales-count{font-size:inherit;margin:0;font-weight:inherit;letter-spacing:inherit}
+html{overflow-x:clip}
