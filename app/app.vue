@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="site-root">
     <template v-if="!isProfile">
       <div class="bg-orb orb1" /><div class="bg-orb orb2" />
       <SiteHeader />
