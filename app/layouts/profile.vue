@@ -32,6 +32,7 @@ const navigation = computed(() => route.path === '/' ? [
     <footer class="profile-footer">
       <a :href="waLink('Olá, Thierry! Vim pelo site e quero conversar sobre um projeto.')" target="_blank" rel="noopener noreferrer">WhatsApp · (95) 99143-2677 <span aria-hidden="true">↗</span></a>
       <a href="mailto:thierryaraujo309@gmail.com">thierryaraujo309@gmail.com <span aria-hidden="true">↗</span></a>
+      <span class="profile-legal">© {{ new Date().getFullYear() }} Thierry Araújo · CNPJ {{ CNPJ }}</span>
     </footer>
   </div>
 </template>
