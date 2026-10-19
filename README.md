@@ -23,7 +23,7 @@ Na Vercel, em Project > Settings > Environment Variables, crie (e faça um novo 
 | --- | --- | --- |
 | `NUXT_PUBLIC_META_PIXEL_ID` | `1234567890123456` | Pixel do Meta (Facebook/Instagram Ads) |
 | `NUXT_PUBLIC_GA_ID` | `G-XXXXXXXXXX` | Google Analytics 4 |
-| `NUXT_PUBLIC_SITE_URL` | `https://seudominio.com.br` | Link canônico, `og:url` e `sitemap.xml` |
+| `NUXT_PUBLIC_SITE_URL` | `https://thierryaraujodev.com.br` (já é o padrão) | Link canônico, `og:url` e `sitemap.xml` |
 
 Todo clique em link do WhatsApp (e o envio do formulário) dispara `Contact` no Pixel e `generate_lead` no GA4.
 
