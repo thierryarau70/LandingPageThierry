@@ -2,7 +2,7 @@ import { niches } from '~/utils/site'
 
 export default defineEventHandler((event) => {
   const base = (useRuntimeConfig(event).public.siteUrl || getRequestURL(event).origin).replace(/\/$/, '')
-  const paths = ['/', ...niches.map(n => `/para/${n.slug}`)]
+  const paths = ['/', '/projetos', '/sobre', '/sobre-mim', '/faq', ...niches.map(n => `/para/${n.slug}`)]
   setHeader(event, 'content-type', 'application/xml; charset=utf-8')
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

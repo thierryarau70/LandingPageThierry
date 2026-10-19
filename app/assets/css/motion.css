@@ -89,3 +89,6 @@ html{overflow-x:clip}
 .site-root{overflow-x:hidden;max-width:100%}
 @supports (overflow:clip){.site-root{overflow-x:clip}}
 @media(max-width:760px){.sales-hero::before{left:-3rem;width:14rem;height:14rem}.sales-close::after{right:-6rem;width:18rem;height:18rem}}
+.profile-footer>span.profile-legal{display:inline-flex}
+.profile-legal{font-size:.75rem;color:var(--profile-muted,var(--mut))}
+@media(max-width:760px){.profile-legal{padding:.5rem 0 .75rem}}

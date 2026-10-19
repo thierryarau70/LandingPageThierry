@@ -2,6 +2,7 @@ import { siteOffer } from './offer'
 
 export const WHATSAPP = '5595991432677'
 export const EMAIL = 'thierryaraujo309@gmail.com'
+export const CNPJ = '69.676.386/0001-52'
 export const EXPERIENCE_YEARS = 4
 
 export const waLink = (text: string): string =>

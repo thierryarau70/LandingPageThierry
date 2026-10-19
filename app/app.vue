@@ -5,7 +5,7 @@
       <SiteHeader />
     </template>
     <NuxtLayout><NuxtPage /></NuxtLayout>
-    <footer v-if="!isProfile"><p>© {{ new Date().getFullYear() }} Thierry Araújo. Todos os direitos reservados.</p></footer>
+    <footer v-if="!isProfile"><p>© {{ new Date().getFullYear() }} Thierry Araújo · CNPJ {{ CNPJ }}. Todos os direitos reservados.</p></footer>
     <a v-if="!isProfile" class="fab" :href="waLink('Olá Thierry! Vim pelo site.')" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
   </div>
 </template>
