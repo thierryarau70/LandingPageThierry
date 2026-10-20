@@ -8,7 +8,7 @@
       <p class="direct">💬 <b>Atendimento direto comigo</b>, sem intermediários: da primeira conversa à publicação, quem responde e quem desenvolve é a mesma pessoa.</p>
       <ul class="about-stats">
         <li><b>{{ EXPERIENCE_YEARS }} anos</b><span>de mercado</span></li>
-        <li><b>{{ projects.length }}</b><span>projetos em destaque</span></li>
+        <li><b>{{ projects.filter(p => !p.hidden).length }}</b><span>projetos em destaque</span></li>
         <li><b>+ projetos</b><span>em empresas</span></li>
       </ul>
       <ul class="chips">

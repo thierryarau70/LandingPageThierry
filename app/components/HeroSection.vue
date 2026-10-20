@@ -28,7 +28,7 @@ withDefaults(defineProps<{
   highlight: 'caminho direto',
   text: 'Design e desenvolvimento para colocar sua ideia no ar. Landing pages, sites e sistemas feitos por mim, com atenção a cada detalhe.',
   waText: 'Olá Thierry! Vim pelo site e quero um orçamento de landing page.',
-  shots: () => ['/portfolio/emile.webp', '/portfolio/isoladas.webp']
+  shots: () => ['/portfolio/emile.webp', '/portfolio/arouche.webp']
 })
 
 </script>
