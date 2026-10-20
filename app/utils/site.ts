@@ -60,6 +60,8 @@ export interface Project {
   tags: string[]
   goal: string
   delivery: string
+  // true = fica fora do site até o projeto estar pronto
+  hidden?: boolean
 }
 
 export const projects: Project[] = [
@@ -95,6 +97,7 @@ export const projects: Project[] = [
   },
   {
     name: 'Centro de Isoladas',
+    hidden: true,
     category: 'Cursinho preparatório',
     description: 'Site do cursinho focado em UFRR e UERR: turmas presenciais, cursos online com videoaulas e área do aluno com acompanhamento de progresso.',
     url: 'https://centro-de-isoladas.vercel.app',
@@ -156,7 +159,7 @@ export const niches: Niche[] = [
     title: 'Um site para a sua clínica que transforma visitas em agendamentos.',
     highlight: 'transforma visitas em agendamentos',
     text: 'Landing pages para clínicas, consultórios e profissionais de saúde: tratamentos explicados com clareza, resultados, dúvidas frequentes e agendamento pelo WhatsApp.',
-    shots: ['/portfolio/emile.webp', '/portfolio/isoladas.webp'],
+    shots: ['/portfolio/emile.webp', '/portfolio/arouche.webp'],
     projects: ['Dra. Emile Vitória'],
     pointsTitle: 'Feito para a rotina de uma clínica',
     points: [
@@ -175,8 +178,8 @@ export const niches: Niche[] = [
     title: 'Um site para o seu curso que enche as turmas.',
     highlight: 'enche as turmas',
     text: 'Landing pages para cursinhos, escolas e professores: turmas, matrículas, cursos online e contato pelo WhatsApp em uma página rápida e bonita.',
-    shots: ['/portfolio/isoladas.webp', '/portfolio/emile.webp'],
-    projects: ['Centro de Isoladas'],
+    shots: ['/portfolio/radar-clientes.webp', '/portfolio/emile.webp'],
+    projects: [],
     pointsTitle: 'Feito para quem vende cursos',
     points: [
       { ico: '🎓', title: 'Turmas e matrículas', text: 'Datas, horários e vagas organizados para o aluno decidir rápido.' },
@@ -194,7 +197,7 @@ export const niches: Niche[] = [
     title: 'Um site profissional para o seu serviço receber mais pedidos.',
     highlight: 'receber mais pedidos',
     text: 'Landing pages para advogados, salões, oficinas, arquitetos, personal trainers e outros prestadores de serviço, com orçamento pelo WhatsApp.',
-    shots: ['/portfolio/emile.webp', '/portfolio/isoladas.webp'],
+    shots: ['/portfolio/emile.webp', '/portfolio/arouche.webp'],
     projects: [],
     pointsTitle: 'Feito para quem vende serviço',
     points: [

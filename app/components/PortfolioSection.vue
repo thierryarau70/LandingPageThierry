@@ -34,8 +34,9 @@
 const props = defineProps<{ order?: string[] }>()
 // Na página de nicho, mostra primeiro os projetos mais parecidos com o negócio do visitante
 const list = computed(() => {
-  if (!props.order?.length) return projects
-  const first = props.order.map(n => projects.find(p => p.name === n)).filter((p): p is Project => !!p)
-  return [...first, ...projects.filter(p => !first.includes(p))]
+  const visible = projects.filter(p => !p.hidden)
+  if (!props.order?.length) return visible
+  const first = props.order.map(n => visible.find(p => p.name === n)).filter((p): p is Project => !!p)
+  return [...first, ...visible.filter(p => !first.includes(p))]
 })
 </script>
