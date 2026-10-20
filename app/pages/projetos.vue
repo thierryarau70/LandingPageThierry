@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { projects as allProjects } from '../utils/site'
 definePageMeta({ layout: 'profile' })
-useSeoMeta({ title: 'Projetos | Thierry Araújo', description: 'Conheça o Radar de Clientes e os sites de Emile Vitória e Centro de Isoladas desenvolvidos por Thierry Araújo.' })
-const selectedProjects = allProjects.filter(project => ['https://www.radardecliente.com.br', 'https://emilevitoria.vercel.app', 'https://centro-de-isoladas.vercel.app'].includes(project.url))
+useSeoMeta({ title: 'Projetos | Thierry Araújo', description: 'Conheça o Radar de Clientes e os sites de Emile Vitória, Arouche Moda Íntima e Centro de Isoladas desenvolvidos por Thierry Araújo.' })
+const selectedProjects = allProjects.filter(project => ['https://www.radardecliente.com.br', 'https://www.draemilevitoria.com.br', 'https://arouche-moda-intima.vercel.app', 'https://centro-de-isoladas.vercel.app'].includes(project.url))
 </script>
 
 <template>

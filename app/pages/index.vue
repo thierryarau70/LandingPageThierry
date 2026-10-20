@@ -2,7 +2,7 @@
 import { siteOffer } from '../utils/offer'
 import { projects as allProjects, waLink, EXPERIENCE_YEARS } from '../utils/site'
 definePageMeta({ layout: 'profile' })
-const selectedProjects = allProjects.filter(p => ['https://www.radardecliente.com.br', 'https://emilevitoria.vercel.app', 'https://centro-de-isoladas.vercel.app'].includes(p.url))
+const selectedProjects = allProjects.filter(p => ['https://www.radardecliente.com.br', 'https://www.draemilevitoria.com.br', 'https://arouche-moda-intima.vercel.app', 'https://centro-de-isoladas.vercel.app'].includes(p.url))
 const contact = waLink('Olá, Thierry! Quero um site de até 5 páginas por R$ 600. Podemos conversar?')
 // Contador "35 horas" anima de 0 a 35 ao abrir a página (sem animação para quem prefere movimento reduzido)
 const hours = ref(35)
@@ -35,7 +35,7 @@ useSeoMeta({ title: 'Site em até 5 dias por R$ 600 | Thierry Araújo', descript
       </div>
       <div class="sales-hero-proof">
         <div class="sales-delivery"><span>Do primeiro contato à primeira versão.</span><p><span class="sales-count" aria-label="35">{{ hours }}</span><span>horas</span></p><span>Você vê. A gente ajusta. Seu site vai ao ar.</span></div>
-        <a class="sales-showcase" href="https://emilevitoria.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Abrir site de Emile Vitória em nova aba">
+        <a class="sales-showcase" href="https://www.draemilevitoria.com.br" target="_blank" rel="noopener noreferrer" aria-label="Abrir site de Emile Vitória em nova aba">
           <img src="/portfolio/emile.webp" alt="Site da Dra. Emile Vitória, desenvolvido por Thierry" width="1200" height="616" fetchpriority="high">
           <div class="sales-showcase-top"><span class="sales-live">Projeto publicado</span><span>Emile Vitória <span aria-hidden="true">↗</span></span></div>
         </a>
