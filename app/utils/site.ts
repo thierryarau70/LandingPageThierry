@@ -77,11 +77,21 @@ export const projects: Project[] = [
     name: 'Dra. Emile Vitória',
     category: 'Site para dentista',
     description: 'Site da cirurgiã-dentista em Boa Vista (RR): tratamentos de clínica geral e harmonização orofacial, resultados, dúvidas e agendamento de avaliação.',
-    url: 'https://emilevitoria.vercel.app',
+    url: 'https://www.draemilevitoria.com.br',
     image: '/portfolio/emile.webp',
     tags: ['Landing page', 'Saúde', 'Agendamento'],
     goal: 'Apresentar os tratamentos e facilitar o agendamento de avaliações.',
     delivery: 'Design, desenvolvimento e integração com WhatsApp.'
+  },
+  {
+    name: 'Arouche Moda Íntima',
+    category: 'Catálogo online',
+    description: 'Catálogo da loja de moda íntima em Boa Vista (RR): conjuntos, sutiãs, calcinhas e linha infantil, com escolha de cor e tamanho e pedido direto pelo WhatsApp.',
+    url: 'https://arouche-moda-intima.vercel.app',
+    image: '/portfolio/arouche.webp',
+    tags: ['Catálogo', 'Moda', 'Pedido pelo WhatsApp'],
+    goal: 'Mostrar as peças da loja e receber pedidos pelo WhatsApp, sem cadastro.',
+    delivery: 'Design, desenvolvimento do catálogo e integração com WhatsApp.'
   },
   {
     name: 'Centro de Isoladas',
