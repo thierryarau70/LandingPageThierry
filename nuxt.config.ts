@@ -26,6 +26,10 @@ export default defineNuxtConfig({
         { property: 'og:description', content: 'Sua página no ar em poucos dias. Veja os planos e peça seu orçamento.' },
         { property: 'og:type', content: 'website' }
       ],
+      script: [
+        // Aplica o tema antes de desenhar a página (evita piscar claro no modo escuro)
+        { innerHTML: "try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}", tagPosition: 'head' }
+      ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },

@@ -1,11 +1,12 @@
 <script setup lang="ts">
 // Campo de caracteres ASCII que reage ao cursor: o movimento deixa um rastro de "vento"
 // que se espalha e some aos poucos; o clique solta uma onda. Feito do zero para este site.
-const props = withDefaults(defineProps<{ cell?: number, ink?: string, accent?: string }>(), {
-  cell: 14,
-  ink: '24, 41, 71', // --sales-ink em RGB
-  accent: '87, 69, 203' // roxo da marca
-})
+const props = withDefaults(defineProps<{ cell?: number }>(), { cell: 14 })
+// Cores (RGB) de cada tema: tinta do texto e roxo da marca
+const COLORS = {
+  light: { ink: '24, 41, 71', accent: '87, 69, 203' },
+  dark: { ink: '214, 219, 240', accent: '169, 156, 255' }
+}
 
 const canvas = ref<HTMLCanvasElement | null>(null)
 const RAMP = ' .·:-=+*≈%#@'
@@ -57,7 +58,7 @@ onMounted(() => {
   }
 
   const ripples: { x: number, y: number, t: number }[] = []
-  let px = -1, py = -1, lastMove = 0, t = 0
+  let px = -1, py = -1, t = 0
 
   const onMove = (e: PointerEvent) => {
     const r = el.getBoundingClientRect()
@@ -68,7 +69,7 @@ onMounted(() => {
       const speed = Math.min(Math.hypot(dx, dy), 80)
       splat(x, y, dx, dy, 0.22 + speed * 0.03, 64 + speed * 0.9)
     }
-    px = x; py = y; lastMove = performance.now()
+    px = x; py = y
   }
   const onTouch = (e: TouchEvent) => {
     const tp = e.touches[0]
@@ -82,9 +83,9 @@ onMounted(() => {
   }
 
   const step = () => {
-    // Piloto automático: sem mouse (ex.: celular), cursores invisíveis passeiam pela área
-    if (performance.now() - lastMove > (touch ? 1200 : 2600)) {
-      const pilots = touch ? 2 : 1
+    // Piloto automático sempre ligado: cursores invisíveis passeiam pela área e o mouse soma o próprio rastro
+    {
+      const pilots = 2
       for (let n = 0; n < pilots; n++) {
         const o = n * 2.1
         const pos = (tm: number) => [
@@ -93,7 +94,7 @@ onMounted(() => {
           (touch ? Math.min(h, window.innerHeight) : h) * (0.5 + 0.36 * Math.sin(tm * 0.00075 + 1.3 + o))
         ] as const
         const [ax, ay] = pos(t), [bx, by] = pos(t - 16)
-        splat(ax, ay, (ax - bx) * 4, (ay - by) * 4, touch ? 0.4 : 0.15, touch ? 90 : 64)
+        splat(ax, ay, (ax - bx) * 4, (ay - by) * 4, touch ? 0.4 : 0.3, touch ? 90 : 80)
       }
     }
     for (let q = ripples.length - 1; q >= 0; q--) {
@@ -124,8 +125,17 @@ onMounted(() => {
 
   // Estilos pré-calculados (alpha em 20 níveis) para não criar strings a cada célula
   const LEVELS = 20
-  const inkStyles = Array.from({ length: LEVELS + 1 }, (_, a) => `rgba(${props.ink},${(a / LEVELS).toFixed(2)})`)
-  const accentStyles = Array.from({ length: LEVELS + 1 }, (_, a) => `rgba(${props.accent},${(a / LEVELS).toFixed(2)})`)
+  let inkStyles: string[] = [], accentStyles: string[] = []
+  const paint = () => {
+    const c = COLORS[document.documentElement.classList.contains('dark') ? 'dark' : 'light']
+    inkStyles = Array.from({ length: LEVELS + 1 }, (_, a) => `rgba(${c.ink},${(a / LEVELS).toFixed(2)})`)
+    accentStyles = Array.from({ length: LEVELS + 1 }, (_, a) => `rgba(${c.accent},${(a / LEVELS).toFixed(2)})`)
+  }
+  paint()
+  // Troca de tema: recalcula as cores e redesenha o fundo
+  const mo = new MutationObserver(() => { paint(); frame = 0; if (reduced) draw() })
+  mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+  onBeforeUnmount(() => mo.disconnect())
   const style = (accent: boolean, alpha: number) => (accent ? accentStyles : inkStyles)[Math.round(Math.min(1, alpha) * LEVELS)]!
 
   // A textura de fundo muda devagar: é desenhada numa camada separada a cada poucos quadros
