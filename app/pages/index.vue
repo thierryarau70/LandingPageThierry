@@ -2,7 +2,7 @@
 import { siteOffer } from '../utils/offer'
 import { projects as allProjects, waLink, EXPERIENCE_YEARS } from '../utils/site'
 definePageMeta({ layout: 'profile' })
-const selectedProjects = allProjects.filter(p => ['https://www.radardecliente.com.br', 'https://www.draemilevitoria.com.br', 'https://arouche-moda-intima.vercel.app'].includes(p.url))
+const selectedProjects = allProjects.filter(p => ['https://www.radardecliente.com.br', 'https://www.draemilevitoria.com.br', 'https://www.arouchemodaintima.com.br'].includes(p.url))
 const contact = waLink('Olá, Thierry! Quero um site de até 5 páginas por R$ 600. Podemos conversar?')
 // Contador "35 horas" anima de 0 a 35 ao abrir a página (sem animação para quem prefere movimento reduzido)
 const hours = ref(35)
