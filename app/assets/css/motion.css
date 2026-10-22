@@ -92,3 +92,13 @@ html{overflow-x:clip}
 .profile-footer>span.profile-legal{display:inline-flex}
 .profile-legal{font-size:.75rem;color:var(--profile-muted,var(--mut))}
 @media(max-width:760px){.profile-legal{padding:.5rem 0 .75rem}}
+
+/* Campo ASCII interativo (AsciiField.vue) */
+.ascii-field{position:absolute;pointer-events:none;display:block}
+.ascii-hero{z-index:-1;top:-6.5rem;bottom:0;left:50%;width:100vw;height:calc(100% + 6.5rem);transform:translateX(-50%);-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
+.ascii-close{z-index:-1;inset:0;width:100%;height:100%;border-radius:inherit}
+.sales-close{isolation:isolate}
+/* Botão magnético: segue um pouco o cursor */
+.sales-button{transform:translate(var(--mx,0px),var(--my,0px))}
+.sales-button:hover{transform:translate(var(--mx,0px),calc(var(--my,0px) - .1875rem))}
+@media(max-width:760px){.ascii-hero{top:-4rem;height:calc(100% + 4rem)}}

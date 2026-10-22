@@ -24,6 +24,7 @@ useSeoMeta({ title: 'Site em até 5 dias por R$ 600 | Thierry Araújo', descript
 <template>
   <main class="sales-page">
     <section class="sales-hero" aria-labelledby="sales-title">
+      <AsciiField class="ascii-hero" />
       <div class="sales-hero-copy">
         <h1 id="sales-title" class="sales-title-anim"><span class="line"><span>Seu site no ar</span></span><span class="line"><span>em até <em class="sales-mark">5 dias</em>.</span></span></h1>
         <p class="sales-lead">Você cuida do negócio.<br>Eu cuido do seu site.</p>
@@ -68,6 +69,6 @@ useSeoMeta({ title: 'Site em até 5 dias por R$ 600 | Thierry Araújo', descript
 
     <section id="duvidas" class="sales-section sales-faq" aria-labelledby="faq-title"><div class="sales-section-title"><h2 id="faq-title">Antes de começar.</h2><p>As respostas para decidir com clareza.</p></div><div class="profile-questions"><details v-for="question in siteOffer.questions" :key="question.q"><summary>{{ question.q }}<span aria-hidden="true">+</span></summary><p>{{ question.a }}</p></details></div></section>
 
-    <section class="sales-section sales-close" aria-labelledby="close-title"><h2 id="close-title">Vamos colocar seu negócio no ar?</h2><p>Me conte o que você faz. Sua primeira versão chega em 35 horas.</p><a class="sales-button" :href="contact" target="_blank" rel="noopener noreferrer">Quero meu site em 5 dias <span aria-hidden="true">↗</span></a><a class="sales-email" href="mailto:thierryaraujo309@gmail.com">Prefere e-mail? thierryaraujo309@gmail.com</a></section>
+    <section class="sales-section sales-close" aria-labelledby="close-title"><AsciiField class="ascii-close" :cell="13" /><h2 id="close-title">Vamos colocar seu negócio no ar?</h2><p>Me conte o que você faz. Sua primeira versão chega em 35 horas.</p><a class="sales-button" :href="contact" target="_blank" rel="noopener noreferrer">Quero meu site em 5 dias <span aria-hidden="true">↗</span></a><a class="sales-email" href="mailto:thierryaraujo309@gmail.com">Prefere e-mail? thierryaraujo309@gmail.com</a></section>
   </main>
 </template>
