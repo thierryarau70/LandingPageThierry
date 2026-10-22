@@ -1,0 +1,47 @@
+/* Idioma e tema no topo */
+.profile-tools{display:flex;align-items:center;gap:.5rem;margin-left:1rem}
+.profile-lang{display:flex;border:.0625rem solid var(--line);border-radius:.5rem;padding:.125rem}
+.profile-lang a{display:inline-grid;place-items:center;min-width:2.25rem;min-height:2.25rem;border-radius:.375rem;font-size:.75rem;font-weight:600;letter-spacing:.04em;color:var(--mut);text-decoration:none;transition:background .2s,color .2s}
+.profile-lang a[href]:hover{color:var(--txt);background:var(--card)}
+.profile-lang a[aria-current]{background:var(--txt);color:var(--bg)}
+.profile-theme{display:inline-grid;place-items:center;width:2.75rem;height:2.75rem;border:.0625rem solid var(--line);border-radius:.5rem;background:transparent;color:var(--txt);font-size:1.125rem;line-height:1;cursor:pointer;transition:background .2s,transform .3s cubic-bezier(.22,1,.36,1)}
+.profile-theme:hover{background:var(--card);transform:rotate(-12deg)}
+.profile-theme:focus-visible,.profile-lang a:focus-visible{outline:.125rem solid var(--p);outline-offset:.125rem}
+.profile-theme>span{grid-area:1/1}
+.theme-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.theme-to-light{display:none}
+html.dark .theme-to-light{display:inline}
+html.dark .theme-to-dark{display:none}
+.profile-header .profile-nav{margin-left:auto}
+@media(max-width:760px){
+  .profile-identity{order:0}
+  .profile-tools{order:1;margin-left:auto;gap:.375rem}
+  .profile-header .profile-nav{order:2;margin-left:0}
+  .profile-lang a{min-width:2rem;min-height:2rem}
+  .profile-theme{width:2.375rem;height:2.375rem;font-size:1rem}
+}
+
+/* Transição suave ao trocar de tema */
+html.theme-anim,html.theme-anim *{transition:background-color .35s ease,color .35s ease,border-color .35s ease!important}
+
+/* Modo escuro (só no layout novo; as páginas /para/* seguem claras) */
+html.dark:has(.profile-screen){color-scheme:dark;--bg:#0c0e1a;--card:#161a2c;--line:#272c45;--txt:#e7e9f5;--mut:#a0a8c2;--p:#a99cff;--p2:#7fb2ff}
+html.dark .sales-shell{--sales-ink:#e7e9f5;--sales-muted:#a0a8c2;--sales-brand:#a99cff;--sales-rule:#272c45}
+html.dark .sales-page{--sales-soft:#1d1a3a}
+html.dark .profile-screen{--profile-action:#8f80ff}
+html.dark .sales-button,html.dark .profile-contact{background:#5b49d6;color:#fff}
+html.dark .sales-button:hover,html.dark .profile-contact:hover{background:#6c5ae8}
+html.dark .profile-nav a[aria-current=page],html.dark .sales-shell .profile-nav a[aria-current=location]{background:#22264a}
+html.dark .sales-live{color:#6fdc9e}
+html.dark .sales-process,html.dark .sales-close{background:#141831}
+html.dark .sales-steps li{border-top-color:#2f3556}
+html.dark .sales-steps li>span{background:#1f2442;box-shadow:none}
+html.dark .sales-price-card{background:#171c36;border:.0625rem solid #2b3157}
+html.dark .sales-price-card ul{border-top-color:#2f3658}
+html.dark .sales-price-card .sales-button{background:#c9bfff;color:#21164e}
+html.dark .sales-price-card .sales-button:hover{background:#d8d0ff}
+html.dark .sales-mark{background-image:linear-gradient(#3b3278,#3b3278)}
+html.dark .sales-hero::before{background:#5745cb;opacity:.22}
+html.dark .sales-hero::after{background:#1b6f87;opacity:.2}
+html.dark .sales-close::after{background:radial-gradient(#3b3082,transparent 70%)}
+html.dark .sales-showcase,html.dark .sales-project>img{box-shadow:0 1.5rem 3rem #0006}

@@ -1,11 +1,12 @@
 <script setup lang="ts">
 // Campo de caracteres ASCII que reage ao cursor: o movimento deixa um rastro de "vento"
 // que se espalha e some aos poucos; o clique solta uma onda. Feito do zero para este site.
-const props = withDefaults(defineProps<{ cell?: number, ink?: string, accent?: string }>(), {
-  cell: 14,
-  ink: '24, 41, 71', // --sales-ink em RGB
-  accent: '87, 69, 203' // roxo da marca
-})
+const props = withDefaults(defineProps<{ cell?: number }>(), { cell: 14 })
+// Cores (RGB) de cada tema: tinta do texto e roxo da marca
+const COLORS = {
+  light: { ink: '24, 41, 71', accent: '87, 69, 203' },
+  dark: { ink: '214, 219, 240', accent: '169, 156, 255' }
+}
 
 const canvas = ref<HTMLCanvasElement | null>(null)
 const RAMP = ' .·:-=+*≈%#@'
@@ -16,6 +17,8 @@ onMounted(() => {
   const ctx = el.getContext('2d')
   if (!ctx) return
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  // No celular (toque) o efeito é mais forte: não há mouse para "acordar" o campo
+  const touch = window.matchMedia('(pointer: coarse)').matches
 
   let cols = 0, rows = 0, w = 0, h = 0, dpr = 1
   let energy = new Float32Array(0), next = new Float32Array(0)
@@ -55,7 +58,7 @@ onMounted(() => {
   }
 
   const ripples: { x: number, y: number, t: number }[] = []
-  let px = -1, py = -1, lastMove = 0, t = 0
+  let px = -1, py = -1, t = 0
 
   const onMove = (e: PointerEvent) => {
     const r = el.getBoundingClientRect()
@@ -66,7 +69,11 @@ onMounted(() => {
       const speed = Math.min(Math.hypot(dx, dy), 80)
       splat(x, y, dx, dy, 0.22 + speed * 0.03, 64 + speed * 0.9)
     }
-    px = x; py = y; lastMove = performance.now()
+    px = x; py = y
+  }
+  const onTouch = (e: TouchEvent) => {
+    const tp = e.touches[0]
+    if (tp) onMove({ clientX: tp.clientX, clientY: tp.clientY } as PointerEvent)
   }
   const onDown = (e: PointerEvent) => {
     const r = el.getBoundingClientRect()
@@ -76,13 +83,19 @@ onMounted(() => {
   }
 
   const step = () => {
-    // Piloto automático: sem mouse (ex.: celular), um cursor invisível passeia pela área
-    if (performance.now() - lastMove > 2600) {
-      const ax = w * (0.5 + 0.36 * Math.sin(t * 0.0011) * Math.cos(t * 0.0004))
-      const ay = h * (0.5 + 0.32 * Math.sin(t * 0.00075 + 1.3))
-      const bx = w * (0.5 + 0.36 * Math.sin((t - 16) * 0.0011) * Math.cos((t - 16) * 0.0004))
-      const by = h * (0.5 + 0.32 * Math.sin((t - 16) * 0.00075 + 1.3))
-      splat(ax, ay, (ax - bx) * 4, (ay - by) * 4, 0.15, 64)
+    // Piloto automático sempre ligado: cursores invisíveis passeiam pela área e o mouse soma o próprio rastro
+    {
+      const pilots = 2
+      for (let n = 0; n < pilots; n++) {
+        const o = n * 2.1
+        const pos = (tm: number) => [
+          w * (0.5 + 0.38 * Math.sin(tm * 0.0011 + o) * Math.cos(tm * 0.0004 + o * 0.5)),
+          // no celular fica na parte visível do topo (a área é bem mais alta que a tela)
+          (touch ? Math.min(h, window.innerHeight) : h) * (0.5 + 0.36 * Math.sin(tm * 0.00075 + 1.3 + o))
+        ] as const
+        const [ax, ay] = pos(t), [bx, by] = pos(t - 16)
+        splat(ax, ay, (ax - bx) * 4, (ay - by) * 4, touch ? 0.4 : 0.3, touch ? 90 : 80)
+      }
     }
     for (let q = ripples.length - 1; q >= 0; q--) {
       const rp = ripples[q]!
@@ -112,8 +125,17 @@ onMounted(() => {
 
   // Estilos pré-calculados (alpha em 20 níveis) para não criar strings a cada célula
   const LEVELS = 20
-  const inkStyles = Array.from({ length: LEVELS + 1 }, (_, a) => `rgba(${props.ink},${(a / LEVELS).toFixed(2)})`)
-  const accentStyles = Array.from({ length: LEVELS + 1 }, (_, a) => `rgba(${props.accent},${(a / LEVELS).toFixed(2)})`)
+  let inkStyles: string[] = [], accentStyles: string[] = []
+  const paint = () => {
+    const c = COLORS[document.documentElement.classList.contains('dark') ? 'dark' : 'light']
+    inkStyles = Array.from({ length: LEVELS + 1 }, (_, a) => `rgba(${c.ink},${(a / LEVELS).toFixed(2)})`)
+    accentStyles = Array.from({ length: LEVELS + 1 }, (_, a) => `rgba(${c.accent},${(a / LEVELS).toFixed(2)})`)
+  }
+  paint()
+  // Troca de tema: recalcula as cores e redesenha o fundo
+  const mo = new MutationObserver(() => { paint(); frame = 0; if (reduced) draw() })
+  mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+  onBeforeUnmount(() => mo.disconnect())
   const style = (accent: boolean, alpha: number) => (accent ? accentStyles : inkStyles)[Math.round(Math.min(1, alpha) * LEVELS)]!
 
   // A textura de fundo muda devagar: é desenhada numa camada separada a cada poucos quadros
@@ -130,9 +152,9 @@ onMounted(() => {
       for (let i = 0; i < cols; i++) {
         const k = j * cols + i
         const b = 0.5 + 0.5 * Math.sin(i * 0.21 + tt * 3 + Math.sin(j * 0.17 - tt * 2) * 2 + seed[k]! * 0.8)
-        const idx = Math.min(RAMP.length - 1, Math.floor(b * 0.32 * RAMP.length))
+        const idx = Math.min(RAMP.length - 1, Math.floor(b * (touch ? 0.42 : 0.32) * RAMP.length))
         if (idx === 0) continue
-        bctx.fillStyle = style(false, 0.07 + b * 0.08)
+        bctx.fillStyle = style(false, touch ? 0.1 + b * 0.12 : 0.07 + b * 0.08)
         bctx.fillText(RAMP.charAt(idx), i * C + C / 2, y)
       }
     }
@@ -150,7 +172,7 @@ onMounted(() => {
         if (e < 0.04) continue
         const idx = Math.min(RAMP.length - 1, Math.floor(Math.min(1, e + 0.12) * RAMP.length))
         ctx.clearRect(i * C, j * C, C, C)
-        ctx.fillStyle = style(e > 0.12, Math.min(0.62, 0.14 + e * 0.6))
+        ctx.fillStyle = style(e > 0.12, Math.min(touch ? 0.78 : 0.62, 0.14 + e * 0.6))
         ctx.fillText(RAMP.charAt(idx), i * C + C / 2, y)
       }
     }
@@ -174,6 +196,7 @@ onMounted(() => {
   const onVis = () => start()
   window.addEventListener('pointermove', onMove, { passive: true })
   window.addEventListener('pointerdown', onDown, { passive: true })
+  window.addEventListener('touchmove', onTouch, { passive: true })
   document.addEventListener('visibilitychange', onVis)
   start()
 
@@ -182,6 +205,7 @@ onMounted(() => {
     io.disconnect(); ro.disconnect()
     window.removeEventListener('pointermove', onMove)
     window.removeEventListener('pointerdown', onDown)
+    window.removeEventListener('touchmove', onTouch)
     document.removeEventListener('visibilitychange', onVis)
   })
 })
