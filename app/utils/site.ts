@@ -89,7 +89,7 @@ export const projects: Project[] = [
     name: 'Arouche Moda Íntima',
     category: 'Catálogo online',
     description: 'Catálogo da loja de moda íntima em Boa Vista (RR): conjuntos, sutiãs, calcinhas e linha infantil, com escolha de cor e tamanho e pedido direto pelo WhatsApp.',
-    url: 'https://arouche-moda-intima.vercel.app',
+    url: 'https://www.arouchemodaintima.com.br',
     image: '/portfolio/arouche.webp',
     tags: ['Catálogo', 'Moda', 'Pedido pelo WhatsApp'],
     goal: 'Mostrar as peças da loja e receber pedidos pelo WhatsApp, sem cadastro.',

@@ -2,7 +2,7 @@
 import { projects as allProjects } from '../utils/site'
 definePageMeta({ layout: 'profile' })
 useSeoMeta({ title: 'Projetos | Thierry Araújo', description: 'Conheça o Radar de Clientes e os sites de Emile Vitória e Arouche Moda Íntima desenvolvidos por Thierry Araújo.' })
-const selectedProjects = allProjects.filter(project => ['https://www.radardecliente.com.br', 'https://www.draemilevitoria.com.br', 'https://arouche-moda-intima.vercel.app'].includes(project.url))
+const selectedProjects = allProjects.filter(project => ['https://www.radardecliente.com.br', 'https://www.draemilevitoria.com.br', 'https://www.arouchemodaintima.com.br'].includes(project.url))
 </script>
 
 <template>
