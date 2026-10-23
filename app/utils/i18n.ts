@@ -90,7 +90,7 @@ const pt = {
     title: 'Perguntas frequentes', sub: 'Preço, prazo e o que está incluído.'
   },
   projectsPage: {
-    seoTitle: 'Projetos | Thierry Araújo', seoDescription: 'Conheça o Radar de Clientes e os sites de Emile Vitória e Arouche Moda Íntima desenvolvidos por Thierry Araújo.',
+    seoTitle: 'Projetos | Thierry Araújo', seoDescription: 'Conheça a Plataforma Prumo, o Radar de Clientes e os sites de Emile Vitória e Arouche Moda Íntima desenvolvidos por Thierry Araújo.',
     title: 'Ideias que já estão no ar.', sub: 'Sites e plataformas que conectam negócios, pessoas e oportunidades.',
     open: (name: string) => `${name} — abrir site em nova aba`
   },
@@ -153,6 +153,7 @@ const en: Messages = {
     ]
   },
   projects: {
+    'https://www.plataformaprumo.com.br': { category: 'Automated newsletter', goal: 'Free newsletter for engineers, with editions sent automatically by email, a diagnostic with an automatic report and summaries on WhatsApp.' },
     'https://www.radardecliente.com.br': { category: 'Prospecting platform', goal: 'Find local businesses without a website and organize the search for new clients.' },
     'https://www.draemilevitoria.com.br': { category: 'Dentist website', goal: 'Present the treatments and make it easy to book an appointment.' },
     'https://www.arouchemodaintima.com.br': { category: 'Online catalog', goal: 'Showcase the store\'s products and take orders on WhatsApp, no sign-up needed.' }
@@ -204,7 +205,7 @@ const en: Messages = {
     title: 'Frequently asked questions', sub: 'Price, timeline and what\'s included.'
   },
   projectsPage: {
-    seoTitle: 'Projects | Thierry Araújo', seoDescription: 'See Radar de Clientes and the websites for Emile Vitória and Arouche Moda Íntima, built by Thierry Araújo.',
+    seoTitle: 'Projects | Thierry Araújo', seoDescription: 'See Plataforma Prumo, Radar de Clientes and the websites for Emile Vitória and Arouche Moda Íntima, built by Thierry Araújo.',
     title: 'Ideas that are already live.', sub: 'Websites and platforms that connect businesses, people and opportunities.',
     open: (name: string) => `${name} — open website in a new tab`
   },
