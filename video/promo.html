@@ -192,7 +192,7 @@ window.render = (frame) => {
   if (setScene('projects', t)) {
     const a = S.projects[0]
     $('pj').textContent = decode('Sites no ar. Pode entrar.', span(t, a - 0.2, 1.2), frame)
-    const shots = [['sh1', 0.2, 700], ['sh2', 0.9, 920], ['sh3', 1.6, 1140], ['sh4', 2.3, 1360]]
+    const shots = [['sh1', 0.2, 640], ['sh2', 0.9, 830], ['sh3', 1.6, 1020], ['sh4', 2.3, 1210]]
     shots.forEach(([id, d, top], i) => {
       const p = ease(span(t, a + d, 0.9)), el = $(id)
       el.style.top = `${top + (1 - p) * 420}px`; el.style.opacity = p
