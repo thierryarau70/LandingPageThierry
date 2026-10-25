@@ -11,17 +11,18 @@ if (!KEY) throw new Error('HEYGEN_API_KEY não está definida neste ambiente')
 export const SCRIPT = [
   ['hook', 'Sabe aquele vídeo que faz você parar de rolar o feed?'],
   ['reveal', 'Isso é motion design. Movimento que prende o olhar e explica a sua ideia em segundos.'],
-  ['services', 'Eu crio vídeos animados para reels, anúncios, apresentação de produto e vinhetas da sua marca.'],
-  ['details', 'Com roteiro, narração e trilha, no formato certo para cada rede.'],
+  ['niches', 'Eu crio vídeos em motion para diversos nichos: clínicas, restaurantes, lojas, cursos, imobiliárias e prestadores de serviço.'],
+  ['details', 'Reels, anúncios e vinhetas, com roteiro, narração e trilha, no formato certo para cada rede.'],
   ['close', 'E este vídeo que você está vendo? Foi feito pelo Thierry Araújo. Chama no WhatsApp e coloca a sua marca em movimento.']
 ]
-const voiceId = process.argv[2] || 'd703f08d1ef34302a36945aa3efc7b3f' // Murilo (pt-BR, masculina)
+const voiceId = process.argv[2] || 'ab40d65529a74f0e83528a1c2133a3b0' // Serene Sofia (pt-BR, feminina e calma)
+const SPEED = 0.95 // um pouco mais devagar, para soar tranquila
 
 const result = { voice_id: voiceId, scenes: [] }
 for (const [id, text] of SCRIPT) {
   const res = await fetch('https://api.heygen.com/v1/audio/text_to_speech', {
     method: 'POST', headers: { 'X-Api-Key': KEY, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ voice_id: voiceId, text, language: 'pt' })
+    body: JSON.stringify({ voice_id: voiceId, text, language: 'pt', speed: SPEED })
   })
   const r = await res.json()
   if (!res.ok || !r.data?.audio_url) throw new Error(`fala ${id}: ${res.status} ${JSON.stringify(r).slice(0, 300)}`)

@@ -11,10 +11,10 @@ Precisa do `HEYGEN_API_KEY` no ambiente, de `ffmpeg` e do Chromium do Playwright
 
 ## Reels "eu faço motion"
 
-Vídeo vertical de 30 s divulgando o serviço de motion design, com narração masculina em pt-BR (HeyGen, com legenda sincronizada palavra a palavra) e trilha sintetizada.
+Vídeo vertical de ~40 s, no visual claro do site, divulgando o serviço de motion design para diversos nichos, com narração feminina e calma em pt-BR (HeyGen, com legenda sincronizada palavra a palavra) e trilha sintetizada.
 
 ```bash
-bash video/build-motion.sh              # narração com a voz Murilo
+bash video/build-motion.sh              # narração com a voz Serene Sofia (feminina e calma)
 bash video/build-motion.sh <voice_id>   # ou outra voz da HeyGen
 REUSAR_VOZ=1 bash video/build-motion.sh # remonta sem gerar a voz de novo
 ```

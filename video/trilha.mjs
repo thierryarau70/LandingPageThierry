@@ -1,11 +1,11 @@
-// Trilha sintetizada do vídeo de motion (sem samples de terceiros): acordes, baixo, batida a partir da 2ª cena,
-// whoosh em cada troca de cena e um impacto na entrada da batida.
+// Trilha calma sintetizada para o vídeo de motion (sem samples de terceiros): acordes suaves, baixo, batida leve
+// a partir da 2ª cena, whoosh discreto em cada troca de cena e um impacto grave na entrada da batida.
 // Uso: node video/trilha.mjs <saida.wav> <duração total> "<início da cena 2,início da cena 3,...>"
 import fs from 'node:fs'
 const [out, totalArg, cutsArg] = process.argv.slice(2)
 const SR = 44100, TOTAL = Number(totalArg), CUTS = cutsArg.split(',').map(Number)
 const N = Math.ceil(TOTAL * SR), L = new Float32Array(N), R = new Float32Array(N)
-const BPM = 112, BEAT = 60 / BPM, DROP = CUTS[0] - 0.22 // a batida entra junto com a cortina da 2ª cena
+const BPM = 84, BEAT = 60 / BPM, DROP = CUTS[0] - 0.22 // a batida entra junto com a cortina da 2ª cena
 let seed = 99; const noise = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 2147483648 - 1 }
 const add = (i, l, r = l) => { if (i >= 0 && i < N) { L[i] += l; R[i] += r } }
 const hz = m => 440 * Math.pow(2, (m - 69) / 12)
@@ -26,16 +26,15 @@ for (let i = 0; i < N; i++) {
 for (let k = 0; ; k++) {
   const t0 = DROP + k * BEAT / 2; if (t0 >= TOTAL) break
   const ci = Math.floor(t0 / (BAR * 2)) % 4, f = hz(CHORDS[ci][0] - 12)
-  for (let j = 0; j < SR * 0.25; j++) { const t = j / SR, e = Math.exp(-t * 9) * Math.min(1, t * 200); add(Math.floor(t0 * SR) + j, (Math.sin(2 * Math.PI * f * t) + 0.25 * Math.sin(4 * Math.PI * f * t)) * 0.11 * e) }
+  for (let j = 0; j < SR * 0.25; j++) { const t = j / SR, e = Math.exp(-t * 9) * Math.min(1, t * 200); add(Math.floor(t0 * SR) + j, (Math.sin(2 * Math.PI * f * t) + 0.25 * Math.sin(4 * Math.PI * f * t)) * 0.07 * e) }
 }
-// bumbo, palma e chimbal
+// bumbo e chimbal, bem baixos
 for (let k = 0; ; k++) {
   const t0 = DROP + k * BEAT; if (t0 >= TOTAL) break
   const i0 = Math.floor(t0 * SR); let ph = 0
-  for (let j = 0; j < SR * 0.35; j++) { const t = j / SR; ph += 2 * Math.PI * (45 + 90 * Math.exp(-t * 28)) / SR; add(i0 + j, Math.sin(ph) * 0.42 * Math.exp(-t * 7)) }
-  if (k % 2 === 1) { let lp = 0; for (let j = 0; j < SR * 0.18; j++) { const t = j / SR, n = noise(); lp += 0.35 * (n - lp); const e = Math.exp(-t * 22) * (1 + 0.6 * Math.exp(-((t - 0.012) ** 2) / 0.00002)); add(i0 + j, (n - lp) * 0.16 * e, (n - lp) * 0.14 * e) } }
+  for (let j = 0; j < SR * 0.35; j++) { const t = j / SR; ph += 2 * Math.PI * (45 + 90 * Math.exp(-t * 28)) / SR; add(i0 + j, Math.sin(ph) * 0.26 * Math.exp(-t * 9)) }
   const h0 = Math.floor((t0 + BEAT / 2) * SR); let prev = 0
-  for (let j = 0; j < SR * 0.05; j++) { const n = noise(), hp = n - prev; prev = n; const e = Math.exp(-j / SR * 70); add(h0 + j, hp * 0.035 * e * 0.8, hp * 0.035 * e) }
+  for (let j = 0; j < SR * 0.05; j++) { const n = noise(), hp = n - prev; prev = n; const e = Math.exp(-j / SR * 70); add(h0 + j, hp * 0.018 * e * 0.8, hp * 0.018 * e) }
 }
 // whoosh: ruído com filtro que abre e fecha, centrado na troca de cena
 const whoosh = (tc, dur = 0.7, amp = 0.22) => {
@@ -46,10 +45,10 @@ const whoosh = (tc, dur = 0.7, amp = 0.22) => {
     const pan = p * 2 - 1; add(i0 + j, lp2 * amp * e * (1 - pan * 0.5), lp2 * amp * e * (1 + pan * 0.5))
   }
 }
-CUTS.forEach(c => whoosh(c - 0.22))
+CUTS.forEach(c => whoosh(c - 0.22, 0.8, 0.12))
 // subida antes da batida e impacto grave na entrada
 for (let j = 0; j < SR * 1.6; j++) { const t = j / SR, p = t / 1.6, f = 200 + 900 * p * p; add(Math.floor((DROP - 1.6) * SR) + j, Math.sin(2 * Math.PI * f * t) * 0.03 * p * p + noise() * 0.03 * p * p * p) }
-{ const i0 = Math.floor(DROP * SR); let ph = 0; for (let j = 0; j < SR * 1.4; j++) { const t = j / SR; ph += 2 * Math.PI * (38 + 60 * Math.exp(-t * 10)) / SR; add(i0 + j, Math.sin(ph) * 0.5 * Math.exp(-t * 3)) } }
+{ const i0 = Math.floor(DROP * SR); let ph = 0; for (let j = 0; j < SR * 1.4; j++) { const t = j / SR; ph += 2 * Math.PI * (38 + 60 * Math.exp(-t * 10)) / SR; add(i0 + j, Math.sin(ph) * 0.3 * Math.exp(-t * 3)) } }
 
 // fade de saída, limitador suave e WAV 16 bits estéreo
 const buf = Buffer.alloc(44 + N * 4)

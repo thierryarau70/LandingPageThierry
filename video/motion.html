@@ -1,91 +1,93 @@
 <!DOCTYPE html>
 <html lang="pt-BR"><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=block" rel="stylesheet">
 <style>
-:root{--bg:#0b0d1a;--ink:#f3f4fb;--mut:#a3aac6;--p:#a99cff;--p2:#5b49d6;--coral:#ff7a59;--pink:#ff4d8d;--sun:#ffd166;--cyan:#38d6e8;--wa:#25d366;--card:#14182c;--line:#2a2f4a}
+/* mesmas cores do tema claro do site */
+:root{--bg:#f5f7fc;--card:#fff;--line:#dce2ef;--txt:#182947;--mut:#596981;--p:#5745cb;--p2:#394fb1;--soft:#eef0fb}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{width:1080px;height:1920px;overflow:hidden;background:var(--bg);font-family:Inter,sans-serif;color:var(--ink)}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--bg);font-family:Inter,sans-serif;color:var(--txt)}
 .stage{position:relative;width:1080px;height:1920px;overflow:hidden}
 canvas{position:absolute;inset:0}
 .scene{position:absolute;inset:0;display:none}
-.g{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.045em;line-height:1}
+.g{font-family:'Space Grotesk',sans-serif;font-weight:500;letter-spacing:-.06em;line-height:1}
 .abs{position:absolute}
 .center{left:0;right:0;text-align:center}
+.shadow{box-shadow:0 30px 70px #18294714,0 2px 6px #1829470d}
 /* marca */
 .brand{position:absolute;top:120px;left:0;right:0;display:flex;justify-content:center}
-.brand div{display:flex;align-items:center;gap:16px;padding:14px 30px 14px 16px;border-radius:999px;background:#ffffff10;border:2px solid #ffffff1c;font-size:30px;font-weight:500}
-.brand i{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--coral));display:grid;place-items:center;font-style:normal;font-family:'Space Grotesk';font-weight:700;font-size:30px;color:#fff}
-.brand span b{color:var(--sun);font-weight:700}
+.brand div{display:flex;align-items:center;gap:16px;padding:12px 30px 12px 12px;border-radius:999px;background:#fff;border:2px solid var(--line);font-size:30px;font-weight:500}
+.brand i{width:52px;height:52px;border-radius:50%;background:var(--p);display:grid;place-items:center;font-style:normal;font-family:'Space Grotesk';font-weight:700;font-size:28px;color:#fff}
+.brand span b{color:var(--p);font-weight:600}
 /* legenda */
-.cap{position:absolute;top:1430px;left:60px;right:60px;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 18px;font-family:'Space Grotesk';font-weight:700;font-size:80px;letter-spacing:-.03em;line-height:1.15}
-.cap span{display:inline-block;padding:2px 18px;border-radius:18px;color:#fff;text-shadow:0 6px 24px #000c}
-.cap span.on{background:var(--sun);color:#16122e;text-shadow:none}
+.cap{position:absolute;top:1450px;left:60px;right:60px;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;font-family:'Space Grotesk';font-weight:700;font-size:74px;letter-spacing:-.04em;line-height:1.18}
+.cap span{display:inline-block;padding:2px 16px;border-radius:16px;color:var(--txt)}
+.cap span.on{background:var(--p);color:#fff}
 /* 1: feed */
-.phone{position:absolute;left:270px;top:300px;width:540px;height:1000px;border-radius:64px;background:#0f1224;border:6px solid #2c3254;box-shadow:0 60px 140px #000b,inset 0 0 0 2px #ffffff10;overflow:hidden}
-.notch{position:absolute;top:18px;left:50%;width:150px;height:34px;margin-left:-75px;border-radius:20px;background:#05060d;z-index:3}
+.phone{position:absolute;left:270px;top:300px;width:540px;height:1000px;border-radius:64px;background:#fff;border:6px solid var(--txt);overflow:hidden}
+.notch{position:absolute;top:18px;left:50%;width:150px;height:34px;margin-left:-75px;border-radius:20px;background:var(--txt);z-index:3}
 .feed{position:absolute;left:28px;right:28px;top:0}
-.post{height:400px;margin-bottom:24px;border-radius:30px;padding:22px;position:relative;overflow:hidden}
+.post{height:400px;margin-bottom:24px;border-radius:30px;padding:22px;position:relative;overflow:hidden;background:var(--soft);border:2px solid var(--line)}
 .post .who{display:flex;align-items:center;gap:14px}
-.post .who i{width:52px;height:52px;border-radius:50%;background:#ffffff40}
-.post .who u{display:block;width:150px;height:16px;border-radius:8px;background:#ffffff50;text-decoration:none}
-.post .ln{position:absolute;left:22px;bottom:26px;width:60%;height:14px;border-radius:7px;background:#ffffff40}
+.post .who i{width:52px;height:52px;border-radius:50%;background:#d5daea}
+.post .who u{display:block;width:150px;height:16px;border-radius:8px;background:#d5daea;text-decoration:none}
+.post .ln{position:absolute;left:22px;bottom:26px;width:60%;height:14px;border-radius:7px;background:#d5daea}
 .post .ln2{bottom:52px;width:80%}
-.hero{background:linear-gradient(150deg,#5b49d6,#ff4d8d)}
+.hero{background:var(--p);border-color:var(--p)}
 .hero svg{position:absolute;inset:0}
-.flash{position:absolute;inset:0;border-radius:64px;box-shadow:inset 0 0 0 8px var(--sun);opacity:0}
+.flash{position:absolute;inset:0;border-radius:58px;box-shadow:inset 0 0 0 8px var(--p);opacity:0}
 /* 2: motion */
-.word{position:absolute;top:560px;left:0;right:0;display:flex;justify-content:center;font-size:250px}
-.word span{display:inline-block}
-.outline{position:absolute;top:830px;left:0;right:0;text-align:center;font-size:190px;color:transparent;-webkit-text-stroke:4px #fff;clip-path:inset(0 0 0 0)}
+.word{position:absolute;top:560px;left:0;right:0;display:flex;justify-content:center;font-size:250px;font-weight:700}
+.word span{display:inline-block;color:var(--txt)}
+.word span.o{color:var(--p)}
+.outline{position:absolute;top:830px;left:0;right:0;text-align:center;font-size:190px;color:transparent;-webkit-text-stroke:3px var(--txt)}
 .watch{position:absolute;left:390px;top:1090px;width:300px;height:300px}
-/* 3: serviços */
-.h3{top:300px;font-size:70px}
-.h3 em{font-style:normal;color:var(--sun)}
-.cardw{position:absolute;width:430px;height:470px;perspective:1400px}
-.card{width:100%;height:100%;border-radius:40px;position:relative;overflow:hidden;box-shadow:0 40px 90px #0009;backface-visibility:hidden}
-.card svg{position:absolute;left:0;top:10px;width:430px;height:330px}
-.card b{position:absolute;left:34px;bottom:34px;font-family:'Space Grotesk';font-size:54px;letter-spacing:-.03em}
-.c1{background:linear-gradient(150deg,#ff4d8d,#ff7a59)}
-.c2{background:linear-gradient(150deg,#5b49d6,#38a6e8)}
-.c3{background:linear-gradient(150deg,#1fb6a0,#38d6e8)}
-.c4{background:linear-gradient(150deg,#f2a516,#ffd166);color:#1b1530}
-/* 4: produção */
-.panel{position:absolute;left:80px;top:330px;width:920px;height:560px;border-radius:36px;background:#121628ee;border:2px solid var(--line);box-shadow:0 50px 120px #000a;overflow:hidden}
+/* 3: nichos */
+.h3{top:270px;font-size:84px}
+.h3 em{font-style:normal;color:var(--p)}
+.niche{position:absolute;width:430px;height:280px;border-radius:32px;background:#fff;border:2px solid var(--line);overflow:hidden}
+.niche svg{position:absolute;left:30px;top:30px;width:140px;height:140px}
+.niche b{position:absolute;left:34px;bottom:30px;font-family:'Space Grotesk';font-weight:500;font-size:48px;letter-spacing:-.04em}
+.niche .n{position:absolute;right:30px;top:30px;font-size:26px;color:var(--mut);font-variant-numeric:tabular-nums}
+/* 4: formatos */
+.pills{position:absolute;top:270px;left:0;right:0;display:flex;justify-content:center;gap:18px}
+.pill{padding:18px 34px;border-radius:999px;background:#fff;border:2px solid var(--line);font-family:'Space Grotesk';font-weight:500;font-size:40px;letter-spacing:-.03em}
+.pill.on{background:var(--txt);border-color:var(--txt);color:#fff}
+.panel{position:absolute;left:80px;top:400px;width:920px;height:560px;border-radius:36px;background:#fff;border:2px solid var(--line);overflow:hidden}
 .ph{display:flex;align-items:center;gap:12px;height:80px;padding:0 34px;border-bottom:2px solid var(--line);font-size:28px;color:var(--mut)}
-.ph i{width:16px;height:16px;border-radius:50%;background:var(--coral)}
-.ph i:nth-child(2){background:var(--sun)}.ph i:nth-child(3){background:var(--wa);margin-right:14px}
-.ph em{margin-left:auto;font-style:normal;color:var(--ink);font-variant-numeric:tabular-nums}
+.ph i{width:16px;height:16px;border-radius:50%;background:var(--line)}
+.ph i:nth-child(3){margin-right:14px}
+.ph em{margin-left:auto;font-style:normal;color:var(--txt);font-variant-numeric:tabular-nums}
 .track{position:absolute;left:0;right:0;height:140px;display:flex;align-items:center}
-.track label{width:210px;padding-left:34px;font-size:32px;font-weight:700}
-.lane{position:relative;flex:1;height:96px;margin-right:34px;border-radius:18px;background:#0b0e1d;overflow:hidden}
-.playhead{position:absolute;top:80px;bottom:0;width:4px;margin-left:-2px;background:var(--sun);box-shadow:0 0 20px var(--sun)}
-.playhead:before{content:'';position:absolute;top:-2px;left:-12px;width:28px;height:28px;background:var(--sun);transform:rotate(45deg) scale(.7)}
-.fmt{position:absolute;left:0;right:0;top:950px;height:440px}
-.frame{position:absolute;left:50%;top:190px;border-radius:26px;background:linear-gradient(150deg,#5b49d6,#ff4d8d);box-shadow:0 30px 80px #0009;display:grid;place-items:center}
-.frame:after{content:'';width:0;height:0;border-left:44px solid #fff;border-top:28px solid transparent;border-bottom:28px solid transparent;margin-left:12px}
-.fl{position:absolute;left:0;right:0;top:400px;text-align:center;font-family:'Space Grotesk';font-weight:700;font-size:44px}
-.fl small{color:var(--mut);font-family:Inter;font-weight:500;font-size:34px;margin-left:12px}
+.track label{width:210px;padding-left:34px;font-size:32px;font-weight:600}
+.lane{position:relative;flex:1;height:96px;margin-right:34px;border-radius:18px;background:var(--bg);overflow:hidden}
+.playhead{position:absolute;top:80px;bottom:0;width:4px;margin-left:-2px;background:var(--p)}
+.playhead:before{content:'';position:absolute;top:-2px;left:-12px;width:28px;height:28px;background:var(--p);transform:rotate(45deg) scale(.7)}
+.fmt{position:absolute;left:0;right:0;top:1000px;height:420px}
+.frame{position:absolute;left:50%;top:170px;border-radius:24px;background:#fff;border:5px solid var(--txt);display:grid;place-items:center}
+.frame:after{content:'';width:0;height:0;border-left:40px solid var(--p);border-top:26px solid transparent;border-bottom:26px solid transparent;margin-left:12px}
+.fl{position:absolute;left:0;right:0;top:370px;text-align:center;font-family:'Space Grotesk';font-weight:700;font-size:42px}
+.fl small{color:var(--mut);font-family:Inter;font-weight:500;font-size:32px;margin-left:12px}
 /* 5: fechamento */
-.mini{position:absolute;left:290px;top:430px;width:500px;height:880px;border-radius:60px;border:6px solid #fff;overflow:hidden;background:#0f1224}
+.mini{position:absolute;left:290px;top:430px;width:500px;height:880px;border-radius:60px;border:6px solid var(--txt);overflow:hidden;background:#fff}
 .q{top:250px;font-size:120px}
-.q em{font-style:normal;color:var(--sun)}
+.q em{font-style:normal;color:var(--p)}
 .logo{position:absolute;left:390px;top:330px;width:300px;height:300px}
-.logo .disc{position:absolute;inset:30px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pink) 60%,var(--coral));display:grid;place-items:center;font-family:'Space Grotesk';font-weight:700;font-size:150px;letter-spacing:-.06em;color:#fff;box-shadow:0 30px 90px #ff4d8d55}
+.logo .disc{position:absolute;inset:34px;border-radius:50%;background:var(--p);display:grid;place-items:center;font-family:'Space Grotesk';font-weight:700;font-size:140px;letter-spacing:-.06em;color:#fff}
 .logo svg{position:absolute;inset:0}
 .name{top:700px;font-size:100px}
 .role{top:820px;font-size:40px;color:var(--mut);font-weight:500}
-.role b{color:var(--ink)}
-.wa{position:absolute;left:150px;top:960px;width:780px;height:150px;border-radius:999px;background:var(--wa);display:flex;align-items:center;justify-content:center;gap:24px;font-size:52px;font-weight:700;color:#06301a;box-shadow:0 30px 80px #25d36655}
-.wa svg{width:70px;height:70px}
-.ring{position:absolute;left:150px;top:960px;width:780px;height:150px;border-radius:999px;border:4px solid var(--wa)}
+.role b{color:var(--txt);font-weight:600}
+.wa{position:absolute;left:150px;top:960px;width:780px;height:150px;border-radius:999px;background:var(--p);display:flex;align-items:center;justify-content:center;gap:24px;font-size:50px;font-weight:600;color:#fff}
+.wa svg{width:66px;height:66px}
+.ring{position:absolute;left:150px;top:960px;width:780px;height:150px;border-radius:999px;border:3px solid var(--p)}
 .contact{top:1160px;font-size:40px;color:var(--mut);line-height:1.5}
-.contact b{color:var(--ink);font-weight:700}
+.contact b{color:var(--txt);font-weight:600}
 </style></head><body>
 <div class="stage">
   <canvas id="bg" width="1080" height="1920"></canvas>
 
   <section class="scene" id="hook">
-    <div class="phone" id="phone">
+    <div class="phone shadow" id="phone">
       <div class="notch"></div>
       <div class="feed" id="feed"></div>
       <div class="flash" id="flash"></div>
@@ -98,33 +100,31 @@ canvas{position:absolute;inset:0}
     <svg class="watch" id="watch" viewBox="0 0 300 300"></svg>
   </section>
 
-  <section class="scene" id="services">
-    <h2 class="abs center g h3" id="sh">O que eu <em>crio</em></h2>
-    <div class="cardw" style="left:90px;top:470px"><div class="card c1" id="k0"><svg viewBox="0 0 200 150" id="i0"></svg><b>Reels</b></div></div>
-    <div class="cardw" style="left:560px;top:470px"><div class="card c2" id="k1"><svg viewBox="0 0 200 150" id="i1"></svg><b>Anúncios</b></div></div>
-    <div class="cardw" style="left:90px;top:970px"><div class="card c3" id="k2"><svg viewBox="0 0 200 150" id="i2"></svg><b>Produto</b></div></div>
-    <div class="cardw" style="left:560px;top:970px"><div class="card c4" id="k3"><svg viewBox="0 0 200 150" id="i3"></svg><b>Vinhetas</b></div></div>
+  <section class="scene" id="niches">
+    <h2 class="abs center g h3" id="nh">Para <em>diversos</em> nichos</h2>
+    <div id="grid"></div>
   </section>
 
   <section class="scene" id="details">
-    <div class="panel" id="panel">
+    <div class="pills" id="pills"></div>
+    <div class="panel shadow" id="panel">
       <div class="ph"><i></i><i></i><i></i>Seu vídeo · Reels<em id="tc">00:00</em></div>
       <div class="track" style="top:100px" id="t0"><label>Roteiro</label><div class="lane" id="l0"></div></div>
       <div class="track" style="top:250px" id="t1"><label>Narração</label><div class="lane" id="l1"></div></div>
       <div class="track" style="top:400px" id="t2"><label>Trilha</label><div class="lane" id="l2"></div></div>
       <div class="playhead" id="ph"></div>
     </div>
-    <div class="fmt" id="fmt"><div class="frame" id="frame"></div><div class="fl" id="fl"></div></div>
+    <div class="fmt" id="fmt"><div class="frame shadow" id="frame"></div><div class="fl" id="fl"></div></div>
   </section>
 
   <section class="scene" id="close">
     <h2 class="abs center g q" id="q">Este <em>vídeo</em>?</h2>
-    <div class="mini" id="mini"><svg viewBox="0 0 500 880" width="500" height="880" id="minisvg"></svg></div>
+    <div class="mini shadow" id="mini"><svg viewBox="0 0 500 880" width="500" height="880" id="minisvg"></svg></div>
     <div class="logo" id="logo"><svg viewBox="0 0 300 300" id="logosvg"></svg><div class="disc">t.</div></div>
     <h2 class="abs center g name" id="name">Thierry Araújo</h2>
     <p class="abs center role" id="role"><b>Motion design</b> · vídeos · sites</p>
     <div class="ring" id="r1"></div><div class="ring" id="r2"></div>
-    <div class="wa" id="wa"><svg viewBox="0 0 32 32"><path fill="#06301a" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6a10.6 10.6 0 0 1-5.4-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.8.9 3.8.8a3.3 3.3 0 0 0 2.1-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg>Chamar no WhatsApp</div>
+    <div class="wa shadow" id="wa"><svg viewBox="0 0 32 32"><path fill="#fff" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6a10.6 10.6 0 0 1-5.4-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.8.9 3.8.8a3.3 3.3 0 0 0 2.1-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg>Chamar no WhatsApp</div>
     <p class="abs center contact" id="contact"><b>(95) 99143-2677</b><br>thierryaraujodev.com.br</p>
   </section>
 
@@ -141,85 +141,78 @@ const clamp = (v, a, b) => Math.max(a, Math.min(b, v))
 const span = (t, a, d) => clamp((t - a) / d, 0, 1)
 const ease = p => 1 - Math.pow(1 - clamp(p, 0, 1), 3)
 const easeIO = p => { p = clamp(p, 0, 1); return p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2 }
-const spring = u => u <= 0 ? 0 : 1 - Math.exp(-6.5 * u) * Math.cos(13 * u) // u em segundos, passa do alvo e assenta
+const spring = u => u <= 0 ? 0 : 1 - Math.exp(-6 * u) * Math.cos(10 * u) // u em segundos; passa um pouco do alvo e assenta
 const lerp = (a, b, p) => a + (b - a) * p
 const hash = n => { let h = (n * 374761393 + 668265263) >>> 0; h = (h ^ (h >>> 13)) * 1274126177 >>> 0; return ((h ^ (h >>> 16)) >>> 0) / 4294967296 }
-const COLORS = ['#a99cff', '#ff7a59', '#ffd166', '#38d6e8', '#ff4d8d', '#ffffff']
+const INK = '#182947', P = '#5745cb', P2 = '#394fb1', LINE = '#dce2ef'
 
 // ---------- Tempo das cenas (vem da narração: out/motion/timing.js) ----------
 const LEAD = 0.4, GAP = 0.5, TAIL = 1.6 // os mesmos valores de build-motion.sh
 const NARR = window.NARR || { scenes: [
-  { id: 'hook', duration: 3.03, words: [] }, { id: 'reveal', duration: 5.2, words: [] }, { id: 'services', duration: 5.93, words: [] },
-  { id: 'details', duration: 4.7, words: [] }, { id: 'close', duration: 6.69, words: [] }] }
+  { id: 'hook', duration: 3.6, words: [] }, { id: 'reveal', duration: 6.84, words: [] }, { id: 'niches', duration: 10.08, words: [] },
+  { id: 'details', duration: 8.05, words: [] }, { id: 'close', duration: 7.78, words: [] }] }
 const S = {}, names = []; let acc = LEAD
 NARR.scenes.forEach(s => { names.push(s.id); S[s.id] = { a: acc, b: acc + s.duration + GAP, words: s.words.map(w => ({ ...w, s: w.s + acc, e: w.e + acc })) }; acc += s.duration + GAP })
 const TOTAL = acc + TAIL; window.TOTAL = TOTAL
-// momento em que a palavra é falada (cai num valor proporcional se não houver marcação)
-const wt = (id, word, frac = 0.5) => { const w = S[id].words.find(x => x.w.toLowerCase().replace(/[.,?!]/g, '') === word); return w ? w.s : lerp(S[id].a, S[id].b, frac) }
+// momento em que a palavra é falada (cai num ponto proporcional da cena se não houver marcação)
+const wt = (id, word, frac = 0.5) => { const w = S[id].words.find(x => x.w.toLowerCase().replace(/[.,?!:]/g, '') === word); return w ? w.s : lerp(S[id].a, S[id].b, frac) }
 const CUT = 0.22 // a troca de cena acontece escondida pela cortina, um pouco antes da fala
 const sceneOf = t => { let cur = names[0]; for (const n of names) if (t >= S[n].a - CUT) cur = n; return cur }
 
-// ---------- Fundo: manchas de luz, grade de pontos, formas flutuando e explosões de partículas ----------
+// ---------- Fundo claro: grade fina, formas de contorno flutuando e explosões discretas ----------
 const bg = $('bg').getContext('2d'), fx = $('fx').getContext('2d')
-const SHAPES = Array.from({ length: 18 }, (_, i) => ({ type: i % 5, x: hash(i * 7 + 1) * W, y: hash(i * 7 + 2) * H, size: 22 + hash(i * 7 + 3) * 34, color: COLORS[i % 5], rot: (hash(i * 7 + 4) - .5) * 1.6, sp: 18 + hash(i * 7 + 5) * 40, ph: hash(i * 7 + 6) * 6 }))
+const SHAPES = Array.from({ length: 14 }, (_, i) => ({ type: i % 4, x: hash(i * 7 + 1) * W, y: hash(i * 7 + 2) * H, size: 18 + hash(i * 7 + 3) * 26, color: i % 3 ? INK : P, rot: (hash(i * 7 + 4) - .5) * 1.2, sp: 14 + hash(i * 7 + 5) * 28, ph: hash(i * 7 + 6) * 6 }))
 const drawShape = (c, type, s) => {
   c.beginPath()
   if (type === 0) c.arc(0, 0, s, 0, Math.PI * 2)
   else if (type === 1) { c.moveTo(-s, 0); c.lineTo(s, 0); c.moveTo(0, -s); c.lineTo(0, s) }
   else if (type === 2) { for (let k = 0; k < 3; k++) { const a = -Math.PI / 2 + k * Math.PI * 2 / 3; c[k ? 'lineTo' : 'moveTo'](Math.cos(a) * s, Math.sin(a) * s) } c.closePath() }
-  else if (type === 3) c.rect(-s * .8, -s * .8, s * 1.6, s * 1.6)
-  else { c.moveTo(-s * 1.2, 0); for (let k = 1; k <= 24; k++) { const x = -s * 1.2 + k * s * 0.1; c.lineTo(x, Math.sin(k / 24 * Math.PI * 3) * s * .35) } }
+  else c.rect(-s * .8, -s * .8, s * 1.6, s * 1.6)
 }
-const bursts = [] // {t, x, y, n, power}
+const bursts = []
 const drawBursts = (c, t) => {
   for (const b of bursts) {
     const dt = t - b.t; if (dt < 0 || dt > 1.8) continue
     for (let i = 0; i < b.n; i++) {
       const h1 = hash(b.seed + i * 3), h2 = hash(b.seed + i * 3 + 1), h3 = hash(b.seed + i * 3 + 2)
-      const ang = h1 * Math.PI * 2, v = (500 + h2 * 1100) * b.power, k = 3.2
-      const d = v * (1 - Math.exp(-k * dt)) / k
-      const x = b.x + Math.cos(ang) * d, y = b.y + Math.sin(ang) * d + 120 * dt * dt
-      c.save(); c.translate(x, y); c.rotate(dt * (h3 - .5) * 10)
-      c.globalAlpha = clamp(1 - dt / 1.6, 0, 1)
-      const col = COLORS[i % COLORS.length], type = i % 4
-      c.strokeStyle = col; c.fillStyle = col; c.lineWidth = 6
-      drawShape(c, type, 10 + h3 * 16); type === 1 ? c.stroke() : c.fill()
+      const ang = h1 * Math.PI * 2, v = (380 + h2 * 800) * b.power, k = 3.2, d = v * (1 - Math.exp(-k * dt)) / k
+      c.save(); c.translate(b.x + Math.cos(ang) * d, b.y + Math.sin(ang) * d + 80 * dt * dt); c.rotate(dt * (h3 - .5) * 8)
+      c.globalAlpha = clamp(1 - dt / 1.6, 0, 1) * 0.9
+      const col = i % 3 ? P : INK, type = i % 4
+      c.strokeStyle = col; c.fillStyle = col; c.lineWidth = 5
+      drawShape(c, type, 8 + h3 * 12); type === 1 || type === 0 ? c.stroke() : c.fill()
       c.restore()
     }
   }
 }
-const BLOBS = { hook: ['#5b49d6', '#ff4d8d', '#1b6f87'], reveal: ['#ff7a59', '#5b49d6', '#ff4d8d'], services: ['#5b49d6', '#1fb6a0', '#ff7a59'], details: ['#1b6f87', '#5b49d6', '#f2a516'], close: ['#ff4d8d', '#5b49d6', '#25d366'] }
-const drawBg = (t, scene) => {
-  bg.fillStyle = '#0b0d1a'; bg.fillRect(0, 0, W, H)
-  const cols = BLOBS[scene]
-  cols.forEach((col, i) => {
-    const x = W * (0.5 + 0.42 * Math.sin(t * 0.35 + i * 2.1)), y = H * (0.5 + 0.36 * Math.cos(t * 0.27 + i * 1.7)), r = 620 + 80 * Math.sin(t * .6 + i)
-    const g = bg.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, col + '66'); g.addColorStop(1, col + '00')
-    bg.fillStyle = g; bg.fillRect(0, 0, W, H)
-  })
-  bg.fillStyle = '#ffffff'
-  const off = (t * 24) % 54
-  for (let y = -54; y < H + 54; y += 54) for (let x = 27; x < W; x += 54) {
-    const yy = y + off, wave = 0.5 + 0.5 * Math.sin(x * 0.006 + yy * 0.004 - t * 1.6)
-    bg.globalAlpha = 0.04 + 0.1 * wave; bg.fillRect(x - 2, yy - 2, 4, 4)
-  }
+const drawBg = t => {
+  bg.fillStyle = '#f5f7fc'; bg.fillRect(0, 0, W, H)
+  const x = W * (0.5 + 0.35 * Math.sin(t * 0.25)), y = H * (0.42 + 0.2 * Math.cos(t * 0.2))
+  const g = bg.createRadialGradient(x, y, 0, x, y, 800); g.addColorStop(0, '#5745cb14'); g.addColorStop(1, '#5745cb00')
+  bg.fillStyle = g; bg.fillRect(0, 0, W, H)
+  bg.strokeStyle = '#18294712'; bg.lineWidth = 2
+  const off = (t * 16) % 90
+  bg.beginPath()
+  for (let gx = 0; gx <= W; gx += 90) { bg.moveTo(gx, 0); bg.lineTo(gx, H) }
+  for (let gy = -90 + off; gy <= H; gy += 90) { bg.moveTo(0, gy); bg.lineTo(W, gy) }
+  bg.stroke()
   for (const s of SHAPES) {
-    const y = ((s.y - t * s.sp) % (H + 200) + H + 200) % (H + 200) - 100, x = s.x + Math.sin(t * .7 + s.ph) * 30
-    bg.save(); bg.translate(x, y); bg.rotate(t * s.rot + s.ph); bg.globalAlpha = 0.35
-    bg.strokeStyle = s.color; bg.lineWidth = 5; bg.lineCap = 'round'; bg.lineJoin = 'round'
+    const yy = ((s.y - t * s.sp) % (H + 200) + H + 200) % (H + 200) - 100, xx = s.x + Math.sin(t * .6 + s.ph) * 26
+    bg.save(); bg.translate(xx, yy); bg.rotate(t * s.rot + s.ph); bg.globalAlpha = s.color === P ? 0.22 : 0.1
+    bg.strokeStyle = s.color; bg.lineWidth = 4; bg.lineCap = 'round'; bg.lineJoin = 'round'
     drawShape(bg, s.type, s.size); bg.stroke(); bg.restore()
   }
   bg.globalAlpha = 1
   drawBursts(bg, t)
 }
-// cortina entre cenas: um círculo colorido cobre a tela e outro, vazado, revela a próxima cena
-const WIPE = { reveal: ['#ffd166', 540, 1060], services: ['#ff4d8d', 0, 0], details: ['#38d6e8', 1080, 1920], close: ['#a99cff', 540, 960] }
+// cortina entre cenas: um círculo cobre a tela e outro, vazado, revela a próxima cena
+const WIPE = { reveal: [P, 540, 1060], niches: [INK, 0, 0], details: [P, 1080, 1920], close: [INK, 540, 960] }
 const drawFx = t => {
   fx.clearRect(0, 0, W, H)
   for (const n of names.slice(1)) {
-    const a = S[n].a, [col, ox, oy] = WIPE[n] || ['#a99cff', 540, 960]
+    const a = S[n].a, [col, ox, oy] = WIPE[n] || [P, 540, 960]
     const R = Math.hypot(Math.max(ox, W - ox), Math.max(oy, H - oy)) + 20
-    const r1 = easeIO(span(t, a - CUT - 0.28, 0.28)) * R, r2 = easeIO(span(t, a - CUT, 0.36)) * R
+    const r1 = easeIO(span(t, a - CUT - 0.32, 0.32)) * R, r2 = easeIO(span(t, a - CUT, 0.42)) * R
     if (r1 <= 0 || r2 >= R) continue
     fx.globalCompositeOperation = 'source-over'; fx.fillStyle = col
     fx.beginPath(); fx.arc(ox, oy, r1, 0, Math.PI * 2); fx.fill()
@@ -232,30 +225,30 @@ const drawFx = t => {
 const chunks = []
 for (const n of names) {
   let cur = []
-  S[n].words.forEach((w, i) => { cur.push(w); if (cur.length === 3 || /[.,?!]$/.test(w.w) || i === S[n].words.length - 1) { chunks.push({ words: cur, s: cur[0].s, e: cur[cur.length - 1].e, scene: n }); cur = [] } })
+  S[n].words.forEach((w, i) => { cur.push(w); if (cur.length === 3 || /[.,?!:]$/.test(w.w) || i === S[n].words.length - 1) { chunks.push({ words: cur, s: cur[0].s, e: cur[cur.length - 1].e }); cur = [] } })
 }
 const drawCaption = t => {
   let c = null
-  for (let i = 0; i < chunks.length; i++) if (t >= chunks[i].s - 0.05) c = chunks[i]
+  for (const ch of chunks) if (t >= ch.s - 0.05) c = ch
   const el = $('cap')
   if (!c || t > c.e + 0.5) { el.innerHTML = ''; return }
+  const cur = c.words.filter(w => t >= w.s - 0.03).pop() // só a última palavra que começou fica destacada
   el.innerHTML = c.words.map(w => {
-    const p = spring(t - w.s + 0.05), on = t >= w.s - 0.03 && t < w.e + 0.06
-    return `<span class="${on ? 'on' : ''}" style="opacity:${clamp((t - w.s + 0.1) * 8, 0, 1)};transform:translateY(${(1 - p) * 30}px) scale(${0.7 + 0.3 * p})">${w.w}</span>`
+    const p = spring(t - w.s + 0.05), on = w === cur && t < w.e + 0.15
+    return `<span class="${on ? 'on' : ''}" style="opacity:${clamp((t - w.s + 0.1) * 7, 0, 1)};transform:translateY(${(1 - p) * 24}px)">${w.w}</span>`
   }).join('')
 }
 
 // ---------- Cena 1: feed rolando que para de repente ----------
-const POSTS = ['linear-gradient(150deg,#2b3a67,#3d2f6b)', 'linear-gradient(150deg,#3b2a4f,#58385a)', 'linear-gradient(150deg,#1f4b5a,#2b3a67)', 'linear-gradient(150deg,#4a3a2a,#5a2f3f)']
 const HERO = 9, POST_H = 424
 $('feed').innerHTML = Array.from({ length: 14 }, (_, i) => i === HERO
-  ? `<div class="post hero" id="hero"><svg viewBox="0 0 484 400" id="herosvg"></svg><div class="who" style="position:relative"><i style="background:#fff"></i><u style="background:#fff"></u></div></div>`
-  : `<div class="post" style="background:${POSTS[i % 4]}"><div class="who"><i></i><u></u></div><div class="ln ln2"></div><div class="ln"></div></div>`).join('')
-const heroArt = u => { // animação dentro do post em destaque: bola quicando com squash e quadrados girando
-  const T = (u * 1.6) % 1, y = 300 - 190 * (1 - Math.pow(2 * T - 1, 2)), sq = T < 0.08 || T > 0.92 ? 1.35 : 1
-  let s = `<rect x="0" y="330" width="484" height="70" fill="#ffffff22"/>`
-  for (let i = 0; i < 3; i++) s += `<rect x="${70 + i * 140}" y="70" width="56" height="56" rx="12" fill="none" stroke="#ffd166" stroke-width="7" transform="rotate(${u * 140 + i * 30} ${98 + i * 140} 98)"/>`
-  s += `<ellipse cx="242" cy="${y}" rx="${36 * sq}" ry="${36 / sq}" fill="#fff"/>`
+  ? `<div class="post hero" id="hero"><svg viewBox="0 0 484 400" id="herosvg"></svg><div class="who" style="position:relative"><i style="background:#ffffff66"></i><u style="background:#ffffff66"></u></div></div>`
+  : `<div class="post"><div class="who"><i></i><u></u></div><div class="ln ln2"></div><div class="ln"></div></div>`).join('')
+const heroArt = u => { // dentro do post em destaque: bola quicando com squash e quadrados girando
+  const T = (u * 1.3) % 1, y = 300 - 180 * (1 - Math.pow(2 * T - 1, 2)), sq = T < 0.08 || T > 0.92 ? 1.3 : 1
+  let s = `<line x1="40" y1="338" x2="444" y2="338" stroke="#ffffff66" stroke-width="4" stroke-linecap="round"/>`
+  for (let i = 0; i < 3; i++) s += `<rect x="${70 + i * 140}" y="80" width="56" height="56" rx="12" fill="none" stroke="#fff" stroke-width="6" transform="rotate(${u * 110 + i * 30} ${98 + i * 140} 108)"/>`
+  s += `<ellipse cx="242" cy="${y}" rx="${34 * sq}" ry="${34 / sq}" fill="#fff"/>`
   return s
 }
 const sceneHook = t => {
@@ -264,161 +257,161 @@ const sceneHook = t => {
   const pos = t < ts ? (t / ts) * (target - 900) : lerp(target - 900, target, spring((t - ts) * 0.9))
   const speed = t < ts ? 1 : clamp(1 - (t - ts) * 4, 0, 1)
   $('feed').style.transform = `translateY(${-pos}px)`
-  $('feed').style.filter = `blur(${speed * 5}px)`
-  const intro = spring(t - 0.05)
-  const tilt = ease(span(t, wt('hook', 'feed', 0.9) - 0.2, 0.6))
-  $('phone').style.transform = `translateY(${(1 - intro) * 500}px) rotate(${(1 - intro) * -8 + tilt * 3}deg) scale(${1 + 0.06 * ease(span(t, ts, 0.25)) - 0.03 * ease(span(t, ts + 0.25, 0.4))})`
-  $('flash').style.opacity = clamp(1 - (t - ts) * 2, 0, 1) * (t >= ts ? 1 : 0)
+  $('feed').style.filter = `blur(${speed * 4}px)`
+  const intro = spring(t - 0.05), tilt = ease(span(t, wt('hook', 'feed', 0.9) - 0.2, 0.6))
+  $('phone').style.transform = `translateY(${(1 - intro) * 500}px) rotate(${(1 - intro) * -6 + tilt * 2.5}deg) scale(${1 + 0.05 * ease(span(t, ts, 0.25)) - 0.03 * ease(span(t, ts + 0.25, 0.5))})`
+  $('flash').style.opacity = t >= ts ? clamp(1 - (t - ts) * 1.5, 0, 1) : 0
   $('herosvg').innerHTML = heroArt(Math.max(0, t - ts))
 }
 
 // ---------- Cena 2: MOTION design ----------
-const LETTERS = 'MOTION'.split(''), LCOL = ['#ffd166', '#ff7a59', '#ff4d8d', '#a99cff', '#38d6e8', '#ffffff']
-$('mword').innerHTML = LETTERS.map((l, i) => `<span style="color:${LCOL[i]}">${l}</span>`).join('')
+$('mword').innerHTML = 'MOTION'.split('').map(l => `<span class="${l === 'O' ? 'o' : ''}">${l}</span>`).join('')
 const letterEls = [...$('mword').children]
 const sceneReveal = t => {
-  const a = S.reveal.a, tm = wt('reveal', 'motion', 0.1) - 0.15, td = wt('reveal', 'design', 0.2), tmv = wt('reveal', 'movimento', 0.35), tsg = wt('reveal', 'segundos', 0.85)
+  const tm = wt('reveal', 'motion', 0.15) - 0.15, td = wt('reveal', 'design', 0.25), tmv = wt('reveal', 'movimento', 0.36), tsg = wt('reveal', 'segundos', 0.87)
   letterEls.forEach((el, i) => {
-    const p = spring(t - tm - i * 0.06), wave = t > tmv ? Math.sin((t - tmv) * 7 - i * 0.8) * 34 * ease(span(t, tmv, 0.4)) : 0
-    el.style.transform = `translateY(${(1 - p) * -700 + wave}px) rotate(${(1 - p) * (i % 2 ? 25 : -25) + (t > tmv ? Math.sin((t - tmv) * 7 - i * 0.8) * 6 : 0)}deg)`
-    el.style.opacity = t > tm + i * 0.06 ? 1 : 0
+    const p = spring(t - tm - i * 0.06), wv = t > tmv ? Math.sin((t - tmv) * 5 - i * 0.8) * ease(span(t, tmv, 0.5)) : 0
+    el.style.transform = `translateY(${(1 - p) * -500 + wv * 26}px) rotate(${(1 - p) * (i % 2 ? 18 : -18) + wv * 4}deg)`
+    el.style.opacity = clamp((t - tm - i * 0.06) * 6, 0, 1)
   })
-  const pd = ease(span(t, td - 0.1, 0.5))
+  const pd = ease(span(t, td - 0.1, 0.6))
   $('dword').style.clipPath = `inset(0 ${100 - pd * 100}% 0 0)`
-  $('dword').style.transform = `translateX(${(1 - pd) * -60}px)`
+  $('dword').style.transform = `translateX(${(1 - pd) * -50}px)`
   // cronômetro que completa a volta em "segundos"
-  const pw = spring(t - (tsg - 0.9)), sweep = easeIO(span(t, tsg - 0.6, 0.9)), R = 110, Cc = 2 * Math.PI * R
-  $('watch').style.opacity = t > tsg - 0.9 ? 1 : 0
+  const pw = spring(t - (tsg - 1.0)), sweep = easeIO(span(t, tsg - 0.7, 1.0)), R = 110, Cc = 2 * Math.PI * R
+  $('watch').style.opacity = t > tsg - 1.0 ? 1 : 0
   $('watch').style.transform = `scale(${pw})`
-  $('watch').innerHTML = `<circle cx="150" cy="160" r="${R}" fill="#ffffff10" stroke="#ffffff30" stroke-width="16"/>
-    <circle cx="150" cy="160" r="${R}" fill="none" stroke="#ffd166" stroke-width="16" stroke-linecap="round" stroke-dasharray="${Cc}" stroke-dashoffset="${Cc * (1 - sweep)}" transform="rotate(-90 150 160)"/>
-    <rect x="132" y="18" width="36" height="22" rx="6" fill="#ffd166"/>
-    <line x1="150" y1="160" x2="${150 + Math.sin(sweep * Math.PI * 2) * 74}" y2="${160 - Math.cos(sweep * Math.PI * 2) * 74}" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
-    <circle cx="150" cy="160" r="12" fill="#fff"/>`
+  $('watch').innerHTML = `<circle cx="150" cy="160" r="${R}" fill="#fff" stroke="${LINE}" stroke-width="14"/>
+    <circle cx="150" cy="160" r="${R}" fill="none" stroke="${P}" stroke-width="14" stroke-linecap="round" stroke-dasharray="${Cc}" stroke-dashoffset="${Cc * (1 - sweep)}" transform="rotate(-90 150 160)"/>
+    <rect x="132" y="20" width="36" height="20" rx="6" fill="${INK}"/>
+    <line x1="150" y1="160" x2="${150 + Math.sin(sweep * Math.PI * 2) * 74}" y2="${160 - Math.cos(sweep * Math.PI * 2) * 74}" stroke="${INK}" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="150" cy="160" r="11" fill="${INK}"/>`
 }
 
-// ---------- Cena 3: o que eu crio ----------
-const icons = [
-  u => { // reels: celular com play e corações subindo
-    let s = `<rect x="70" y="14" width="60" height="112" rx="12" fill="none" stroke="#fff" stroke-width="5"/>`
-    const pl = 1 + 0.12 * Math.sin(u * 8)
-    s += `<path d="M92 56 L114 70 L92 84 Z" fill="#fff" transform="translate(${100 * (1 - pl)} ${70 * (1 - pl)}) scale(${pl})"/>`
-    for (let k = 0; k < 3; k++) { const q = ((u * 0.8 + k / 3) % 1), x = 150 + Math.sin(q * 9 + k) * 10, y = 120 - q * 100
-      s += `<path d="M${x} ${y + 6} l-9 -9 a5.5 5.5 0 0 1 9 -6 a5.5 5.5 0 0 1 9 6 z" fill="#fff" opacity="${(1 - q).toFixed(2)}"/>` }
+// ---------- Cena 3: diversos nichos (cada card entra quando o nicho é falado) ----------
+const st = `fill="none" stroke="${INK}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"`
+const NICHES = [
+  ['clínicas', 'Clínicas', u => { // cruz + linha de batimento correndo
+    const d = 'M6 78 L40 78 L52 52 L66 104 L80 30 L94 92 L104 78 L134 78', len = 260, off = len - ((u * 160) % (len * 2))
+    return `<rect x="46" y="8" width="48" height="16" rx="4" fill="${P}" opacity=".18"/><path d="${d}" ${st} stroke-dasharray="${len}" stroke-dashoffset="${off}"/><circle cx="70" cy="126" r="${5 + 2 * Math.sin(u * 6)}" fill="${P}"/>`
+  }],
+  ['restaurantes', 'Restaurantes', u => { // prato com vapor subindo
+    let s = `<ellipse cx="70" cy="112" rx="58" ry="14" ${st}/><path d="M28 104 Q70 60 112 104" ${st}/>`
+    for (let k = 0; k < 3; k++) { const q = (u * 0.7 + k / 3) % 1; s += `<path d="M${50 + k * 20} ${62 - q * 40} q8 -10 0 -20 q-8 -10 0 -20" fill="none" stroke="${P}" stroke-width="5" stroke-linecap="round" opacity="${(Math.sin(q * Math.PI)).toFixed(2)}"/>` }
     return s
-  },
-  u => { // anúncios: megafone com ondas
-    let s = `<path d="M50 62 L92 62 L132 36 L132 114 L92 88 L50 88 Z" fill="#fff"/><rect x="62" y="88" width="16" height="30" rx="5" fill="#fff"/>`
-    for (let k = 0; k < 3; k++) { const q = (u * 1.2 + k / 3) % 1, r = 16 + q * 34
-      s += `<path d="M${140 + r * 0.2} ${75 - r} A ${r} ${r} 0 0 1 ${140 + r * 0.2} ${75 + r}" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity="${(1 - q).toFixed(2)}"/>` }
-    return s
-  },
-  u => { // produto: cubo girando
-    const a = u * 1.3, b = -0.5, P = [-1, 1].flatMap(x => [-1, 1].flatMap(y => [-1, 1].map(z => [x, y, z])))
-    const pr = ([x, y, z]) => { const x1 = x * Math.cos(a) + z * Math.sin(a), z1 = -x * Math.sin(a) + z * Math.cos(a), y1 = y * Math.cos(b) - z1 * Math.sin(b); return [100 + x1 * 38, 76 + y1 * 38] }
-    const q = P.map(pr); let s = ''
-    for (let i = 0; i < 8; i++) for (let j = i + 1; j < 8; j++) if (P[i].filter((v, k) => v !== P[j][k]).length === 1) s += `<line x1="${q[i][0]}" y1="${q[i][1]}" x2="${q[j][0]}" y2="${q[j][1]}" stroke="#fff" stroke-width="5" stroke-linecap="round"/>`
-    s += `<ellipse cx="100" cy="138" rx="${44 + 4 * Math.sin(u * 3)}" ry="7" fill="#0003"/>`
-    return s
-  },
-  u => { // vinhetas: logo com anel girando e brilhos
-    let s = `<circle cx="100" cy="74" r="58" fill="none" stroke="#1b1530" stroke-width="5" stroke-dasharray="14 12" transform="rotate(${u * 90} 100 74)"/>`
-    s += `<circle cx="100" cy="74" r="${36 * spring(u)}" fill="#1b1530"/><text x="100" y="88" text-anchor="middle" font-family="Space Grotesk" font-weight="700" font-size="42" fill="#ffd166" opacity="${clamp(u * 3, 0, 1)}">t.</text>`
-    for (let k = 0; k < 4; k++) { const ang = k * Math.PI / 2 + 0.6, sc = 0.6 + 0.5 * Math.abs(Math.sin(u * 4 + k)), x = 100 + Math.cos(ang) * 82, y = 74 + Math.sin(ang) * 64
-      s += `<path d="M0 -12 Q2 -2 12 0 Q2 2 0 12 Q-2 2 -12 0 Q-2 -2 0 -12Z" fill="#1b1530" transform="translate(${x} ${y}) scale(${sc})"/>` }
-    return s
-  }
+  }],
+  ['lojas', 'Lojas', u => { // sacola que balança
+    const r = Math.sin(u * 4) * 8 * Math.exp(-u * 0.3)
+    return `<g transform="rotate(${r} 70 20)"><path d="M28 48 L112 48 L104 128 L36 128 Z" ${st}/><path d="M50 48 Q50 18 70 18 Q90 18 90 48" ${st}/><circle cx="70" cy="88" r="${8 + 2 * Math.sin(u * 5)}" fill="${P}"/></g>`
+  }],
+  ['cursos', 'Cursos', u => { // capelo com borla e play
+    const b = Math.sin(u * 3) * 10
+    return `<path d="M70 26 L130 52 L70 78 L10 52 Z" ${st}/><path d="M34 64 L34 96 Q70 120 106 96 L106 64" ${st}/><line x1="122" y1="56" x2="${122 + b * 0.4}" y2="98" stroke="${P}" stroke-width="6" stroke-linecap="round"/><circle cx="${122 + b * 0.4}" cy="102" r="7" fill="${P}"/>`
+  }],
+  ['imobiliárias', 'Imobiliárias', u => { // casa com janela acendendo
+    const on = 0.25 + 0.75 * (0.5 + 0.5 * Math.sin(u * 3))
+    return `<path d="M14 66 L70 18 L126 66" ${st}/><path d="M28 56 L28 126 L112 126 L112 56" ${st}/><rect x="56" y="86" width="28" height="40" rx="3" ${st}/><rect x="84" y="62" width="18" height="18" rx="3" fill="${P}" opacity="${on.toFixed(2)}"/>`
+  }],
+  ['prestadores', 'Serviços', u => { // engrenagem girando
+    let teeth = ''
+    for (let k = 0; k < 8; k++) teeth += `<rect x="62" y="12" width="16" height="22" rx="4" fill="${INK}" transform="rotate(${k * 45} 70 70)"/>`
+    return `<g transform="rotate(${u * 60} 70 70)">${teeth}<circle cx="70" cy="70" r="40" ${st}/><circle cx="70" cy="70" r="14" fill="${P}"/></g>`
+  }]
 ]
-const sceneServices = t => {
-  const a = S.services.a
-  const ph = spring(t - a + 0.1)
-  $('sh').style.opacity = clamp((t - a + 0.2) * 4, 0, 1); $('sh').style.transform = `translateY(${(1 - ph) * 60}px)`
-  const times = [wt('services', 'reels', 0.3), wt('services', 'anúncios', 0.4), wt('services', 'apresentação', 0.55), wt('services', 'vinhetas', 0.78)]
-  times.forEach((tk, i) => {
-    const u = t - tk + 0.12, p = spring(u), el = $('k' + i)
-    el.style.opacity = u > 0 ? 1 : 0
-    el.style.transform = `rotateY(${(1 - p) * (i % 2 ? 90 : -90)}deg) scale(${0.6 + 0.4 * p})`
-    $('i' + i).innerHTML = icons[i](Math.max(0, u))
+$('grid').innerHTML = NICHES.map((n, i) => `<div class="niche shadow" id="n${i}" style="left:${i % 2 ? 560 : 90}px;top:${430 + Math.floor(i / 2) * 310}px"><svg viewBox="0 0 140 140" id="ni${i}"></svg><span class="n">0${i + 1}</span><b>${n[1]}</b></div>`).join('')
+const sceneNiches = t => {
+  const a = S.niches.a, tn = wt('niches', 'nichos', 0.26)
+  const ph = spring(t - wt('niches', 'diversos', 0.2) + 0.2)
+  $('nh').style.opacity = clamp((t - a) * 3, 0, 1); $('nh').style.transform = `translateY(${(1 - spring(t - a + 0.1)) * 50}px)`
+  $('nh').querySelector('em').style.opacity = 0.3 + 0.7 * ph
+  NICHES.forEach((n, i) => {
+    const tk = wt('niches', n[0], 0.35 + i * 0.1) - 0.15, u = t - tk, p = spring(u), el = $('n' + i)
+    el.style.opacity = clamp(u * 5, 0, 1)
+    el.style.transform = `translateY(${(1 - p) * 90}px) scale(${0.85 + 0.15 * p})`
+    el.style.borderColor = u > 0 && u < 0.9 ? P : LINE
+    $('ni' + i).innerHTML = n[2](Math.max(0, u))
   })
 }
 
-// ---------- Cena 4: produção (linha do tempo) e formatos ----------
-$('l0').innerHTML = [[10, 150, '#a99cff'], [180, 200, '#ff7a59'], [400, 150, '#38d6e8']].map(([x, w, c]) => `<div class="abs" style="left:${x}px;top:16px;width:${w}px;height:64px;border-radius:14px;background:${c}"><div style="margin:16px 18px 0;height:10px;width:70%;border-radius:5px;background:#0003"></div><div style="margin:10px 18px 0;height:10px;width:45%;border-radius:5px;background:#0003"></div></div>`).join('')
-$('l1').innerHTML = Array.from({ length: 56 }, (_, i) => `<i class="abs" style="left:${8 + i * 11.5}px;width:6px;border-radius:3px;background:#ff4d8d"></i>`).join('')
-$('l2').innerHTML = Array.from({ length: 28 }, (_, i) => `<i class="abs" style="left:${10 + i * 23}px;bottom:14px;width:14px;border-radius:4px;background:#ffd166"></i>`).join('')
+// ---------- Cena 4: reels, anúncios, vinhetas + linha do tempo + formatos ----------
+const PILLS = [['reels', 'Reels'], ['anúncios', 'Anúncios'], ['vinhetas', 'Vinhetas']]
+$('pills').innerHTML = PILLS.map((p, i) => `<span class="pill shadow" id="pl${i}">${p[1]}</span>`).join('')
+$('l0').innerHTML = [[10, 150, P], [180, 200, P2], [400, 150, '#8f84e0']].map(([x, w, c]) => `<div class="abs" style="left:${x}px;top:16px;width:${w}px;height:64px;border-radius:14px;background:${c}"><div style="margin:16px 18px 0;height:10px;width:70%;border-radius:5px;background:#ffffff55"></div><div style="margin:10px 18px 0;height:10px;width:45%;border-radius:5px;background:#ffffff55"></div></div>`).join('')
+$('l1').innerHTML = Array.from({ length: 56 }, (_, i) => `<i class="abs" style="left:${8 + i * 11.5}px;width:6px;border-radius:3px;background:${P}"></i>`).join('')
+$('l2').innerHTML = Array.from({ length: 28 }, (_, i) => `<i class="abs" style="left:${10 + i * 23}px;bottom:14px;width:14px;border-radius:4px;background:${INK}"></i>`).join('')
 const waveBars = [...$('l1').children], eqBars = [...$('l2').children]
-const FORMATS = [[190, 338, '9:16', 'Reels · TikTok'], [290, 290, '1:1', 'Feed'], [460, 259, '16:9', 'YouTube']]
+const FORMATS = [[180, 320, '9:16', 'Reels · TikTok'], [270, 270, '1:1', 'Feed'], [420, 236, '16:9', 'YouTube']]
 const sceneDetails = t => {
   const a = S.details.a, b = S.details.b
-  const pp = spring(t - a + 0.15)
-  $('panel').style.transform = `translateY(${(1 - pp) * 200}px) scale(${0.9 + 0.1 * pp})`; $('panel').style.opacity = clamp((t - a + 0.2) * 5, 0, 1)
-  const tt = [wt('details', 'roteiro', 0.1), wt('details', 'narração', 0.25), wt('details', 'trilha', 0.45)]
-  tt.forEach((tk, i) => { const p = spring(t - tk + 0.1); $('t' + i).style.opacity = clamp((t - tk + 0.15) * 5, 0, 1); $('t' + i).style.transform = `translateX(${(1 - p) * 300}px)` })
+  const tp = PILLS.map((p, i) => wt('details', p[0], 0.05 + i * 0.12))
+  tp.forEach((tk, i) => { const u = t - tk + 0.1, p = spring(u), el = $('pl' + i)
+    el.style.opacity = clamp(u * 5, 0, 1); el.style.transform = `translateY(${(1 - p) * -40}px)`
+    const nxt = tp[i + 1] ?? wt('details', 'com', 0.4); el.className = 'pill shadow' + (t >= tk - 0.05 && t < nxt - 0.05 ? ' on' : '') })
+  const tt = [wt('details', 'roteiro', 0.4), wt('details', 'narração', 0.5), wt('details', 'trilha', 0.62)]
+  const pp = spring(t - tt[0] + 0.5)
+  $('panel').style.transform = `translateY(${(1 - pp) * 160}px)`; $('panel').style.opacity = clamp((t - tt[0] + 0.6) * 4, 0, 1)
+  tt.forEach((tk, i) => { const p = spring(t - tk + 0.1); $('t' + i).style.opacity = clamp((t - tk + 0.15) * 5, 0, 1); $('t' + i).style.transform = `translateX(${(1 - p) * 200}px)` })
   ;[...$('l0').children].forEach((el, i) => { const p = spring(t - tt[0] - i * 0.12); el.style.transform = `translateX(${(1 - p) * 600}px)` })
-  waveBars.forEach((el, i) => { const h = 10 + 66 * Math.abs(Math.sin(i * 0.9 + t * 9) * Math.sin(i * 0.23 + t * 2.3)) * ease(span(t, tt[1] - 0.1, 0.4)); el.style.height = h + 'px'; el.style.top = (48 - h / 2) + 'px' })
-  eqBars.forEach((el, i) => { el.style.height = (8 + 60 * (0.5 + 0.5 * Math.sin(t * 11 + i * 1.7)) * (0.4 + 0.6 * hash(i)) * ease(span(t, tt[2] - 0.1, 0.4))) + 'px' })
-  const head = easeIO(span(t, a, b - a)); $('ph').style.left = (210 + head * 680) + 'px'
-  const sec = Math.floor(head * 30); $('tc').textContent = `00:${String(sec).padStart(2, '0')}`
+  waveBars.forEach((el, i) => { const h = 10 + 62 * Math.abs(Math.sin(i * 0.9 + t * 6) * Math.sin(i * 0.23 + t * 1.8)) * ease(span(t, tt[1] - 0.1, 0.5)); el.style.height = h + 'px'; el.style.top = (48 - h / 2) + 'px' })
+  eqBars.forEach((el, i) => { el.style.height = (8 + 56 * (0.5 + 0.5 * Math.sin(t * 7 + i * 1.7)) * (0.4 + 0.6 * hash(i)) * ease(span(t, tt[2] - 0.1, 0.5))) + 'px' })
+  const head = easeIO(span(t, tt[0], b - tt[0])); $('ph').style.left = (210 + head * 680) + 'px'
+  $('tc').textContent = `00:${String(Math.floor(head * 30)).padStart(2, '0')}`
   // formatos: 9:16 → 1:1 → 16:9
-  const tf = [wt('details', 'formato', 0.6), wt('details', 'certo', 0.7) + 0.2, wt('details', 'cada', 0.82)]
-  const show = spring(t - tf[0] + 0.1)
-  $('fmt').style.opacity = t > tf[0] - 0.1 ? 1 : 0; $('fmt').style.transform = `scale(${show})`
+  const tf = [wt('details', 'formato', 0.74), wt('details', 'certo', 0.8) + 0.15, wt('details', 'cada', 0.88)]
+  $('fmt').style.opacity = t > tf[0] - 0.15 ? 1 : 0; $('fmt').style.transform = `scale(${spring(t - tf[0] + 0.15)})`
   let k = 0; for (let i = 1; i < 3; i++) if (t >= tf[i]) k = i
   const p = k ? spring(t - tf[k]) : 1, from = FORMATS[Math.max(0, k - 1)], to = FORMATS[k]
   const w = lerp(from[0], to[0], p), h = lerp(from[1], to[1], p)
   $('frame').style.width = w + 'px'; $('frame').style.height = h + 'px'; $('frame').style.margin = `${-h / 2}px 0 0 ${-w / 2}px`
   $('fl').innerHTML = `${to[2]}<small>${to[3]}</small>`
-  $('fl').style.transform = `translateY(${(1 - spring(t - tf[k] + 0.05)) * 30}px)`
+  $('fl').style.transform = `translateY(${(1 - spring(t - tf[k] + 0.05)) * 24}px)`
 }
 
 // ---------- Cena 5: "este vídeo?" → marca → WhatsApp ----------
 const sceneClose = t => {
-  const a = S.close.a, tv = wt('close', 'vídeo', 0.1), tf = wt('close', 'foi', 0.3) - 0.1, tc = wt('close', 'chama', 0.58) - 0.1, tm = wt('close', 'movimento', 0.9)
-  // fase A: a tela vira um celular — o vídeo dentro do vídeo
-  const pa = spring(t - a + 0.1), out = ease(span(t, tf - 0.15, 0.4))
-  $('mini').style.opacity = t < tf + 0.3 ? 1 : 0
-  $('mini').style.transform = `scale(${lerp(2.3, 1, pa) * (1 - out)}) rotate(${out * 20}deg)`
+  const a = S.close.a, tv = wt('close', 'vídeo', 0.1), tf = wt('close', 'foi', 0.3) - 0.1, tc = wt('close', 'chama', 0.57) - 0.1, tm = wt('close', 'movimento', 0.9)
+  // fase A: a tela vira um celular (o vídeo dentro do vídeo)
+  const pa = spring(t - a + 0.1), out = ease(span(t, tf - 0.15, 0.45))
+  $('mini').style.opacity = t < tf + 0.35 ? 1 : 0
+  $('mini').style.transform = `scale(${lerp(2.3, 1, pa) * (1 - out)}) rotate(${out * 16}deg)`
   let m = ''
-  for (let i = 0; i < 6; i++) { const u = t - a + i * 0.3, x = 250 + Math.sin(u * 2 + i) * 150, y = 440 + Math.cos(u * 1.6 + i * 1.3) * 300
-    m += `<g transform="translate(${x} ${y}) rotate(${u * 80})"><rect x="-34" y="-34" width="68" height="68" rx="${i % 2 ? 34 : 14}" fill="${COLORS[i % 5]}"/></g>` }
+  for (let i = 0; i < 5; i++) { const u = t - a + i * 0.3, x = 250 + Math.sin(u * 1.5 + i) * 140, y = 440 + Math.cos(u * 1.2 + i * 1.3) * 280
+    m += `<g transform="translate(${x} ${y}) rotate(${u * 60})"><rect x="-32" y="-32" width="64" height="64" rx="${i % 2 ? 32 : 12}" fill="${i % 2 ? P : 'none'}" stroke="${i % 2 ? 'none' : INK}" stroke-width="6"/></g>` }
   $('minisvg').innerHTML = m
-  const pq = spring(t - tv + 0.2)
-  $('q').style.opacity = (t > tv - 0.25 ? 1 : 0) * (1 - out); $('q').style.transform = `scale(${0.5 + 0.5 * pq})`
+  $('q').style.opacity = (t > tv - 0.25 ? 1 : 0) * (1 - out); $('q').style.transform = `scale(${0.6 + 0.4 * spring(t - tv + 0.2)})`
   // fase B: marca
   const pl = spring(t - tf), pn = spring(t - tf - 0.25), lift = ease(span(t, tc - 0.2, 0.5))
-  $('logo').style.opacity = t > tf ? 1 : 0; $('logo').style.transform = `translateY(${-lift * 40}px) scale(${pl}) rotate(${(1 - pl) * -180}deg)`
+  $('logo').style.opacity = t > tf ? 1 : 0; $('logo').style.transform = `translateY(${-lift * 40}px) scale(${pl}) rotate(${(1 - pl) * -120}deg)`
   const R = 140, Cc = 2 * Math.PI * R
-  $('logosvg').innerHTML = `<circle cx="150" cy="150" r="${R}" fill="none" stroke="#ffd166" stroke-width="6" stroke-dasharray="${Cc / 16} ${Cc / 16}" transform="rotate(${(t - tf) * 60} 150 150)"/>`
-  $('name').style.opacity = clamp((t - tf - 0.2) * 5, 0, 1); $('name').style.transform = `translateY(${(1 - pn) * 80 - lift * 40}px)`
+  $('logosvg').innerHTML = `<circle cx="150" cy="150" r="${R}" fill="none" stroke="${P}" stroke-width="4" stroke-dasharray="${Cc / 24} ${Cc / 24}" transform="rotate(${(t - tf) * 40} 150 150)"/>`
+  $('name').style.opacity = clamp((t - tf - 0.2) * 5, 0, 1); $('name').style.transform = `translateY(${(1 - pn) * 70 - lift * 40}px)`
   $('role').style.opacity = clamp((t - tf - 0.45) * 4, 0, 1); $('role').style.transform = `translateY(${-lift * 40}px)`
   // fase C: WhatsApp
-  const pw = spring(t - tc), beat = t > tm ? 1 + 0.05 * Math.sin((t - tm) * 9) * Math.exp(-(t - tm) * 1.5) : 1
+  const pw = spring(t - tc), beat = t > tm ? 1 + 0.04 * Math.sin((t - tm) * 8) * Math.exp(-(t - tm) * 1.5) : 1
   $('wa').style.opacity = t > tc ? 1 : 0; $('wa').style.transform = `scale(${pw * beat})`
-  ;['r1', 'r2'].forEach((id, i) => { const q = ((t - tc - 0.4 - i * 0.6) % 1.2 + 1.2) % 1.2 / 1.2; $(id).style.opacity = t > tc + 0.4 ? (1 - q) * 0.8 : 0; $(id).style.transform = `scale(${1 + q * 0.25}, ${1 + q * 0.6})` })
-  $('contact').style.opacity = clamp((t - tc - 0.5) * 4, 0, 1); $('contact').style.transform = `translateY(${(1 - spring(t - tc - 0.5)) * 40}px)`
+  ;['r1', 'r2'].forEach((id, i) => { const q = ((t - tc - 0.4 - i * 0.7) % 1.4 + 1.4) % 1.4 / 1.4; $(id).style.opacity = t > tc + 0.4 ? (1 - q) * 0.6 : 0; $(id).style.transform = `scale(${1 + q * 0.2}, ${1 + q * 0.5})` })
+  $('contact').style.opacity = clamp((t - tc - 0.5) * 4, 0, 1); $('contact').style.transform = `translateY(${(1 - spring(t - tc - 0.5)) * 36}px)`
 }
 
-// explosões de formas nos momentos fortes
+// explosões discretas nos momentos fortes
 const addBurst = (t, x, y, n, power) => bursts.push({ t, x, y, n, power, seed: bursts.length * 101 + 7 })
-addBurst(wt('hook', 'parar', 0.5) + 0.12, 540, 800, 26, 0.8)
-addBurst(wt('reveal', 'motion', 0.1) + 0.25, 540, 700, 48, 1.1)
-addBurst(wt('services', 'vinhetas', 0.78) + 0.2, 775, 1200, 22, 0.6)
-addBurst(wt('close', 'foi', 0.3), 540, 480, 40, 1)
-addBurst(wt('close', 'movimento', 0.9), 540, 1035, 56, 1.2)
+addBurst(wt('hook', 'parar', 0.5) + 0.12, 540, 800, 18, 0.7)
+addBurst(wt('reveal', 'motion', 0.15) + 0.25, 540, 690, 30, 0.9)
+addBurst(wt('close', 'foi', 0.3), 540, 480, 26, 0.8)
+addBurst(wt('close', 'movimento', 0.9), 540, 1035, 34, 1)
 
-const SCENES = { hook: sceneHook, reveal: sceneReveal, services: sceneServices, details: sceneDetails, close: sceneClose }
+const SCENES = { hook: sceneHook, reveal: sceneReveal, niches: sceneNiches, details: sceneDetails, close: sceneClose }
 window.render = frame => {
   const t = frame / FPS, cur = sceneOf(t)
-  drawBg(t, cur)
+  drawBg(t)
   for (const n of names) $(n).style.display = n === cur ? 'block' : 'none'
   SCENES[cur](t)
   drawFx(t)
   drawCaption(t)
-  const pb = spring(t - 0.3)
   $('brand').style.opacity = clamp((t - 0.25) * 4, 0, 1) * (1 - span(t, wt('close', 'foi', 0.3) - 0.3, 0.3))
-  $('brand').style.transform = `translateY(${(1 - pb) * -80}px)`
-  const fade = Math.min(span(t, 0, 0.25), 1 - span(t, TOTAL - 0.5, 0.5))
-  document.querySelector('.stage').style.filter = fade < 1 ? `brightness(${fade})` : ''
+  $('brand').style.transform = `translateY(${(1 - spring(t - 0.3)) * -80}px)`
+  const fade = Math.min(span(t, 0, 0.3), 1 - span(t, TOTAL - 0.6, 0.6))
+  document.querySelector('.stage').style.opacity = fade
 }
 </script>
 </body></html>
