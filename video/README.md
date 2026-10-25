@@ -8,3 +8,15 @@ bash video/build.sh <voice_id> # ou usa uma voz específica (veja video/out/voze
 ```
 
 Precisa do `HEYGEN_API_KEY` no ambiente, de `ffmpeg` e do Chromium do Playwright. O roteiro fica em `narrar.mjs` e as cenas em `promo.html`. A pasta `video/` fica fora do build do Nuxt, e `video/out/` não vai para o git.
+
+## Reels "eu faço motion"
+
+Vídeo vertical de 30 s divulgando o serviço de motion design, com narração masculina em pt-BR (HeyGen, com legenda sincronizada palavra a palavra) e trilha sintetizada.
+
+```bash
+bash video/build-motion.sh              # narração com a voz Murilo
+bash video/build-motion.sh <voice_id>   # ou outra voz da HeyGen
+REUSAR_VOZ=1 bash video/build-motion.sh # remonta sem gerar a voz de novo
+```
+
+O roteiro fica em `narrar-motion.mjs`, as cenas em `motion.html` e a trilha em `trilha.mjs`. Resultado: `video/out/motion/reels-motion-thierry.mp4`.
