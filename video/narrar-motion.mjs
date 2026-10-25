@@ -16,8 +16,8 @@ export const SCRIPT = [
   ['details', 'Reels, anúncios e vinhetas, com roteiro, narração e trilha, no formato certo para cada rede.'],
   ['close', 'E este vídeo que você está vendo? Foi feito pelo Thierry Araújo. Chama no WhatsApp e coloca a sua marca em movimento.']
 ]
-const voiceId = process.argv[2] || 'ab40d65529a74f0e83528a1c2133a3b0' // Serene Sofia (pt-BR, feminina e calma)
-const SPEED = 0.95 // um pouco mais devagar, para soar tranquila
+const voiceId = process.argv[2] || 'd703f08d1ef34302a36945aa3efc7b3f' // Murilo (pt-BR, masculina)
+const SPEED = 0.95 // um pouco mais devagar, para soar calma
 
 const only = process.env.CENAS?.split(',')
 const prev = only ? JSON.parse(fs.readFileSync(path.join(out, 'narracao.json'), 'utf8')) : null
