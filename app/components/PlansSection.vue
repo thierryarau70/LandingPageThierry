@@ -11,7 +11,7 @@
         <p class="price">R$ {{ p.price.toLocaleString('pt-BR') }}</p>
         <p class="tag">{{ p.tag }}</p>
         <ul><li v-for="f in p.features" :key="f">{{ f }}</li></ul>
-        <a class="btn" :href="waLink(`Olá Thierry! Quero uma landing page de R$ 600.${waSuffix}`)" target="_blank" rel="noopener">Quero minha landing page</a>
+        <a class="btn" :href="waLink(`Olá Thierry! Quero uma landing page de R$ 800.${waSuffix}`)" target="_blank" rel="noopener">Quero minha landing page</a>
       </article>
       <article class="plan custom-plan">
         <span class="goal">Do tamanho da sua ideia</span>

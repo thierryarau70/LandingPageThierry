@@ -8,7 +8,7 @@
         <a class="btn" :href="waLink(waText)" target="_blank" rel="noopener">Criar minha landing page</a>
         <a class="btn btn-ghost" href="#portfolio">Ver projetos</a>
       </div>
-      <p class="hero-offer">Landing page por <strong>R$ 600</strong> <span>Outros projetos sob orçamento</span></p>
+      <p class="hero-offer">Landing page por <strong>R$ 800</strong> <span>Outros projetos sob orçamento</span></p>
     </div>
     <div class="hero-shots" aria-hidden="true">
       <img v-for="(s, i) in shots" :key="s" :class="`s${i + 1}`" :src="s" alt="" width="1200" height="616">
