@@ -10,10 +10,10 @@ const heygen = (...args) => JSON.parse(execFileSync('heygen', args, { encoding: 
 
 export const SCRIPT = [
   ['hook', 'Seu negócio ainda não tem um site?'],
-  ['offer', 'Com o Thierry Araújo, seu site fica pronto em até cinco dias. Design, textos, versão para celular e domínio ponto com ponto br, tudo incluso por seiscentos reais.'],
+  ['offer', 'Com o Thierry Araújo, seu site fica pronto em até cinco dias. Design, textos, versão para celular e domínio ponto com ponto br, tudo incluso por oitocentos reais.'],
   ['process', 'Você vê a primeira versão em trinta e cinco horas, pede os ajustes e fala direto com quem desenvolve.'],
   ['projects', 'Veja os projetos que já estão no ar e peça o seu.'],
-  ['close', 'Acesse thierryaraujodev ponto com ponto br, ou chame no WhatsApp.']
+  ['close', 'Acesse Thierry Araújo dev ponto com ponto br, ou chame no WhatsApp.']
 ]
 
 let voiceId = process.argv[2]

@@ -44,11 +44,11 @@ const pt = {
   offer: siteOffer,
   projects: {} as Record<string, { category: string, goal: string }>,
   home: {
-    seoTitle: 'Site em até 5 dias por R$ 600 | Thierry Araújo',
-    seoDescription: 'Primeira versão em 35 horas. Site de até 5 páginas ou landing page por R$ 600, com textos, versão para celular e domínio .com.br incluso.',
+    seoTitle: 'Site em até 5 dias por R$ 800 | Thierry Araújo',
+    seoDescription: 'Primeira versão em 35 horas. Site de até 5 páginas ou landing page por R$ 800, com textos, versão para celular e domínio .com.br incluso.',
     ogTitle: 'Seu site em até 5 dias | Thierry Araújo',
-    ogDescription: 'Até 5 páginas, textos e domínio .com.br por R$ 600. Primeira versão em 35 horas.',
-    contact: 'Olá, Thierry! Quero um site de até 5 páginas por R$ 600. Podemos conversar?',
+    ogDescription: 'Até 5 páginas, textos e domínio .com.br por R$ 800. Primeira versão em 35 horas.',
+    contact: 'Olá, Thierry! Quero um site de até 5 páginas por R$ 800. Podemos conversar?',
     bigProject: 'Olá, Thierry! Quero consultar o valor de um projeto maior. Minha ideia é:',
     h1a: 'Seu site no ar', h1b: 'em até ', h1mark: '5 dias', h1c: '.',
     lead1: 'Você cuida do negócio.', lead2: 'Eu cuido do seu site.',
@@ -103,11 +103,11 @@ const pt = {
     email: 'Conversar por e-mail'
   },
   aboutPage: {
-    seoTitle: 'Site completo por R$ 600 | Thierry Araújo', seoDescription: 'Até 5 páginas ou uma landing page, com textos, domínio .com.br e primeira versão em 35 horas.',
-    title: 'Seu site, do começo ao ar.', sub: 'Até 5 páginas ou uma landing page por R$ 600. Primeira versão em 35 horas e publicação em até 5 dias.',
+    seoTitle: 'Site completo por R$ 800 | Thierry Araújo', seoDescription: 'Até 5 páginas ou uma landing page, com textos, domínio .com.br e primeira versão em 35 horas.',
+    title: 'Seu site, do começo ao ar.', sub: 'Até 5 páginas ou uma landing page por R$ 800. Primeira versão em 35 horas e publicação em até 5 dias.',
     includedTitle: 'O que está incluso', moreTitle: 'Mais funcionalidades',
     more: ['Loja virtual, login, sistema ou 10+ páginas: adicional de R$ 997 ao pacote base. SaaS, integrações e projetos maiores: valor sob consulta.', 'Os prazos começam após o alinhamento e recebimento das informações. Ajustes e aprovação dentro do período combinado; funcionalidades extras têm prazo definido na proposta.'],
-    wa: 'Olá, Thierry! Quero conversar sobre um site por R$ 600.', waLabel: 'Conversar no WhatsApp'
+    wa: 'Olá, Thierry! Quero conversar sobre um site por R$ 800.', waLabel: 'Conversar no WhatsApp'
   }
 }
 
@@ -144,7 +144,7 @@ const en: Messages = {
       { title: '.com.br domain included, in your name', text: 'Registered in your name and published on your domain. Renewal terms are agreed before we start.' }
     ],
     questions: [
-      { q: 'What do I get for R$ 600?', a: 'A website of up to 5 pages or a landing page for ads, with design, copy, mobile version, WhatsApp, contact form, Google readiness and a .com.br domain registered in your name.' },
+      { q: 'What do I get for R$ 800?', a: 'A website of up to 5 pages or a landing page for ads, with design, copy, mobile version, WhatsApp, contact form, Google readiness and a .com.br domain registered in your name.' },
       { q: 'When do I see the first version?', a: 'Within 35 hours after we align the project and I receive the information I need about your business. You review it and tell me what to adjust.' },
       { q: 'When does the site go live?', a: 'Within 5 days after alignment and receiving the information, with adjustments and approval inside that period. Projects with extra features get a timeline in the proposal.' },
       { q: 'Is the domain in my name?', a: 'Yes. The .com.br domain is included and registered in your name. Renewal terms and any recurring costs are defined before we start.' },
@@ -159,11 +159,11 @@ const en: Messages = {
     'https://www.arouchemodaintima.com.br': { category: 'Online catalog', goal: 'Showcase the store\'s products and take orders on WhatsApp, no sign-up needed.' }
   },
   home: {
-    seoTitle: 'Your website in up to 5 days for R$ 600 | Thierry Araújo',
-    seoDescription: 'First version in 35 hours. A website of up to 5 pages or a landing page for R$ 600, with copy, mobile version and a .com.br domain included.',
+    seoTitle: 'Your website in up to 5 days for R$ 800 | Thierry Araújo',
+    seoDescription: 'First version in 35 hours. A website of up to 5 pages or a landing page for R$ 800, with copy, mobile version and a .com.br domain included.',
     ogTitle: 'Your website in up to 5 days | Thierry Araújo',
-    ogDescription: 'Up to 5 pages, copy and a .com.br domain for R$ 600. First version in 35 hours.',
-    contact: 'Hi Thierry! I\'d like a website of up to 5 pages for R$ 600. Can we talk?',
+    ogDescription: 'Up to 5 pages, copy and a .com.br domain for R$ 800. First version in 35 hours.',
+    contact: 'Hi Thierry! I\'d like a website of up to 5 pages for R$ 800. Can we talk?',
     bigProject: 'Hi Thierry! I\'d like a quote for a larger project. My idea is:',
     h1a: 'Your website live', h1b: 'in up to ', h1mark: '5 days', h1c: '.',
     lead1: 'You run the business.', lead2: 'I take care of your website.',
@@ -218,11 +218,11 @@ const en: Messages = {
     email: 'Talk by email'
   },
   aboutPage: {
-    seoTitle: 'Complete website for R$ 600 | Thierry Araújo', seoDescription: 'Up to 5 pages or a landing page, with copy, a .com.br domain and the first version in 35 hours.',
-    title: 'Your website, from start to live.', sub: 'Up to 5 pages or a landing page for R$ 600. First version in 35 hours and launch in up to 5 days.',
+    seoTitle: 'Complete website for R$ 800 | Thierry Araújo', seoDescription: 'Up to 5 pages or a landing page, with copy, a .com.br domain and the first version in 35 hours.',
+    title: 'Your website, from start to live.', sub: 'Up to 5 pages or a landing page for R$ 800. First version in 35 hours and launch in up to 5 days.',
     includedTitle: 'What\'s included', moreTitle: 'More features',
     more: ['Online store, login, system or 10+ pages: R$ 997 on top of the base package. SaaS, integrations and larger projects: quoted individually.', 'Timelines start after we align and I receive the information. Adjustments and approval within the agreed period; extra features get a timeline in the proposal.'],
-    wa: 'Hi Thierry! I\'d like to talk about a website for R$ 600.', waLabel: 'Talk on WhatsApp'
+    wa: 'Hi Thierry! I\'d like to talk about a website for R$ 800.', waLabel: 'Talk on WhatsApp'
   }
 }
 

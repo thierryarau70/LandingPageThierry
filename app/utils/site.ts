@@ -21,7 +21,7 @@ export const plans: Plan[] = [
   {
     name: 'Site completo',
     goal: 'Seu negócio no ar',
-    price: 600,
+    price: 800,
     tag: 'Até 5 páginas ou uma landing page, com textos, domínio .com.br e publicação.',
     features: ['Até 5 páginas ou uma landing page', 'Textos e design personalizados', 'Versão para celular', 'WhatsApp e formulário por e-mail', 'Domínio .com.br incluso no seu nome', 'Primeira versão em 35 horas', 'Publicação em até 5 dias']
   }
