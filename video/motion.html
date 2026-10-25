@@ -44,6 +44,20 @@ canvas{position:absolute;inset:0}
 /* 3: nichos */
 .h3{top:270px;font-size:84px}
 .h3 em{font-style:normal;color:var(--p)}
+.browser{position:absolute;left:160px;top:470px;width:760px;height:760px;border-radius:30px;background:#fff;border:2px solid var(--line);overflow:hidden}
+.bbar{display:flex;align-items:center;gap:10px;height:64px;padding:0 26px;border-bottom:2px solid var(--line)}
+.bbar i{width:14px;height:14px;border-radius:50%;background:var(--line)}
+.bbar span{margin-left:16px;flex:1;height:36px;border-radius:999px;background:var(--bg);font-size:22px;color:var(--mut);line-height:36px;padding-left:22px}
+.bnav{display:flex;gap:22px;padding:28px 40px}
+.bnav u{display:block;width:90px;height:14px;border-radius:7px;background:var(--line)}
+.bnav u:first-child{width:60px;background:var(--txt);margin-right:auto}
+.bhero{position:relative;margin:0 40px;height:300px;border-radius:22px;background:var(--soft);overflow:hidden}
+.bhero svg{position:absolute;inset:0}
+.bt{position:absolute;left:36px;top:60px;width:360px;height:30px;border-radius:15px;background:var(--txt)}
+.bt2{top:110px;width:260px}
+.bbtn{position:absolute;left:36px;top:180px;width:190px;height:56px;border-radius:999px;background:var(--p)}
+.bcols{display:flex;gap:24px;margin:30px 40px}
+.bcols div{flex:1;height:200px;border-radius:20px;background:var(--bg);border:2px solid var(--line)}
 .niche{position:absolute;width:430px;height:280px;border-radius:32px;background:#fff;border:2px solid var(--line);overflow:hidden}
 .niche svg{position:absolute;left:30px;top:30px;width:140px;height:140px}
 .niche b{position:absolute;left:34px;bottom:30px;font-family:'Space Grotesk';font-weight:500;font-size:48px;letter-spacing:-.04em}
@@ -101,7 +115,15 @@ canvas{position:absolute;inset:0}
   </section>
 
   <section class="scene" id="niches">
+    <h2 class="abs center g h3" id="nh0">Além de <em>sites</em>,</h2>
+    <h2 class="abs center g h3" id="nh1">também <em>motion</em></h2>
     <h2 class="abs center g h3" id="nh">Para <em>diversos</em> nichos</h2>
+    <div class="browser shadow" id="browser">
+      <div class="bbar"><i></i><i></i><i></i><span>seunegocio.com.br</span></div>
+      <div class="bnav"><u></u><u></u><u></u><u></u></div>
+      <div class="bhero" id="bhero"><div class="bt"></div><div class="bt bt2"></div><div class="bbtn"></div><svg viewBox="0 0 680 300" id="bart"></svg></div>
+      <div class="bcols"><div></div><div></div><div></div></div>
+    </div>
     <div id="grid"></div>
   </section>
 
@@ -149,7 +171,7 @@ const INK = '#182947', P = '#5745cb', P2 = '#394fb1', LINE = '#dce2ef'
 // ---------- Tempo das cenas (vem da narração: out/motion/timing.js) ----------
 const LEAD = 0.4, GAP = 0.5, TAIL = 1.6 // os mesmos valores de build-motion.sh
 const NARR = window.NARR || { scenes: [
-  { id: 'hook', duration: 3.6, words: [] }, { id: 'reveal', duration: 6.84, words: [] }, { id: 'niches', duration: 10.08, words: [] },
+  { id: 'hook', duration: 3.6, words: [] }, { id: 'reveal', duration: 6.84, words: [] }, { id: 'niches', duration: 11.18, words: [] },
   { id: 'details', duration: 8.05, words: [] }, { id: 'close', duration: 7.78, words: [] }] }
 const S = {}, names = []; let acc = LEAD
 NARR.scenes.forEach(s => { names.push(s.id); S[s.id] = { a: acc, b: acc + s.duration + GAP, words: s.words.map(w => ({ ...w, s: w.s + acc, e: w.e + acc })) }; acc += s.duration + GAP })
@@ -320,10 +342,24 @@ const NICHES = [
 ]
 $('grid').innerHTML = NICHES.map((n, i) => `<div class="niche shadow" id="n${i}" style="left:${i % 2 ? 560 : 90}px;top:${430 + Math.floor(i / 2) * 310}px"><svg viewBox="0 0 140 140" id="ni${i}"></svg><span class="n">0${i + 1}</span><b>${n[1]}</b></div>`).join('')
 const sceneNiches = t => {
-  const a = S.niches.a, tn = wt('niches', 'nichos', 0.26)
-  const ph = spring(t - wt('niches', 'diversos', 0.2) + 0.2)
-  $('nh').style.opacity = clamp((t - a) * 3, 0, 1); $('nh').style.transform = `translateY(${(1 - spring(t - a + 0.1)) * 50}px)`
-  $('nh').querySelector('em').style.opacity = 0.3 + 0.7 * ph
+  // "além de sites" (janela de site) → "também motion" (o site ganha animação) → "para diversos nichos" (cards)
+  const a = S.niches.a, t1 = wt('niches', 'eu', 0.17) - 0.1, tv = wt('niches', 'vídeos', 0.25), t2 = wt('niches', 'nichos', 0.4) - 0.5
+  const heads = [['nh0', a - 0.1, t1], ['nh1', t1, t2], ['nh', t2, Infinity]]
+  heads.forEach(([id, s, e]) => {
+    const pin = spring(t - s), out = ease(span(t, e - 0.2, 0.3))
+    $(id).style.opacity = t >= s - 0.05 ? clamp((t - s + 0.05) * 6, 0, 1) * (1 - out) : 0
+    $(id).style.transform = `translateY(${(1 - pin) * 60 - out * 60}px)`
+  })
+  const pb = spring(t - a + 0.05), gone = ease(span(t, t2 - 0.1, 0.45))
+  $('browser').style.opacity = 1 - gone
+  $('browser').style.transform = `translateY(${(1 - pb) * 300 - gone * 120}px) scale(${(0.9 + 0.1 * pb) * (1 - gone * 0.25)})`
+  // no "vídeos" o topo do site vira motion: o texto sai e entram formas animadas
+  const pm = ease(span(t, tv - 0.2, 0.5)), u = Math.max(0, t - tv + 0.2)
+  $('bhero').style.background = pm > 0 ? P : ''
+  $('bhero').querySelectorAll('.bt,.bbtn').forEach((el, i) => { el.style.opacity = 1 - pm; el.style.transform = `translateX(${-pm * 80 * (i + 1)}px)` })
+  const T = (u * 1.3) % 1, by = 220 - 150 * (1 - Math.pow(2 * T - 1, 2)), sq = T < 0.08 || T > 0.92 ? 1.3 : 1
+  $('bart').innerHTML = pm <= 0 ? '' : `<g opacity="${pm}">${[0, 1, 2].map(i => `<rect x="${110 + i * 190}" y="60" width="60" height="60" rx="14" fill="none" stroke="#fff" stroke-width="7" transform="rotate(${u * 110 + i * 30} ${140 + i * 190} 90)"/>`).join('')}
+    <line x1="60" y1="256" x2="620" y2="256" stroke="#ffffff66" stroke-width="4" stroke-linecap="round"/><ellipse cx="340" cy="${by}" rx="${32 * sq}" ry="${32 / sq}" fill="#fff"/></g>`
   NICHES.forEach((n, i) => {
     const tk = wt('niches', n[0], 0.35 + i * 0.1) - 0.15, u = t - tk, p = spring(u), el = $('n' + i)
     el.style.opacity = clamp(u * 5, 0, 1)
