@@ -31,3 +31,5 @@ VIDEO=site REUSAR_VOZ=1 bash video/build-motion.sh # remonta sem gerar a voz de 
 ```
 
 O roteiro fica em `narrar-motion.mjs` (`SCRIPTS.site`) e as cenas em `site.html`. Resultado: `video/out/site/stories-site-thierry.mp4`.
+
+Versão curta (~44 s), com as mesmas cenas e os pontos principais: `VIDEO=curto bash video/build-motion.sh` (roteiro em `SCRIPTS.curto`). Resultado: `video/out/curto/stories-curto-thierry.mp4`.

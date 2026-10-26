@@ -2,6 +2,7 @@
 // Precisa de HEYGEN_API_KEY no ambiente. Saída: video/out/<vídeo>/<cena>.wav e narracao.json
 // Uso: node video/narrar-motion.mjs [voice_id]              (VIDEO=motion, o padrão: reels "eu faço motion")
 //      VIDEO=site node video/narrar-motion.mjs              (stories de divulgação do site)
+//      VIDEO=curto node video/narrar-motion.mjs             (versão curta do stories)
 //      CENAS=niches node video/narrar-motion.mjs   (refaz só essas falas e mantém as outras já geradas)
 import fs from 'node:fs'
 import path from 'node:path'
@@ -31,6 +32,16 @@ SCRIPTS.site = [
   ['niches', 'Atendo clínicas, cursos, lojas e prestadores de serviço.'],
   ['projects', 'Alguns projetos no ar: Plataforma Prumo, Radar de Clientes, Doutora Emile Vitória, Arouche Moda Íntima, Agrovet e Attletto.'],
   ['about', 'São quatro anos de experiência no mercado, e você fala direto comigo, da primeira conversa à publicação.'],
+  ['close', 'Acesse Thierry Araújo dev ponto com ponto br, ou chama no WhatsApp.']
+]
+// versão curta do stories (30–45 s): usa as mesmas cenas de site.html
+SCRIPTS.curto = [
+  ['hook', 'Seu próximo cliente começa com um bom site.'],
+  ['intro', 'Eu sou o Thierry Araújo. Crio landing pages, sites, sistemas e automações com inteligência artificial.'],
+  ['offer', 'Landing page por seiscentos reais, e site completo, com até cinco páginas, por oitocentos.'],
+  ['includes', 'Com design e textos, versão para celular, WhatsApp, Google e domínio no seu nome.'],
+  ['ai', 'E automações com inteligência artificial: atendimento no WhatsApp, respostas automáticas e relatórios.'],
+  ['projects', 'Veja projetos no ar, como Prumo, Radar de Clientes e Doutora Emile.'],
   ['close', 'Acesse Thierry Araújo dev ponto com ponto br, ou chama no WhatsApp.']
 ]
 const SCRIPT = SCRIPTS[VIDEO]

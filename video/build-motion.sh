@@ -3,17 +3,23 @@
 # 1) gera a voz de cada cena (com o tempo de cada palavra)  2) renderiza <vídeo>.html  3) gera a trilha  4) mixa tudo
 # Uso: bash video/build-motion.sh [voice_id]             Resultado: video/out/motion/reels-motion-thierry.mp4
 #      VIDEO=site bash video/build-motion.sh             Resultado: video/out/site/stories-site-thierry.mp4
+#      VIDEO=curto bash video/build-motion.sh            Resultado: video/out/curto/stories-curto-thierry.mp4 (30–45 s)
 # REUSAR_VOZ=1 remonta com a narração já gerada em out/<vídeo>/ (sem gastar crédito)
 set -euo pipefail
 cd "$(dirname "$0")"
 export VIDEO="${VIDEO:-motion}"
 OUT="out/$VIDEO"
-case "$VIDEO" in site) FINAL="$OUT/stories-site-thierry.mp4" ;; *) FINAL="$OUT/reels-$VIDEO-thierry.mp4" ;; esac
+PAGE="$VIDEO.html?v=$VIDEO"
+case "$VIDEO" in
+  site) FINAL="$OUT/stories-site-thierry.mp4" ;;
+  curto) FINAL="$OUT/stories-curto-thierry.mp4"; PAGE="site.html?v=curto" ;; # mesmas cenas do stories completo
+  *) FINAL="$OUT/reels-$VIDEO-thierry.mp4" ;;
+esac
 [[ -n "${REUSAR_VOZ:-}" ]] || node narrar-motion.mjs "${1:-}"
 
 LEAD=0.4; GAP=0.5; TAIL=1.6   # mesmos valores das páginas (motion.html, site.html)
 OUT=$OUT node -e 'const fs=require("fs");fs.writeFileSync(process.env.OUT+"/timing.js","window.NARR = "+fs.readFileSync(process.env.OUT+"/narracao.json","utf8"))'
-PAGE=$VIDEO.html node render.mjs $OUT/video.mp4
+PAGE="$PAGE" node render.mjs $OUT/video.mp4
 
 read -r TOTAL CUTS < <(OUT=$OUT node -e '
 const n=require("./"+process.env.OUT+"/narracao.json"); let t='"$LEAD"', cuts=[]

@@ -190,7 +190,10 @@ em{font-style:normal;color:var(--p)}
 
   <div class="brand" id="brand"><div><i>t.</i><span>Thierry Araújo · <b>Desenvolvedor web</b></span></div></div>
 </div>
-<script src="out/site/timing.js" onerror="void 0"></script>
+<script>
+// narração do vídeo escolhido em ?v= (site ou curto); sem ela, a página usa tempos de exemplo
+document.write(`<script src="out/${new URLSearchParams(location.search).get('v') || 'site'}/timing.js" onerror="void 0"><\/script>`)
+</script>
 <script>
 // ---------- Utilidades (tudo é função do quadro, para o render ser determinístico) ----------
 const FPS = 30, W = 1080, H = 1920
@@ -267,8 +270,9 @@ const sceneOffer = t => {
   enter($('oh'), t, S.offer.a - 0.15)
   const t0 = wt('offer', 'landing', 0.1) - 0.25, t1 = wt('offer', 'site', 0.45) - 0.25
   enter($('o0'), t, t0, 40, 0.6); enter($('o1'), t, t1, 40, 0.6)
-  $('pv0').textContent = Math.round(600 * easeIO(span(t, wt('offer', 'seiscentos', 0.25) - 0.2, 0.6)))
-  $('pv1').textContent = Math.round(800 * easeIO(span(t, wt('offer', 'oitocentos', 0.8) - 0.2, 0.6)))
+  // o valor conta junto com a entrada do cartão, para nunca aparecer "R$ 0"
+  $('pv0').textContent = Math.round(600 * easeIO(span(t, t0 + 0.1, 0.7)))
+  $('pv1').textContent = Math.round(800 * easeIO(span(t, t1 + 0.1, 0.7)))
 }
 const INCL = [['design', 'Design e textos para o seu negócio'], ['celular', 'Versão para celular'], ['whatsapp', 'WhatsApp e formulário de contato'], ['google', 'Preparação para o Google'], ['domínio', 'Domínio .com.br no seu nome']]
 $('items').innerHTML = INCL.map((x, i) => `<div class="item shadow" id="it${i}" style="top:${470 + i * 150}px"><svg viewBox="0 0 68 68"><circle cx="34" cy="34" r="34" fill="#eef0fb"/><path id="ck${i}" d="M21 35 L30 44 L48 25" fill="none" stroke="${P}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="40" stroke-dashoffset="40"/></svg>${x[1]}</div>`).join('')
