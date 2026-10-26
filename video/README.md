@@ -23,7 +23,7 @@ O roteiro fica em `narrar-motion.mjs`, as cenas em `motion.html` e a trilha em `
 
 ## Stories de divulgação do site
 
-Vídeo vertical de ~36 s, no visual claro do site, divulgando o site completo por R$ 600, com narração do Murilo (HeyGen), legenda sincronizada e animações suaves.
+Vídeo vertical de ~87 s, no visual claro do site, com todas as informações do site: oferta de R$ 800, o que está incluso, como funciona e prazos, benefícios, adicional de R$ 997, nichos, projetos, sobre mim e contato. Narração do Murilo (HeyGen), legenda sincronizada e animações suaves.
 
 ```bash
 VIDEO=site bash video/build-motion.sh              # gera a voz e monta o vídeo

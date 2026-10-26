@@ -20,11 +20,16 @@ SCRIPTS.motion = [
   ['close', 'E este vídeo que você está vendo? Foi feito pelo Thierry Araújo. Chama no WhatsApp e coloca a sua marca em movimento.']
 ]
 SCRIPTS.site = [
-  ['hook', 'Seu negócio ainda não tem um site?'],
-  ['offer', 'Eu crio o seu site completo, pronto para receber clientes, por apenas seiscentos reais.'],
-  ['includes', 'Até cinco páginas, textos escritos para o seu negócio, versão para celular, botão de WhatsApp e domínio ponto com ponto br no seu nome.'],
-  ['process', 'Você vê a primeira versão em até trinta e cinco horas, e o seu site fica no ar em até cinco dias.'],
-  ['projects', 'Veja alguns projetos que já estão no ar.'],
+  ['hook', 'Seu próximo cliente começa com um bom site.'],
+  ['intro', 'Eu sou o Thierry Araújo, desenvolvedor web. Crio landing pages, sites e sistemas, com atenção a cada detalhe.'],
+  ['offer', 'Seu site completo, com até cinco páginas ou uma landing page, por oitocentos reais.'],
+  ['includes', 'Já vem com design e textos escritos para o seu negócio, versão para celular, WhatsApp e formulário de contato, preparação para o Google e domínio ponto com ponto br no seu nome.'],
+  ['process', 'Funciona assim: a gente conversa, alinha a proposta, eu crio e você acompanha. A primeira versão sai em até trinta e cinco horas, e o site fica no ar em até cinco dias.'],
+  ['services', 'Tudo com carregamento rápido, pensado para o celular, com foco em conversão e pronto para os seus anúncios.'],
+  ['extras', 'Precisa de loja virtual, login ou sistema? É um adicional de novecentos e noventa e sete reais. Plataformas e projetos maiores, sob orçamento.'],
+  ['niches', 'Atendo clínicas, cursos, lojas e prestadores de serviço.'],
+  ['projects', 'Alguns projetos no ar: Plataforma Prumo, Radar de Clientes, Doutora Emile Vitória, Arouche Moda Íntima, Agrovet e Attletto.'],
+  ['about', 'São quatro anos de experiência no mercado, e você fala direto comigo, da primeira conversa à publicação.'],
   ['close', 'Acesse Thierry Araújo dev ponto com ponto br, ou chama no WhatsApp.']
 ]
 const SCRIPT = SCRIPTS[VIDEO]
