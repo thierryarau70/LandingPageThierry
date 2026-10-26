@@ -5,7 +5,7 @@
 //      VIDEO=curto node video/narrar-motion.mjs             (versão curta do stories)
 //      CENAS=niches node video/narrar-motion.mjs   (refaz só essas falas, uma por vez, e mantém as outras já geradas)
 // Sem CENAS, o roteiro vira uma narração contínua (entonação mais natural) recortada por cena.
-import { execFileSync } from 'node:child_process'
+import { execFileSync, spawnSync } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
 const dir = path.dirname(new URL(import.meta.url).pathname)
@@ -66,7 +66,8 @@ const speak = async text => {
   return { buf: Buffer.from(await audio.arrayBuffer()), duration: r.data.duration, words }
 }
 const countWords = text => text.split(/\s+/).filter(Boolean).length
-const cut = (src, dst, from, to) => execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', src, '-ss', from.toFixed(3), '-to', to.toFixed(3), '-af', `afade=t=in:d=0.02,afade=t=out:st=${(to - from - 0.03).toFixed(3)}:d=0.03`, '-c:a', 'pcm_s16le', dst])
+// -ss/-t antes do -i: o trecho começa no tempo 0, então o fade de saída fica no fim do trecho (e não no meio da narração)
+const cut = (src, dst, from, to) => execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-ss', from.toFixed(3), '-t', (to - from).toFixed(3), '-i', src, '-af', `afade=t=in:d=0.02,afade=t=out:st=${(to - from - 0.03).toFixed(3)}:d=0.03`, '-c:a', 'pcm_s16le', dst])
 
 const only = process.env.CENAS?.split(',')
 const result = { voice_id: voiceId, scenes: [] }
@@ -77,16 +78,22 @@ if (!only) {
   const fullFile = path.join(out, 'completa.wav'); fs.writeFileSync(fullFile, full.buf)
   const counts = SCRIPT.map(([, text]) => countWords(text))
   if (counts.reduce((x, y) => x + y) !== full.words.length) throw new Error(`palavras não batem (${counts.reduce((x, y) => x + y)} no roteiro, ${full.words.length} na voz); use CENAS=... para gerar fala por fala`)
+  // silêncios reais da narração: as marcações de tempo da HeyGen se adiantam até ~0,2 s, então cada corte vai
+  // para o meio do silêncio mais próximo da estimativa
+  const log = spawnSync('ffmpeg', ['-hide_banner', '-i', fullFile, '-af', 'silencedetect=n=-40dB:d=0.15', '-f', 'null', '-'], { encoding: 'utf8' }).stderr // o ffmpeg escreve o relatório no stderr
+  const silences = []; let st = null
+  for (const m of log.matchAll(/silence_(start|end): ([0-9.]+)/g)) { if (m[1] === 'start') st = +m[2]; else if (st !== null) { silences.push([st, +m[2]]); st = null } }
+  const snap = t => { let best = null, bd = 0.8; for (const [a, b] of silences) { const d = t < a ? a - t : t > b ? t - b : 0; if (d < bd) { bd = d; best = (a + b) / 2 } } return best ?? t }
   const groups = []; let k = 0
   for (const n of counts) { groups.push(full.words.slice(k, k + n)); k += n }
   for (const [i, [id, text]] of SCRIPT.entries()) {
     // o fim marcado de cada palavra vem um pouco antes do som acabar: o corte fica no meio da pausa entre as cenas
     const ws = groups[i], prev = groups[i - 1], next = groups[i + 1]
-    const from = prev ? (prev.at(-1).e + ws[0].s) / 2 : Math.max(0, ws[0].s - 0.12)
-    const to = next ? (ws.at(-1).e + next[0].s) / 2 : full.duration
+    const from = prev ? snap((prev.at(-1).e + ws[0].s) / 2) : Math.max(0, ws[0].s - 0.12)
+    const to = next ? snap((ws.at(-1).e + next[0].s) / 2) : full.duration
     const file = path.join(out, `${id}.wav`); cut(fullFile, file, from, to)
     result.scenes.push({ id, text, file, duration: to - from, words: ws.map(w => ({ w: w.w, s: w.s - from, e: w.e - from })) })
-    console.log(id, (to - from).toFixed(2), 's')
+    console.log(id, (to - from).toFixed(2), 's', `(corte ${from.toFixed(2)}–${to.toFixed(2)})`)
   }
 } else {
   // refaz só algumas falas, uma por vez, e mantém as outras já geradas
