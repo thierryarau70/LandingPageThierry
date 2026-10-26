@@ -120,7 +120,7 @@ em{font-style:normal;color:var(--p)}
   <section class="scene" id="offer">
     <h2 class="h g" id="oh">Quanto <em>custa</em></h2>
     <div class="card plan shadow" id="o0" style="top:470px"><div><h3>Landing page</h3><p>Uma página focada em anúncios</p></div><b><small>R$</small><span id="pv0">600</span></b></div>
-    <div class="card plan shadow" id="o1" style="top:850px"><div><h3>Site completo</h3><p>Até 5 páginas: início, sobre, serviços, contato…</p></div><b><small>R$</small><span id="pv1">800</span></b></div>
+    <div class="card plan shadow" id="o1" style="top:850px"><div><h3>Site completo</h3><p>Até 5 páginas: início, sobre, serviços, contato…</p></div><b><small>R$</small><span id="pv1">1.200</span></b></div>
   </section>
 
   <section class="scene" id="includes">
@@ -272,7 +272,7 @@ const sceneOffer = t => {
   enter($('o0'), t, t0, 40, 0.6); enter($('o1'), t, t1, 40, 0.6)
   // o valor conta junto com a entrada do cartão, para nunca aparecer "R$ 0"
   $('pv0').textContent = Math.round(600 * easeIO(span(t, t0 + 0.1, 0.7)))
-  $('pv1').textContent = Math.round(800 * easeIO(span(t, t1 + 0.1, 0.7)))
+  $('pv1').textContent = Math.round(1200 * easeIO(span(t, t1 + 0.1, 0.7))).toLocaleString('pt-BR')
 }
 const INCL = [['design', 'Design e textos para o seu negócio'], ['celular', 'Versão para celular'], ['whatsapp', 'WhatsApp e formulário de contato'], ['google', 'Preparação para o Google'], ['domínio', 'Domínio .com.br no seu nome']]
 $('items').innerHTML = INCL.map((x, i) => `<div class="item shadow" id="it${i}" style="top:${470 + i * 150}px"><svg viewBox="0 0 68 68"><circle cx="34" cy="34" r="34" fill="#eef0fb"/><path id="ck${i}" d="M21 35 L30 44 L48 25" fill="none" stroke="${P}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="40" stroke-dashoffset="40"/></svg>${x[1]}</div>`).join('')
@@ -313,8 +313,8 @@ const sceneNiches = t => {
   enter($('kh'), t, S.niches.a - 0.15)
   NICH.forEach(([w], i) => enter($('ni' + i), t, wt('niches', w, 0.15 + i * 0.2) - 0.2, 30, 0.5))
 }
-const PROJ = [['prumo', 'prumo', 'Plataforma Prumo', 'Newsletter'], ['radar', 'radar-clientes', 'Radar de Clientes', 'Prospecção'], ['doutora', 'emile', 'Dra. Emile Vitória', 'Dentista'], ['arouche', 'arouche', 'Arouche', 'Catálogo'], ['agrovet', 'agrovet', 'Agrovet', 'Sistema'], ['attletto', 'attletto', 'Attletto Teams', 'Gestão']]
-$('shots').innerHTML = PROJ.map((x, i) => `<div class="shot shadow" id="pj${i}" style="left:${i % 2 ? 570 : 90}px;top:${430 + Math.floor(i / 2) * 290}px"><img src="../public/portfolio/${x[1]}.webp"><div class="bar"><i></i>${x[2]}<small>${x[3]}</small></div></div>`).join('')
+const PROJ = [['radar', 'radar-clientes', 'Radar de Clientes', 'Prospecção'], ['doutora', 'emile', 'Dra. Emile Vitória', 'Dentista'], ['arouche', 'arouche', 'Arouche', 'Catálogo'], ['agrovet', 'agrovet', 'Agrovet', 'Sistema'], ['attletto', 'attletto', 'Attletto Teams', 'Gestão']]
+$('shots').innerHTML = PROJ.map((x, i) => `<div class="shot shadow" id="pj${i}" style="left:${i === PROJ.length - 1 && i % 2 === 0 ? 330 : i % 2 ? 570 : 90}px;top:${430 + Math.floor(i / 2) * 290}px"><img src="../public/portfolio/${x[1]}.webp"><div class="bar"><i></i>${x[2]}<small>${x[3]}</small></div></div>`).join('')
 const sceneProjects = t => {
   enter($('jh'), t, S.projects.a - 0.15)
   PROJ.forEach(([w], i) => enter($('pj' + i), t, wt('projects', w, 0.2 + i * 0.13) - 0.25, 50, 0.6))

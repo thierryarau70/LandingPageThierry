@@ -23,14 +23,14 @@ SCRIPTS.motion = [
 SCRIPTS.site = [
   ['hook', 'Seu próximo cliente começa com um bom site.'],
   ['intro', 'Eu sou o Thierry Araújo, desenvolvedor web. Crio landing pages, sites, sistemas e automações com inteligência artificial.'],
-  ['offer', 'Uma landing page sai por seiscentos reais, e o site completo, com até cinco páginas, por oitocentos reais.'],
+  ['offer', 'Uma landing page sai por seiscentos reais, e o site completo, com até cinco páginas, por mil e duzentos reais.'],
   ['includes', 'Já vem com design e textos escritos para o seu negócio, versão para celular, WhatsApp e formulário de contato, preparação para o Google e domínio ponto com ponto br no seu nome.'],
   ['process', 'Funciona assim: a gente conversa, alinha a proposta, eu crio e você acompanha. A primeira versão sai em até trinta e cinco horas, e o site fica no ar em até cinco dias.'],
   ['services', 'Tudo com carregamento rápido, pensado para o celular, com foco em conversão e pronto para os seus anúncios.'],
   ['ai', 'Também crio automações com inteligência artificial: atendimento no WhatsApp, respostas automáticas, envio de e-mails e relatórios, tudo integrado ao seu negócio.'],
   ['extras', 'Precisa de loja virtual, login ou sistema? É um adicional de novecentos e noventa e sete reais. Sistemas com inteligência artificial e projetos maiores, sob orçamento.'],
   ['niches', 'Atendo clínicas, cursos, lojas e prestadores de serviço.'],
-  ['projects', 'Alguns projetos no ar: Plataforma Prumo, Radar de Clientes, Doutora Emile Vitória, Arouche Moda Íntima, Agrovet e Attletto.'],
+  ['projects', 'Alguns projetos no ar: Radar de Clientes, Doutora Emile Vitória, Arouche Moda Íntima, Agrovet e Attletto.'],
   ['about', 'São quatro anos de experiência no mercado, e você fala direto comigo, da primeira conversa à publicação.'],
   ['close', 'Acesse Thierry Araújo dev ponto com ponto br, ou chama no WhatsApp.']
 ]
@@ -38,10 +38,10 @@ SCRIPTS.site = [
 SCRIPTS.curto = [
   ['hook', 'Seu próximo cliente começa com um bom site.'],
   ['intro', 'Eu sou o Thierry Araújo. Crio landing pages, sites, sistemas e automações com inteligência artificial.'],
-  ['offer', 'Landing page por seiscentos reais, e site completo, com até cinco páginas, por oitocentos.'],
+  ['offer', 'Landing page por seiscentos reais, e site completo, com até cinco páginas, por mil e duzentos.'],
   ['includes', 'Com design e textos, versão para celular, WhatsApp, Google e domínio no seu nome.'],
   ['ai', 'E automações com inteligência artificial: atendimento no WhatsApp, respostas automáticas e relatórios.'],
-  ['projects', 'Veja projetos no ar, como Prumo, Radar de Clientes e Doutora Emile.'],
+  ['projects', 'Veja projetos no ar, como Radar de Clientes, Doutora Emile e Arouche.'],
   ['close', 'Acesse Thierry Araújo dev ponto com ponto br, ou chama no WhatsApp.']
 ]
 const SCRIPT = SCRIPTS[VIDEO]

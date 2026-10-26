@@ -23,7 +23,7 @@ O roteiro fica em `narrar-motion.mjs`, as cenas em `motion.html` e a trilha em `
 
 ## Stories de divulgação do site
 
-Vídeo vertical de ~1min40, no visual claro do site e sem legenda, com todas as informações do site: landing page por R$ 600 e site completo por R$ 800, o que está incluso, como funciona e prazos, benefícios, automações com IA, adicional de R$ 997 e sistemas com IA sob orçamento, nichos, projetos, sobre mim e contato. Narração do Murilo (HeyGen) e animações suaves.
+Vídeo vertical de ~1min40, no visual claro do site e sem legenda, com todas as informações do site: landing page por R$ 600 e site completo por R$ 1.200, o que está incluso, como funciona e prazos, benefícios, automações com IA, adicional de R$ 997 e sistemas com IA sob orçamento, nichos, projetos, sobre mim e contato. Narração do Murilo (HeyGen) e animações suaves.
 
 ```bash
 VIDEO=site bash video/build-motion.sh              # gera a voz e monta o vídeo
