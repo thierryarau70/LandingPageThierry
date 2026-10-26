@@ -96,6 +96,26 @@ export const projects: Project[] = [
     delivery: 'Design, desenvolvimento do catálogo e integração com WhatsApp.'
   },
   {
+    name: 'Agenda Emi',
+    category: 'App para dentistas',
+    description: 'App para dentistas organizarem o consultório: consultas com lembrete (que vai também para o calendário do iPhone ou do Google), atendimentos lançados com um toque, finanças separadas por Pix, crédito, débito e espécie, assistente que anota gastos por mensagem e planilha do mês. Instala no celular como app e funciona até sem internet.',
+    url: 'https://agenda-emi.vercel.app',
+    image: '/portfolio/agenda-emi.webp',
+    tags: ['App', 'Agenda', 'Finanças', 'Assinatura'],
+    goal: 'Agenda com lembretes e finanças do consultório num app só, sem caderno nem planilha.',
+    delivery: 'Design e desenvolvimento do app, da página de vendas e da assinatura com 14 dias grátis.'
+  },
+  {
+    name: 'Protocolo IATF',
+    category: 'App para veterinários',
+    description: 'App para veterinários registrarem o protocolo de IATF (inseminação artificial em tempo fixo) e o diagnóstico de gestação (DG) direto no campo, mesmo sem internet. Cada veterinário tem a própria conta.',
+    url: 'https://protocolo-iatf.vercel.app',
+    image: '/portfolio/protocolo-iatf.webp',
+    tags: ['Veterinária', 'IATF', 'Offline'],
+    goal: 'Registrar protocolos de IATF e diagnósticos de gestação no campo, mesmo sem sinal.',
+    delivery: 'Design e desenvolvimento do app, com login e uso offline.'
+  },
+  {
     name: 'Centro de Isoladas',
     hidden: true,
     category: 'Cursinho preparatório',
