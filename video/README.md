@@ -20,3 +20,14 @@ REUSAR_VOZ=1 bash video/build-motion.sh # remonta sem gerar a voz de novo
 ```
 
 O roteiro fica em `narrar-motion.mjs`, as cenas em `motion.html` e a trilha em `trilha.mjs`. Resultado: `video/out/motion/reels-motion-thierry.mp4`.
+
+## Stories de divulgação do site
+
+Vídeo vertical de ~36 s, no visual claro do site, divulgando o site completo por R$ 600, com narração do Murilo (HeyGen), legenda sincronizada e animações suaves.
+
+```bash
+VIDEO=site bash video/build-motion.sh              # gera a voz e monta o vídeo
+VIDEO=site REUSAR_VOZ=1 bash video/build-motion.sh # remonta sem gerar a voz de novo
+```
+
+O roteiro fica em `narrar-motion.mjs` (`SCRIPTS.site`) e as cenas em `site.html`. Resultado: `video/out/site/stories-site-thierry.mp4`.

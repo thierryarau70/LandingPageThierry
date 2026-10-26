@@ -1,21 +1,34 @@
-// Narração do vídeo "eu faço motion" pela API de voz da HeyGen (uma fala por cena, com o tempo de cada palavra).
-// Precisa de HEYGEN_API_KEY no ambiente. Saída: video/out/motion/<cena>.wav, narracao.json e timing.js (lido por motion.html)
-// Uso: node video/narrar-motion.mjs [voice_id]
+// Narração dos vídeos pela API de voz da HeyGen (uma fala por cena, com o tempo de cada palavra).
+// Precisa de HEYGEN_API_KEY no ambiente. Saída: video/out/<vídeo>/<cena>.wav e narracao.json
+// Uso: node video/narrar-motion.mjs [voice_id]              (VIDEO=motion, o padrão: reels "eu faço motion")
+//      VIDEO=site node video/narrar-motion.mjs              (stories de divulgação do site)
 //      CENAS=niches node video/narrar-motion.mjs   (refaz só essas falas e mantém as outras já geradas)
 import fs from 'node:fs'
 import path from 'node:path'
 const dir = path.dirname(new URL(import.meta.url).pathname)
-const out = path.join(dir, 'out', 'motion'); fs.mkdirSync(out, { recursive: true })
+const VIDEO = process.env.VIDEO || 'motion'
+const out = path.join(dir, 'out', VIDEO); fs.mkdirSync(out, { recursive: true })
 const KEY = process.env.HEYGEN_API_KEY
 if (!KEY) throw new Error('HEYGEN_API_KEY não está definida neste ambiente')
 
-export const SCRIPT = [
+const SCRIPTS = {}
+SCRIPTS.motion = [
   ['hook', 'Sabe aquele vídeo que faz você parar de rolar o feed?'],
   ['reveal', 'Isso é motion design. Movimento que prende o olhar e explica a sua ideia em segundos.'],
   ['niches', 'Além de criar sites, eu também faço vídeos em motion para diversos nichos: clínicas, restaurantes, lojas, cursos, imobiliárias e prestadores de serviço.'],
   ['details', 'Reels, anúncios e vinhetas, com roteiro, narração e trilha, no formato certo para cada rede.'],
   ['close', 'E este vídeo que você está vendo? Foi feito pelo Thierry Araújo. Chama no WhatsApp e coloca a sua marca em movimento.']
 ]
+SCRIPTS.site = [
+  ['hook', 'Seu negócio ainda não tem um site?'],
+  ['offer', 'Eu crio o seu site completo, pronto para receber clientes, por apenas seiscentos reais.'],
+  ['includes', 'Até cinco páginas, textos escritos para o seu negócio, versão para celular, botão de WhatsApp e domínio ponto com ponto br no seu nome.'],
+  ['process', 'Você vê a primeira versão em até trinta e cinco horas, e o seu site fica no ar em até cinco dias.'],
+  ['projects', 'Veja alguns projetos que já estão no ar.'],
+  ['close', 'Acesse Thierry Araújo dev ponto com ponto br, ou chama no WhatsApp.']
+]
+const SCRIPT = SCRIPTS[VIDEO]
+if (!SCRIPT) throw new Error(`roteiro desconhecido: ${VIDEO}`)
 const voiceId = process.argv[2] || 'd703f08d1ef34302a36945aa3efc7b3f' // Murilo (pt-BR, masculina)
 const SPEED = 0.95 // um pouco mais devagar, para soar calma
 

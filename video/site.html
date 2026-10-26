@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=block" rel="stylesheet">
+<style>
+/* stories de divulgação do site: tema claro do site, animações suaves */
+:root{--bg:#f5f7fc;--card:#fff;--line:#dce2ef;--txt:#182947;--mut:#596981;--p:#5745cb;--p2:#394fb1;--soft:#eef0fb;--ok:#25d366}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--bg);font-family:Inter,sans-serif;color:var(--txt)}
+.stage{position:relative;width:1080px;height:1920px;overflow:hidden}
+canvas{position:absolute;inset:0}
+.scene{position:absolute;inset:0;opacity:0}
+.g{font-family:'Space Grotesk',sans-serif;font-weight:500;letter-spacing:-.055em;line-height:1.02}
+.abs{position:absolute}
+.center{left:0;right:0;text-align:center}
+.shadow{box-shadow:0 30px 70px #18294714,0 2px 6px #1829470d}
+em{font-style:normal;color:var(--p)}
+.brand{position:absolute;top:170px;left:0;right:0;display:flex;justify-content:center}
+.brand div{display:flex;align-items:center;gap:16px;padding:12px 30px 12px 12px;border-radius:999px;background:#fff;border:2px solid var(--line);font-size:30px;font-weight:500}
+.brand i{width:52px;height:52px;border-radius:50%;background:var(--p);display:grid;place-items:center;font-style:normal;font-family:'Space Grotesk';font-weight:700;font-size:28px;color:#fff}
+.brand span b{color:var(--p);font-weight:600}
+.cap{position:absolute;top:1440px;left:60px;right:60px;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 12px;font-family:'Space Grotesk';font-weight:700;font-size:68px;letter-spacing:-.04em;line-height:1.2}
+.cap span{display:inline-block;padding:2px 16px;border-radius:16px;color:var(--txt)}
+.cap span.on{background:var(--p);color:#fff}
+/* janela de site */
+.browser{position:absolute;border-radius:30px;background:#fff;border:2px solid var(--line);overflow:hidden}
+.bbar{display:flex;align-items:center;gap:10px;height:64px;padding:0 26px;border-bottom:2px solid var(--line)}
+.bbar i{width:14px;height:14px;border-radius:50%;background:var(--line)}
+.bbar span{margin-left:16px;flex:1;height:36px;border-radius:999px;background:var(--bg);font-size:22px;color:var(--mut);line-height:36px;padding-left:22px}
+.bnav{display:flex;gap:22px;padding:28px 40px}
+.bnav u{display:block;width:90px;height:14px;border-radius:7px;background:var(--line)}
+.bnav u:first-child{width:60px;background:var(--txt);margin-right:auto}
+.bhero{position:relative;margin:0 40px;height:250px;border-radius:22px;background:var(--soft)}
+.bt{position:absolute;left:36px;top:50px;width:380px;height:30px;border-radius:15px;background:var(--txt)}
+.bt2{top:98px;width:270px}
+.bbtn{position:absolute;left:36px;top:160px;width:200px;height:56px;border-radius:999px;background:var(--p)}
+.bimg{position:absolute;right:36px;top:40px;width:200px;height:170px;border-radius:18px;background:linear-gradient(150deg,#c9c2f3,#e4e0fb)}
+.bcols{display:flex;gap:24px;margin:30px 40px}
+.bcols div{flex:1;height:150px;border-radius:20px;background:var(--bg);border:2px solid var(--line)}
+.empty{border:3px dashed #b9c2d9;background:#ffffff99}
+.empty .bbar{border-bottom:3px dashed #c9d0e2}
+.toast{position:absolute;display:flex;align-items:center;gap:18px;padding:22px 30px;border-radius:24px;background:#fff;border:2px solid var(--line);font-size:30px;font-weight:600}
+.toast i{width:56px;height:56px;border-radius:50%;background:var(--ok);display:grid;place-items:center}
+.toast small{display:block;font-size:24px;font-weight:500;color:var(--mut);margin-top:2px}
+/* preço */
+.price{position:absolute;left:150px;width:780px;border-radius:36px;background:#fff;border:2px solid var(--line);text-align:center;padding:44px 0 50px}
+.price p{font-size:36px;color:var(--mut);font-weight:500}
+.price b{display:block;font-family:'Space Grotesk';font-weight:700;font-size:190px;letter-spacing:-.06em;line-height:1;color:var(--txt);margin-top:14px;font-variant-numeric:tabular-nums}
+.price b small{font-size:76px;color:var(--p);margin-right:26px;vertical-align:.85em}
+/* incluso */
+.item{position:absolute;left:110px;width:860px;height:136px;border-radius:28px;background:#fff;border:2px solid var(--line);display:flex;align-items:center;gap:30px;padding:0 36px;font-size:44px;font-weight:600;letter-spacing:-.02em}
+.item svg{width:68px;height:68px;flex:none}
+/* prazo */
+.stat{position:absolute;left:190px;width:800px;height:330px;border-radius:36px;background:#fff;border:2px solid var(--line);padding:46px 56px}
+.stat b{display:block;font-family:'Space Grotesk';font-weight:700;font-size:170px;letter-spacing:-.06em;line-height:1;color:var(--p);font-variant-numeric:tabular-nums}
+.stat b small{font-size:80px;color:var(--txt);margin-left:10px}
+.stat p{font-size:40px;color:var(--mut);font-weight:500;margin-top:24px}
+.rail{position:absolute;left:110px;top:500px;width:6px;height:480px;border-radius:3px;background:var(--line);overflow:hidden}
+.rail i{display:block;width:100%;background:var(--p)}
+.dot{position:absolute;left:94px;width:38px;height:38px;border-radius:50%;background:#fff;border:6px solid var(--line)}
+/* projetos */
+.shot{position:absolute;width:600px;border-radius:26px;overflow:hidden;background:#fff;border:2px solid var(--line)}
+.shot img{display:block;width:100%;height:auto}
+.shot .bar{display:flex;align-items:center;gap:12px;padding:16px 24px;border-top:2px solid var(--line);font-size:26px;color:var(--mut)}
+.shot .bar i{width:14px;height:14px;border-radius:50%;background:var(--ok)}
+/* fechamento */
+.logo{position:absolute;left:430px;top:340px;width:220px;height:220px;border-radius:50%;background:var(--p);display:grid;place-items:center;font-family:'Space Grotesk';font-weight:700;font-size:110px;letter-spacing:-.06em;color:#fff}
+.pill{position:absolute;left:50%;transform:translateX(-50%);padding:18px 36px;border-radius:999px;background:var(--soft);color:var(--p);font-size:36px;font-weight:600;white-space:nowrap}
+.url{font-family:'Space Grotesk';font-weight:700;font-size:70px;letter-spacing:-.045em}
+.wa{position:absolute;left:150px;top:1110px;width:780px;height:140px;border-radius:999px;background:var(--p);display:flex;align-items:center;justify-content:center;gap:22px;font-size:48px;font-weight:600;color:#fff}
+.wa svg{width:62px;height:62px}
+.ring{position:absolute;left:150px;top:1110px;width:780px;height:140px;border-radius:999px;border:3px solid var(--p)}
+</style></head><body>
+<div class="stage">
+  <canvas id="bg" width="1080" height="1920"></canvas>
+
+  <section class="scene" id="hook">
+    <h1 class="abs center g" style="top:380px;font-size:124px"><span class="abs center" id="h1" style="top:0">Seu negócio</span><span class="abs center" id="h2" style="top:128px">ainda não tem</span><span class="abs center" id="h3" style="top:256px">um <em>site</em>?</span></h1>
+    <div class="browser empty" id="hb" style="left:190px;top:860px;width:700px;height:480px">
+      <div class="bbar"><i></i><i></i><i></i><span>seunegocio.com.br</span></div>
+    </div>
+  </section>
+
+  <section class="scene" id="offer">
+    <div class="browser shadow" id="ob" style="left:160px;top:330px;width:760px;height:600px">
+      <div class="bbar" id="o0"><i></i><i></i><i></i><span>seunegocio.com.br</span></div>
+      <div class="bnav" id="o1"><u></u><u></u><u></u><u></u></div>
+      <div class="bhero" id="o2"><div class="bt"></div><div class="bt bt2"></div><div class="bbtn"></div><div class="bimg"></div></div>
+      <div class="bcols" id="o3"><div></div><div></div><div></div></div>
+    </div>
+    <div class="toast shadow" id="toast" style="left:470px;top:860px"><i><svg viewBox="0 0 32 32" width="34" height="34"><path fill="#fff" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3z"/></svg></i><span>Novo cliente<small>pelo WhatsApp</small></span></div>
+    <div class="price shadow" id="price" style="top:1040px"><p>Site completo por</p><b><small>R$</small><span id="pv">600</span></b></div>
+  </section>
+
+  <section class="scene" id="includes">
+    <h2 class="abs center g" style="top:320px;font-size:96px" id="ih">Tudo <em>incluso</em></h2>
+    <div id="items"></div>
+  </section>
+
+  <section class="scene" id="process">
+    <h2 class="abs center g" style="top:330px;font-size:84px" id="ph">Rápido e <em>sem enrolação</em></h2>
+    <div class="rail"><i id="railfill"></i></div>
+    <div class="dot" id="d0" style="top:566px"></div><div class="dot" id="d1" style="top:906px"></div>
+    <div class="stat shadow" id="s0" style="top:500px"><b><span id="n0">35</span><small>h</small></b><p>Primeira versão para você ver</p></div>
+    <div class="stat shadow" id="s1" style="top:870px"><b><span id="n1">5</span><small>dias</small></b><p>Seu site no ar</p></div>
+  </section>
+
+  <section class="scene" id="projects">
+    <h2 class="abs center g" style="top:320px;font-size:96px" id="jh">Projetos <em>no ar</em></h2>
+    <div class="shot shadow" id="j0" style="top:470px;left:120px"><img src="../public/portfolio/prumo.webp"><div class="bar"><i></i>plataformaprumo.com.br</div></div>
+    <div class="shot shadow" id="j1" style="top:760px;left:360px"><img src="../public/portfolio/emile.webp"><div class="bar"><i></i>draemilevitoria.com.br</div></div>
+    <div class="shot shadow" id="j2" style="top:1050px;left:120px"><img src="../public/portfolio/arouche.webp"><div class="bar"><i></i>arouchemodaintima.com.br</div></div>
+  </section>
+
+  <section class="scene" id="close">
+    <div class="logo shadow" id="lg">t.</div>
+    <h2 class="abs center g" style="top:620px;font-size:96px" id="cn">Thierry Araújo</h2>
+    <div class="pill" style="top:760px" id="cp">Site completo por R$ 600</div>
+    <p class="abs center url" style="top:900px" id="cu">thierryaraujodev<em>.com.br</em></p>
+    <div class="ring" id="r1"></div>
+    <div class="wa shadow" id="cw"><svg viewBox="0 0 32 32"><path fill="#fff" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6a10.6 10.6 0 0 1-5.4-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.8.9 3.8.8a3.3 3.3 0 0 0 2.1-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg>Chamar no WhatsApp</div>
+    <p class="abs center" style="top:1290px;font-size:38px;color:var(--mut);font-weight:500" id="cnum">(95) 99143-2677</p>
+  </section>
+
+  <div class="brand" id="brand"><div><i>t.</i><span>Thierry Araújo · <b>Sites</b></span></div></div>
+  <div class="cap" id="cap"></div>
+</div>
+<script src="out/site/timing.js" onerror="void 0"></script>
+<script>
+// ---------- Utilidades (tudo é função do quadro, para o render ser determinístico) ----------
+const FPS = 30, W = 1080, H = 1920
+const $ = id => document.getElementById(id)
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v))
+const span = (t, a, d) => clamp((t - a) / d, 0, 1)
+const ease = p => 1 - Math.pow(1 - clamp(p, 0, 1), 3)
+const easeIO = p => { p = clamp(p, 0, 1); return p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2 }
+const lerp = (a, b, p) => a + (b - a) * p
+// entrada suave: aparece e sobe um pouco, sem passar do ponto
+const enter = (el, t, at, dist = 40, dur = 0.6) => { const p = ease(span(t, at, dur)); el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * dist}px)`; return p }
+
+// ---------- Tempo das cenas (vem da narração: out/site/timing.js) ----------
+const LEAD = 0.4, GAP = 0.5, TAIL = 1.6 // os mesmos valores de build-motion.sh
+const NARR = window.NARR || { scenes: [['hook', 2.69], ['offer', 5.75], ['includes', 8.67], ['process', 6.24], ['projects', 2.87], ['close', 5.17]].map(([id, duration]) => ({ id, duration, words: [] })) }
+const S = {}, names = []; let acc = LEAD
+NARR.scenes.forEach(s => { names.push(s.id); S[s.id] = { a: acc, b: acc + s.duration + GAP, words: s.words.map(w => ({ ...w, s: w.s + acc, e: w.e + acc })) }; acc += s.duration + GAP })
+const TOTAL = acc + TAIL; window.TOTAL = TOTAL
+const norm = w => w.toLowerCase().replace(/[.,?!:]/g, '')
+// momento em que a palavra é falada (a n-ésima ocorrência; cai num ponto proporcional da cena se não houver marcação)
+const wt = (id, word, frac = 0.5, nth = 0) => { const w = S[id].words.filter(x => norm(x.w) === word)[nth]; return w ? w.s : lerp(S[id].a, S[id].b, frac) }
+
+// ---------- Fundo claro com grade fina e um brilho lilás bem leve ----------
+const bg = $('bg').getContext('2d')
+const drawBg = t => {
+  bg.fillStyle = '#f5f7fc'; bg.fillRect(0, 0, W, H)
+  const x = W * (0.5 + 0.3 * Math.sin(t * 0.2)), y = H * (0.4 + 0.15 * Math.cos(t * 0.17))
+  const g = bg.createRadialGradient(x, y, 0, x, y, 850); g.addColorStop(0, '#5745cb12'); g.addColorStop(1, '#5745cb00')
+  bg.fillStyle = g; bg.fillRect(0, 0, W, H)
+  bg.strokeStyle = '#18294710'; bg.lineWidth = 2; bg.beginPath()
+  const off = (t * 10) % 90
+  for (let gx = 0; gx <= W; gx += 90) { bg.moveTo(gx, 0); bg.lineTo(gx, H) }
+  for (let gy = -90 + off; gy <= H; gy += 90) { bg.moveTo(0, gy); bg.lineTo(W, gy) }
+  bg.stroke()
+}
+
+// ---------- Legenda sincronizada com a fala (números e o endereço aparecem escritos) ----------
+const WRITTEN = [
+  [['thierry', 'araújo', 'dev', 'ponto', 'com', 'ponto', 'br'], 'thierryaraujodev.com.br'],
+  [['domínio', 'ponto', 'com', 'ponto', 'br'], 'domínio .com.br'],
+  [['seiscentos', 'reais'], 'R$ 600'], [['trinta', 'e', 'cinco', 'horas'], '35 horas'],
+  [['cinco', 'páginas'], '5 páginas'], [['cinco', 'dias'], '5 dias']
+]
+const written = words => {
+  const out = []
+  for (let i = 0; i < words.length; i++) {
+    const m = WRITTEN.find(([seq]) => seq.every((x, k) => words[i + k] && norm(words[i + k].w) === x))
+    if (!m) { out.push(words[i]); continue }
+    const last = words[i + m[0].length - 1], punct = last.w.match(/[.,?!:]$/)?.[0] ?? ''
+    out.push({ w: m[1] + punct, s: words[i].s, e: last.e }); i += m[0].length - 1
+  }
+  return out
+}
+const chunks = []
+for (const n of names) {
+  const ws = written(S[n].words); let cur = []
+  ws.forEach((w, i) => { cur.push(w); if (cur.length === 3 || /[.,?!:]$/.test(w.w) || w.w.length > 14 || i === ws.length - 1) { chunks.push({ words: cur, s: cur[0].s, e: cur[cur.length - 1].e }); cur = [] } })
+}
+const drawCaption = t => {
+  let c = null
+  for (const ch of chunks) if (t >= ch.s - 0.05) c = ch
+  const el = $('cap')
+  if (!c || t > c.e + 0.5) { el.innerHTML = ''; return }
+  const cur = c.words.filter(w => t >= w.s - 0.03).pop()
+  el.innerHTML = c.words.map(w => `<span class="${w === cur && t < w.e + 0.15 ? 'on' : ''}" style="opacity:${clamp((t - w.s + 0.1) * 6, 0, 1)};transform:translateY(${(1 - ease(span(t, w.s - 0.08, 0.3))) * 16}px)">${w.w}</span>`).join('')
+}
+
+// ---------- Cenas ----------
+const sceneHook = t => {
+  enter($('h1'), t, wt('hook', 'seu', 0.1) - 0.1)
+  enter($('h2'), t, wt('hook', 'ainda', 0.35) - 0.1)
+  enter($('h3'), t, wt('hook', 'um', 0.6) - 0.1)
+  const p = enter($('hb'), t, wt('hook', 'site', 0.7) - 0.15, 60, 0.8)
+  $('hb').style.transform += ` scale(${0.96 + 0.04 * p})`
+}
+const sceneOffer = t => {
+  const a = S.offer.a, tc = wt('offer', 'clientes', 0.5)
+  enter($('ob'), t, a - 0.1, 60, 0.7)
+  // o site "se monta": barra, menu, topo e cards entram em sequência
+  ;['o0', 'o1', 'o2', 'o3'].forEach((id, i) => enter($(id), t, a + 0.2 + i * 0.35, 24, 0.5))
+  const pt = ease(span(t, tc - 0.2, 0.6)); $('toast').style.opacity = pt; $('toast').style.transform = `translateX(${(1 - pt) * 80}px)`
+  const tp = wt('offer', 'seiscentos', 0.75) - 0.25
+  enter($('price'), t, tp, 50, 0.6)
+  $('pv').textContent = Math.round(600 * easeIO(span(t, tp, 0.9)))
+}
+const INCL = [['cinco', 'Até 5 páginas'], ['textos', 'Textos para o seu negócio'], ['celular', 'Versão para celular'], ['whatsapp', 'Botão de WhatsApp'], ['domínio', 'Domínio .com.br no seu nome']]
+$('items').innerHTML = INCL.map((x, i) => `<div class="item shadow" id="it${i}" style="top:${470 + i * 162}px"><svg viewBox="0 0 68 68"><circle cx="34" cy="34" r="34" fill="#eef0fb"/><path id="ck${i}" d="M21 35 L30 44 L48 25" fill="none" stroke="#5745cb" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="40" stroke-dashoffset="40"/></svg>${x[1]}</div>`).join('')
+const sceneIncludes = t => {
+  enter($('ih'), t, S.includes.a - 0.15)
+  INCL.forEach(([w], i) => {
+    const at = wt('includes', w, 0.1 + i * 0.18) - 0.2
+    enter($('it' + i), t, at, 30, 0.5)
+    $('ck' + i).setAttribute('stroke-dashoffset', 40 * (1 - ease(span(t, at + 0.3, 0.4))))
+  })
+}
+const sceneProcess = t => {
+  enter($('ph'), t, S.process.a - 0.15)
+  const t0 = wt('process', 'primeira', 0.15) - 0.2, t1 = wt('process', 'site', 0.6) - 0.2
+  enter($('s0'), t, t0, 40, 0.6); enter($('s1'), t, t1, 40, 0.6)
+  $('n0').textContent = Math.round(35 * easeIO(span(t, wt('process', 'trinta', 0.3) - 0.1, 0.8)))
+  $('n1').textContent = Math.max(1, Math.round(5 * easeIO(span(t, wt('process', 'cinco', 0.8, 1) - 0.1, 0.6))))
+  $('railfill').style.height = (480 * easeIO(span(t, t0, t1 - t0 + 0.5))) + 'px'
+  $('d0').style.borderColor = t > t0 + 0.2 ? '#5745cb' : '#dce2ef'; $('d1').style.borderColor = t > t1 + 0.3 ? '#5745cb' : '#dce2ef'
+}
+const sceneProjects = t => {
+  const a = S.projects.a
+  enter($('jh'), t, a - 0.15)
+  ;['j0', 'j1', 'j2'].forEach((id, i) => enter($(id), t, a + 0.15 + i * 0.4, 120, 0.7))
+}
+const sceneClose = t => {
+  const a = S.close.a, tw = wt('close', 'chama', 0.7) - 0.2
+  const pl = enter($('lg'), t, a - 0.15, 40, 0.6); $('lg').style.transform += ` scale(${0.9 + 0.1 * pl})`
+  enter($('cn'), t, a + 0.1); enter($('cp'), t, a + 0.35, 20)
+  $('cp').style.transform = `translateX(-50%) ${$('cp').style.transform}`
+  enter($('cu'), t, wt('close', 'thierry', 0.15) - 0.1)
+  enter($('cw'), t, tw, 40, 0.6); enter($('cnum'), t, tw + 0.3, 20)
+  const q = ((t - tw - 0.6) % 1.6 + 1.6) % 1.6 / 1.6 // anel que pulsa devagar em volta do botão
+  $('r1').style.opacity = t > tw + 0.6 ? (1 - q) * 0.5 : 0; $('r1').style.transform = `scale(${1 + q * 0.08}, ${1 + q * 0.3})`
+}
+const SCENES = { hook: sceneHook, offer: sceneOffer, includes: sceneIncludes, process: sceneProcess, projects: sceneProjects, close: sceneClose }
+
+window.render = frame => {
+  const t = frame / FPS
+  drawBg(t)
+  // troca de cena: a anterior some subindo e a próxima aparece por baixo (cruzado, sem cortina)
+  names.forEach((n, i) => {
+    const { a } = S[n], next = S[names[i + 1]]
+    const vin = i === 0 ? 1 : ease(span(t, a - 0.35, 0.45)), vout = next ? 1 - ease(span(t, next.a - 0.45, 0.35)) : 1
+    const v = Math.min(vin, vout), el = $(n)
+    el.style.opacity = v; el.style.display = v > 0 ? 'block' : 'none'
+    el.style.transform = `translateY(${(1 - vout) * -40}px)`
+    if (v > 0) SCENES[n](t)
+  })
+  drawCaption(t)
+  enter($('brand'), t, 0.2, -30, 0.6)
+  $('brand').style.opacity = Math.min(+$('brand').style.opacity, 1 - span(t, S.close.a - 0.4, 0.3))
+  document.querySelector('.stage').style.opacity = Math.min(span(t, 0, 0.3), 1 - span(t, TOTAL - 0.6, 0.6))
+}
+</script>
+</body></html>
