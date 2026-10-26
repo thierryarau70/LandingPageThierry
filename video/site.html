@@ -2,7 +2,7 @@
 <html lang="pt-BR"><head><meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=block" rel="stylesheet">
 <style>
-/* stories de divulgação do trabalho: tema claro do site, animações suaves, todas as informações do site */
+/* stories de divulgação do trabalho: tema claro do site, animações suaves, sem legenda, todas as informações do site */
 :root{--bg:#f5f7fc;--card:#fff;--line:#dce2ef;--txt:#182947;--mut:#596981;--p:#5745cb;--p2:#394fb1;--soft:#eef0fb;--ok:#25d366}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:1080px;height:1920px;overflow:hidden;background:var(--bg);font-family:Inter,sans-serif;color:var(--txt)}
@@ -20,9 +20,6 @@ em{font-style:normal;color:var(--p)}
 .brand div{display:flex;align-items:center;gap:16px;padding:12px 30px 12px 12px;border-radius:999px;background:#fff;border:2px solid var(--line);font-size:30px;font-weight:500}
 .brand i{width:52px;height:52px;border-radius:50%;background:var(--p);display:grid;place-items:center;font-style:normal;font-family:'Space Grotesk';font-weight:700;font-size:28px;color:#fff}
 .brand span b{color:var(--p);font-weight:600}
-.cap{position:absolute;top:1450px;left:60px;right:60px;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 12px;font-family:'Space Grotesk';font-weight:700;font-size:66px;letter-spacing:-.04em;line-height:1.2}
-.cap span{display:inline-block;padding:2px 16px;border-radius:16px;color:var(--txt)}
-.cap span.on{background:var(--p);color:#fff}
 .card{position:absolute;border-radius:30px;background:#fff;border:2px solid var(--line)}
 /* janela de site */
 .browser{position:absolute;border-radius:30px;background:#fff;border:2px solid var(--line);overflow:hidden}
@@ -45,16 +42,14 @@ em{font-style:normal;color:var(--p)}
 /* intro */
 .logo{position:absolute;left:440px;top:360px;width:200px;height:200px;border-radius:50%;background:var(--p);display:grid;place-items:center;font-family:'Space Grotesk';font-weight:700;font-size:100px;letter-spacing:-.06em;color:#fff}
 .chips{position:absolute;left:0;right:0;display:flex;justify-content:center;gap:18px}
-.chip{padding:20px 36px;border-radius:999px;background:#fff;border:2px solid var(--line);font-size:38px;font-weight:600}
+.chip{padding:18px 30px;border-radius:999px;background:#fff;border:2px solid var(--line);font-size:34px;font-weight:600}
 .chip.on{background:var(--txt);color:#fff;border-color:var(--txt)}
 /* preço */
-.price{left:140px;width:800px;text-align:center;padding:50px 0 56px}
-.price p{font-size:38px;color:var(--mut);font-weight:500}
-.price b{display:block;font-family:'Space Grotesk';font-weight:700;font-size:200px;letter-spacing:-.06em;line-height:1;margin-top:16px;font-variant-numeric:tabular-nums}
-.price b small{font-size:78px;color:var(--p);margin-right:26px;vertical-align:.9em}
-.opt{position:absolute;width:390px;height:150px;border-radius:26px;background:#fff;border:2px solid var(--line);display:flex;flex-direction:column;justify-content:center;padding:0 34px}
-.opt b{font-family:'Space Grotesk';font-size:46px;letter-spacing:-.04em;font-weight:500}
-.opt span{font-size:28px;color:var(--mut);margin-top:6px}
+.plan{left:110px;width:860px;height:330px;padding:48px 52px;display:flex;flex-direction:column;justify-content:space-between}
+.plan h3{font-family:'Space Grotesk';font-weight:500;font-size:60px;letter-spacing:-.045em}
+.plan p{font-size:32px;color:var(--mut);font-weight:500;margin-top:8px}
+.plan b{font-family:'Space Grotesk';font-weight:700;font-size:130px;letter-spacing:-.06em;line-height:1;font-variant-numeric:tabular-nums}
+.plan b small{font-size:56px;color:var(--p);margin-right:20px;vertical-align:.75em}
 /* listas */
 .item{position:absolute;left:110px;width:860px;height:124px;border-radius:26px;background:#fff;border:2px solid var(--line);display:flex;align-items:center;gap:28px;padding:0 34px;font-size:40px;font-weight:600;letter-spacing:-.02em}
 .item svg{width:62px;height:62px;flex:none}
@@ -74,6 +69,14 @@ em{font-style:normal;color:var(--p)}
 .tile{position:absolute;width:420px;height:250px;border-radius:30px;background:#fff;border:2px solid var(--line);padding:36px}
 .tile svg{width:84px;height:84px}
 .tile b{position:absolute;left:36px;bottom:34px;right:30px;font-family:'Space Grotesk';font-weight:500;font-size:42px;letter-spacing:-.04em;line-height:1.05}
+.node{height:150px;display:flex;align-items:center;gap:26px;padding:0 36px}
+.node svg{width:76px;height:76px;flex:none}
+.node span{font-size:38px;font-weight:600;letter-spacing:-.02em}
+.node small{display:block;font-size:28px;color:var(--mut);font-weight:500;margin-top:4px}
+.aibrain{position:absolute;left:450px;top:740px;width:180px;height:180px;border-radius:50%;background:var(--p);display:grid;place-items:center;font-family:'Space Grotesk';font-weight:700;font-size:72px;letter-spacing:-.04em;color:#fff}
+.out{top:1060px;width:290px;height:250px;padding:32px 30px}
+.out svg{width:76px;height:76px}
+.out b{position:absolute;left:30px;right:24px;bottom:30px;font-family:'Space Grotesk';font-weight:500;font-size:38px;letter-spacing:-.04em;line-height:1.05}
 /* extras */
 .xcard{position:absolute;left:110px;width:860px;border-radius:32px;background:#fff;border:2px solid var(--line);padding:44px 50px}
 .xcard p{font-size:36px;color:var(--mut);font-weight:500}
@@ -110,16 +113,14 @@ em{font-style:normal;color:var(--p)}
     <div class="logo shadow" id="ilogo">t.</div>
     <h2 class="abs center g" style="top:620px;font-size:104px" id="iname">Thierry Araújo</h2>
     <p class="sub" style="top:750px" id="irole">Desenvolvedor web</p>
-    <div class="chips" style="top:880px" id="ichips"><span class="chip shadow">Landing pages</span><span class="chip shadow">Sites</span><span class="chip shadow">Sistemas</span></div>
-    <p class="sub" style="top:1060px;font-size:40px" id="idet">Feito por mim, com atenção a cada detalhe.</p>
+    <div class="chips" style="top:880px" id="ichips"><span class="chip shadow">Landing pages</span><span class="chip shadow">Sites</span><span class="chip shadow">Sistemas</span><span class="chip shadow">IA</span></div>
+    <p class="sub" style="top:1060px;font-size:40px" id="idet">Feito por mim, do design à <em>IA</em>.</p>
   </section>
 
   <section class="scene" id="offer">
-    <h2 class="h g" id="oh">Seu site <em>completo</em></h2>
-    <div class="opt shadow" id="o0" style="left:110px;top:480px"><b>Até 5 páginas</b><span>início, sobre, serviços, contato…</span></div>
-    <div class="opt shadow" id="o1" style="left:580px;top:480px"><b>Landing page</b><span>uma página focada em anúncios</span></div>
-    <p class="abs center" style="top:665px;font-size:34px;color:var(--mut);font-weight:600" id="oor">ou</p>
-    <div class="card price shadow" id="price" style="top:760px"><p>Por apenas</p><b><small>R$</small><span id="pv">800</span></b></div>
+    <h2 class="h g" id="oh">Quanto <em>custa</em></h2>
+    <div class="card plan shadow" id="o0" style="top:470px"><div><h3>Landing page</h3><p>Uma página focada em anúncios</p></div><b><small>R$</small><span id="pv0">600</span></b></div>
+    <div class="card plan shadow" id="o1" style="top:850px"><div><h3>Site completo</h3><p>Até 5 páginas: início, sobre, serviços, contato…</p></div><b><small>R$</small><span id="pv1">800</span></b></div>
   </section>
 
   <section class="scene" id="includes">
@@ -140,10 +141,20 @@ em{font-style:normal;color:var(--p)}
     <div id="tiles"></div>
   </section>
 
+  <section class="scene" id="ai">
+    <h2 class="h g" id="ah">Automações com <em>IA</em></h2>
+    <svg class="abs" style="inset:0" width="1080" height="1920" id="aflow"></svg>
+    <div class="card node shadow" id="ain" style="left:170px;top:470px;width:740px"><svg viewBox="0 0 84 84" data-icon="chat"></svg><span>Cliente manda mensagem<small>no WhatsApp</small></span></div>
+    <div class="aibrain shadow" id="abr">IA</div>
+    <div class="card out shadow" id="ao0" style="left:70px"><svg viewBox="0 0 84 84" data-icon="reply"></svg><b>Respostas automáticas</b></div>
+    <div class="card out shadow" id="ao1" style="left:395px"><svg viewBox="0 0 84 84" data-icon="mail"></svg><b>E-mails e relatórios</b></div>
+    <div class="card out shadow" id="ao2" style="left:720px"><svg viewBox="0 0 84 84" data-icon="plug"></svg><b>Integrado ao seu negócio</b></div>
+  </section>
+
   <section class="scene" id="extras">
     <h2 class="h g" id="xh">Precisa de <em>mais</em>?</h2>
     <div class="xcard shadow" id="x0" style="top:480px"><p>Loja virtual, login ou sistema</p><h3>Adicional de<br><em>R$ 997</em></h3><span class="tag">+ pacote base</span></div>
-    <div class="xcard shadow" id="x1" style="top:860px"><p>Sites institucionais, sistemas e plataformas de cursos</p><h3>Projetos maiores<br><em>sob orçamento</em></h3></div>
+    <div class="xcard shadow" id="x1" style="top:860px"><p>Sistemas com IA, plataformas e projetos maiores</p><h3>Valor sob<br><em>orçamento</em></h3></div>
   </section>
 
   <section class="scene" id="niches">
@@ -170,7 +181,7 @@ em{font-style:normal;color:var(--p)}
   <section class="scene" id="close">
     <div class="logo shadow" id="lg" style="top:330px">t.</div>
     <h2 class="abs center g" style="top:590px;font-size:96px" id="cn">Thierry Araújo</h2>
-    <div class="pill" style="top:730px" id="cp">Landing page por R$ 800</div>
+    <div class="pill" style="top:730px" id="cp">Landing page a partir de R$ 600</div>
     <p class="abs center url" style="top:880px" id="cu">thierryaraujodev<em>.com.br</em></p>
     <div class="ring" id="r1"></div>
     <div class="wa shadow" id="cw"><svg viewBox="0 0 32 32"><path fill="#fff" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6a10.6 10.6 0 0 1-5.4-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.8.9 3.8.8a3.3 3.3 0 0 0 2.1-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg>Chamar no WhatsApp</div>
@@ -178,7 +189,6 @@ em{font-style:normal;color:var(--p)}
   </section>
 
   <div class="brand" id="brand"><div><i>t.</i><span>Thierry Araújo · <b>Desenvolvedor web</b></span></div></div>
-  <div class="cap" id="cap"></div>
 </div>
 <script src="out/site/timing.js" onerror="void 0"></script>
 <script>
@@ -196,7 +206,7 @@ const P = '#5745cb', INK = '#182947'
 
 // ---------- Tempo das cenas (vem da narração: out/site/timing.js) ----------
 const LEAD = 0.4, GAP = 0.5, TAIL = 1.6 // os mesmos valores de build-motion.sh
-const NARR = window.NARR || { scenes: ['hook', 'intro', 'offer', 'includes', 'process', 'services', 'extras', 'niches', 'projects', 'about', 'close'].map(id => ({ id, duration: 7, words: [] })) }
+const NARR = window.NARR || { scenes: ['hook', 'intro', 'offer', 'includes', 'process', 'services', 'ai', 'extras', 'niches', 'projects', 'about', 'close'].map(id => ({ id, duration: 7, words: [] })) }
 const S = {}, names = []; let acc = LEAD
 NARR.scenes.forEach(s => { names.push(s.id); S[s.id] = { a: acc, b: acc + s.duration + GAP, words: s.words.map(w => ({ ...w, s: w.s + acc, e: w.e + acc })) }; acc += s.duration + GAP })
 const TOTAL = acc + TAIL; window.TOTAL = TOTAL
@@ -218,38 +228,6 @@ const drawBg = t => {
   bg.stroke()
 }
 
-// ---------- Legenda sincronizada com a fala (números, nomes e o endereço aparecem escritos) ----------
-const WRITTEN = [
-  [['thierry', 'araújo', 'dev', 'ponto', 'com', 'ponto', 'br'], 'thierryaraujodev.com.br'],
-  [['domínio', 'ponto', 'com', 'ponto', 'br'], 'domínio .com.br'],
-  [['oitocentos', 'reais'], 'R$ 800'], [['novecentos', 'e', 'noventa', 'e', 'sete', 'reais'], 'R$ 997'],
-  [['trinta', 'e', 'cinco', 'horas'], '35 horas'], [['cinco', 'páginas'], '5 páginas'], [['cinco', 'dias'], '5 dias'],
-  [['quatro', 'anos'], '4 anos'], [['doutora'], 'Dra.']
-]
-const written = words => {
-  const out = []
-  for (let i = 0; i < words.length; i++) {
-    const m = WRITTEN.find(([seq]) => seq.every((x, k) => words[i + k] && norm(words[i + k].w) === x))
-    if (!m) { out.push(words[i]); continue }
-    const last = words[i + m[0].length - 1], punct = last.w.match(/[.,?!:]$/)?.[0] ?? ''
-    out.push({ w: m[1] + (m[1].endsWith('.') ? '' : punct), s: words[i].s, e: last.e }); i += m[0].length - 1
-  }
-  return out
-}
-const chunks = []
-for (const n of names) {
-  const ws = written(S[n].words); let cur = []
-  ws.forEach((w, i) => { cur.push(w); if (cur.length === 3 || /[,?!:]$|[^.]\.$/.test(w.w) && w.w !== 'Dra.' || w.w.length > 14 || i === ws.length - 1) { chunks.push({ words: cur, s: cur[0].s, e: cur[cur.length - 1].e }); cur = [] } })
-}
-const drawCaption = t => {
-  let c = null
-  for (const ch of chunks) if (t >= ch.s - 0.05) c = ch
-  const el = $('cap')
-  if (!c || t > c.e + 0.5) { el.innerHTML = ''; return }
-  const cur = c.words.filter(w => t >= w.s - 0.03).pop()
-  el.innerHTML = c.words.map(w => `<span class="${w === cur && t < w.e + 0.15 ? 'on' : ''}" style="opacity:${clamp((t - w.s + 0.1) * 6, 0, 1)};transform:translateY(${(1 - ease(span(t, w.s - 0.08, 0.3))) * 16}px)">${w.w}</span>`).join('')
-}
-
 // ---------- Ícones de traço (estáticos, no estilo do site) ----------
 const st = `fill="none" stroke="${INK}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"`
 const ICON = {
@@ -262,6 +240,9 @@ const ICON = {
   clinic: `<rect x="12" y="12" width="60" height="60" rx="14" ${st}/><path d="M42 26 V58 M26 42 H58" fill="none" stroke="${P}" stroke-width="7" stroke-linecap="round"/>`,
   course: `<path d="M42 14 L78 30 L42 46 L6 30 Z" ${st}/><path d="M20 38 V58 Q42 72 64 58 V38" ${st}/><path d="M72 34 V56" fill="none" stroke="${P}" stroke-width="5" stroke-linecap="round"/><circle cx="72" cy="60" r="5" fill="${P}"/>`,
   shop: `<path d="M16 30 H68 L62 76 H22 Z" ${st}/><path d="M30 30 Q30 10 42 10 Q54 10 54 30" ${st}/><circle cx="42" cy="52" r="6" fill="${P}"/>`,
+  reply: `<path d="M14 18 h56 a6 6 0 0 1 6 6 v28 a6 6 0 0 1 -6 6 h-30 l-14 12 v-12 h-12 a6 6 0 0 1 -6 -6 v-28 a6 6 0 0 1 6 -6z" ${st}/><path d="M30 38 L38 46 L54 30" fill="none" stroke="${P}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`,
+  mail: `<rect x="10" y="18" width="64" height="48" rx="8" ${st}/><path d="M12 22 L42 46 L72 22" ${st}/><circle cx="68" cy="22" r="8" fill="${P}"/>`,
+  plug: `<rect x="10" y="12" width="26" height="26" rx="6" ${st}/><rect x="48" y="12" width="26" height="26" rx="6" ${st}/><rect x="29" y="50" width="26" height="26" rx="6" ${st}/><path d="M23 38 V44 H42 V50 M61 38 V44 H42" fill="none" stroke="${P}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`,
   tool: `<circle cx="42" cy="42" r="14" ${st}/><path d="M42 8 V20 M42 64 V76 M8 42 H20 M64 42 H76 M18 18 L26 26 M58 58 L66 66 M66 18 L58 26 M26 58 L18 66" ${st}/><circle cx="42" cy="42" r="5" fill="${P}"/>`
 }
 const tileHTML = (list, prefix, top0 = 460, gapY = 280) => list.map((x, i) => `<div class="tile shadow" id="${prefix}${i}" style="left:${i % 2 ? 570 : 90}px;top:${top0 + Math.floor(i / 2) * gapY}px"><svg viewBox="0 0 84 84">${ICON[x[1]]}</svg><b>${x[2]}</b></div>`).join('')
@@ -278,17 +259,16 @@ const sceneIntro = t => {
   const a = S.intro.a
   const pl = enter($('ilogo'), t, a - 0.15, 30); $('ilogo').style.transform += ` scale(${0.9 + 0.1 * pl})`
   enter($('iname'), t, wt('intro', 'thierry', 0.1) - 0.15); enter($('irole'), t, wt('intro', 'desenvolvedor', 0.22) - 0.15, 20)
-  const chips = [...$('ichips').children], tc = [wt('intro', 'landing', 0.45), wt('intro', 'sites', 0.57), wt('intro', 'sistemas', 0.64)]
-  chips.forEach((el, i) => { enter(el, t, tc[i] - 0.2, 30, 0.5); const nxt = tc[i + 1] ?? wt('intro', 'com', 0.74); el.className = 'chip shadow' + (t >= tc[i] - 0.05 && t < nxt - 0.05 ? ' on' : '') })
-  enter($('idet'), t, wt('intro', 'atenção', 0.76) - 0.2, 20)
+  const chips = [...$('ichips').children], tc = [wt('intro', 'landing', 0.4), wt('intro', 'sites', 0.5), wt('intro', 'sistemas', 0.6), wt('intro', 'automações', 0.72)]
+  chips.forEach((el, i) => { enter(el, t, tc[i] - 0.2, 30, 0.5); const nxt = tc[i + 1] ?? S.intro.b; el.className = 'chip shadow' + (t >= tc[i] - 0.05 && t < nxt - 0.05 ? ' on' : '') })
+  enter($('idet'), t, wt('intro', 'inteligência', 0.8) - 0.2, 20)
 }
 const sceneOffer = t => {
-  const a = S.offer.a
-  enter($('oh'), t, a - 0.15)
-  enter($('o0'), t, wt('offer', 'cinco', 0.3) - 0.2, 30); enter($('oor'), t, wt('offer', 'ou', 0.45) - 0.15, 10); enter($('o1'), t, wt('offer', 'landing', 0.55) - 0.2, 30)
-  const tp = wt('offer', 'oitocentos', 0.75) - 0.25
-  enter($('price'), t, tp, 50, 0.6)
-  $('pv').textContent = Math.round(800 * easeIO(span(t, tp, 0.6)))
+  enter($('oh'), t, S.offer.a - 0.15)
+  const t0 = wt('offer', 'landing', 0.1) - 0.25, t1 = wt('offer', 'site', 0.45) - 0.25
+  enter($('o0'), t, t0, 40, 0.6); enter($('o1'), t, t1, 40, 0.6)
+  $('pv0').textContent = Math.round(600 * easeIO(span(t, wt('offer', 'seiscentos', 0.25) - 0.2, 0.6)))
+  $('pv1').textContent = Math.round(800 * easeIO(span(t, wt('offer', 'oitocentos', 0.8) - 0.2, 0.6)))
 }
 const INCL = [['design', 'Design e textos para o seu negócio'], ['celular', 'Versão para celular'], ['whatsapp', 'WhatsApp e formulário de contato'], ['google', 'Preparação para o Google'], ['domínio', 'Domínio .com.br no seu nome']]
 $('items').innerHTML = INCL.map((x, i) => `<div class="item shadow" id="it${i}" style="top:${470 + i * 150}px"><svg viewBox="0 0 68 68"><circle cx="34" cy="34" r="34" fill="#eef0fb"/><path id="ck${i}" d="M21 35 L30 44 L48 25" fill="none" stroke="${P}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="40" stroke-dashoffset="40"/></svg>${x[1]}</div>`).join('')
@@ -321,7 +301,7 @@ const sceneServices = t => {
 const sceneExtras = t => {
   enter($('xh'), t, S.extras.a - 0.15)
   enter($('x0'), t, wt('extras', 'loja', 0.1) - 0.2, 40, 0.6)
-  enter($('x1'), t, wt('extras', 'plataformas', 0.65) - 0.2, 40, 0.6)
+  enter($('x1'), t, wt('extras', 'sistemas', 0.6) - 0.2, 40, 0.6)
 }
 const NICH = [['clínicas', 'clinic', 'Clínicas e consultórios'], ['cursos', 'course', 'Cursos e escolas'], ['lojas', 'shop', 'Lojas e catálogos'], ['prestadores', 'tool', 'Prestadores de serviço']]
 $('ntiles').innerHTML = tileHTML(NICH, 'ni', 480, 300)
@@ -350,7 +330,26 @@ const sceneClose = t => {
   const q = ((t - tw - 0.6) % 1.6 + 1.6) % 1.6 / 1.6 // anel que pulsa devagar em volta do botão
   $('r1').style.opacity = t > tw + 0.6 ? (1 - q) * 0.5 : 0; $('r1').style.transform = `scale(${1 + q * 0.08}, ${1 + q * 0.3})`
 }
-const SCENES = { hook: sceneHook, intro: sceneIntro, offer: sceneOffer, includes: sceneIncludes, process: sceneProcess, services: sceneServices, extras: sceneExtras, niches: sceneNiches, projects: sceneProjects, about: sceneAbout, close: sceneClose }
+// fluxo: mensagem → IA → resultados, com pontos andando pelas linhas depois que tudo aparece
+;['ain', 'ao0', 'ao1', 'ao2'].forEach(id => { const sv = $(id).querySelector('svg'); sv.innerHTML = ICON[sv.getAttribute('data-icon')] })
+const FLOW = [[540, 620, 540, 740], [540, 920, 215, 1060], [540, 920, 540, 1060], [540, 920, 865, 1060]]
+const sceneAi = t => {
+  const a = S.ai.a
+  enter($('ah'), t, a - 0.15)
+  const tin = wt('ai', 'atendimento', 0.3) - 0.25, tb = wt('ai', 'whatsapp', 0.4) - 0.1
+  enter($('ain'), t, tin, 30, 0.5)
+  const pb = enter($('abr'), t, tb, 20, 0.5); $('abr').style.transform += ` scale(${0.85 + 0.15 * pb})`
+  const to = [wt('ai', 'respostas', 0.48), wt('ai', 'e-mails', 0.66), wt('ai', 'integrado', 0.85)].map(x => x - 0.25)
+  to.forEach((tk, i) => enter($('ao' + i), t, tk, 30, 0.5))
+  const starts = [tin + 0.3, to[0], to[1], to[2]]
+  $('aflow').innerHTML = FLOW.map(([x1, y1, x2, y2], i) => {
+    const p = easeIO(span(t, starts[i], 0.5)); if (p <= 0) return ''
+    const ex = lerp(x1, x2, p), ey = lerp(y1, y2, p), q = ((t - starts[i] - 0.5) * 0.7 % 1 + 1) % 1
+    const dot = p >= 1 ? `<circle cx="${lerp(x1, x2, q)}" cy="${lerp(y1, y2, q)}" r="9" fill="${P}"/>` : ''
+    return `<line x1="${x1}" y1="${y1}" x2="${ex}" y2="${ey}" stroke="#c9c2f3" stroke-width="5" stroke-dasharray="2 12" stroke-linecap="round"/>${dot}`
+  }).join('')
+}
+const SCENES = { hook: sceneHook, intro: sceneIntro, offer: sceneOffer, includes: sceneIncludes, process: sceneProcess, services: sceneServices, ai: sceneAi, extras: sceneExtras, niches: sceneNiches, projects: sceneProjects, about: sceneAbout, close: sceneClose }
 
 window.render = frame => {
   const t = frame / FPS
@@ -364,7 +363,6 @@ window.render = frame => {
     el.style.transform = `translateY(${(1 - vout) * -40}px)`
     if (v > 0) SCENES[n](t)
   })
-  drawCaption(t)
   enter($('brand'), t, 0.2, -30, 0.6)
   $('brand').style.opacity = Math.min(+$('brand').style.opacity, 1 - span(t, S.intro.a - 0.4, 0.3) + span(t, S.offer.a - 0.4, 0.3), 1 - span(t, S.close.a - 0.4, 0.3))
   document.querySelector('.stage').style.opacity = Math.min(span(t, 0, 0.3), 1 - span(t, TOTAL - 0.6, 0.6))
