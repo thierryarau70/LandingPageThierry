@@ -42,8 +42,8 @@
 .sales-steps p{font-size:.9375rem;color:var(--mut)}
 .sales-projects{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
 .sales-project{display:block;color:var(--txt);text-decoration:none}
-.sales-project>img{display:block;width:100%;height:auto;border:.0625rem solid var(--line);border-radius:.625rem;transition:transform .25s var(--sales-ease)}
-.sales-project:hover>img{transform:translateY(-.25rem)}
+.sales-project>img,.sales-project>video{display:block;width:100%;height:auto;border:.0625rem solid var(--line);border-radius:.625rem;transition:transform .25s var(--sales-ease)}
+.sales-project:hover>img,.sales-project:hover>video{transform:translateY(-.25rem)}
 .sales-project>div{padding:1.25rem 0}
 .sales-project h3{display:flex;justify-content:space-between;gap:1rem;font-size:1.125rem;font-weight:500;margin-bottom:.5rem}
 .sales-project p{font-size:.875rem;color:var(--mut);max-width:32rem}
@@ -130,7 +130,7 @@
 .sales-steps p{font-size:.875rem;line-height:1.8!important}
 .sales-projects{gap:3rem;align-items:start}
 .sales-project:nth-child(2){margin-top:5rem}
-.sales-project>img{border-radius:.5rem;box-shadow:0 .75rem 2rem #18294708}
+.sales-project>img,.sales-project>video{border-radius:.5rem;box-shadow:0 .75rem 2rem #18294708}
 .sales-project>div{padding:1.25rem 0;border-bottom:.0625rem solid var(--line)}
 .sales-project h3{font-size:1.25rem;letter-spacing:-.025em;margin-bottom:.625rem}
 .sales-project p{font-size:.875rem}

@@ -4,7 +4,7 @@ definePageMeta({ layout: 'profile', alias: ['/en'] })
 const { t } = useLocale()
 const h = computed(() => t.value.home)
 const selectedProjects = computed(() => allProjects
-  .filter(p => ['https://www.radardecliente.com.br', 'https://www.draemilevitoria.com.br', 'https://www.arouchemodaintima.com.br', 'https://agenda-emi.vercel.app', 'https://protocolo-iatf.vercel.app'].includes(p.url))
+  .filter(p => ['https://www.draemilevitoria.com.br', 'https://www.arouchemodaintima.com.br', 'https://agenda-emi.vercel.app', 'https://protocolo-iatf.vercel.app'].includes(p.url))
   .map(p => ({ ...p, ...t.value.projects[p.url] })))
 const contact = computed(() => waLink(h.value.contact))
 // Contador "35 horas" anima de 0 a 35 ao abrir a página (sem animação para quem prefere movimento reduzido)
@@ -56,7 +56,7 @@ useSeoMeta({ title: () => h.value.seoTitle, description: () => h.value.seoDescri
 
     <section id="projetos" class="sales-section" aria-labelledby="projects-title">
       <div class="sales-section-title"><h2 id="projects-title">{{ h.projectsTitle }}</h2><p>{{ h.projectsSub }}</p></div>
-      <div class="sales-projects"><a v-for="project in selectedProjects" :key="project.url" :href="project.url" class="sales-project" target="_blank" rel="noopener noreferrer" :aria-label="h.openProject(project.name)"><img :src="project.image" :alt="h.projectAlt(project.name)" width="1200" height="616" loading="lazy"><div><h3>{{ project.name }} <span aria-hidden="true">↗</span></h3><p>{{ project.goal }}</p></div></a></div>
+      <div class="sales-projects"><a v-for="project in selectedProjects" :key="project.url" :href="project.url" class="sales-project" target="_blank" rel="noopener noreferrer" :aria-label="h.openProject(project.name)"><ProjectThumb :image="project.image" :video="project.video" :alt="h.projectAlt(project.name)" /><div><h3>{{ project.name }} <span aria-hidden="true">↗</span></h3><p>{{ project.goal }}</p></div></a></div>
     </section>
 
     <section id="incluso" class="sales-section sales-offer" aria-labelledby="offer-title">
