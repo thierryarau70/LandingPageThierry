@@ -41,8 +41,8 @@ SCRIPTS.curto = [
   ['offer', 'Landing page por seiscentos reais, e site completo, com até cinco páginas, por mil e duzentos.'],
   ['includes', 'Com design e textos, versão para celular, WhatsApp, Google e domínio no seu nome.'],
   ['ai', 'E automações com inteligência artificial: atendimento no WhatsApp, respostas automáticas e relatórios.'],
-  ['projects', 'Veja projetos no ar, como Radar de Clientes, Doutora Emile e Arouche.'],
-  ['close', 'Acesse Thierry Araújo dev ponto com ponto br, ou chama no WhatsApp.']
+  ['social', 'Quer ver meus trabalhos? Me segue no Instagram e acessa Thierry Araújo dev ponto com ponto br.'],
+  ['close', 'Chama no WhatsApp e coloca o seu negócio no ar.']
 ]
 const SCRIPT = SCRIPTS[VIDEO]
 if (!SCRIPT) throw new Error(`roteiro desconhecido: ${VIDEO}`)

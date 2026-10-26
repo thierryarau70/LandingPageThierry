@@ -77,6 +77,10 @@ em{font-style:normal;color:var(--p)}
 .out{top:1060px;width:290px;height:250px;padding:32px 30px}
 .out svg{width:76px;height:76px}
 .out b{position:absolute;left:30px;right:24px;bottom:30px;font-family:'Space Grotesk';font-weight:500;font-size:38px;letter-spacing:-.04em;line-height:1.05}
+.link{left:110px;width:860px;height:240px;display:flex;align-items:center;gap:40px;padding:0 50px}
+.link svg{width:120px;height:120px;flex:none}
+.link h3{font-family:'Space Grotesk';font-weight:500;font-size:56px;letter-spacing:-.045em}
+.link p{font-size:32px;color:var(--mut);font-weight:500;margin-top:10px}
 /* extras */
 .xcard{position:absolute;left:110px;width:860px;border-radius:32px;background:#fff;border:2px solid var(--line);padding:44px 50px}
 .xcard p{font-size:36px;color:var(--mut);font-weight:500}
@@ -165,6 +169,12 @@ em{font-style:normal;color:var(--p)}
   <section class="scene" id="projects">
     <h2 class="h g" style="top:300px;font-size:80px" id="jh">Projetos <em>no ar</em></h2>
     <div id="shots"></div>
+  </section>
+
+  <section class="scene" id="social">
+    <h2 class="h g" id="sch">Veja meus <em>trabalhos</em></h2>
+    <div class="card link shadow" id="sc0" style="top:480px"><svg viewBox="0 0 84 84"><rect x="10" y="10" width="64" height="64" rx="20" fill="none" stroke="#5745cb" stroke-width="6"/><circle cx="42" cy="42" r="15" fill="none" stroke="#5745cb" stroke-width="6"/><circle cx="60" cy="24" r="4.5" fill="#5745cb"/></svg><div><h3>Instagram</h3><p>Trabalhos, vídeos e bastidores</p></div></div>
+    <div class="card link shadow" id="sc1" style="top:780px"><svg viewBox="0 0 84 84"></svg><div><h3>thierryaraujodev<em>.com.br</em></h3><p>Tudo sobre os sites e como contratar</p></div></div>
   </section>
 
   <section class="scene" id="about">
@@ -353,7 +363,13 @@ const sceneAi = t => {
     return `<line x1="${x1}" y1="${y1}" x2="${ex}" y2="${ey}" stroke="#c9c2f3" stroke-width="5" stroke-dasharray="2 12" stroke-linecap="round"/>${dot}`
   }).join('')
 }
-const SCENES = { hook: sceneHook, intro: sceneIntro, offer: sceneOffer, includes: sceneIncludes, process: sceneProcess, services: sceneServices, ai: sceneAi, extras: sceneExtras, niches: sceneNiches, projects: sceneProjects, about: sceneAbout, close: sceneClose }
+$('sc1').querySelector('svg').innerHTML = ICON.globe
+const sceneSocial = t => {
+  enter($('sch'), t, S.social.a - 0.15)
+  enter($('sc0'), t, wt('social', 'instagram', 0.45) - 0.3, 40, 0.6)
+  enter($('sc1'), t, wt('social', 'thierry', 0.7) - 0.3, 40, 0.6)
+}
+const SCENES = { hook: sceneHook, intro: sceneIntro, offer: sceneOffer, includes: sceneIncludes, process: sceneProcess, services: sceneServices, ai: sceneAi, extras: sceneExtras, niches: sceneNiches, projects: sceneProjects, social: sceneSocial, about: sceneAbout, close: sceneClose }
 
 window.render = frame => {
   const t = frame / FPS
