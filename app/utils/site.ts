@@ -66,16 +66,6 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    name: 'Plataforma Prumo',
-    category: 'Newsletter automatizada',
-    description: 'Newsletter gratuita de engenharia de obra: mercado, obra, contrato e carreira em 5 minutos de leitura. Edições enviadas automaticamente por e-mail nas manhãs de dia útil, Diagnóstico Prumo com relatório por e-mail e resumo de cada edição no canal do WhatsApp.',
-    url: 'https://www.plataformaprumo.com.br',
-    image: '/portfolio/prumo.webp',
-    tags: ['Newsletter', 'Automação de e-mail', 'Diagnóstico', 'WhatsApp'],
-    goal: 'Newsletter gratuita para engenheiros, com envio automático das edições por e-mail, diagnóstico com relatório automático e resumo no WhatsApp.',
-    delivery: 'Design, desenvolvimento da plataforma e automação do envio das edições, do diagnóstico e dos resumos.'
-  },
-  {
     name: 'Radar de Clientes',
     category: 'Plataforma de prospecção',
     description: 'Plataforma para quem cria sites e vende serviços digitais: encontra negócios locais sem site informado, mostra os contatos disponíveis e organiza a prospecção.',
