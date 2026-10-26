@@ -9,7 +9,7 @@
             <i /><i /><i />
             <span>{{ p.url.replace(/^https:\/\//, '') }}</span>
           </div>
-          <img :src="p.image" :alt="`Tela inicial do ${p.name}`" width="1200" height="616" loading="lazy">
+          <ProjectThumb :image="p.image" :video="p.video" :alt="`Tela inicial do ${p.name}`" />
         </a>
         <div class="info">
           <span class="cat">{{ p.category }}</span>

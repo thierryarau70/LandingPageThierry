@@ -53,8 +53,8 @@
 .sales-steps li:hover{transform:translateY(-.25rem)}
 .sales-steps li>span{display:inline-grid;place-items:center;width:2.25rem;height:2.25rem;border-radius:50%;background:#fff;color:var(--p)!important;font-weight:600;box-shadow:0 .25rem .75rem #5745cb1f}
 .sales-project{position:relative}
-.sales-project>img{transition:transform .45s var(--sales-ease),box-shadow .45s}
-.sales-project:hover>img{transform:translateY(-.5rem) scale(1.015);box-shadow:0 1.75rem 3.5rem #1829472b}
+.sales-project>img,.sales-project>video{transition:transform .45s var(--sales-ease),box-shadow .45s}
+.sales-project:hover>img,.sales-project:hover>video{transform:translateY(-.5rem) scale(1.015);box-shadow:0 1.75rem 3.5rem #1829472b}
 .sales-project h3 span{transition:transform .25s var(--sales-ease),color .25s}
 .sales-project:hover h3 span{transform:translate(.25rem,-.25rem);color:var(--p)}
 .sales-project>div{background:linear-gradient(var(--p),var(--p)) no-repeat 0 100%/0 .125rem;transition:background-size .5s var(--sales-ease)}
@@ -73,7 +73,7 @@
 /* Revelação ao rolar (classe adicionada pelo plugin reveal.client.ts) */
 .reveal{opacity:0;transform:translateY(1.75rem);transition:opacity .7s var(--sales-ease,ease),transform .7s var(--sales-ease,ease);transition-delay:var(--reveal-delay,0ms)}
 .reveal.is-visible{opacity:1;transform:none}
-.sales-project.reveal.is-visible:hover>img{transition-delay:0ms}
+.sales-project.reveal.is-visible:hover>img,.sales-project.reveal.is-visible:hover>video{transition-delay:0ms}
 
 @media(max-width:760px){.sales-marquee{margin-bottom:2.5rem}.sales-marquee span{font-size:1rem}.sales-hero::before{width:16rem;height:16rem}.sales-hero::after{display:none}}
 @media(prefers-reduced-motion:reduce){

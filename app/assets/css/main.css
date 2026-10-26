@@ -75,14 +75,14 @@ footer{text-align:center;padding:40px 5vw;color:var(--mut);border-top:1px solid 
 .shot .bar i{width:10px;height:10px;border-radius:50%;background:#ff5f57}
 .shot .bar i:nth-child(2){background:#febc2e}.shot .bar i:nth-child(3){background:#28c840}
 .shot .bar span{margin-left:10px;flex:1;font-size:.75rem;color:var(--mut);background:var(--bg);border-radius:6px;padding:3px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.shot img{display:block;width:100%;height:auto;aspect-ratio:1200/616;object-fit:cover;object-position:top;transition:transform .5s}
+.shot img,.shot video{display:block;width:100%;height:auto;aspect-ratio:1200/616;object-fit:cover;object-position:top;transition:transform .5s}
 .cat{display:inline-block;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--p2);margin-bottom:6px}
 .info h3{font-size:1.6rem;margin-bottom:10px}
 .info p{color:var(--mut);margin-bottom:6px}
 .info .chips{margin:14px 0 18px}
 .live{display:inline-block;color:var(--txt);font-weight:600;text-decoration:none;border-bottom:2px solid var(--p);padding-bottom:2px}
 .live:hover{color:var(--p2);border-color:var(--p2)}
-@media(hover:hover){.project:hover{border-color:var(--p);transform:translateY(-4px)}.project:hover .shot img{transform:scale(1.03)}}
+@media(hover:hover){.project:hover{border-color:var(--p);transform:translateY(-4px)}.project:hover .shot img,.project:hover .shot video{transform:scale(1.03)}}
 .portfolio-cta{text-align:center;margin-top:36px;color:var(--mut)}
 .portfolio-cta a{color:var(--p2);font-weight:600}
 .about-stats{list-style:none;display:flex;flex-wrap:wrap;gap:14px;margin:18px 0 4px}
@@ -150,11 +150,11 @@ body{font-family:Inter,system-ui,sans-serif}
 .project:nth-child(even) .shot{order:0}
 .shot{background:#edf1f8;border-color:var(--line);box-shadow:0 8px 22px #1829470d;border-radius:10px}
 .shot .bar{background:#edf1f8;padding:8px 10px}.shot .bar span{background:#fff;color:var(--mut)}
-.shot .bar i{width:7px;height:7px}.shot img{transition:none}
+.shot .bar i{width:7px;height:7px}.shot img,.shot video{transition:none}
 .cat,.goal{font-size:.82rem;letter-spacing:0;text-transform:none;font-weight:600;color:var(--p)}
 .info h3{font-size:1.75rem;letter-spacing:-.035em}.info p{font-size:.92rem}.facts{font-size:.84rem;line-height:1.65}.facts dt{color:var(--txt)}
 .live{font-size:.88rem;border-bottom:1px solid var(--p);color:var(--p)}
-.project:hover{transform:none}.project:hover .shot img{transform:none}
+.project:hover{transform:none}.project:hover .shot img,.project:hover .shot video{transform:none}
 .grid3{gap:0;border-top:1px solid var(--line)}
 .card{border:0;border-bottom:1px solid var(--line);background:transparent;border-radius:0;padding:28px 22px;transition:none}
 .card:hover{transform:none}.ico{font-size:1.4rem}.card h3{font-size:1.1rem;letter-spacing:-.02em}

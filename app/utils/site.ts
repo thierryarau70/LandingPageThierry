@@ -57,6 +57,8 @@ export interface Project {
   description: string
   url: string
   image: string
+  // vídeo curto do site em uso (public/portfolio/*.mp4), mostrado na miniatura no lugar do print
+  video?: string
   tags: string[]
   goal: string
   delivery: string
@@ -66,21 +68,12 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    name: 'Radar de Clientes',
-    category: 'Plataforma de prospecção',
-    description: 'Plataforma para quem cria sites e vende serviços digitais: encontra negócios locais sem site informado, mostra os contatos disponíveis e organiza a prospecção.',
-    url: 'https://www.radardecliente.com.br',
-    image: '/portfolio/radar-clientes.webp',
-    tags: ['Prospecção', 'Negócios locais', 'Organização'],
-    goal: 'Encontrar negócios locais sem site e organizar a prospecção de novos clientes.',
-    delivery: 'Design e desenvolvimento da plataforma.'
-  },
-  {
     name: 'Dra. Emile Vitória',
     category: 'Site para dentista',
     description: 'Site da cirurgiã-dentista em Boa Vista (RR): tratamentos de clínica geral e harmonização orofacial, resultados, dúvidas e agendamento de avaliação.',
     url: 'https://www.draemilevitoria.com.br',
     image: '/portfolio/emile.webp',
+    video: '/portfolio/emile.mp4',
     tags: ['Landing page', 'Saúde', 'Agendamento'],
     goal: 'Apresentar os tratamentos e facilitar o agendamento de avaliações.',
     delivery: 'Design, desenvolvimento e integração com WhatsApp.'
@@ -91,6 +84,7 @@ export const projects: Project[] = [
     description: 'Catálogo da loja de moda íntima em Boa Vista (RR): conjuntos, sutiãs, calcinhas e linha infantil, com escolha de cor e tamanho e pedido direto pelo WhatsApp.',
     url: 'https://www.arouchemodaintima.com.br',
     image: '/portfolio/arouche.webp',
+    video: '/portfolio/arouche.mp4',
     tags: ['Catálogo', 'Moda', 'Pedido pelo WhatsApp'],
     goal: 'Mostrar as peças da loja e receber pedidos pelo WhatsApp, sem cadastro.',
     delivery: 'Design, desenvolvimento do catálogo e integração com WhatsApp.'
@@ -101,6 +95,7 @@ export const projects: Project[] = [
     description: 'App para dentistas organizarem o consultório: consultas com lembrete (que vai também para o calendário do iPhone ou do Google), atendimentos lançados com um toque, finanças separadas por Pix, crédito, débito e espécie, assistente que anota gastos por mensagem e planilha do mês. Instala no celular como app e funciona até sem internet.',
     url: 'https://agenda-emi.vercel.app',
     image: '/portfolio/agenda-emi.webp',
+    video: '/portfolio/agenda-emi.mp4',
     tags: ['App', 'Agenda', 'Finanças', 'Assinatura'],
     goal: 'Agenda com lembretes e finanças do consultório num app só, sem caderno nem planilha.',
     delivery: 'Design e desenvolvimento do app, da página de vendas e da assinatura com 14 dias grátis.'
