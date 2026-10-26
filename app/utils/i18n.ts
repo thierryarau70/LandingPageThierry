@@ -156,7 +156,7 @@ const en: Messages = {
     'https://www.draemilevitoria.com.br': { category: 'Dentist website', goal: 'Present the treatments and make it easy to book an appointment.' },
     'https://www.arouchemodaintima.com.br': { category: 'Online catalog', goal: 'Showcase the store\'s products and take orders on WhatsApp, no sign-up needed.' },
     'https://agenda-emi.vercel.app': { category: 'App for dentists', goal: 'Appointments with reminders and the practice\'s finances in one app, no notebook or spreadsheet.' },
-    'https://protocolo-iatf.vercel.app': { category: 'App for veterinarians', goal: 'Record FTAI protocols and pregnancy checks in the field, even without signal.' }
+    'https://protocolo-iatf.vercel.app': { category: 'App for veterinarians', goal: 'The whole FTAI protocol, from D0 to D45, on the phone, with voice-dictated pregnancy checks and PDF reports, even without signal.' }
   },
   home: {
     seoTitle: 'Your website in up to 5 days for R$ 800 | Thierry Araújo',

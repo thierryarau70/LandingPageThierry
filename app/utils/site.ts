@@ -103,12 +103,13 @@ export const projects: Project[] = [
   {
     name: 'Protocolo IATF',
     category: 'App para veterinários',
-    description: 'App para veterinários registrarem o protocolo de IATF (inseminação artificial em tempo fixo) e o diagnóstico de gestação (DG) direto no campo, mesmo sem internet. Cada veterinário tem a própria conta.',
+    description: 'App para o veterinário fazer o IATF inteiro pelo celular, do D0 ao D45: DG por ditado de voz ou leitura do brinco pela câmera, agenda do protocolo de todas as fazendas, ranking de touros, estoque de sêmen e hormônios e relatório em PDF para o fazendeiro. Funciona no curral sem internet. Assinatura de R$ 79,99/mês.',
     url: 'https://protocolo-iatf.vercel.app',
     image: '/portfolio/protocolo-iatf.webp',
-    tags: ['Veterinária', 'IATF', 'Offline'],
-    goal: 'Registrar protocolos de IATF e diagnósticos de gestação no campo, mesmo sem sinal.',
-    delivery: 'Design e desenvolvimento do app, com login e uso offline.'
+    video: '/portfolio/protocolo-iatf.mp4',
+    tags: ['Veterinária', 'IATF', 'Ditado por voz', 'Offline', 'Assinatura'],
+    goal: 'IATF do D0 ao D45 no celular, com DG por voz e relatório em PDF, mesmo sem sinal no curral.',
+    delivery: 'Design e desenvolvimento do app, da página de vendas e da assinatura, com uso offline.'
   },
   {
     name: 'Centro de Isoladas',
