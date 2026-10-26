@@ -10,7 +10,7 @@ const FPS = 30
 const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--ignore-certificate-errors'], proxy: process.env.HTTPS_PROXY ? { server: process.env.HTTPS_PROXY, bypass: 'localhost' } : undefined })
 const p = await b.newPage({ viewport: { width: 1080, height: 1920 } })
 p.on('pageerror', e => { console.error('PAGEERROR', e); process.exit(1) })
-await p.goto('file://' + path.join(dir, 'promo.html') + (durations ? `?d=${durations}` : ''), { waitUntil: 'networkidle' })
+await p.goto('file://' + path.join(dir, process.env.PAGE || 'promo.html') + (durations ? `?d=${durations}` : ''), { waitUntil: 'networkidle' })
 await p.evaluate(() => document.fonts.ready)
 const total = Math.round(FPS * await p.evaluate(() => window.TOTAL))
 if (stills) {
