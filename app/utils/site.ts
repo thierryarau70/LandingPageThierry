@@ -90,6 +90,17 @@ export const projects: Project[] = [
     delivery: 'Design, desenvolvimento do catálogo e integração com WhatsApp.'
   },
   {
+    name: 'CW Imports',
+    category: 'Catálogo online',
+    description: 'Catálogo da loja de eletrônicos em Boa Vista (RR): iPhones, fones, smartwatches e acessórios, com filtro por categoria, preço de/por e depoimentos. Ao tocar no produto, o WhatsApp já abre com ele escrito na conversa.',
+    url: 'https://cw-imports-catalogo.vercel.app',
+    image: '/portfolio/cw-imports.webp',
+    video: '/portfolio/cw-imports.mp4',
+    tags: ['Catálogo', 'Eletrônicos', 'Pedido pelo WhatsApp'],
+    goal: 'Mostrar iPhones, fones e smartwatches e fechar a venda no WhatsApp, com o produto já escrito na conversa.',
+    delivery: 'Design, desenvolvimento do catálogo e integração com WhatsApp.'
+  },
+  {
     name: 'Agenda Emi',
     category: 'App para dentistas',
     description: 'App para dentistas organizarem o consultório: consultas com lembrete (que vai também para o calendário do iPhone ou do Google), atendimentos lançados com um toque, finanças separadas por Pix, crédito, débito e espécie, assistente que anota gastos por mensagem e planilha do mês. Instala no celular como app e funciona até sem internet.',
@@ -110,6 +121,17 @@ export const projects: Project[] = [
     tags: ['Veterinária', 'IATF', 'Ditado por voz', 'Offline', 'Assinatura'],
     goal: 'IATF do D0 ao D45 no celular, com DG por voz e relatório em PDF, mesmo sem sinal no curral.',
     delivery: 'Design e desenvolvimento do app, da página de vendas e da assinatura, com uso offline.'
+  },
+  {
+    name: 'Plataforma Prumo',
+    category: 'Newsletter automatizada',
+    description: 'Newsletter gratuita de engenharia de obra: mercado, obra, contrato e carreira em 5 minutos de leitura. Edições enviadas automaticamente por e-mail nas manhãs de dia útil, Diagnóstico Prumo com relatório por e-mail e resumo de cada edição no canal do WhatsApp.',
+    url: 'https://www.plataformaprumo.com.br',
+    image: '/portfolio/prumo.webp',
+    video: '/portfolio/prumo.mp4',
+    tags: ['Newsletter', 'Automação de e-mail', 'Diagnóstico', 'WhatsApp'],
+    goal: 'Newsletter gratuita para engenheiros, com envio automático das edições por e-mail, diagnóstico com relatório automático e resumo no WhatsApp.',
+    delivery: 'Design, desenvolvimento da plataforma e automação do envio das edições, do diagnóstico e dos resumos.'
   },
   {
     name: 'Centro de Isoladas',
