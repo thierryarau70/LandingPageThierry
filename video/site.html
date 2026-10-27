@@ -323,7 +323,7 @@ const sceneNiches = t => {
   enter($('kh'), t, S.niches.a - 0.15)
   NICH.forEach(([w], i) => enter($('ni' + i), t, wt('niches', w, 0.15 + i * 0.2) - 0.2, 30, 0.5))
 }
-const PROJ = [['radar', 'radar-clientes', 'Radar de Clientes', 'Prospecção'], ['doutora', 'emile', 'Dra. Emile Vitória', 'Dentista'], ['arouche', 'arouche', 'Arouche', 'Catálogo'], ['agrovet', 'agrovet', 'Agrovet', 'Sistema'], ['attletto', 'attletto', 'Attletto Teams', 'Gestão']]
+const PROJ = [['radar', 'radar-clientes', 'Radar de Clientes', 'Prospecção'], ['doutora', 'emile', 'Dra. Emile Vitória', 'Dentista'], ['arouche', 'arouche', 'Arouche', 'Catálogo'], ['cw', 'cw-imports', 'CW Imports', 'Catálogo'], ['plataforma', 'prumo', 'Plataforma Prumo', 'Newsletter'], ['agrovet', 'agrovet', 'Agrovet', 'Sistema'], ['attletto', 'attletto', 'Attletto Teams', 'Gestão']]
 $('shots').innerHTML = PROJ.map((x, i) => `<div class="shot shadow" id="pj${i}" style="left:${i === PROJ.length - 1 && i % 2 === 0 ? 330 : i % 2 ? 570 : 90}px;top:${430 + Math.floor(i / 2) * 290}px"><img src="../public/portfolio/${x[1]}.webp"><div class="bar"><i></i>${x[2]}<small>${x[3]}</small></div></div>`).join('')
 const sceneProjects = t => {
   enter($('jh'), t, S.projects.a - 0.15)

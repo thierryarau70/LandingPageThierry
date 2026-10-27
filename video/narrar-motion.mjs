@@ -32,7 +32,7 @@ SCRIPTS.site = [
   ['ai', 'Também crio automações com inteligência artificial: atendimento no WhatsApp, respostas automáticas, envio de e-mails e relatórios, tudo integrado ao seu negócio.'],
   ['extras', 'Precisa de loja virtual, login ou sistema? É um adicional de novecentos e noventa e sete reais. Sistemas com inteligência artificial e projetos maiores, sob orçamento.'],
   ['niches', 'Atendo clínicas, cursos, lojas e prestadores de serviço.'],
-  ['projects', 'Alguns projetos no ar: Radar de Clientes, Doutora Emile Vitória, Arouche Moda Íntima, Agrovet e Attletto.'],
+  ['projects', 'Alguns projetos no ar: Radar de Clientes, Doutora Emile Vitória, Arouche Moda Íntima, CW Imports, Plataforma Prumo, Agrovet e Attletto.'],
   ['about', 'São quatro anos de experiência no mercado, e você fala direto comigo, da primeira conversa à publicação.'],
   ['close', 'Acesse Thierry Araújo dev ponto com ponto br, ou chama no WhatsApp.']
 ]
