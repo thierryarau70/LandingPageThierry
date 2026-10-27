@@ -38,6 +38,9 @@ for (let y = 0; !HERO && y <= DEPTH + 616; y += 200) { await page.evaluate(v => 
 await page.evaluate(() => window.scrollTo(0, 0))
 await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {})
 await page.clock.runFor(2500); await page.waitForTimeout(300)
+// trava o relógio da página: daqui em diante o tempo só anda pelo runFor de cada quadro
+// (sem isso, o tempo real também passava enquanto cada print era tirado e as animações em JS aceleravam)
+await page.clock.pauseAt(await page.evaluate(() => Date.now() + 50))
 
 // a partir daqui as animações CSS só andam quando o gravador manda
 const step = ms => page.evaluate(dt => {

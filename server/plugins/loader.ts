@@ -27,12 +27,14 @@ const markup = `<div id="boot" aria-hidden="true"><div class="m"><b>t<i>.</i></b
 
 // No fim do <body>: o HTML todo já chegou e o CSS já está aplicado. Espera só as fontes (até 1,5 s)
 // e tira o loading, sem esperar o JavaScript do app (que não muda o que aparece na tela).
+// Mesmo quando tudo chega rápido, o loading fica pelo menos MIN ms desde o início da navegação.
 const hide = `<script>(function(){var b=document.getElementById('boot');if(!b)return
 function out(){b.classList.add('out');setTimeout(function(){b.remove()},400)}
 var l=document.querySelector('link[href*="fonts.googleapis.com/css2"]')
 var css=new Promise(function(r){(function w(){if(!l||l.sheet)r();else setTimeout(w,40)})()})
 var fonts=css.then(function(){var f=document.fonts;return f&&Promise.all([f.load('500 1em Inter'),f.load('500 1em "Space Grotesk"')])})
-Promise.race([fonts,new Promise(function(r){setTimeout(r,1500)})]).then(function(){requestAnimationFrame(out)},function(){out()})})()</script>`
+var MIN=1200;function later(){setTimeout(function(){requestAnimationFrame(out)},Math.max(0,MIN-performance.now()))}
+Promise.race([fonts,new Promise(function(r){setTimeout(r,1500)})]).then(later,later)})()</script>`
 
 export default defineNitroPlugin((nitroApp) => {
   nitroApp.hooks.hook('render:html', (html) => {
