@@ -1,16 +1,21 @@
-// Grava a miniatura em vídeo de um projeto do portfólio: o site rolando para baixo e voltando ao topo, em loop.
+// Grava a miniatura em vídeo de um projeto do portfólio, em loop. Dois modos:
+// - profundidade > 0: o site rola para baixo e volta ao topo;
+// - profundidade 0: só a tela principal, parada, com as animações do próprio site (o fim emenda no começo).
 // O tempo da página é controlado (relógio JS e animações CSS avançam 1/30 s por quadro), então o
 // resultado fica fluido mesmo que cada print demore para ser tirado.
 // Uso: node scripts/gravar-miniatura.mjs <url> <saida.mp4> [profundidade_px=1400] [seletor_para_fechar_aviso]
 import { chromium } from '/opt/node-tools/node_modules/playwright/index.mjs'
 import { spawn } from 'node:child_process'
+import fs from 'node:fs'
 
 const [url, out, depthArg = '1400', closeSel = ''] = process.argv.slice(2)
 const FPS = 30, W = 960, H = 492
 const DEPTH = Number(depthArg)
 // roteiro (s): parado no topo, desce, parado embaixo, sobe, parado no topo
 const HOLD_TOP = 1.0, DOWN = 3.6, HOLD_BOTTOM = 0.8, UP = 3.0, HOLD_END = 0.6
-const TOTAL = HOLD_TOP + DOWN + HOLD_BOTTOM + UP + HOLD_END
+const HERO = DEPTH === 0
+const LOOP = 8, FADE = 0.8 // modo tela principal: 8 s de vídeo, com 0,8 s de fusão emendando o fim no começo
+const TOTAL = HERO ? LOOP + FADE : HOLD_TOP + DOWN + HOLD_BOTTOM + UP + HOLD_END
 const ease = x => 0.5 - Math.cos(Math.PI * x) / 2 // senoide: começa e termina devagar
 const scrollAt = t => {
   if (t < HOLD_TOP) return 0
@@ -29,7 +34,7 @@ await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {})
 await page.addStyleTag({ content: 'html,body{scroll-behavior:auto!important}' })
 if (closeSel) await page.click(closeSel, { timeout: 3000 }).catch(() => {})
 // percorre a página para carregar imagens preguiçosas e disparar as animações de entrada
-for (let y = 0; y <= DEPTH + 616; y += 200) { await page.evaluate(v => window.scrollTo(0, v), y); await page.clock.runFor(150); await page.waitForTimeout(60) }
+for (let y = 0; !HERO && y <= DEPTH + 616; y += 200) { await page.evaluate(v => window.scrollTo(0, v), y); await page.clock.runFor(150); await page.waitForTimeout(60) }
 await page.evaluate(() => window.scrollTo(0, 0))
 await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {})
 await page.clock.runFor(2500); await page.waitForTimeout(300)
@@ -42,8 +47,10 @@ const step = ms => page.evaluate(dt => {
   }
 }, ms)
 
+const encode = ['-c:v', 'libx264', '-preset', 'slow', '-crf', '25', '-g', String(FPS * 2), '-pix_fmt', 'yuv420p', '-an', '-movflags', '+faststart']
+const raw = HERO ? out.replace(/\.mp4$/, '.bruto.mp4') : out
 const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-',
-  '-vf', `scale=${W}:${H}`, '-c:v', 'libx264', '-preset', 'slow', '-crf', '25', '-g', String(FPS * 2), '-pix_fmt', 'yuv420p', '-an', '-movflags', '+faststart', out],
+  '-vf', `scale=${W}:${H}`, ...(HERO ? ['-c:v', 'libx264', '-crf', '12', '-pix_fmt', 'yuv420p'] : encode), raw],
   { stdio: ['pipe', 'inherit', 'inherit'] })
 const N = Math.round(TOTAL * FPS), dt = 1000 / FPS
 for (let i = 0; i < N; i++) {
@@ -54,4 +61,20 @@ for (let i = 0; i < N; i++) {
   if (!ff.stdin.write(buf)) await new Promise(r => ff.stdin.once('drain', r))
 }
 ff.stdin.end(); await new Promise(r => ff.on('close', r)); await browser.close()
-console.log(`ok ${out} (${TOTAL.toFixed(1)} s, ${N} quadros)`)
+
+if (HERO) {
+  // loop sem pulo: os primeiros FADE s viram uma fusão do trecho final (LOOP..LOOP+FADE) com o começo,
+  // então o último quadro do vídeo continua naturalmente no primeiro
+  const graph = [
+    `[0:v]split=3[a][b][c]`,
+    `[a]trim=0:${FADE},setpts=PTS-STARTPTS[head]`,
+    `[b]trim=${LOOP}:${LOOP + FADE},setpts=PTS-STARTPTS[tail]`,
+    `[c]trim=${FADE}:${LOOP},setpts=PTS-STARTPTS[body]`,
+    `[head][tail]blend=all_expr='A*(T/${FADE})+B*(1-T/${FADE})'[seam]`,
+    `[seam][body]concat=n=2:v=1[v]`
+  ].join(';')
+  await new Promise((resolve, reject) => spawn('ffmpeg', ['-y', '-loglevel', 'error', '-i', raw, '-filter_complex', graph, '-map', '[v]', ...encode, out], { stdio: 'inherit' })
+    .on('close', code => code ? reject(new Error(`ffmpeg ${code}`)) : resolve()))
+  fs.unlinkSync(raw)
+}
+console.log(`ok ${out} (${(HERO ? LOOP : TOTAL).toFixed(1)} s)`)
