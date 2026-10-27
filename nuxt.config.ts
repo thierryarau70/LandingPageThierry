@@ -3,7 +3,12 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   nitro: {
     // Keep renderer imports bundled so Nuxt resolves its generated manifest.
-    externals: { inline: [/^nuxt(?:\/|$)/] }
+    externals: { inline: [/^nuxt(?:\/|$)/] },
+    // Páginas geradas no build e servidas direto da CDN (sem esperar o servidor montar a cada visita)
+    prerender: {
+      crawlLinks: true,
+      routes: ['/', '/en', '/sobre', '/faq', '/projetos', '/sobre-mim', '/en/about', '/en/faq', '/en/projects', '/en/about-me', '/para/clinicas', '/para/cursos', '/para/servicos', '/sitemap.xml']
+    }
   },
   css: ['~/assets/css/main.css'],
   runtimeConfig: {
@@ -33,8 +38,8 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap' }
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }
+        // a folha de fontes entra por server/plugins/loader.ts, sem bloquear a primeira pintura
       ]
     }
   }
