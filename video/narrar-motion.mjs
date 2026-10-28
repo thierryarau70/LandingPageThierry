@@ -63,8 +63,8 @@ SCRIPTS.ia = [
 const SCRIPT = SCRIPTS[VIDEO]
 if (!SCRIPT) throw new Error(`roteiro desconhecido: ${VIDEO}`)
 const voiceId = process.argv[2] || 'd703f08d1ef34302a36945aa3efc7b3f' // Murilo (pt-BR, masculina)
-const SPEED = VIDEO === 'ia' ? 0.88 : 1 // velocidade natural nos outros; no "ia", o Murilo fala mais devagar
-const PAUSE = VIDEO === 'ia' ? 0.7 : 0.4 // pausa entre as cenas na narração contínua (s)
+const SPEED = VIDEO === 'ia' ? 0.95 : 1 // velocidade natural nos outros; no "ia", o Murilo fala um pouco mais devagar
+const PAUSE = VIDEO === 'ia' ? 0.5 : 0.4 // pausa entre as cenas na narração contínua (s)
 
 // API v3 de voz da HeyGen (a v1 é desligada em 31/10/2026)
 const speak = async text => {

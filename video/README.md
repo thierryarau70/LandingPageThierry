@@ -36,7 +36,7 @@ Versão curta (~44 s), com as mesmas cenas e os pontos principais: `VIDEO=curto 
 
 ## "Sistema com IA ou landing page?"
 
-Vídeo vertical de ~72 s, escuro e tecnológico (campo ASCII, grade em perspectiva, HUD e textos que se decodificam). Ele pergunta se o cliente quer um sistema com IA ou só uma landing page, mostra 5 funções da IA, cada uma com uma demonstração animada (atendimento no WhatsApp 24h, agenda e orçamentos, clientes prontos para fechar, áudio que vira dados, relatórios e emails automáticos), cita os projetos que já usam IA (Agenda Emi, Protocolo IATF e Prumo), traz a landing page a partir de R$ 600 e fecha com o pedido de orçamento pelo WhatsApp. A narração é do Murilo, mais lenta (velocidade 0,88 e pausas maiores).
+Vídeo vertical de ~66 s, escuro e tecnológico (campo ASCII, grade em perspectiva, HUD e textos que se decodificam). Ele pergunta se o cliente quer um sistema com IA ou só uma landing page, mostra 5 funções da IA, cada uma com uma demonstração animada (atendimento no WhatsApp 24h, agenda e orçamentos, clientes prontos para fechar, áudio que vira dados, relatórios e emails automáticos), cita os projetos que já usam IA (Agenda Emi, Protocolo IATF e Prumo), traz a landing page a partir de R$ 600 e fecha com o pedido de orçamento pelo WhatsApp. A narração é do Murilo, um pouco mais lenta (velocidade 0,95), sem trilha (`SEM_TRILHA=1` é o padrão desse vídeo).
 
 ```bash
 VIDEO=ia bash video/build-motion.sh              # gera a voz e monta o vídeo
