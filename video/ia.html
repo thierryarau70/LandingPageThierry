@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&display=block" rel="stylesheet">
+<style>
+/* "Sistema com IA ou landing page?": visual escuro e tecnológico (campo ASCII, grade em perspectiva, HUD, textos que decodificam) */
+:root{--bg:#05060d;--panel:#0c0f1fcc;--line:#262c52;--txt:#eef0ff;--mut:#8e96c0;--p:#9d8cff;--c:#3fe0ff;--ok:#3ee08f;--warn:#ffb547}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--bg);font-family:Inter,sans-serif;color:var(--txt)}
+.stage{position:relative;width:1080px;height:1920px;overflow:hidden}
+canvas{position:absolute;inset:0}
+.scene{position:absolute;inset:0;opacity:0}
+.g{font-family:'Space Grotesk',sans-serif;font-weight:500;letter-spacing:-.05em;line-height:1.04}
+.m{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:0}
+.abs{position:absolute}
+.center{left:0;right:0;text-align:center}
+.grad{background:linear-gradient(90deg,var(--p),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.glow{text-shadow:0 0 30px #9d8cff66}
+.panel{background:var(--panel);border:2px solid var(--line);border-radius:28px;box-shadow:0 0 0 1px #9d8cff10,0 30px 80px #000a,inset 0 1px 0 #ffffff0d}
+/* HUD fixo */
+.hud{position:absolute;inset:0;pointer-events:none}
+.hud .c{position:absolute;width:64px;height:64px;border-color:#9d8cff88;border-style:solid;border-width:0}
+.hud .tl{top:60px;left:60px;border-top-width:3px;border-left-width:3px}
+.hud .tr{top:60px;right:60px;border-top-width:3px;border-right-width:3px}
+.hud .bl{bottom:60px;left:60px;border-bottom-width:3px;border-left-width:3px}
+.hud .br{bottom:60px;right:60px;border-bottom-width:3px;border-right-width:3px}
+.hud .t{position:absolute;font-family:'JetBrains Mono',monospace;font-size:22px;color:#8e96c0;letter-spacing:.08em}
+.brand{position:absolute;top:130px;left:0;right:0;display:flex;justify-content:center}
+.brand div{display:flex;align-items:center;gap:16px;padding:10px 28px 10px 10px;border-radius:999px;background:#0c0f1f;border:2px solid var(--line);font-size:28px;font-weight:500}
+.brand i{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--c));display:grid;place-items:center;font-style:normal;font-family:'Space Grotesk';font-weight:700;font-size:26px;color:#05060d}
+.brand b{color:var(--c);font-weight:600}
+.scan{position:absolute;inset:0;background:repeating-linear-gradient(0deg,#ffffff05 0 2px,transparent 2px 4px);pointer-events:none}
+.vig{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 50%,#05060d 100%);pointer-events:none}
+/* títulos */
+.h{position:absolute;left:70px;right:70px;text-align:center;font-size:96px}
+.tag{position:absolute;left:0;right:0;text-align:center;font-family:'JetBrains Mono',monospace;font-size:28px;color:var(--c);letter-spacing:.12em}
+.term{position:absolute;left:110px;right:110px;padding:30px 36px;font-family:'JetBrains Mono',monospace;font-size:30px;line-height:1.6;color:#b9c0ff}
+.term .ok{color:var(--ok)}
+.cur{display:inline-block;width:.6em;height:1em;background:var(--c);vertical-align:-.12em;margin-left:4px}
+/* escolha */
+.opt{position:absolute;top:700px;width:420px;height:520px;padding:44px 36px;text-align:center}
+.opt svg{width:180px;height:180px;margin:10px auto 34px;display:block}
+.opt h3{font-family:'Space Grotesk';font-size:54px;letter-spacing:-.04em;line-height:1.05}
+.opt p{font-size:28px;color:var(--mut);margin-top:16px}
+.opt.sel{border-color:var(--c);box-shadow:0 0 0 2px #3fe0ff55,0 0 80px #3fe0ff33,0 30px 80px #000a}
+.ou{position:absolute;top:920px;left:0;right:0;text-align:center;font-family:'JetBrains Mono',monospace;font-size:34px;color:var(--mut)}
+/* hub */
+.core{position:absolute;left:390px;top:740px;width:300px;height:300px;border-radius:50%;display:grid;place-items:center;font-family:'Space Grotesk';font-weight:700;font-size:110px;letter-spacing:-.04em;color:#05060d;background:radial-gradient(circle at 35% 30%,#e9e4ff,#9d8cff 45%,#3fe0ff 100%);box-shadow:0 0 120px #9d8cff88,0 0 260px #3fe0ff44}
+.ring{position:absolute;border-radius:50%;border:2px solid #9d8cff55}
+.node{position:absolute;width:250px;padding:22px 18px;text-align:center;border-radius:26px}
+.node svg{width:72px;height:72px;display:block;margin:0 auto 12px}
+.node b{display:block;font-size:26px;font-weight:600;line-height:1.2}
+.node i{position:absolute;top:-16px;left:-16px;width:44px;height:44px;border-radius:50%;background:var(--c);color:#05060d;font-style:normal;font-family:'JetBrains Mono';font-weight:600;font-size:22px;display:grid;place-items:center}
+/* cenas de funcionalidade */
+.fnum{position:absolute;top:300px;left:90px;font-family:'JetBrains Mono',monospace;font-size:34px;color:var(--c);letter-spacing:.1em}
+.fh{position:absolute;top:350px;left:90px;right:90px;font-size:88px;text-align:left;white-space:pre-line}
+.fsub{position:absolute;top:580px;left:90px;right:90px;font-size:34px;color:var(--mut);line-height:1.35}
+.box{position:absolute;left:90px;right:90px;top:760px;height:860px;padding:40px}
+.bbar{display:flex;align-items:center;gap:14px;padding-bottom:26px;border-bottom:2px solid var(--line);margin-bottom:30px;font-size:28px;font-weight:600}
+.bbar .av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--c));display:grid;place-items:center;font-family:'JetBrains Mono';font-weight:600;font-size:24px;color:#05060d}
+.bbar small{display:block;font-size:22px;font-weight:500;color:var(--ok)}
+.msg{max-width:78%;padding:22px 28px;border-radius:26px;font-size:32px;line-height:1.35;margin-bottom:22px}
+.msg.in{background:#171b33;border-bottom-left-radius:6px}
+.msg.out{margin-left:auto;background:linear-gradient(135deg,#6d5cf0,#3a7bea);border-bottom-right-radius:6px}
+.msg small{display:block;font-size:20px;opacity:.7;margin-top:6px;text-align:right}
+.typing{display:inline-flex;gap:10px;padding:24px 30px;border-radius:26px;background:#171b33}
+.typing i{width:14px;height:14px;border-radius:50%;background:var(--mut)}
+.chip{display:inline-block;font-family:'JetBrains Mono';font-size:22px;color:var(--c);border:2px solid #3fe0ff55;border-radius:999px;padding:8px 18px}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:34px}
+.slot{padding:22px 0;text-align:center;border-radius:18px;border:2px solid var(--line);font-family:'JetBrains Mono';font-size:28px;color:var(--mut)}
+.slot.on{border-color:var(--c);color:#05060d;background:var(--c)}
+.row{display:flex;align-items:center;gap:20px;padding:22px 24px;border-radius:20px;background:#11152a;border:2px solid var(--line);margin-bottom:16px;font-size:28px}
+.row .ic{width:56px;height:56px;border-radius:14px;background:#1d2246;display:grid;place-items:center;flex:none}
+.row b{font-weight:600}
+.row span{margin-left:auto;font-family:'JetBrains Mono';font-size:26px;color:var(--mut)}
+.row .ck{color:var(--ok);margin-left:14px;font-family:'JetBrains Mono'}
+.lead{display:flex;align-items:center;gap:22px;padding:24px;border-radius:22px;background:#11152a;border:2px solid var(--line);margin-bottom:18px}
+.lead .pf{width:72px;height:72px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:700;font-size:28px;color:#05060d}
+.lead .tx{flex:1;font-size:27px;line-height:1.35}
+.lead .tx small{display:block;color:var(--mut);font-size:23px}
+.badge{font-family:'JetBrains Mono';font-size:22px;padding:10px 16px;border-radius:12px;white-space:nowrap}
+.hot{background:#3ee08f22;color:var(--ok);border:2px solid #3ee08f66}
+.cold{background:#8e96c022;color:var(--mut);border:2px solid #8e96c044}
+.scanbar{position:absolute;left:0;right:0;height:6px;background:linear-gradient(90deg,transparent,var(--c),transparent);box-shadow:0 0 30px var(--c)}
+.wave{display:flex;align-items:center;justify-content:center;gap:8px;height:200px;margin:10px 0 30px}
+.wave i{width:12px;border-radius:6px;background:linear-gradient(var(--c),var(--p))}
+.quote{font-family:'JetBrains Mono';font-size:32px;color:#d6dbff;text-align:center;min-height:50px;margin-bottom:34px}
+.fields{display:grid;gap:16px}
+.field{display:flex;justify-content:space-between;padding:22px 26px;border-radius:18px;background:#11152a;border:2px solid var(--line);font-size:30px}
+.field span{color:var(--mut)}
+.field b{font-family:'JetBrains Mono';font-weight:600;color:var(--c)}
+.chart{position:relative;height:330px;border-radius:20px;background:#0b0e1d;border:2px solid var(--line);margin-bottom:28px;overflow:hidden}
+.mail{display:flex;align-items:center;gap:22px;padding:24px;border-radius:20px;background:#11152a;border:2px solid var(--line);font-size:28px;margin-bottom:16px}
+.mail .ic{width:60px;height:60px;border-radius:16px;background:#1d2246;display:grid;place-items:center;flex:none}
+.mail b{font-weight:600;display:block}
+.mail small{color:var(--mut);font-size:23px}
+.mail .st{margin-left:auto;font-family:'JetBrains Mono';font-size:24px;color:var(--ok)}
+/* prova */
+.shot{position:absolute;left:110px;width:860px;border-radius:24px;overflow:hidden;border:2px solid var(--line);background:#0c0f1f;box-shadow:0 30px 80px #000c}
+.shot img{display:block;width:100%;height:auto}
+.shot .bar{display:flex;align-items:center;gap:14px;padding:16px 22px;font-size:28px;font-weight:600}
+.shot .bar i{width:14px;height:14px;border-radius:50%;background:var(--ok)}
+.shot .bar .chip{margin-left:auto;font-size:20px}
+/* landing */
+.browser{position:absolute;left:150px;top:640px;width:780px;height:560px;border-radius:28px;overflow:hidden}
+.browser .tb{display:flex;align-items:center;gap:10px;height:62px;padding:0 24px;border-bottom:2px solid var(--line)}
+.browser .tb i{width:14px;height:14px;border-radius:50%;background:var(--line)}
+.browser .tb span{margin-left:14px;flex:1;height:36px;border-radius:999px;background:#11152a;font-family:'JetBrains Mono';font-size:20px;color:var(--mut);line-height:36px;padding-left:20px}
+.blk{position:absolute;border-radius:14px;background:#1a1f3d}
+.price{position:absolute;top:1260px;left:0;right:0;text-align:center}
+.price small{display:block;font-family:'JetBrains Mono';font-size:30px;color:var(--mut);letter-spacing:.08em;margin-bottom:6px}
+.price b{font-family:'Space Grotesk';font-size:190px;letter-spacing:-.05em;line-height:1}
+.price b span{font-size:90px;vertical-align:.7em;margin-right:26px}
+.pills{position:absolute;top:1530px;left:0;right:0;display:flex;justify-content:center;gap:16px}
+.pills span{font-size:28px;padding:14px 26px;border-radius:999px;border:2px solid var(--line);background:#0c0f1f;color:var(--mut)}
+/* fechamento */
+.wa{position:absolute;left:170px;right:170px;top:1150px;height:150px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:24px;font-size:46px;font-weight:600;color:#05060d;background:linear-gradient(90deg,#3ee08f,#3fe0ff);box-shadow:0 0 80px #3ee08f55}
+.wa svg{width:62px;height:62px}
+.pulse{position:absolute;left:170px;right:170px;top:1150px;height:150px;border-radius:999px;border:3px solid #3ee08f}
+.ctxt{position:absolute;left:0;right:0;text-align:center}
+</style></head><body>
+<div class="stage">
+  <canvas id="bg" width="1080" height="1920"></canvas>
+  <canvas id="fx" width="1080" height="1920"></canvas>
+
+  <section class="scene" id="hook">
+    <div class="term panel" id="kt" style="top:430px"></div>
+    <h1 class="h g glow" style="top:780px" id="k1"></h1>
+    <h1 class="h g" style="top:900px" id="k2"></h1>
+    <h1 class="h g grad" style="top:1020px;font-size:112px" id="k3"></h1>
+  </section>
+
+  <section class="scene" id="choice">
+    <div class="tag" style="top:400px" id="ct">// ESCOLHA O SEU CAMINHO</div>
+    <h2 class="h g" style="top:470px;font-size:80px" id="ch"></h2>
+    <div class="opt panel" id="c0" style="left:70px"><svg viewBox="0 0 120 120" id="ci0"></svg><h3>Sistema<br>com IA</h3><p>Atende, organiza e trabalha por você</p></div>
+    <div class="ou" id="cou">ou</div>
+    <div class="opt panel" id="c1" style="right:70px"><svg viewBox="0 0 120 120" id="ci1"></svg><h3>Landing<br>page</h3><p>Sua presença online, rápida e bonita</p></div>
+  </section>
+
+  <section class="scene" id="hub">
+    <div class="tag" style="top:330px" id="ht">// 5 FUNÇÕES DA IA</div>
+    <h2 class="h g" style="top:390px;font-size:82px" id="hh"></h2>
+    <div class="ring" id="r0"></div><div class="ring" id="r1"></div>
+    <div class="core" id="core">IA</div>
+    <div id="nodes"></div>
+  </section>
+
+  <section class="scene" id="f1">
+    <div class="fnum" id="f1n">01 / 05</div><h2 class="fh g" id="f1h"></h2><p class="fsub" id="f1s">Responde preço, horário e endereço na hora, até de madrugada.</p>
+    <div class="box panel" id="f1b">
+      <div class="bbar"><div class="av">IA</div><div>Atendimento<small>● online 24h</small></div><span class="chip" style="margin-left:auto" id="f1c">resposta em 2s</span></div>
+      <div class="msg in" id="m1">Oi! Quanto custa a avaliação e até que horas vocês atendem?<small>23:47</small></div>
+      <div class="typing" id="ty"><i></i><i></i><i></i></div>
+      <div class="msg out" id="m2"></div>
+      <div class="msg in" id="m3">Perfeito, quero agendar 🙌<small>23:48</small></div>
+    </div>
+  </section>
+
+  <section class="scene" id="f2">
+    <div class="fnum" id="f2n">02 / 05</div><h2 class="fh g" id="f2h"></h2><p class="fsub" id="f2s">O cliente escolhe, a IA confirma e organiza tudo.</p>
+    <div class="box panel" id="f2b">
+      <div class="slots" id="slots"></div>
+      <div id="rows"></div>
+    </div>
+  </section>
+
+  <section class="scene" id="f3">
+    <div class="fnum" id="f3n">03 / 05</div><h2 class="fh g" id="f3h"></h2><p class="fsub" id="f3s">Lê cada conversa e separa quem está pronto para comprar.</p>
+    <div class="box panel" id="f3b"><div id="leads" style="position:relative"></div><div class="scanbar" id="sb"></div></div>
+  </section>
+
+  <section class="scene" id="f4">
+    <div class="fnum" id="f4n">04 / 05</div><h2 class="fh g" id="f4h"></h2><p class="fsub" id="f4s">Você manda um áudio. O sistema entende e registra.</p>
+    <div class="box panel" id="f4b">
+      <div class="bbar"><div class="av">🎙</div><div>Áudio recebido<small id="f4dur">0:03</small></div><span class="chip" style="margin-left:auto">transcrição + IA</span></div>
+      <div class="wave" id="wave"></div>
+      <div class="quote" id="quote"></div>
+      <div class="fields" id="fields"></div>
+    </div>
+  </section>
+
+  <section class="scene" id="f5">
+    <div class="fnum" id="f5n">05 / 05</div><h2 class="fh g" id="f5h"></h2><p class="fsub" id="f5s">Todo dia, no seu WhatsApp ou e-mail, sem abrir planilha.</p>
+    <div class="box panel" id="f5b">
+      <div class="chart"><canvas id="chart" width="780" height="330" style="position:absolute;inset:0"></canvas></div>
+      <div id="mails"></div>
+    </div>
+  </section>
+
+  <section class="scene" id="proof">
+    <div class="tag" style="top:300px" id="pt">// JÁ ESTÁ NO AR</div>
+    <h2 class="h g" style="top:360px;font-size:78px" id="ph"></h2>
+    <div id="shots"></div>
+  </section>
+
+  <section class="scene" id="landing">
+    <div class="tag" style="top:330px" id="lt">// OU SÓ UMA LANDING PAGE?</div>
+    <h2 class="h g" style="top:390px;font-size:82px" id="lh"></h2>
+    <div class="browser panel" id="lb"><div class="tb"><i></i><i></i><i></i><span>seunegocio.com.br</span></div><div id="blks"></div></div>
+    <div class="price" id="lp"><small>A PARTIR DE</small><b><span>R$</span><em style="font-style:normal" id="lv">0</em></b></div>
+    <div class="pills" id="lpills"><span>Landing page</span><span>Catálogo</span><span>No ar em até 5 dias</span></div>
+  </section>
+
+  <section class="scene" id="close">
+    <div class="tag" style="top:430px" id="xt">// VAMOS CONVERSAR</div>
+    <h2 class="h g" style="top:500px;font-size:110px" id="x1"></h2>
+    <h2 class="h g grad" style="top:630px;font-size:110px" id="x2"></h2>
+    <p class="ctxt" style="top:860px;font-size:36px;color:var(--mut)" id="x3">Me conte sua ideia: sistema com IA ou landing page.<br>Eu te mando a proposta.</p>
+    <div class="pulse" id="xp"></div>
+    <div class="wa" id="xw"><svg viewBox="0 0 32 32"><path fill="#05060d" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6a10.6 10.6 0 0 1-5.4-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.8.9 3.8.8a3.3 3.3 0 0 0 2.1-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg>Mandar mensagem</div>
+    <p class="ctxt m" style="top:1350px;font-size:40px;color:#d6dbff" id="x4">(95) 99143-2677</p>
+    <p class="ctxt g" style="top:1430px;font-size:58px" id="x5">thierryaraujodev<span class="grad">.com.br</span></p>
+  </section>
+
+  <div class="brand" id="brand"><div><i>t.</i><span>Thierry Araújo · <b>sistemas com IA</b></span></div></div>
+  <div class="hud" id="hud"><div class="c tl"></div><div class="c tr"></div><div class="c bl"></div><div class="c br"></div>
+    <div class="t" style="left:70px;bottom:24px" id="tc">REC ● 00:00</div><div class="t" style="right:70px;bottom:24px">SYS://THIERRY.AI</div></div>
+  <div class="scan"></div><div class="vig"></div>
+</div>
+
+<script>
+// narração do vídeo (out/ia/timing.js); sem ela, a página usa tempos de exemplo
+document.write(`<script src="out/${new URLSearchParams(location.search).get('v') || 'ia'}/timing.js" onerror="void 0"><\/script>`)
+</script>
+<script>
+// ---------- Utilidades (tudo é função do quadro, para o render ser determinístico) ----------
+const FPS = 30, W = 1080, H = 1920
+const $ = id => document.getElementById(id)
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v))
+const span = (t, a, d) => clamp((t - a) / d, 0, 1)
+const ease = p => 1 - Math.pow(1 - clamp(p, 0, 1), 3)
+const easeIO = p => { p = clamp(p, 0, 1); return p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2 }
+const lerp = (a, b, p) => a + (b - a) * p
+const hash = (a, b) => { let h = (a * 374761393 + b * 668265263) >>> 0; h = (h ^ (h >>> 13)) * 1274126177 >>> 0; return ((h ^ (h >>> 16)) >>> 0) / 4294967296 }
+const enter = (el, t, at, dist = 40, dur = 0.6) => { const p = ease(span(t, at, dur)); el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * dist}px)`; return p }
+// texto que "decodifica": caracteres aleatórios viram o texto final da esquerda para a direita
+const GL = '#%@*+=-:<>/\\|_ABCDEFGHJKLMNPQRSTUVWXYZ0123456789'
+const decode = (final, p, frame) => {
+  if (p <= 0) return ''
+  const n = final.length, shown = Math.ceil(clamp(p / 0.6, 0, 1) * n), ok = Math.floor(clamp((p - 0.35) / 0.65, 0, 1) * n)
+  let s = ''
+  for (let i = 0; i < n; i++) { const ch = final[i]; s += i >= shown ? '' : (i < ok || ch === ' ' || ch === '\n') ? ch : GL[Math.floor(hash(i, frame >> 1) * GL.length)] }
+  return s
+}
+const typed = (final, p) => final.slice(0, Math.floor(clamp(p, 0, 1) * final.length))
+const C = '#3fe0ff', P = '#9d8cff', OK = '#3ee08f'
+
+// ---------- Tempo das cenas (vem da narração) ----------
+const LEAD = 0.4, GAP = 0.5, TAIL = 1.6 // os mesmos valores de build-motion.sh
+const NARR = window.NARR || { scenes: ['hook', 'choice', 'hub', 'f1', 'f2', 'f3', 'f4', 'f5', 'proof', 'landing', 'close'].map(id => ({ id, duration: 6, words: [] })) }
+const S = {}, names = []; let acc = LEAD
+NARR.scenes.forEach(s => { names.push(s.id); S[s.id] = { a: acc, b: acc + s.duration + GAP, words: s.words.map(w => ({ ...w, s: w.s + acc, e: w.e + acc })) }; acc += s.duration + GAP })
+const TOTAL = acc + TAIL; window.TOTAL = TOTAL
+const norm = w => w.toLowerCase().replace(/[.,?!:]/g, '')
+const wt = (id, word, frac = 0.5, nth = 0) => { const w = S[id].words.filter(x => norm(x.w) === word)[nth]; return w ? w.s : lerp(S[id].a, S[id].b, frac) }
+
+// ---------- Fundo: grade em perspectiva, campo ASCII e partículas ----------
+const bg = $('bg').getContext('2d'), fx = $('fx').getContext('2d')
+const CELL = 30, COLS = Math.ceil(W / CELL), ROWS = Math.ceil(H / CELL), RAMP = ' .·:-=+*%#@'
+let energy = new Float32Array(COLS * ROWS), next = new Float32Array(COLS * ROWS)
+const bursts = []
+const burst = (x, y, s = 1) => bursts.push({ x, y, t: 0, s })
+const stepField = () => {
+  for (let q = bursts.length - 1; q >= 0; q--) {
+    const b = bursts[q]; b.t++
+    const r = b.t * 16 * b.s
+    for (let a = 0; a < 64; a++) {
+      const x = Math.round((b.x + Math.cos(a / 64 * 6.283) * r) / CELL), y = Math.round((b.y + Math.sin(a / 64 * 6.283) * r) / CELL)
+      if (x >= 0 && x < COLS && y >= 0 && y < ROWS) energy[y * COLS + x] = Math.min(1.4, energy[y * COLS + x] + 0.5 * (1 - b.t / 40))
+    }
+    if (b.t > 40) bursts.splice(q, 1)
+  }
+  for (let j = 1; j < ROWS - 1; j++) for (let i = 1; i < COLS - 1; i++) {
+    const k = j * COLS + i
+    next[k] = (energy[k] * 4 + energy[k - 1] + energy[k + 1] + energy[k - COLS] + energy[k + COLS]) / 8 * 0.985
+  }
+  const tmp = energy; energy = next; next = tmp
+}
+const drawBg = (t, frame) => {
+  bg.fillStyle = '#05060d'; bg.fillRect(0, 0, W, H)
+  // brilhos que flutuam devagar
+  for (const [cx, cy, col, r] of [[0.25 + 0.1 * Math.sin(t * 0.3), 0.3, '#9d8cff22', 900], [0.8, 0.7 + 0.08 * Math.cos(t * 0.25), '#3fe0ff18', 850]]) {
+    const g = bg.createRadialGradient(cx * W, cy * H, 0, cx * W, cy * H, r); g.addColorStop(0, col); g.addColorStop(1, '#00000000'); bg.fillStyle = g; bg.fillRect(0, 0, W, H)
+  }
+  // grade em perspectiva no chão, andando para frente
+  const hy = 1380, vx = W / 2
+  bg.strokeStyle = '#9d8cff26'; bg.lineWidth = 2; bg.beginPath()
+  for (let i = -14; i <= 14; i++) { bg.moveTo(vx + i * 30, hy); bg.lineTo(vx + i * 260, H) }
+  const off = (t * 0.6) % 1
+  for (let k = 0; k < 14; k++) { const z = (k + off) / 14, y = hy + Math.pow(z, 2.2) * (H - hy); bg.moveTo(0, y); bg.lineTo(W, y) }
+  bg.stroke()
+  // campo ASCII
+  fx.clearRect(0, 0, W, H)
+  fx.font = '18px JetBrains Mono, monospace'; fx.textAlign = 'center'; fx.textBaseline = 'middle'
+  for (let j = 0; j < ROWS; j++) for (let i = 0; i < COLS; i++) {
+    const k = j * COLS + i, e = energy[k]
+    const b = 0.5 + 0.5 * Math.sin(i * 0.23 + t * 0.9 + Math.sin(j * 0.11 - t * 0.6) * 2.2)
+    const v = Math.max(e, b * 0.32 * (0.6 + 0.4 * hash(i, j)))
+    const idx = Math.min(RAMP.length - 1, Math.floor(v * RAMP.length))
+    if (idx < 1) continue
+    fx.fillStyle = e > 0.15 ? `rgba(63,224,255,${Math.min(0.85, 0.2 + e * 0.6).toFixed(2)})` : `rgba(157,140,255,${(0.05 + b * 0.09).toFixed(2)})`
+    fx.fillText(RAMP[idx], i * CELL + CELL / 2, j * CELL + CELL / 2)
+  }
+}
+
+// ---------- Ícones ----------
+const sk = (c = C) => `fill="none" stroke="${c}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"`
+const ICON = {
+  chip: `<rect x="30" y="30" width="60" height="60" rx="10" ${sk(P)}/><rect x="46" y="46" width="28" height="28" rx="4" fill="${C}"/><path d="M45 18v12M60 18v12M75 18v12M45 90v12M60 90v12M75 90v12M18 45h12M18 60h12M18 75h12M90 45h12M90 60h12M90 75h12" ${sk(P)}/>`,
+  web: `<rect x="12" y="20" width="96" height="78" rx="10" ${sk(P)}/><path d="M12 38h96" ${sk(P)}/><circle cx="24" cy="29" r="3" fill="${P}"/><circle cx="34" cy="29" r="3" fill="${P}"/><rect x="24" y="50" width="44" height="10" rx="5" fill="${C}"/><rect x="24" y="68" width="30" height="8" rx="4" fill="${P}"/><rect x="24" y="82" width="22" height="8" rx="4" fill="${C}"/>`,
+  chat: `<path d="M14 18h56a6 6 0 0 1 6 6v28a6 6 0 0 1-6 6H40L26 70V58H14a6 6 0 0 1-6-6V24a6 6 0 0 1 6-6z" ${sk()}/><circle cx="30" cy="38" r="3.5" fill="${P}"/><circle cx="42" cy="38" r="3.5" fill="${P}"/><circle cx="54" cy="38" r="3.5" fill="${P}"/>`,
+  cal: `<rect x="12" y="16" width="60" height="56" rx="8" ${sk()}/><path d="M12 32h60M28 8v14M56 8v14" ${sk()}/><path d="M28 50l8 8 16-16" fill="none" stroke="${P}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`,
+  target: `<circle cx="42" cy="42" r="30" ${sk()}/><circle cx="42" cy="42" r="16" ${sk()}/><circle cx="42" cy="42" r="6" fill="${P}"/>`,
+  mic: `<rect x="30" y="8" width="24" height="42" rx="12" ${sk()}/><path d="M18 40a24 24 0 0 0 48 0M42 64v12M30 76h24" ${sk()}/>`,
+  chart: `<path d="M10 72h64" ${sk()}/><path d="M16 58l16-18 12 10 24-28" ${sk()}/><path d="M56 22h12v12" fill="none" stroke="${P}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`
+}
+$('ci0').innerHTML = ICON.chip; $('ci1').innerHTML = ICON.web
+
+// ---------- Cenas ----------
+const sceneHook = (t, f) => {
+  const a = S.hook.a
+  enter($('kt'), t, a - 0.2, 30, 0.5)
+  const lines = ['> conectando ao seu negócio...', '> carregando módulo de IA... ', '> pronto.']
+  const p = span(t, a - 0.1, 2.2), n = lines.join('\n').length
+  const shown = typed(lines.join('\n'), p).replace(/pronto\./, '<span class="ok">pronto.</span>')
+  $('kt').innerHTML = shown.replace(/\n/g, '<br>') + (Math.floor(t * 2.5) % 2 ? '<span class="cur"></span>' : '')
+  $('k1').textContent = decode('Você quer um sistema', span(t, wt('hook', 'você', 0.05) - 0.1, 0.9), f)
+  $('k2').textContent = decode('integrado com', span(t, wt('hook', 'integrado', 0.35) - 0.1, 0.8), f)
+  $('k3').textContent = decode('inteligência artificial?', span(t, wt('hook', 'inteligência', 0.6) - 0.1, 1.0), f)
+}
+const sceneChoice = (t, f) => {
+  const a = S.choice.a
+  enter($('ct'), t, a - 0.2, 20)
+  $('ch').textContent = decode('Ou só uma landing page?', span(t, a - 0.1, 0.9), f)
+  enter($('c0'), t, a + 0.1, 60, 0.6); enter($('c1'), t, a + 0.3, 60, 0.6); enter($('cou'), t, a + 0.4, 10)
+  // o destaque passa de um cartão para o outro, como quem está decidindo
+  const tl = wt('choice', 'landing', 0.6)
+  $('c0').classList.toggle('sel', t < tl - 0.1); $('c1').classList.toggle('sel', t >= tl - 0.1)
+}
+const NODES = [['chat', 'Atendimento 24h', 120, 580], ['cal', 'Agenda e orçamentos', 710, 580], ['target', 'Clientes prontos', 40, 1200], ['mic', 'Áudio vira dados', 790, 1200], ['chart', 'Relatórios e emails', 415, 1360]]
+$('nodes').innerHTML = NODES.map((n, i) => `<div class="node panel" id="nd${i}" style="left:${n[2]}px;top:${n[3]}px"><i>${i + 1}</i><svg viewBox="0 0 84 84">${ICON[n[0]]}</svg><b>${n[1]}</b></div>`).join('')
+const sceneHub = (t, f) => {
+  const a = S.hub.a
+  enter($('ht'), t, a - 0.2, 20)
+  $('hh').textContent = decode('O que a IA faz por você', span(t, a - 0.1, 1.0), f)
+  const pc = ease(span(t, a + 0.1, 0.8)); $('core').style.opacity = pc; $('core').style.transform = `scale(${0.6 + 0.4 * pc + 0.03 * Math.sin(t * 3)})`
+  ;[['r0', 380], ['r1', 520]].forEach(([id, s], i) => { const r = $(id), q = ((t * 0.5 + i * 0.5) % 1); r.style.width = r.style.height = (s + q * 120) + 'px'; r.style.left = (540 - (s + q * 120) / 2) + 'px'; r.style.top = (890 - (s + q * 120) / 2) + 'px'; r.style.opacity = pc * (1 - q) * 0.8 })
+  const tc = wt('hub', 'cinco', 0.2)
+  NODES.forEach((n, i) => enter($('nd' + i), t, tc + i * 0.32, 30, 0.5))
+}
+// linhas do núcleo até cada função, com pulsos andando (desenhadas no canvas de efeitos)
+const drawHubLinks = t => {
+  if (!(t > S.hub.a && t < S.hub.b + 0.3)) return
+  const tc = wt('hub', 'cinco', 0.2), al = clamp(1 - span(t, S.hub.b - 0.35, 0.35), 0, 1)
+  NODES.forEach((n, i) => {
+    const p = ease(span(t, tc + i * 0.32, 0.5)); if (!p) return
+    const x2 = n[2] + 125, y2 = n[3] + 80, x1 = 540, y1 = 890
+    fx.strokeStyle = `rgba(63,224,255,${(0.45 * p * al).toFixed(2)})`; fx.lineWidth = 3
+    fx.beginPath(); fx.moveTo(x1, y1); fx.lineTo(lerp(x1, x2, p), lerp(y1, y2, p)); fx.stroke()
+    const q = ((t * 0.8 + i * 0.2) % 1)
+    fx.fillStyle = `rgba(157,140,255,${(0.95 * p * al).toFixed(2)})`; fx.beginPath(); fx.arc(lerp(x1, x2, q), lerp(y1, y2, q), 7, 0, 6.283); fx.fill()
+  })
+}
+const featHead = (id, title, t, f) => {
+  const a = S[id].a
+  enter($(id + 'n'), t, a - 0.2, 20)
+  $(id + 'h').textContent = decode(title, span(t, a - 0.1, 0.9), f)
+  enter($(id + 's'), t, a + 0.5, 20)
+  enter($(id + 'b'), t, a + 0.3, 70, 0.7)
+}
+const sceneF1 = (t, f) => {
+  featHead('f1', 'Atendimento\nno WhatsApp 24h', t, f)
+  const a = S.f1.a
+  enter($('m1'), t, a + 1.0, 20, 0.4)
+  const t2 = wt('f1', 'respondendo', 0.6)
+  const ty = t > a + 1.6 && t < t2 - 0.2; $('ty').style.display = ty ? 'inline-flex' : 'none'
+  ;[...$('ty').children].forEach((d, i) => d.style.transform = `translateY(${Math.sin(t * 9 + i) * 5}px)`)
+  $('m2').style.display = t >= t2 - 0.2 ? 'block' : 'none'
+  enter($('m2'), t, t2 - 0.2, 20, 0.4)
+  $('m2').innerHTML = typed('Oi! 😊 A avaliação é R$ 80 e atendemos de seg a sáb, das 8h às 18h. Quer que eu já marque um horário?', span(t, t2 - 0.1, 2.0)) + '<small>23:47 ✓✓</small>'
+  enter($('m3'), t, S.f1.b - 1.0, 20, 0.4)
+  enter($('f1c'), t, t2 + 0.3, 10, 0.4)
+}
+const SL = ['Seg 9:00', 'Seg 14:00', 'Ter 10:30', 'Ter 14:00', 'Qua 9:00', 'Qui 16:00']
+$('slots').innerHTML = SL.map((s, i) => `<div class="slot" id="sl${i}">${s}</div>`).join('')
+const RW = [['cal', 'Ana Souza · avaliação', 'Ter 14:00'], ['chart', 'Orçamento #0231', 'R$ 1.250'], ['cal', 'Marina Lopes · retorno', 'Qui 16:00'], ['chart', 'Orçamento #0232', 'R$ 3.800']]
+$('rows').innerHTML = RW.map((r, i) => `<div class="row" id="rw${i}"><div class="ic"><svg viewBox="0 0 84 84" width="40" height="40">${ICON[r[0]]}</svg></div><b>${r[1]}</b><span>${r[2]}</span><span class="ck">✓</span></div>`).join('')
+const sceneF2 = (t, f) => {
+  featHead('f2', 'Agenda e\norçamentos sozinhos', t, f)
+  const a = S.f2.a, tp = wt('f2', 'horários', 0.3)
+  SL.forEach((_, i) => { enter($('sl' + i), t, a + 0.5 + i * 0.07, 20, 0.4); $('sl' + i).classList.toggle('on', i === 3 && t > tp + 0.2) })
+  const to = wt('f2', 'orçamentos', 0.5)
+  RW.forEach((_, i) => enter($('rw' + i), t, (i % 2 ? to : tp + 0.4) + Math.floor(i / 2) * 0.9, 30, 0.5))
+}
+const LD = [['Carla', '#3ee08f', 'Quero fechar o pacote ainda hoje', 'quer comprar agora', 'hot', '94%'], ['João', '#8e96c0', 'Só estou pesquisando preços', 'pesquisando', 'cold', '21%'], ['Bruna', '#3ee08f', 'Qual a forma de pagamento? Posso pagar no pix?', 'pronto para fechar', 'hot', '88%'], ['Pedro', '#8e96c0', 'Vou ver com minha esposa e te falo', 'ainda decidindo', 'cold', '35%']]
+$('leads').innerHTML = LD.map((l, i) => `<div class="lead" id="ld${i}"><div class="pf" style="background:${l[1]}">${l[0][0]}</div><div class="tx"><b>${l[0]}</b><small>“${l[2]}”</small></div><span class="badge ${l[4]}" id="lb${i}">${l[4] === 'hot' ? '● ' + l[3] : l[3]} · ${l[5]}</span></div>`).join('')
+const sceneF3 = (t, f) => {
+  featHead('f3', 'Quem está pronto\npara fechar', t, f)
+  const a = S.f3.a
+  LD.forEach((_, i) => enter($('ld' + i), t, a + 0.6 + i * 0.15, 20, 0.4))
+  const ts = a + 1.4, sp = span(t, ts, 2.4)
+  $('sb').style.top = (40 + sp * 620) + 'px'; $('sb').style.opacity = sp > 0 && sp < 1 ? 1 : 0
+  LD.forEach((l, i) => {
+    const on = sp > (i + 0.6) / 4.2
+    $('lb' + i).style.opacity = on ? 1 : 0
+    const tf = wt('f3', 'fechar', 0.85)
+    $('ld' + i).style.borderColor = l[4] === 'hot' && t > tf - 0.2 ? '#3ee08f' : ''
+    $('ld' + i).style.boxShadow = l[4] === 'hot' && t > tf - 0.2 ? '0 0 40px #3ee08f33' : ''
+    $('ld' + i).style.opacity = l[4] === 'cold' && t > tf - 0.2 ? 0.45 : $('ld' + i).style.opacity
+  })
+}
+$('wave').innerHTML = Array.from({ length: 34 }, (_, i) => `<i id="wv${i}"></i>`).join('')
+const FD = [['Categoria', 'Mercado'], ['Valor', 'R$ 87,40'], ['Pagamento', 'Pix'], ['Data', 'hoje, 18:32']]
+$('fields').innerHTML = FD.map((x, i) => `<div class="field" id="fd${i}"><span>${x[0]}</span><b>${x[1]}</b></div>`).join('')
+const sceneF4 = (t, f) => {
+  featHead('f4', 'Você fala,\no sistema anota', t, f)
+  const a = S.f4.a, ta = wt('f4', 'áudio', 0.25)
+  const talking = t > ta - 0.2 && t < ta + 2.2
+  for (let i = 0; i < 34; i++) { const h = talking ? 24 + 150 * Math.abs(Math.sin(i * 0.7 + t * 8) * Math.sin(i * 0.23 + t * 3)) : 14; $('wv' + i).style.height = h + 'px' }
+  $('f4dur').textContent = '0:0' + Math.min(3, Math.max(0, Math.floor(t - ta + 0.2)))
+  $('quote').textContent = typed('“mercado, oitenta e sete e quarenta, no pix”', span(t, ta + 0.3, 1.8))
+  const tn = wt('f4', 'anota', 0.85)
+  FD.forEach((_, i) => enter($('fd' + i), t, Math.min(tn - 0.4, ta + 2.2) + i * 0.18, 20, 0.4))
+}
+const ML = [['Relatório do dia', 'vendas, atendimentos e caixa', 'enviado ✓'], ['Email para 312 clientes', 'novidades da semana, no tom da marca', 'enviado ✓'], ['Legenda do post de amanhã', 'pronta para revisar', 'pronto ✓']]
+$('mails').innerHTML = ML.map((m, i) => `<div class="mail" id="ml${i}"><div class="ic"><svg viewBox="0 0 84 84" width="40" height="40">${ICON[i ? 'chat' : 'chart']}</svg></div><div><b>${m[0]}</b><small>${m[1]}</small></div><span class="st" id="ms${i}">${m[2]}</span></div>`).join('')
+const cv = $('chart').getContext('2d')
+const sceneF5 = (t, f) => {
+  featHead('f5', 'Relatórios e emails\nautomáticos', t, f)
+  const a = S.f5.a, tr = wt('f5', 'relatórios', 0.25)
+  const p = easeIO(span(t, tr - 0.2, 1.6))
+  cv.clearRect(0, 0, 780, 330)
+  cv.strokeStyle = '#262c52'; cv.lineWidth = 2; for (let y = 60; y < 330; y += 60) { cv.beginPath(); cv.moveTo(0, y); cv.lineTo(780, y); cv.stroke() }
+  const pts = [40, 70, 55, 110, 95, 150, 140, 200, 185, 250].map((v, i) => [30 + i * 80, 300 - v])
+  const n = Math.max(1, Math.floor(p * (pts.length - 1)))
+  const g = cv.createLinearGradient(0, 0, 780, 0); g.addColorStop(0, P); g.addColorStop(1, C)
+  cv.strokeStyle = g; cv.lineWidth = 6; cv.lineJoin = 'round'; cv.beginPath()
+  pts.slice(0, n + 1).forEach(([x, y], i) => i ? cv.lineTo(x, y) : cv.moveTo(x, y)); cv.stroke()
+  const [lx, ly] = pts[n]; cv.fillStyle = C; cv.beginPath(); cv.arc(lx, ly, 10, 0, 6.283); cv.fill()
+  cv.font = '600 26px JetBrains Mono'; cv.fillStyle = '#3ee08f'; if (p > 0.95) cv.fillText('+38% no mês', 520, 50)
+  const te = wt('f5', 'emails', 0.5)
+  ML.forEach((_, i) => { enter($('ml' + i), t, te - 0.4 + i * 0.45, 20, 0.4); $('ms' + i).style.opacity = t > te + 0.4 + i * 0.45 ? 1 : 0 })
+}
+const PJ = [['emi', 'agenda-emi', 'Agenda Emi', 'assistente que anota', 600], ['protocolo', 'protocolo-iatf', 'Protocolo IATF', 'DG por voz', 940], ['plataforma', 'prumo', 'Plataforma Prumo', 'emails automáticos', 1280]]
+$('shots').innerHTML = PJ.map(p => `<div class="shot" id="sh-${p[0]}" style="top:${p[4]}px"><img src="../public/portfolio/${p[1]}.webp" style="height:230px;object-fit:cover;object-position:top"><div class="bar"><i></i>${p[2]}<span class="chip">${p[3]}</span></div></div>`).join('')
+const sceneProof = (t, f) => {
+  const a = S.proof.a
+  enter($('pt'), t, a - 0.2, 20)
+  $('ph').textContent = decode('Já funciona nos meus projetos', span(t, a - 0.1, 1.1), f)
+  PJ.forEach(([w], i) => { const el = $('sh-' + w), p = ease(span(t, wt('proof', w, 0.4 + i * 0.18) - 0.35, 0.7)); el.style.opacity = p; el.style.transform = `translateX(${(1 - p) * (i % 2 ? 140 : -140)}px) rotate(${(1 - p) * (i % 2 ? 3 : -3)}deg)` })
+}
+const BL = [[40, 40, 300, 34], [40, 92, 220, 22], [40, 150, 170, 52], [430, 30, 310, 240], [40, 300, 220, 160], [280, 300, 220, 160], [520, 300, 220, 160]]
+$('blks').innerHTML = BL.map((b, i) => `<div class="blk" id="bk${i}" style="left:${b[0]}px;top:${62 + b[1]}px;width:${b[2]}px;height:${b[3]}px"></div>`).join('')
+const sceneLanding = (t, f) => {
+  const a = S.landing.a
+  enter($('lt'), t, a - 0.2, 20)
+  $('lh').textContent = decode('Landing page ou catálogo', span(t, wt('landing', 'landing', 0.2) - 0.3, 1.0), f)
+  enter($('lb'), t, a + 0.3, 60, 0.7)
+  BL.forEach((_, i) => { const p = ease(span(t, a + 0.7 + i * 0.12, 0.4)); const el = $('bk' + i); el.style.opacity = p; el.style.transform = `scale(${0.9 + 0.1 * p})`; el.style.background = i === 2 ? 'linear-gradient(90deg,#9d8cff,#3fe0ff)' : i === 3 ? 'linear-gradient(135deg,#2a2460,#1b4f6e)' : '#1a1f3d' })
+  const tv = wt('landing', 'seiscentos', 0.55)
+  enter($('lp'), t, tv - 0.5, 30, 0.5)
+  $('lv').textContent = Math.round(600 * easeIO(span(t, tv - 0.4, 0.8)))
+  ;[...$('lpills').children].forEach((el, i) => enter(el, t, wt('landing', 'cinco', 0.85) - 0.6 + i * 0.15, 20, 0.4))
+}
+const sceneClose = (t, f) => {
+  const a = S.close.a
+  enter($('xt'), t, a - 0.2, 20)
+  $('x1').textContent = decode('Vamos fechar', span(t, a - 0.1, 0.8), f)
+  $('x2').textContent = decode('o seu orçamento?', span(t, a + 0.3, 0.9), f)
+  enter($('x3'), t, a + 1.0, 20)
+  const tw = wt('close', 'mensagem', 0.3) - 0.1
+  const pw = enter($('xw'), t, tw, 40, 0.6); $('xw').style.transform += ` scale(${0.92 + 0.08 * pw})`
+  const q = ((t - tw - 0.6) % 1.4 + 1.4) % 1.4 / 1.4
+  $('xp').style.opacity = t > tw + 0.6 ? (1 - q) * 0.7 : 0; $('xp').style.transform = `scale(${1 + q * 0.06}, ${1 + q * 0.4})`
+  enter($('x4'), t, tw + 0.4, 20); enter($('x5'), t, tw + 0.6, 20)
+}
+const SCENES = { hook: sceneHook, choice: sceneChoice, hub: sceneHub, f1: sceneF1, f2: sceneF2, f3: sceneF3, f4: sceneF4, f5: sceneF5, proof: sceneProof, landing: sceneLanding, close: sceneClose }
+
+// ---------- Quadro ----------
+let lastScene = ''
+window.render = frame => {
+  const t = frame / FPS
+  // a cena atual aparece com um "glitch" rápido (deslocamento e brilho) e some antes da próxima
+  const cur = names.find(n => t >= S[n].a - 0.25 && t < S[n].b - 0.05) || (t < LEAD ? names[0] : names[names.length - 1])
+  if (cur !== lastScene) { burst(540, 900, 1.3); lastScene = cur }
+  stepField()
+  drawBg(t, frame)
+  drawHubLinks(t)
+  for (const n of names) {
+    const el = $(n), on = n === cur
+    if (!on) { el.style.opacity = 0; continue }
+    const sa = S[n].a - 0.25, sb = S[n].b - 0.05
+    const pin = span(t, sa, 0.3), pout = 1 - span(t, sb - 0.3, 0.3)
+    el.style.opacity = Math.min(pin, pout)
+    const gl = 1 - pin
+    el.style.transform = `translateX(${(hash(frame, 7) - 0.5) * 30 * gl}px)`
+    el.style.filter = gl > 0.02 ? `brightness(${1 + gl * 0.8}) hue-rotate(${gl * 40}deg)` : 'none'
+    SCENES[n](t, frame)
+  }
+  const fade = Math.min(span(t, 0, 0.6), 1 - span(t, TOTAL - 0.7, 0.7))
+  document.querySelector('.stage').style.filter = `brightness(${0.15 + 0.85 * fade})`
+  $('brand').style.opacity = Math.min(span(t, 0.2, 0.6), 1 - span(t, S.close.a - 0.3, 0.3))
+  const s = Math.floor(t), cs = Math.floor((t % 1) * 100)
+  $('tc').textContent = `REC ${frame % 30 < 18 ? '●' : ' '} 00:${String(s).padStart(2, '0')}:${String(cs).padStart(2, '0')}`
+}
+</script>
+</body></html>
