@@ -45,6 +45,8 @@ await page.clock.pauseAt(await page.evaluate(() => Date.now() + 50))
 // a partir daqui as animações CSS só andam quando o gravador manda
 const step = ms => page.evaluate(dt => {
   for (const a of document.getAnimations()) {
+    // animações ligadas à rolagem (scroll/view timeline) seguem a posição da página sozinhas
+    if (a.timeline && !(a.timeline instanceof DocumentTimeline)) continue
     if (a.playState === 'running') a.pause()
     a.currentTime = (Number(a.currentTime) || 0) + dt
   }

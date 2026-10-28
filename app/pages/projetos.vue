@@ -4,7 +4,7 @@ definePageMeta({ layout: 'profile', alias: ['/en/projects'] })
 const { t } = useLocale()
 useSeoMeta({ title: () => t.value.projectsPage.seoTitle, description: () => t.value.projectsPage.seoDescription })
 const selectedProjects = computed(() => allProjects
-  .filter(project => ['https://www.draemilevitoria.com.br', 'https://www.arouchemodaintima.com.br', 'https://cw-imports-catalogo.vercel.app', 'https://agenda-emi.vercel.app', 'https://protocolo-iatf.vercel.app', 'https://www.plataformaprumo.com.br'].includes(project.url))
+  .filter(project => ['https://www.draemilevitoria.com.br', 'https://www.dralouisereis.com.br', 'https://www.arouchemodaintima.com.br', 'https://cw-imports-catalogo.vercel.app', 'https://agenda-emi.vercel.app', 'https://protocolo-iatf.vercel.app', 'https://www.plataformaprumo.com.br'].includes(project.url))
   .map(project => ({ ...project, ...t.value.projects[project.url] })))
 </script>
 

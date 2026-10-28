@@ -90,7 +90,7 @@ const pt = {
     title: 'Perguntas frequentes', sub: 'Preço, prazo e o que está incluído.'
   },
   projectsPage: {
-    seoTitle: 'Projetos | Thierry Araújo', seoDescription: 'Conheça os sites de Emile Vitória, Arouche Moda Íntima e CW Imports, os apps Agenda Emi e Protocolo IATF e a Plataforma Prumo, desenvolvidos por Thierry Araújo.',
+    seoTitle: 'Projetos | Thierry Araújo', seoDescription: 'Conheça os sites de Emile Vitória, Louise Reis, Arouche Moda Íntima e CW Imports, os apps Agenda Emi e Protocolo IATF e a Plataforma Prumo, desenvolvidos por Thierry Araújo.',
     title: 'Ideias que já estão no ar.', sub: 'Sites e plataformas que conectam negócios, pessoas e oportunidades.',
     open: (name: string) => `${name} — abrir site em nova aba`
   },
@@ -154,6 +154,7 @@ const en: Messages = {
   },
   projects: {
     'https://www.draemilevitoria.com.br': { category: 'Dentist website', goal: 'Present the treatments and make it easy to book an appointment.' },
+    'https://www.dralouisereis.com.br': { category: 'Dentist website', goal: 'Present smile and facial treatments with an elegant look and lead patients to book an evaluation.' },
     'https://www.arouchemodaintima.com.br': { category: 'Online catalog', goal: 'Showcase the store\'s products and take orders on WhatsApp, no sign-up needed.' },
     'https://agenda-emi.vercel.app': { category: 'App for dentists', goal: 'Appointments with reminders and the practice\'s finances in one app, no notebook or spreadsheet.' },
     'https://cw-imports-catalogo.vercel.app': { category: 'Online catalog', goal: 'Showcase iPhones, earbuds and smartwatches and close the sale on WhatsApp, with the product already typed in the chat.' },
@@ -207,7 +208,7 @@ const en: Messages = {
     title: 'Frequently asked questions', sub: 'Price, timeline and what\'s included.'
   },
   projectsPage: {
-    seoTitle: 'Projects | Thierry Araújo', seoDescription: 'See the websites for Emile Vitória, Arouche Moda Íntima and CW Imports, the Agenda Emi and Protocolo IATF apps and Plataforma Prumo, built by Thierry Araújo.',
+    seoTitle: 'Projects | Thierry Araújo', seoDescription: 'See the websites for Emile Vitória, Louise Reis, Arouche Moda Íntima and CW Imports, the Agenda Emi and Protocolo IATF apps and Plataforma Prumo, built by Thierry Araújo.',
     title: 'Ideas that are already live.', sub: 'Websites and platforms that connect businesses, people and opportunities.',
     open: (name: string) => `${name} — open website in a new tab`
   },
