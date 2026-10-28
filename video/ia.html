@@ -187,18 +187,12 @@ canvas{position:absolute;inset:0}
     </div>
   </section>
 
-  <section class="scene" id="proof">
-    <div class="tag" style="top:300px" id="pt">// JÁ ESTÁ NO AR</div>
-    <h2 class="h g" style="top:360px;font-size:78px" id="ph"></h2>
-    <div id="shots"></div>
-  </section>
 
   <section class="scene" id="landing">
     <div class="tag" style="top:330px" id="lt">// OU SÓ UMA LANDING PAGE?</div>
     <h2 class="h g" style="top:390px;font-size:82px" id="lh"></h2>
     <div class="browser panel" id="lb"><div class="tb"><i></i><i></i><i></i><span>seunegocio.com.br</span></div><div id="blks"></div></div>
-    <div class="price" id="lp"><small>A PARTIR DE</small><b><span>R$</span><em style="font-style:normal" id="lv">0</em></b></div>
-    <div class="pills" id="lpills"><span>Landing page</span><span>Catálogo</span><span>No ar em até 5 dias</span></div>
+    <div class="pills" id="lpills" style="top:1300px"><span>Rápida</span><span>Bonita</span><span>Pronta para vender</span></div>
   </section>
 
   <section class="scene" id="close">
@@ -247,7 +241,7 @@ const C = '#3fe0ff', P = '#9d8cff', OK = '#3ee08f'
 
 // ---------- Tempo das cenas (vem da narração) ----------
 const LEAD = 0.4, GAP = 0.5, TAIL = 1.6 // os mesmos valores de build-motion.sh
-const NARR = window.NARR || { scenes: ['hook', 'choice', 'hub', 'f1', 'f2', 'f3', 'f4', 'f5', 'proof', 'landing', 'close'].map(id => ({ id, duration: 6, words: [] })) }
+const NARR = window.NARR || { scenes: ['hook', 'choice', 'hub', 'f1', 'f2', 'f3', 'f4', 'f5', 'landing', 'close'].map(id => ({ id, duration: 6, words: [] })) }
 const S = {}, names = []; let acc = LEAD
 NARR.scenes.forEach(s => { names.push(s.id); S[s.id] = { a: acc, b: acc + s.duration + GAP, words: s.words.map(w => ({ ...w, s: w.s + acc, e: w.e + acc })) }; acc += s.duration + GAP })
 const TOTAL = acc + TAIL; window.TOTAL = TOTAL
@@ -441,14 +435,6 @@ const sceneF5 = (t, f) => {
   const te = wt('f5', 'emails', 0.5)
   ML.forEach((_, i) => { enter($('ml' + i), t, te - 0.4 + i * 0.45, 20, 0.4); $('ms' + i).style.opacity = t > te + 0.4 + i * 0.45 ? 1 : 0 })
 }
-const PJ = [['emi', 'agenda-emi', 'Agenda Emi', 'assistente que anota', 600], ['protocolo', 'protocolo-iatf', 'Protocolo IATF', 'DG por voz', 940], ['plataforma', 'prumo', 'Plataforma Prumo', 'emails automáticos', 1280]]
-$('shots').innerHTML = PJ.map(p => `<div class="shot" id="sh-${p[0]}" style="top:${p[4]}px"><img src="../public/portfolio/${p[1]}.webp" style="height:230px;object-fit:cover;object-position:top"><div class="bar"><i></i>${p[2]}<span class="chip">${p[3]}</span></div></div>`).join('')
-const sceneProof = (t, f) => {
-  const a = S.proof.a
-  enter($('pt'), t, a - 0.2, 20)
-  $('ph').textContent = decode('Já funciona nos meus projetos', span(t, a - 0.1, 1.1), f)
-  PJ.forEach(([w], i) => { const el = $('sh-' + w), p = ease(span(t, wt('proof', w, 0.4 + i * 0.18) - 0.35, 0.7)); el.style.opacity = p; el.style.transform = `translateX(${(1 - p) * (i % 2 ? 140 : -140)}px) rotate(${(1 - p) * (i % 2 ? 3 : -3)}deg)` })
-}
 const BL = [[40, 40, 300, 34], [40, 92, 220, 22], [40, 150, 170, 52], [430, 30, 310, 240], [40, 300, 220, 160], [280, 300, 220, 160], [520, 300, 220, 160]]
 $('blks').innerHTML = BL.map((b, i) => `<div class="blk" id="bk${i}" style="left:${b[0]}px;top:${62 + b[1]}px;width:${b[2]}px;height:${b[3]}px"></div>`).join('')
 const sceneLanding = (t, f) => {
@@ -457,10 +443,7 @@ const sceneLanding = (t, f) => {
   $('lh').textContent = decode('Landing page ou catálogo', span(t, wt('landing', 'landing', 0.2) - 0.3, 1.0), f)
   enter($('lb'), t, a + 0.3, 60, 0.7)
   BL.forEach((_, i) => { const p = ease(span(t, a + 0.7 + i * 0.12, 0.4)); const el = $('bk' + i); el.style.opacity = p; el.style.transform = `scale(${0.9 + 0.1 * p})`; el.style.background = i === 2 ? 'linear-gradient(90deg,#9d8cff,#3fe0ff)' : i === 3 ? 'linear-gradient(135deg,#2a2460,#1b4f6e)' : '#1a1f3d' })
-  const tv = wt('landing', 'seiscentos', 0.55)
-  enter($('lp'), t, tv - 0.5, 30, 0.5)
-  $('lv').textContent = Math.round(600 * easeIO(span(t, tv - 0.4, 0.8)))
-  ;[...$('lpills').children].forEach((el, i) => enter(el, t, wt('landing', 'cinco', 0.85) - 0.6 + i * 0.15, 20, 0.4))
+  ;[['rápida', 0.7], ['bonita', 0.8], ['pronta', 0.9]].forEach(([w, fr], i) => enter($('lpills').children[i], t, wt('landing', w, fr) - 0.2, 20, 0.4))
 }
 const sceneClose = (t, f) => {
   const a = S.close.a
@@ -474,7 +457,7 @@ const sceneClose = (t, f) => {
   $('xp').style.opacity = t > tw + 0.6 ? (1 - q) * 0.7 : 0; $('xp').style.transform = `scale(${1 + q * 0.06}, ${1 + q * 0.4})`
   enter($('x4'), t, tw + 0.4, 20); enter($('x5'), t, tw + 0.6, 20)
 }
-const SCENES = { hook: sceneHook, choice: sceneChoice, hub: sceneHub, f1: sceneF1, f2: sceneF2, f3: sceneF3, f4: sceneF4, f5: sceneF5, proof: sceneProof, landing: sceneLanding, close: sceneClose }
+const SCENES = { hook: sceneHook, choice: sceneChoice, hub: sceneHub, f1: sceneF1, f2: sceneF2, f3: sceneF3, f4: sceneF4, f5: sceneF5, landing: sceneLanding, close: sceneClose }
 
 // ---------- Quadro ----------
 let lastScene = ''

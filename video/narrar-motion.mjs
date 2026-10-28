@@ -46,7 +46,7 @@ SCRIPTS.curto = [
   ['social', 'Quer ver meus trabalhos? Me segue no Instagram, e dá uma olhada em Thierry Araújo dev ponto com ponto br.'],
   ['close', 'Me chama no WhatsApp, e bora colocar o seu negócio no ar!']
 ]
-// apresentação "sistema com IA ou landing page?" (ia.html): visual escuro e tecnológico, narração mais lenta
+// apresentação "sistema com IA ou landing page?" (ia.html): visual escuro e tecnológico, sem preço e sem citar projetos
 SCRIPTS.ia = [
   ['hook', 'Você quer um sistema integrado com inteligência artificial?'],
   ['choice', 'Ou só precisa de uma landing page?'],
@@ -56,14 +56,13 @@ SCRIPTS.ia = [
   ['f3', 'Três. Entender o que cada cliente quer, e te mostrar quem está pronto para fechar.'],
   ['f4', 'Quatro. Transformar um áudio em informação organizada. Você fala, e o sistema anota.'],
   ['f5', 'Cinco. Criar relatórios, emails e conteúdos automáticos, no tom da sua marca.'],
-  ['proof', 'Isso já funciona nos meus projetos, como a Agenda Emi, o Protocolo IATF e a Plataforma Prumo.'],
-  ['landing', 'E se você só precisa de uma landing page ou catálogo, eu faço a partir de seiscentos reais, no ar em até cinco dias.'],
+  ['landing', 'E se você só precisa de uma landing page ou catálogo, eu também faço: rápida, bonita e pronta para vender.'],
   ['close', 'Me manda uma mensagem, e vamos fechar o seu orçamento.']
 ]
 const SCRIPT = SCRIPTS[VIDEO]
 if (!SCRIPT) throw new Error(`roteiro desconhecido: ${VIDEO}`)
 const voiceId = process.argv[2] || 'd703f08d1ef34302a36945aa3efc7b3f' // Murilo (pt-BR, masculina)
-const SPEED = VIDEO === 'ia' ? 0.95 : 1 // velocidade natural nos outros; no "ia", o Murilo fala um pouco mais devagar
+const SPEED = 1 // velocidade natural: abaixo de 1 a voz do Murilo soa robótica
 const PAUSE = VIDEO === 'ia' ? 0.5 : 0.4 // pausa entre as cenas na narração contínua (s)
 
 // API v3 de voz da HeyGen (a v1 é desligada em 31/10/2026)
