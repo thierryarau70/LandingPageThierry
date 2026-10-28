@@ -4,7 +4,7 @@ definePageMeta({ layout: 'profile', alias: ['/en'] })
 const { t } = useLocale()
 const h = computed(() => t.value.home)
 const selectedProjects = computed(() => allProjects
-  .filter(p => ['https://www.draemilevitoria.com.br', 'https://www.arouchemodaintima.com.br', 'https://cw-imports-catalogo.vercel.app', 'https://agenda-emi.vercel.app', 'https://protocolo-iatf.vercel.app', 'https://www.plataformaprumo.com.br'].includes(p.url))
+  .filter(p => ['https://www.draemilevitoria.com.br', 'https://www.dralouisereis.com.br', 'https://www.arouchemodaintima.com.br', 'https://cw-imports-catalogo.vercel.app', 'https://agenda-emi.vercel.app', 'https://protocolo-iatf.vercel.app', 'https://www.plataformaprumo.com.br'].includes(p.url))
   .map(p => ({ ...p, ...t.value.projects[p.url] })))
 const contact = computed(() => waLink(h.value.contact))
 // Contador "35 horas" anima de 0 a 35 ao abrir a página (sem animação para quem prefere movimento reduzido)

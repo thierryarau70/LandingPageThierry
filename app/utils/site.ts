@@ -79,6 +79,17 @@ export const projects: Project[] = [
     delivery: 'Design, desenvolvimento e integração com WhatsApp.'
   },
   {
+    name: 'Dra. Louise Reis',
+    category: 'Site para dentista',
+    description: 'Site da dentista especialista em harmonização orofacial em Boa Vista (RR): facetas, clareamento, toxina botulínica, preenchimentos e rinomodelação, com índice de tratamentos e agendamento de avaliação pelo WhatsApp.',
+    url: 'https://www.dralouisereis.com.br',
+    image: '/portfolio/louise-reis.webp',
+    video: '/portfolio/louise-reis.mp4',
+    tags: ['Site', 'Saúde', 'Harmonização orofacial', 'Agendamento'],
+    goal: 'Apresentar os tratamentos de sorriso e rosto com um visual elegante e levar a paciente a agendar a avaliação.',
+    delivery: 'Design, desenvolvimento e integração com WhatsApp.'
+  },
+  {
     name: 'Arouche Moda Íntima',
     category: 'Catálogo online',
     description: 'Catálogo da loja de moda íntima em Boa Vista (RR): conjuntos, sutiãs, calcinhas e linha infantil, com escolha de cor e tamanho e pedido direto pelo WhatsApp.',
