@@ -77,16 +77,25 @@ const SPEED = 1 // velocidade natural: abaixo de 1 a voz do Murilo soa robótica
 const PAUSE = VIDEO === 'ia' || VIDEO === 'agente' ? 0.5 : 0.4 // pausa entre as cenas na narração contínua (s)
 
 // API v3 de voz da HeyGen (a v1 é desligada em 31/10/2026)
+// VOZ_GRATIS=1 usa o modelo gratuito (heygen-voice-1-turbo-free: não gasta crédito de API, tem limite diário)
+const GRATIS = !!process.env.VOZ_GRATIS
 const speak = async text => {
-  const res = await fetch('https://api.heygen.com/v3/voices/speech', {
-    method: 'POST', headers: { 'X-Api-Key': KEY, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ voice_id: voiceId, text, language: 'pt', speed: SPEED, force_regenerate: true })
-  })
+  const res = GRATIS
+    ? await fetch('https://api.heygen.com/v3/models/audio/tts', {
+        method: 'POST', headers: { 'X-Api-Key': KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ voice_id: voiceId, text, model: 'heygen-voice-1-turbo-free', language: 'pt', with_timestamps: true })
+      })
+    : await fetch('https://api.heygen.com/v3/voices/speech', {
+        method: 'POST', headers: { 'X-Api-Key': KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ voice_id: voiceId, text, language: 'pt', speed: SPEED, force_regenerate: true })
+      })
   const r = await res.json()
   if (!res.ok || !r.data?.audio_url) throw new Error(`voz: ${res.status} ${JSON.stringify(r).slice(0, 300)}`)
   const audio = await fetch(r.data.audio_url)
   if (!audio.ok) throw new Error(`download: ${audio.status}`)
-  const words = (r.data.word_timestamps ?? []).filter(w => !/^<.*>$/.test(w.word)).map(w => ({ w: w.word, s: w.start, e: w.end }))
+  const raw = GRATIS ? (r.data.original_words ?? []).map(w => ({ word: w.text, start: w.start_time, end: w.end_time })) : (r.data.word_timestamps ?? [])
+  // o modelo gratuito devolve a tag [pause] como a palavra "pause"
+  const words = raw.filter(w => !/^<.*>$|^\[.*\]$/.test(w.word) && !(GRATIS && w.word === 'pause')).map(w => ({ w: w.word, s: w.start, e: w.end }))
   return { buf: Buffer.from(await audio.arrayBuffer()), duration: r.data.duration, words }
 }
 const countWords = text => text.split(/\s+/).filter(Boolean).length
@@ -98,7 +107,8 @@ const result = { voice_id: voiceId, scenes: [] }
 if (!only) {
   // narração contínua: o texto todo numa fala só, para a entonação seguir de uma frase para a outra;
   // depois cada cena é recortada pelo tempo das palavras
-  const full = await speak(SCRIPT.map(([, text]) => text).join(` <break time="${PAUSE}s"/> `))
+  // o modelo gratuito não aceita <break>: a pausa entre as cenas vira a tag [pause]
+  const full = await speak(SCRIPT.map(([, text]) => text).join(GRATIS ? ' [pause] ' : ` <break time="${PAUSE}s"/> `))
   const fullFile = path.join(out, 'completa.wav'); fs.writeFileSync(fullFile, full.buf)
   const counts = SCRIPT.map(([, text]) => countWords(text))
   if (counts.reduce((x, y) => x + y) !== full.words.length) throw new Error(`palavras não batem (${counts.reduce((x, y) => x + y)} no roteiro, ${full.words.length} na voz); use CENAS=... para gerar fala por fala`)
