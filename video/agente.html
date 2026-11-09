@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&display=block" rel="stylesheet">
+<style>
+/* "Como funciona um agente de IA": design branco do site (mesmas cores), campo ASCII claro e textos que decodificam */
+:root{--bg:#f5f7fc;--card:#fff;--line:#dce2ef;--txt:#182947;--mut:#596981;--p:#5745cb;--p2:#394fb1;--soft:#eae7fa;--ok:#16a34a;--wa:#22c55e}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--bg);font-family:Inter,sans-serif;color:var(--txt)}
+.stage{position:relative;width:1080px;height:1920px;overflow:hidden}
+canvas{position:absolute;inset:0}
+.scene{position:absolute;inset:0;opacity:0}
+.g{font-family:'Space Grotesk',sans-serif;font-weight:500;letter-spacing:-.05em;line-height:1.04}
+.m{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:0}
+.grad{background:linear-gradient(90deg,var(--p),var(--p2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.card{background:var(--card);border:2px solid var(--line);border-radius:30px;box-shadow:0 30px 70px #18294714,0 2px 0 #fff inset}
+.brand{position:absolute;top:120px;left:0;right:0;display:flex;justify-content:center}
+.brand div{display:flex;align-items:center;gap:16px;padding:10px 28px 10px 10px;border-radius:999px;background:#fff;border:2px solid var(--line);font-size:28px;font-weight:500;box-shadow:0 10px 30px #1829470d}
+.brand i{width:48px;height:48px;border-radius:50%;background:var(--p);display:grid;place-items:center;font-style:normal;font-family:'Space Grotesk';font-weight:700;font-size:26px;color:#fff}
+.brand b{color:var(--p);font-weight:600}
+.foot{position:absolute;left:90px;right:90px;bottom:90px;display:flex;align-items:center;gap:22px;font-family:'JetBrains Mono',monospace;font-size:22px;color:var(--mut)}
+.foot .bar{flex:1;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.foot .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--p),var(--p2));border-radius:3px}
+.tag{position:absolute;left:0;right:0;text-align:center;font-family:'JetBrains Mono',monospace;font-size:28px;color:var(--p);letter-spacing:.12em}
+.h{position:absolute;left:70px;right:70px;text-align:center;font-size:96px}
+.sub{position:absolute;left:110px;right:110px;text-align:center;font-size:36px;color:var(--mut);line-height:1.35}
+.chip{display:inline-flex;align-items:center;gap:10px;font-size:26px;font-weight:500;color:var(--p);background:var(--soft);border-radius:999px;padding:10px 22px}
+/* gancho */
+.orb{position:absolute;left:390px;top:1000px;width:300px;height:300px;border-radius:50%;display:grid;place-items:center;font-family:'Space Grotesk';font-weight:700;font-size:110px;letter-spacing:-.04em;color:#fff;background:radial-gradient(circle at 35% 30%,#8f80ff,#5745cb 55%,#394fb1);box-shadow:0 30px 80px #5745cb55,0 0 0 18px #5745cb14}
+.ring{position:absolute;border-radius:50%;border:2px dashed #5745cb44}
+.sat{position:absolute;width:110px;height:110px;border-radius:30px;display:grid;place-items:center}
+.sat svg{width:60px;height:60px}
+/* o que é */
+.vs{position:absolute;left:90px;right:90px;padding:36px 40px}
+.vs h3{display:flex;align-items:center;gap:16px;font-family:'Space Grotesk';font-size:44px;letter-spacing:-.03em;margin-bottom:26px}
+.vs h3 small{margin-left:auto;font-family:'JetBrains Mono';font-size:22px;font-weight:600;padding:8px 16px;border-radius:12px}
+.vs.bad{opacity:.9}
+.vs.bad h3 small{background:#fde8e8;color:#c0392b}
+.vs.good{border-color:var(--p);box-shadow:0 0 0 4px #5745cb1f,0 30px 70px #5745cb22}
+.vs.good h3 small{background:#e3f6ea;color:var(--ok)}
+.bub{display:inline-block;max-width:80%;padding:20px 26px;border-radius:24px;font-size:30px;line-height:1.35;margin-bottom:16px}
+.bub.in{background:#eef1f8;border-bottom-left-radius:6px}
+.bub.out{background:var(--p);color:#fff;border-bottom-right-radius:6px}
+.bub.err{background:#f6f7fa;color:var(--mut);border:2px dashed var(--line)}
+.step{display:flex;align-items:center;gap:22px;padding:20px 24px;border-radius:20px;background:#f7f8fc;border:2px solid var(--line);margin-bottom:14px;font-size:32px;font-weight:600}
+.step i{width:52px;height:52px;border-radius:50%;flex:none;display:grid;place-items:center;font-style:normal;font-family:'JetBrains Mono';font-size:24px;background:var(--line);color:var(--mut)}
+.step.on{border-color:var(--p);background:#f3f1fd}
+.step.on i{background:var(--p);color:#fff}
+.step span{font-weight:400;color:var(--mut);font-size:26px;margin-left:auto}
+/* como funciona */
+.flow{position:absolute;left:110px;right:110px;padding:34px 38px;display:flex;gap:30px;align-items:flex-start}
+.flow .ic{width:110px;height:110px;border-radius:30px;flex:none;display:grid;place-items:center;background:var(--soft)}
+.flow .ic svg{width:64px;height:64px}
+.flow .n{font-family:'JetBrains Mono';font-size:24px;color:var(--p);letter-spacing:.1em}
+.flow h4{font-family:'Space Grotesk';font-size:52px;letter-spacing:-.04em;line-height:1.05;margin:4px 0 14px}
+.flow .chips{display:flex;flex-wrap:wrap;gap:12px}
+.flow.on{border-color:var(--p);box-shadow:0 0 0 4px #5745cb1f,0 30px 70px #5745cb22}
+.flow.on .ic{background:var(--p)}
+.link{position:absolute;left:538px;width:4px;background:var(--line);border-radius:2px;overflow:hidden}
+.link i{position:absolute;left:0;right:0;top:0;background:var(--p)}
+/* exemplos */
+.ex{position:absolute;top:300px;left:90px;font-family:'JetBrains Mono',monospace;font-size:30px;color:var(--p);letter-spacing:.1em}
+.exh{position:absolute;top:350px;left:90px;right:90px;font-size:86px;white-space:pre-line}
+.panel{position:absolute;left:90px;right:90px;top:640px;padding:36px}
+.phd{display:flex;align-items:center;gap:16px;padding-bottom:24px;border-bottom:2px solid var(--line);margin-bottom:28px;font-size:28px;font-weight:600}
+.phd .av{width:64px;height:64px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-size:30px}
+.phd small{display:block;font-size:22px;font-weight:500;color:var(--mut)}
+.phd .chip{margin-left:auto;font-size:22px}
+.log{font-family:'JetBrains Mono',monospace;font-size:26px;line-height:1.75;padding:22px 28px;border-radius:20px;background:#182947;color:#c9d2ea;margin:8px 0 24px}
+.log .ok{color:#6ee7a0}
+.log .k{color:#b4a8ff}
+.cal{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px}
+.cal div{padding:18px 0;text-align:center;border-radius:16px;border:2px solid var(--line);font-family:'JetBrains Mono';font-size:24px;color:var(--mut)}
+.cal div.busy{background:#f1f3f8;text-decoration:line-through;color:#a3adc2}
+.cal div.on{background:var(--p);border-color:var(--p);color:#fff}
+.tile{display:flex;align-items:center;gap:22px;padding:24px 26px;border-radius:22px;border:2px solid var(--line);background:#fff;margin-bottom:16px;font-size:30px}
+.tile .ic{width:70px;height:70px;border-radius:20px;background:var(--soft);display:grid;place-items:center;flex:none}
+.tile .ic svg{width:42px;height:42px}
+.tile b{display:block;font-weight:600}
+.tile small{color:var(--mut);font-size:24px}
+.tile .r{margin-left:auto;text-align:right;font-family:'JetBrains Mono';font-size:28px;font-weight:600}
+.tile .ck{color:var(--ok);font-family:'JetBrains Mono';font-size:24px}
+.pay{display:inline-block;margin-top:8px;padding:10px 20px;border-radius:12px;background:var(--p);color:#fff;font-size:22px;font-weight:600}
+.notif{display:flex;align-items:center;gap:20px;padding:24px 28px;border-radius:26px;background:#fff;border:2px solid var(--line);box-shadow:0 20px 50px #1829471a;margin-bottom:28px;font-size:28px}
+.notif .av{width:66px;height:66px;border-radius:18px;background:var(--p);display:grid;place-items:center;color:#fff;font-family:'Space Grotesk';font-weight:700;font-size:30px;flex:none}
+.notif small{display:block;color:var(--mut);font-size:23px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:26px}
+.stat{padding:26px 20px;border-radius:22px;background:#f7f8fc;border:2px solid var(--line);text-align:center}
+.stat b{display:block;font-family:'Space Grotesk';font-size:84px;letter-spacing:-.04em;line-height:1}
+.stat span{display:block;font-size:24px;color:var(--mut);margin-top:10px}
+.stat.on{border-color:var(--p);background:#f3f1fd}
+.stat.on b{color:var(--p)}
+.ret{display:flex;align-items:center;gap:18px;padding:18px 22px;border-radius:18px;border:2px solid var(--line);margin-bottom:12px;font-size:27px}
+.ret i{width:16px;height:16px;border-radius:50%;background:#f59e0b;flex:none}
+.ret span{color:var(--mut);margin-left:auto;font-size:23px}
+/* você */
+.me{position:absolute;left:400px;top:880px;width:280px;height:280px;border-radius:50%;background:var(--p);display:grid;place-items:center;color:#fff;font-family:'Space Grotesk';font-weight:700;font-size:120px;letter-spacing:-.05em;box-shadow:0 30px 80px #5745cb55}
+.int{position:absolute;padding:16px 26px;border-radius:999px;background:#fff;border:2px solid var(--line);font-size:30px;font-weight:600;box-shadow:0 14px 34px #1829471a;white-space:nowrap}
+/* fechamento */
+.wa{position:absolute;left:170px;right:170px;top:1060px;height:150px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:24px;font-size:46px;font-weight:600;color:#fff;background:var(--wa);box-shadow:0 24px 60px #22c55e55}
+.wa svg{width:62px;height:62px}
+.pulse{position:absolute;left:170px;right:170px;top:1060px;height:150px;border-radius:999px;border:3px solid var(--wa)}
+.ctxt{position:absolute;left:0;right:0;text-align:center}
+</style></head><body>
+<div class="stage">
+  <canvas id="bg" width="1080" height="1920"></canvas>
+  <canvas id="fx" width="1080" height="1920"></canvas>
+
+  <section class="scene" id="hook">
+    <div class="tag" style="top:420px" id="kt">// AGENTE DE IA</div>
+    <h1 class="h g" style="top:500px" id="k1"></h1>
+    <h1 class="h g grad" style="top:610px;font-size:120px" id="k2"></h1>
+    <div class="ring" id="kr"></div>
+    <div class="orb" id="korb">IA</div>
+    <div id="sats"></div>
+  </section>
+
+  <section class="scene" id="what">
+    <div class="tag" style="top:300px" id="wt0">// O QUE É</div>
+    <h2 class="h g" style="top:360px;font-size:84px" id="wh"></h2>
+    <div class="vs card bad" id="wa" style="top:620px">
+      <h3>Robô comum<small>✕ só responde</small></h3>
+      <div class="bub in">Tem horário amanhã à tarde?</div><br>
+      <div class="bub err">Não entendi. Digite 1 para falar com um atendente.</div>
+    </div>
+    <div class="vs card good" id="wb" style="top:1060px">
+      <h3>Agente de IA<small>✓ resolve</small></h3>
+      <div class="step" id="ws0"><i>1</i>Entende o pedido<span>“amanhã à tarde”</span></div>
+      <div class="step" id="ws1"><i>2</i>Decide o que fazer<span>ver a agenda</span></div>
+      <div class="step" id="ws2"><i>3</i>Executa sozinho<span>marca e confirma</span></div>
+    </div>
+  </section>
+
+  <section class="scene" id="how">
+    <div class="tag" style="top:300px" id="ht">// COMO FUNCIONA</div>
+    <h2 class="h g" style="top:360px;font-size:84px" id="hh"></h2>
+    <div class="flow card" id="hf0" style="top:560px"><div class="ic" id="hi0"></div><div><div class="n">01 · ENTRADA</div><h4>Recebe a mensagem</h4><div class="chips"><span class="chip">WhatsApp</span><span class="chip">Instagram</span><span class="chip">site</span></div></div></div>
+    <div class="link" id="hl0" style="top:870px;height:90px"><i></i></div>
+    <div class="flow card" id="hf1" style="top:960px"><div class="ic" id="hi1"></div><div><div class="n">02 · FERRAMENTAS</div><h4>Consulta o seu negócio</h4><div class="chips" id="htools"><span class="chip">Agenda</span><span class="chip">Planilha</span><span class="chip">Sistema</span></div></div></div>
+    <div class="link" id="hl1" style="top:1270px;height:90px"><i></i></div>
+    <div class="flow card" id="hf2" style="top:1360px"><div class="ic" id="hi2"></div><div><div class="n">03 · AÇÃO</div><h4>E age</h4><div class="chips"><span class="chip">responde</span><span class="chip">agenda</span><span class="chip">registra</span><span class="chip">avisa você</span></div></div></div>
+  </section>
+
+  <section class="scene" id="ex1">
+    <div class="ex" id="e1n">EXEMPLO 01</div><h2 class="exh g" id="e1h"></h2>
+    <div class="panel card" id="e1p">
+      <div class="phd"><div class="av">🙋‍♀️</div><div>Cliente<small>WhatsApp · 23:04</small></div><span class="chip" id="e1c">agente ativo</span></div>
+      <div class="bub in" id="e1m">Oi! Tem horário amanhã à tarde?</div>
+      <div class="log" id="e1l"></div>
+      <div class="cal" id="e1cal"></div>
+      <div style="text-align:right;margin-top:24px"><div class="bub out" id="e1r" style="text-align:left">Marquei pra você amanhã, quinta, às 15h ✅ Te mando um lembrete 1h antes.</div></div>
+    </div>
+  </section>
+
+  <section class="scene" id="ex2">
+    <div class="ex" id="e2n">EXEMPLO 02</div><h2 class="exh g" id="e2h"></h2>
+    <div class="panel card" id="e2p">
+      <div class="phd"><div class="av">🛍️</div><div>Novo pedido<small>WhatsApp · 14:12</small></div><span class="chip">agente ativo</span></div>
+      <div class="bub in" id="e2m">Quero 2 kits de skincare, entrega no centro 😍</div>
+      <div class="tile" id="e2t0"><div class="ic" id="e2i0"></div><div><b>Orçamento montado</b><small>2× Kit Skincare + entrega</small></div><div class="r">R$ 189,80</div></div>
+      <div class="tile" id="e2t1"><div class="ic" id="e2i1"></div><div><b>Link de pagamento</b><small>Pix ou cartão</small><br><span class="pay">Pagar R$ 189,80</span></div><div class="r ck">enviado ✓</div></div>
+      <div class="tile" id="e2t2"><div class="ic" id="e2i2"></div><div><b>Estoque atualizado</b><small>Kit Skincare</small></div><div class="r" id="e2st">14</div></div>
+    </div>
+  </section>
+
+  <section class="scene" id="ex3">
+    <div class="ex" id="e3n">EXEMPLO 03</div><h2 class="exh g" id="e3h"></h2>
+    <div class="panel" id="e3p" style="padding:0">
+      <div class="notif" id="e3no"><div class="av">t.</div><div><b>Seu agente</b><small>18:00 · Resumo do dia</small></div><span class="chip" style="margin-left:auto">agora</span></div>
+      <div class="card" style="padding:34px" id="e3c">
+        <div class="stats"><div class="stat" id="e3s0"><b id="e3v0">0</b><span>vendas</span></div><div class="stat" id="e3s1"><b id="e3v1">0</b><span>atendimentos</span></div><div class="stat" id="e3s2"><b id="e3v2">0</b><span>retornos</span></div></div>
+        <div id="e3r"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" id="you">
+    <div class="tag" style="top:330px" id="yt">// FEITO PARA VOCÊ</div>
+    <h2 class="h g" style="top:400px;font-size:100px" id="y1"></h2>
+    <h2 class="h g grad" style="top:510px;font-size:100px" id="y2"></h2>
+    <div class="ring" id="yr"></div>
+    <div class="me" id="yme">t.</div>
+    <div id="ints"></div>
+    <p class="sub" style="top:1520px" id="y3">Do jeito que o seu negócio funciona, integrado ao que você já usa.</p>
+  </section>
+
+  <section class="scene" id="close">
+    <div class="tag" style="top:420px" id="xt">// VAMOS CONVERSAR</div>
+    <h2 class="h g" style="top:490px;font-size:110px" id="x1"></h2>
+    <h2 class="h g grad" style="top:620px;font-size:110px" id="x2"></h2>
+    <p class="sub" style="top:850px" id="x3">Me conta o que o seu negócio precisa.<br>Eu desenho o agente com você.</p>
+    <div class="pulse" id="xp"></div>
+    <div class="wa" id="xw"><svg viewBox="0 0 32 32"><path fill="#fff" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6a10.6 10.6 0 0 1-5.4-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.8.9 3.8.8a3.3 3.3 0 0 0 2.1-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg>Chamar no WhatsApp</div>
+    <p class="ctxt m" style="top:1260px;font-size:42px;color:var(--txt)" id="x4">(95) 99143-2677</p>
+    <p class="ctxt g" style="top:1340px;font-size:60px" id="x5">thierryaraujodev<span class="grad">.com.br</span></p>
+  </section>
+
+  <div class="brand" id="brand"><div><i>t.</i><span>Thierry Araújo · <b>agentes de IA</b></span></div></div>
+  <div class="foot" id="foot"><span id="fn">01/08</span><div class="bar"><i id="fb"></i></div><span>thierryaraujodev.com.br</span></div>
+</div>
+
+<script>
+// narração do vídeo (out/agente/timing.js); sem ela, a página estima o tempo de cada cena pelo roteiro
+document.write(`<script src="out/${new URLSearchParams(location.search).get('v') || 'agente'}/timing.js" onerror="void 0"><\/script>`)
+</script>
+<script>
+// ---------- Utilidades (tudo é função do quadro, para o render ser determinístico) ----------
+const FPS = 30, W = 1080, H = 1920
+const $ = id => document.getElementById(id)
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v))
+const span = (t, a, d) => clamp((t - a) / d, 0, 1)
+const ease = p => 1 - Math.pow(1 - clamp(p, 0, 1), 3)
+const easeIO = p => { p = clamp(p, 0, 1); return p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2 }
+const lerp = (a, b, p) => a + (b - a) * p
+const hash = (a, b) => { let h = (a * 374761393 + b * 668265263) >>> 0; h = (h ^ (h >>> 13)) * 1274126177 >>> 0; return ((h ^ (h >>> 16)) >>> 0) / 4294967296 }
+const enter = (el, t, at, dist = 40, dur = 0.6) => { const p = ease(span(t, at, dur)); el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * dist}px)`; return p }
+const pop = (el, t, at, dur = 0.5) => { const p = ease(span(t, at, dur)); el.style.opacity = p; el.style.transform = `scale(${0.85 + 0.15 * p})`; return p }
+// texto que "decodifica": caracteres aleatórios viram o texto final da esquerda para a direita
+const GL = '#%@*+=-:<>/\\|_ABCDEFGHJKLMNPQRSTUVWXYZ0123456789'
+const decode = (final, p, frame) => {
+  if (p <= 0) return ''
+  const n = final.length, shown = Math.ceil(clamp(p / 0.6, 0, 1) * n), ok = Math.floor(clamp((p - 0.35) / 0.65, 0, 1) * n)
+  let s = ''
+  for (let i = 0; i < n; i++) { const ch = final[i]; s += i >= shown ? '' : (i < ok || ch === ' ' || ch === '\n') ? ch : GL[Math.floor(hash(i, frame >> 1) * GL.length)] }
+  return s
+}
+const typed = (final, p) => final.slice(0, Math.floor(clamp(p, 0, 1) * final.length))
+const P = '#5745cb', P2 = '#394fb1'
+
+// ---------- Tempo das cenas (vem da narração) ----------
+const LEAD = 0.4, GAP = 0.5, TAIL = 1.6 // os mesmos valores de build-motion.sh
+const ORDER = ['hook', 'what', 'how', 'ex1', 'ex2', 'ex3', 'you', 'close']
+const NARR = window.NARR || { scenes: [3.4, 7, 7.5, 7.2, 6.4, 6, 4.2, 3.2].map((duration, i) => ({ id: ORDER[i], duration, words: [] })) }
+const S = {}, names = []; let acc = LEAD
+NARR.scenes.forEach(s => { names.push(s.id); S[s.id] = { a: acc, b: acc + s.duration + GAP, words: s.words.map(w => ({ ...w, s: w.s + acc, e: w.e + acc })) }; acc += s.duration + GAP })
+const TOTAL = acc + TAIL; window.TOTAL = TOTAL
+const norm = w => w.toLowerCase().replace(/[.,?!:]/g, '')
+const wt = (id, word, frac = 0.5, nth = 0) => { const w = S[id].words.filter(x => norm(x.w) === word)[nth]; return w ? w.s : lerp(S[id].a, S[id].b, frac) }
+
+// ---------- Fundo claro: grade de pontos, brilhos lilás e campo ASCII ----------
+const bg = $('bg').getContext('2d'), fx = $('fx').getContext('2d')
+const CELL = 30, COLS = Math.ceil(W / CELL), ROWS = Math.ceil(H / CELL), RAMP = ' .·:-=+*%#@'
+let energy = new Float32Array(COLS * ROWS), next = new Float32Array(COLS * ROWS)
+const bursts = []
+const burst = (x, y, s = 1) => bursts.push({ x, y, t: 0, s })
+const stepField = () => {
+  for (let q = bursts.length - 1; q >= 0; q--) {
+    const b = bursts[q]; b.t++
+    const r = b.t * 16 * b.s
+    for (let a = 0; a < 64; a++) {
+      const x = Math.round((b.x + Math.cos(a / 64 * 6.283) * r) / CELL), y = Math.round((b.y + Math.sin(a / 64 * 6.283) * r) / CELL)
+      if (x >= 0 && x < COLS && y >= 0 && y < ROWS) energy[y * COLS + x] = Math.min(1.4, energy[y * COLS + x] + 0.5 * (1 - b.t / 40))
+    }
+    if (b.t > 40) bursts.splice(q, 1)
+  }
+  for (let j = 1; j < ROWS - 1; j++) for (let i = 1; i < COLS - 1; i++) {
+    const k = j * COLS + i
+    next[k] = (energy[k] * 4 + energy[k - 1] + energy[k + 1] + energy[k - COLS] + energy[k + COLS]) / 8 * 0.985
+  }
+  const tmp = energy; energy = next; next = tmp
+}
+const drawBg = t => {
+  bg.fillStyle = '#f5f7fc'; bg.fillRect(0, 0, W, H)
+  for (const [cx, cy, col, r] of [[0.2 + 0.08 * Math.sin(t * 0.3), 0.22, '#eae7fa', 800], [0.85, 0.75 + 0.06 * Math.cos(t * 0.25), '#e4e9fb', 760]]) {
+    const g = bg.createRadialGradient(cx * W, cy * H, 0, cx * W, cy * H, r); g.addColorStop(0, col); g.addColorStop(1, '#f5f7fc00'); bg.fillStyle = g; bg.fillRect(0, 0, W, H)
+  }
+  fx.clearRect(0, 0, W, H)
+  fx.font = '18px JetBrains Mono, monospace'; fx.textAlign = 'center'; fx.textBaseline = 'middle'
+  for (let j = 0; j < ROWS; j++) for (let i = 0; i < COLS; i++) {
+    const k = j * COLS + i, e = energy[k]
+    const b = 0.5 + 0.5 * Math.sin(i * 0.23 + t * 0.9 + Math.sin(j * 0.11 - t * 0.6) * 2.2)
+    const v = Math.max(e, b * 0.3 * (0.6 + 0.4 * hash(i, j)))
+    const idx = Math.min(RAMP.length - 1, Math.floor(v * RAMP.length))
+    if (idx < 1) continue
+    fx.fillStyle = e > 0.15 ? `rgba(87,69,203,${Math.min(0.55, 0.12 + e * 0.4).toFixed(2)})` : `rgba(87,69,203,${(0.04 + b * 0.06).toFixed(3)})`
+    fx.fillText(RAMP[idx], i * CELL + CELL / 2, j * CELL + CELL / 2)
+  }
+}
+
+// ---------- Ícones ----------
+const sk = (c = P) => `fill="none" stroke="${c}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"`
+const ICON = {
+  chat: c => `<path d="M14 18h56a6 6 0 0 1 6 6v28a6 6 0 0 1-6 6H40L26 70V58H14a6 6 0 0 1-6-6V24a6 6 0 0 1 6-6z" ${sk(c)}/><circle cx="30" cy="38" r="3.5" fill="${c}"/><circle cx="42" cy="38" r="3.5" fill="${c}"/><circle cx="54" cy="38" r="3.5" fill="${c}"/>`,
+  cal: c => `<rect x="12" y="16" width="60" height="56" rx="8" ${sk(c)}/><path d="M12 32h60M28 8v14M56 8v14" ${sk(c)}/><path d="M28 50l8 8 16-16" ${sk(c)}/>`,
+  sheet: c => `<rect x="12" y="12" width="60" height="60" rx="8" ${sk(c)}/><path d="M12 32h60M12 52h60M36 12v60" ${sk(c)}/>`,
+  gear: c => `<circle cx="42" cy="42" r="12" ${sk(c)}/><path d="M42 10v10M42 64v10M10 42h10M64 42h10M19 19l7 7M58 58l7 7M65 19l-7 7M26 58l-7 7" ${sk(c)}/>`,
+  bolt: c => `<path d="M46 8L18 48h22l-4 28 30-42H44z" ${sk(c)}/>`,
+  doc: c => `<path d="M20 8h30l16 16v52H20z" ${sk(c)}/><path d="M30 40h26M30 52h26M30 64h16" ${sk(c)}/>`,
+  card: c => `<rect x="8" y="18" width="68" height="48" rx="8" ${sk(c)}/><path d="M8 32h68M18 52h16" ${sk(c)}/>`,
+  box: c => `<path d="M42 8l30 14v40L42 76 12 62V22z" ${sk(c)}/><path d="M12 22l30 14 30-14M42 36v40" ${sk(c)}/>`
+}
+const svg = (k, c = P) => `<svg viewBox="0 0 84 84">${ICON[k](c)}</svg>`
+
+// ---------- Cenas ----------
+const SATS = [['chat', -260, -150], ['cal', 260, -150], ['sheet', -300, 150], ['gear', 300, 150], ['bolt', 0, 280]]
+$('sats').innerHTML = SATS.map((s, i) => `<div class="sat card" id="st${i}">${svg(s[0])}</div>`).join('')
+const sceneHook = (t, f) => {
+  const a = S.hook.a
+  enter($('kt'), t, a - 0.2, 20)
+  $('k1').textContent = decode('Você sabe o que é', span(t, a - 0.1, 0.9), f)
+  $('k2').textContent = decode('um agente de IA?', span(t, wt('hook', 'agente', 0.4) - 0.15, 1.0), f)
+  const po = pop($('korb'), t, a + 0.3, 0.6)
+  $('korb').style.transform = `scale(${(0.85 + 0.15 * po) * (1 + 0.025 * Math.sin(t * 3))})`
+  const rr = $('kr'), s = 640; rr.style.width = rr.style.height = s + 'px'; rr.style.left = (540 - s / 2) + 'px'; rr.style.top = (1150 - s / 2) + 'px'; rr.style.opacity = po; rr.style.transform = `rotate(${t * 12}deg)`
+  SATS.forEach((st, i) => {
+    const p = ease(span(t, a + 0.6 + i * 0.15, 0.6)), ang = t * 0.25
+    const x = st[1] * Math.cos(ang) - st[2] * Math.sin(ang) * 0.35, y = st[2] + st[1] * Math.sin(ang) * 0.15
+    const el = $('st' + i); el.style.opacity = p
+    el.style.left = (540 + x * (0.6 + 0.4 * p) - 55) + 'px'; el.style.top = (1150 + y * (0.6 + 0.4 * p) - 55) + 'px'
+  })
+}
+const sceneWhat = (t, f) => {
+  const a = S.what.a
+  enter($('wt0'), t, a - 0.2, 20)
+  $('wh').textContent = decode('Não é só um chatbot', span(t, a - 0.1, 0.9), f)
+  enter($('wa'), t, wt('what', 'robô', 0.1) - 0.3, 50, 0.6)
+  const tg = wt('what', 'agente', 0.35)
+  enter($('wb'), t, tg - 0.3, 50, 0.6)
+  $('wa').style.opacity = Math.min(+$('wa').style.opacity, t > tg ? 0.55 : 1)
+  ;[['entende', 0.5], ['decide', 0.65], ['executa', 0.8]].forEach(([w, fr], i) => {
+    const tw = wt('what', w, fr) - 0.1
+    enter($('ws' + i), t, tg + i * 0.12, 20, 0.4)
+    $('ws' + i).classList.toggle('on', t > tw)
+  })
+}
+$('hi0').innerHTML = svg('chat'); $('hi1').innerHTML = svg('sheet'); $('hi2').innerHTML = svg('bolt')
+const sceneHow = (t, f) => {
+  const a = S.how.a
+  enter($('ht'), t, a - 0.2, 20)
+  $('hh').textContent = decode('Como funciona', span(t, a - 0.1, 0.8), f)
+  const marks = [wt('how', 'recebe', 0.3), wt('how', 'consulta', 0.5), wt('how', 'age', 0.9)]
+  marks.forEach((m, i) => {
+    enter($('hf' + i), t, a + 0.3 + i * 0.25, 40, 0.6)
+    const on = t > m - 0.15 && (i === 2 || t < marks[i + 1] - 0.15)
+    $('hf' + i).classList.toggle('on', on)
+    $('hi' + i).innerHTML = svg(['chat', 'sheet', 'bolt'][i], on ? '#fff' : P)
+    if (i < 2) { const p = easeIO(span(t, m, Math.max(0.4, marks[i + 1] - m - 0.2))); $('hl' + i).firstChild.style.height = (p * 100) + '%'; $('hl' + i).style.opacity = ease(span(t, a + 0.5 + i * 0.25, 0.4)) }
+  })
+  // as ferramentas acendem quando o Murilo fala cada uma
+  ;['agenda', 'planilha', 'sistema'].forEach((w, i) => { const c = $('htools').children[i], on = t > wt('how', w, 0.55 + i * 0.08) - 0.1; c.style.background = on ? P : ''; c.style.color = on ? '#fff' : '' })
+}
+const CAL = [['Qui 9h', 'busy'], ['Qui 10h', 'busy'], ['Qui 14h', 'busy'], ['Qui 15h', 'free'], ['Qui 16h', 'free'], ['Sex 9h', 'free'], ['Sex 11h', 'busy'], ['Sex 15h', 'free']]
+$('e1cal').innerHTML = CAL.map((c, i) => `<div id="cl${i}" class="${c[1] === 'busy' ? 'busy' : ''}">${c[0]}</div>`).join('')
+const sceneEx1 = (t, f) => {
+  const a = S.ex1.a
+  enter($('e1n'), t, a - 0.2, 20)
+  $('e1h').textContent = decode('Horário marcado\nàs 23h', span(t, a - 0.1, 0.9), f)
+  enter($('e1p'), t, a + 0.2, 60, 0.7)
+  enter($('e1m'), t, wt('ex1', 'pede', 0.2) - 0.3, 20, 0.4)
+  const tc = wt('ex1', 'confere', 0.5), tm = wt('ex1', 'marca', 0.65), tf = wt('ex1', 'confirmação', 0.85)
+  const L = [[tc - 0.3, '<span class="k">→</span> agenda.buscar("quinta, tarde")'], [tc + 0.5, '<span class="ok">✓</span> Qui 15h livre'], [tm - 0.1, '<span class="k">→</span> agenda.marcar(Qui 15h)'], [tf - 0.2, '<span class="ok">✓</span> confirmação enviada']]
+  $('e1l').innerHTML = L.filter(l => t > l[0]).map(l => l[1]).join('<br>') + (Math.floor(t * 2.5) % 2 ? '▍' : '&nbsp;')
+  CAL.forEach((_, i) => { enter($('cl' + i), t, tc - 0.2 + i * 0.05, 14, 0.35); $('cl' + i).classList.toggle('on', i === 3 && t > tm - 0.1) })
+  const pr = enter($('e1r'), t, tf - 0.1, 20, 0.45); $('e1r').style.display = pr > 0 ? 'inline-block' : 'none'
+}
+$('e2i0').innerHTML = svg('doc'); $('e2i1').innerHTML = svg('card'); $('e2i2').innerHTML = svg('box')
+const sceneEx2 = (t, f) => {
+  const a = S.ex2.a
+  enter($('e2n'), t, a - 0.2, 20)
+  $('e2h').textContent = decode('Pedido no\nWhatsApp', span(t, a - 0.1, 0.9), f)
+  enter($('e2p'), t, a + 0.2, 60, 0.7)
+  enter($('e2m'), t, wt('ex2', 'pedido', 0.15) - 0.2, 20, 0.4)
+  const ts = [wt('ex2', 'orçamento', 0.45), wt('ex2', 'link', 0.65), wt('ex2', 'estoque', 0.9)]
+  ts.forEach((m, i) => enter($('e2t' + i), t, m - 0.3, 30, 0.45))
+  $('e2st').innerHTML = t > ts[2] + 0.3 ? '14 → <span style="color:#5745cb">12</span>' : '14'
+}
+const RET = [['Ana', 'aguardando orçamento'], ['Carlos', 'pediu retorno amanhã'], ['Júlia', 'dúvida sobre a entrega']]
+$('e3r').innerHTML = RET.map((r, i) => `<div class="ret" id="rt${i}"><i></i><b>${r[0]}</b><span>${r[1]}</span></div>`).join('')
+const sceneEx3 = (t, f) => {
+  const a = S.ex3.a
+  enter($('e3n'), t, a - 0.2, 20)
+  $('e3h').textContent = decode('Resumo do dia\nno seu celular', span(t, a - 0.1, 0.9), f)
+  const pn = enter($('e3no'), t, wt('ex3', 'resumo', 0.4) - 0.5, -40, 0.5)
+  enter($('e3c'), t, wt('ex3', 'resumo', 0.4) - 0.2, 40, 0.6)
+  ;[['vendas', 7, 0.55], ['atendimentos', 23, 0.7], ['retorno', 3, 0.9]].forEach(([w, v, fr], i) => {
+    const tw = wt('ex3', w, fr) - 0.15, p = easeIO(span(t, tw, 0.8))
+    $('e3v' + i).textContent = Math.round(v * p)
+    $('e3s' + i).classList.toggle('on', t > tw && t < tw + 1.6)
+  })
+  RET.forEach((_, i) => enter($('rt' + i), t, wt('ex3', 'retorno', 0.9) + 0.1 + i * 0.18, 20, 0.4))
+}
+const INT = [['WhatsApp', -330, -250], ['Instagram', 330, -250], ['Site', -380, 0], ['Agenda', 380, 0], ['Planilhas', -330, 250], ['Sistema', 330, 250], ['E-mail', 0, 330]]
+$('ints').innerHTML = INT.map((n, i) => `<div class="int" id="in${i}">${n[0]}</div>`).join('')
+const sceneYou = (t, f) => {
+  const a = S.you.a
+  enter($('yt'), t, a - 0.2, 20)
+  $('y1').textContent = decode('Eu crio o', span(t, a - 0.1, 0.8), f)
+  $('y2').textContent = decode('seu agente', span(t, wt('you', 'agente', 0.4) - 0.3, 0.9), f)
+  const po = pop($('yme'), t, a + 0.3, 0.6); $('yme').style.transform = `scale(${(0.85 + 0.15 * po) * (1 + 0.02 * Math.sin(t * 3))})`
+  const rr = $('yr'), s = 560; rr.style.width = rr.style.height = s + 'px'; rr.style.left = (540 - s / 2) + 'px'; rr.style.top = (1020 - s / 2) + 'px'; rr.style.opacity = po; rr.style.transform = `rotate(${-t * 12}deg)`
+  const tm = wt('you', 'sob', 0.55)
+  INT.forEach((n, i) => {
+    const p = ease(span(t, tm - 0.4 + i * 0.12, 0.5)), el = $('in' + i)
+    el.style.opacity = p
+    const w = el.offsetWidth, h = el.offsetHeight
+    el.style.left = (540 + n[1] * (0.7 + 0.3 * p) - w / 2) + 'px'; el.style.top = (1020 + n[2] * (0.7 + 0.3 * p) - h / 2 + 6 * Math.sin(t * 2 + i)) + 'px'
+  })
+  enter($('y3'), t, wt('you', 'negócio', 0.85) - 0.3, 20)
+}
+const sceneClose = (t, f) => {
+  const a = S.close.a
+  enter($('xt'), t, a - 0.2, 20)
+  $('x1').textContent = decode('É só entrar', span(t, a - 0.1, 0.8), f)
+  $('x2').textContent = decode('em contato', span(t, a + 0.3, 0.8), f)
+  enter($('x3'), t, a + 0.8, 20)
+  const tw = wt('close', 'chama', 0.6) - 0.2
+  const pw = enter($('xw'), t, tw, 40, 0.6); $('xw').style.transform += ` scale(${0.92 + 0.08 * pw})`
+  const q = ((t - tw - 0.6) % 1.4 + 1.4) % 1.4 / 1.4
+  $('xp').style.opacity = t > tw + 0.6 ? (1 - q) * 0.7 : 0; $('xp').style.transform = `scale(${1 + q * 0.06}, ${1 + q * 0.4})`
+  enter($('x4'), t, tw + 0.4, 20); enter($('x5'), t, tw + 0.6, 20)
+}
+const SCENES = { hook: sceneHook, what: sceneWhat, how: sceneHow, ex1: sceneEx1, ex2: sceneEx2, ex3: sceneEx3, you: sceneYou, close: sceneClose }
+
+// ---------- Quadro ----------
+let lastScene = ''
+window.render = frame => {
+  const t = frame / FPS
+  // a cena atual entra subindo e saindo do desfoque, e sai antes da próxima
+  const cur = names.find(n => t >= S[n].a - 0.25 && t < S[n].b - 0.05) || (t < LEAD ? names[0] : names[names.length - 1])
+  if (cur !== lastScene) { burst(540, 960, 1.3); lastScene = cur }
+  stepField()
+  drawBg(t)
+  for (const n of names) {
+    const el = $(n), on = n === cur
+    if (!on) { el.style.opacity = 0; continue }
+    const sa = S[n].a - 0.25, sb = S[n].b - 0.05
+    const pin = ease(span(t, sa, 0.4)), pout = n === names[names.length - 1] ? 1 : 1 - span(t, sb - 0.3, 0.3) // a última cena fica até o fim
+    el.style.opacity = Math.min(pin, pout)
+    el.style.transform = `translateY(${(1 - pin) * 30 - (1 - pout) * 30}px)`
+    el.style.filter = pin < 0.98 || pout < 0.98 ? `blur(${((1 - Math.min(pin, pout)) * 10).toFixed(1)}px)` : 'none'
+    SCENES[n](t, frame)
+  }
+  const fade = Math.min(span(t, 0, 0.5), 1 - span(t, TOTAL - 0.6, 0.6))
+  document.querySelector('.stage').style.opacity = 0.0 + fade
+  $('brand').style.opacity = Math.min(span(t, 0.2, 0.6), 1 - span(t, S.close.a - 0.3, 0.3))
+  const idx = names.indexOf(cur)
+  $('fn').textContent = String(idx + 1).padStart(2, '0') + '/' + String(names.length).padStart(2, '0')
+  $('fb').style.width = (clamp(t / TOTAL, 0, 1) * 100).toFixed(2) + '%'
+}
+</script>
+</body></html>

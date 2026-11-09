@@ -59,11 +59,22 @@ SCRIPTS.ia = [
   ['landing', 'E se você só precisa de uma landing page ou catálogo, eu também faço: rápida, bonita e pronta para vender.'],
   ['close', 'Me manda uma mensagem, e vamos fechar o seu orçamento.']
 ]
+// "como funciona um agente de IA" (agente.html): design branco do site, exemplos e convite para contato
+SCRIPTS.agente = [
+  ['hook', 'Você sabe o que é um agente de inteligência artificial?'],
+  ['what', 'Não é um robô que só responde. O agente entende o pedido, decide o que fazer, e executa a tarefa sozinho.'],
+  ['how', 'Funciona assim: ele recebe a mensagem, consulta as ferramentas do seu negócio, como agenda, planilha e sistema, e age.'],
+  ['ex1', 'Por exemplo: um cliente pede um horário às onze da noite. O agente confere a agenda, marca, e manda a confirmação.'],
+  ['ex2', 'Chegou um pedido no WhatsApp? Ele monta o orçamento, envia o link de pagamento e atualiza o estoque.'],
+  ['ex3', 'E no fim do dia, te manda um resumo com as vendas, os atendimentos e quem precisa de retorno.'],
+  ['you', 'E eu posso produzir um agente desses, sob medida para o seu negócio.'],
+  ['close', 'É só entrar em contato. Me chama no WhatsApp.']
+]
 const SCRIPT = SCRIPTS[VIDEO]
 if (!SCRIPT) throw new Error(`roteiro desconhecido: ${VIDEO}`)
 const voiceId = process.argv[2] || 'd703f08d1ef34302a36945aa3efc7b3f' // Murilo (pt-BR, masculina)
 const SPEED = 1 // velocidade natural: abaixo de 1 a voz do Murilo soa robótica
-const PAUSE = VIDEO === 'ia' ? 0.5 : 0.4 // pausa entre as cenas na narração contínua (s)
+const PAUSE = VIDEO === 'ia' || VIDEO === 'agente' ? 0.5 : 0.4 // pausa entre as cenas na narração contínua (s)
 
 // API v3 de voz da HeyGen (a v1 é desligada em 31/10/2026)
 const speak = async text => {

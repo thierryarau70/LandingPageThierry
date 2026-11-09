@@ -44,3 +44,14 @@ VIDEO=ia REUSAR_VOZ=1 bash video/build-motion.sh # remonta sem gerar a voz de no
 ```
 
 O roteiro fica em `narrar-motion.mjs` (`SCRIPTS.ia`) e as cenas em `ia.html`. Resultado: `video/out/ia/reels-ia-thierry.mp4`. Se o `fetch` do Node não passar pelo proxy da sessão, rode com `NODE_USE_ENV_PROXY=1`.
+
+## "Como funciona um agente de IA"
+
+Reels vertical de ~50 s no design branco do site (fundo `#f5f7fc`, roxo `#5745cb`, campo ASCII claro e textos que se decodificam). Ele explica o que é um agente de IA comparando com um robô comum (entende, decide e executa), mostra como funciona (recebe a mensagem, consulta agenda, planilha e sistema, e age) e dá três exemplos animados: horário marcado às 23h, pedido no WhatsApp com orçamento, link de pagamento e estoque, e o resumo do dia. Fecha com "eu crio o seu agente" e o contato pelo WhatsApp. A narração é do Murilo, sem trilha.
+
+```bash
+VIDEO=agente bash video/build-motion.sh              # gera a voz e monta o vídeo
+VIDEO=agente REUSAR_VOZ=1 bash video/build-motion.sh # remonta sem gerar a voz de novo
+```
+
+O roteiro fica em `narrar-motion.mjs` (`SCRIPTS.agente`) e as cenas em `agente.html`. Resultado: `video/out/agente/reels-agente-thierry.mp4`.
