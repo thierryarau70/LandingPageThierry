@@ -14,11 +14,20 @@ const toggleTheme = () => {
   const dark = root.classList.toggle('dark')
   try { localStorage.setItem('theme', dark ? 'dark' : 'light') } catch {}
 }
+
+// No computador o topo acompanha a rolagem; depois dos primeiros pixels ele ganha um fundo
+const scrolled = ref(false)
+onMounted(() => {
+  const onScroll = () => { scrolled.value = window.scrollY > 16 }
+  onScroll()
+  window.addEventListener('scroll', onScroll, { passive: true })
+  onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
+})
 </script>
 
 <template>
   <div class="profile-screen" :class="{ 'sales-shell': isHome }">
-    <header class="profile-header">
+    <header class="profile-header" :class="{ 'is-scrolled': scrolled }">
       <NuxtLink class="profile-identity" :to="lang === 'en' ? '/en' : '/'" :aria-label="t.homeLabel">
         <span class="profile-mark" aria-hidden="true">t.</span>
         <span>Thierry Araújo<span class="profile-role">{{ t.role }}</span></span>
@@ -36,15 +45,16 @@ const toggleTheme = () => {
           <a :href="lang === 'en' ? undefined : otherPath" :aria-current="lang === 'en' ? 'true' : undefined" lang="en" hreflang="en">EN</a>
         </div>
         <button class="profile-theme" type="button" @click="toggleTheme">
-          <span class="theme-to-dark" aria-hidden="true">☾</span><span class="theme-to-light" aria-hidden="true">☀</span>
+          <span class="theme-to-dark" aria-hidden="true"><UiIcon name="moon" /></span><span class="theme-to-light" aria-hidden="true"><UiIcon name="sun" /></span>
           <span class="theme-label theme-to-dark">{{ t.themeDark }}</span><span class="theme-label theme-to-light">{{ t.themeLight }}</span>
         </button>
+        <a class="profile-header-cta" :href="waLink(t.footerWa)" target="_blank" rel="noopener noreferrer"><UiIcon name="whatsapp" />{{ t.headerCta }}</a>
       </div>
     </header>
     <slot />
     <footer class="profile-footer">
-      <a :href="waLink(t.footerWa)" target="_blank" rel="noopener noreferrer">WhatsApp · (95) 99143-2677 <span aria-hidden="true">↗</span></a>
-      <a href="mailto:thierryaraujo309@gmail.com">thierryaraujo309@gmail.com <span aria-hidden="true">↗</span></a>
+      <a :href="waLink(t.footerWa)" target="_blank" rel="noopener noreferrer">WhatsApp · (95) 99143-2677 <UiIcon name="arrow-up-right" /></a>
+      <a href="mailto:thierryaraujo309@gmail.com">thierryaraujo309@gmail.com <UiIcon name="arrow-up-right" /></a>
       <span class="profile-legal">© {{ new Date().getFullYear() }} Thierry Araújo · CNPJ {{ CNPJ }}</span>
     </footer>
   </div>
@@ -54,3 +64,4 @@ const toggleTheme = () => {
 <style src="../assets/css/sales.css"></style>
 <style src="../assets/css/motion.css"></style>
 <style src="../assets/css/theme.css"></style>
+<style src="../assets/css/polish.css"></style>

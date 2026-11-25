@@ -19,7 +19,7 @@
             <dt>Objetivo</dt><dd>{{ p.goal }}</dd>
             <dt>Minha entrega</dt><dd>{{ p.delivery }}</dd>
           </dl>
-          <a :href="p.url" target="_blank" rel="noopener" class="live">Abrir o site ↗</a>
+          <a :href="p.url" target="_blank" rel="noopener" class="live">Abrir o site <UiIcon name="arrow-up-right" style="display:inline;vertical-align:-.125em" /></a>
         </div>
       </article>
     </div>

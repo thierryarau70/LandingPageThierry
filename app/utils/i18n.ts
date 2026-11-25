@@ -37,6 +37,7 @@ const pt = {
     { label: 'Projetos', to: '/projetos' },
     { label: 'Sobre mim', to: '/sobre-mim' }
   ],
+  headerCta: 'Pedir orçamento',
   themeDark: 'Ativar modo escuro',
   themeLight: 'Ativar modo claro',
   langLabel: 'Idioma',
@@ -57,6 +58,10 @@ const pt = {
     cta: 'Quero meu site em 5 dias',
     helper: 'Abre o WhatsApp. Quem responde sou eu, Thierry.',
     seeProjects: 'Ver projetos publicados',
+    badge: (n: number) => `${n} projetos no ar`, badgeNote: 'veja funcionando',
+    eyebrows: { process: 'Processo', projects: 'Projetos', offer: 'Incluso', about: 'Quem faz', faq: 'Dúvidas' },
+    allProjects: (n: number) => `Ver todos os ${n} projetos`,
+    stickyLabel: 'Site completo', stickyCta: 'Chamar no WhatsApp',
     deliveryTop: 'Do primeiro contato à primeira versão.', hours: 'horas', deliveryBottom: 'Você vê. A gente ajusta. Seu site vai ao ar.',
     showcaseLabel: 'Abrir site de Emile Vitória em nova aba', showcaseAlt: 'Site da Dra. Emile Vitória, desenvolvido por Thierry', live: 'Projeto publicado',
     timelineLabel: 'Prazo de criação do site',
@@ -90,7 +95,7 @@ const pt = {
     title: 'Perguntas frequentes', sub: 'Preço, prazo e o que está incluído.'
   },
   projectsPage: {
-    seoTitle: 'Projetos | Thierry Araújo', seoDescription: 'Conheça os sites de Emile Vitória, Louise Reis, Arouche Moda Íntima e CW Imports, os apps Agenda Emi e Protocolo IATF e a Plataforma Prumo, desenvolvidos por Thierry Araújo.',
+    seoTitle: 'Projetos | Thierry Araújo', seoDescription: 'Sites para dentistas, advogados, clínicas e lojas, além de apps e plataformas: Emile Vitória, Solek & Morais Advogados, Endhos Medicina Integrada, Dr. Raphael Solek, Arouche Moda Íntima, Agenda Emi e outros projetos de Thierry Araújo.',
     title: 'Ideias que já estão no ar.', sub: 'Sites e plataformas que conectam negócios, pessoas e oportunidades.',
     open: (name: string) => `${name} — abrir site em nova aba`
   },
@@ -129,6 +134,7 @@ const en: Messages = {
     { label: 'Projects', to: '/en/projects' },
     { label: 'About me', to: '/en/about-me' }
   ],
+  headerCta: 'Get a quote',
   themeDark: 'Switch to dark mode',
   themeLight: 'Switch to light mode',
   langLabel: 'Language',
@@ -154,6 +160,9 @@ const en: Messages = {
   },
   projects: {
     'https://www.draemilevitoria.com.br': { category: 'Dentist website', goal: 'Present the treatments and make it easy to book an appointment.' },
+    'https://escritoriosolek.vercel.app': { category: 'Law firm website', goal: 'Present the firm, its practice areas and its lawyers with a sober look and bring contacts to WhatsApp.' },
+    'https://clinicaendhos.vercel.app': { category: 'Medical clinic website', goal: 'Bring specialties, exams, health plans and the medical team together and lead patients to book on WhatsApp.' },
+    'https://raphaelsolek.vercel.app': { category: 'Lawyer website', goal: 'Present the lawyer\'s background and practice areas and make the first contact on WhatsApp easy.' },
     'https://www.dralouisereis.com.br': { category: 'Dentist website', goal: 'Present smile and facial treatments with an elegant look and lead patients to book an evaluation.' },
     'https://www.arouchemodaintima.com.br': { category: 'Online catalog', goal: 'Showcase the store\'s products and take orders on WhatsApp, no sign-up needed.' },
     'https://agenda-emi.vercel.app': { category: 'App for dentists', goal: 'Appointments with reminders and the practice\'s finances in one app, no notebook or spreadsheet.' },
@@ -175,6 +184,10 @@ const en: Messages = {
     cta: 'I want my site in 5 days',
     helper: 'Opens WhatsApp. I\'m the one who replies — Thierry.',
     seeProjects: 'See live projects',
+    badge: (n: number) => `${n} projects live`, badgeNote: 'see them running',
+    eyebrows: { process: 'Process', projects: 'Projects', offer: 'Included', about: 'Who builds it', faq: 'FAQ' },
+    allProjects: (n: number) => `See all ${n} projects`,
+    stickyLabel: 'Complete website', stickyCta: 'Message on WhatsApp',
     deliveryTop: 'From first contact to first version.', hours: 'hours', deliveryBottom: 'You review. We adjust. Your site goes live.',
     showcaseLabel: 'Open Emile Vitória\'s website in a new tab', showcaseAlt: 'Dr. Emile Vitória\'s website, built by Thierry', live: 'Live project',
     timelineLabel: 'Website timeline',
@@ -208,7 +221,7 @@ const en: Messages = {
     title: 'Frequently asked questions', sub: 'Price, timeline and what\'s included.'
   },
   projectsPage: {
-    seoTitle: 'Projects | Thierry Araújo', seoDescription: 'See the websites for Emile Vitória, Louise Reis, Arouche Moda Íntima and CW Imports, the Agenda Emi and Protocolo IATF apps and Plataforma Prumo, built by Thierry Araújo.',
+    seoTitle: 'Projects | Thierry Araújo', seoDescription: 'Websites for dentists, lawyers, clinics and stores, plus apps and platforms: Emile Vitória, Solek & Morais Advogados, Endhos Medicina Integrada, Dr. Raphael Solek, Arouche Moda Íntima, Agenda Emi and other projects by Thierry Araújo.',
     title: 'Ideas that are already live.', sub: 'Websites and platforms that connect businesses, people and opportunities.',
     open: (name: string) => `${name} — open website in a new tab`
   },
