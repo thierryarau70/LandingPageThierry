@@ -58,7 +58,7 @@ VIDEO=agente REUSAR_VOZ=1 bash video/build-motion.sh # remonta sem gerar a voz d
 
 ## Reels de rebranding (THIERRY. Studio)
 
-Vídeo vertical de 24 s (48 batidas a 120 BPM) apresentando a nova identidade: o nome antigo riscado, o wordmark montado letra a letra, os três pilares em parede de palavras, o símbolo T.S, projetos reais e a assinatura final. Não tem narração; os cortes seguem uma grade de batidas para sincronizar com a música.
+Vídeo vertical de 35 s (70 batidas a 120 BPM) apresentando a nova identidade: o nome antigo riscado, o wordmark montado letra a letra, os três pilares em parede de palavras, o símbolo T.S, a paleta e a tipografia, projetos reais e a assinatura final. Não tem narração; os cortes seguem uma grade de batidas para sincronizar com a música.
 
 ```bash
 node video/rebranding.mjs                                          # 120 BPM, mudo
@@ -68,3 +68,5 @@ STILLS=1 node video/rebranding.mjs                                 # só quadros
 ```
 
 Os projetos que aparecem ficam em `REEL_PROJECTS`, no topo de `rebranding.mjs`. As cenas usam a geometria da marca (`brand/scripts/geometry.mjs`) e as capturas de `public/projetos`. Resultado: `video/out/rebranding/reels-rebranding-thierry-studio.mp4`. A trilha é escolhida por quem publica; confira os direitos de uso da música no Instagram.
+
+A grade segue frases de 4 compassos: nome antigo nas batidas 0–4, wordmark 4–12, pilares 12–24, símbolo 24–36, paleta e tipografia 36–48, projetos de 48 em diante (duas batidas cada) e assinatura nas 10 batidas finais. Para sincronizar, faça a entrada da batida da música cair na batida 4: `INICIO` = instante dessa entrada − 4 batidas. Com "Territory", do The Blaze (120 BPM, versão do vídeo oficial, batida em 2:20,11), fica `BPM=120 INICIO=138.11`; o arquivo da música não entra no repositório.

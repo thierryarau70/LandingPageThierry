@@ -1,9 +1,10 @@
-// Reels de rebranding THIERRY. Studio (1080 × 1920, 30 fps, 48 batidas).
+// Reels de rebranding THIERRY. Studio (1080 × 1920, 30 fps, 70 batidas = 35 s a 120 BPM).
 // Os cortes seguem uma grade de batidas: informe o BPM da música para sincronizar.
 //
 //   node video/rebranding.mjs                       # 120 BPM, vídeo mudo
 //   BPM=122 node video/rebranding.mjs               # outro andamento
 //   BPM=122 MUSICA=trilha.mp3 INICIO=12.5 node video/rebranding.mjs   # com trilha, começando em 12,5 s da música
+//   INICIO = (instante da entrada da batida na música) − 4 batidas: a marca nova entra na batida 4.
 //   STILLS=1 node video/rebranding.mjs              # só quadros de conferência (um por batida par)
 //
 // Saída: video/out/rebranding/reels-rebranding-thierry-studio.mp4
@@ -22,7 +23,6 @@ fs.mkdirSync(out, { recursive: true })
 
 const FPS = 30
 const BPM = Number(process.env.BPM || 120)
-const BEATS = 48
 const { visibleProjects } = await import(pathToFileURL(path.join(root, 'app/data/projects.ts')).href)
 const { site } = await import(pathToFileURL(path.join(root, 'app/data/site.ts')).href)
 
@@ -41,6 +41,21 @@ const rule = studio.match(/<rect x="0" y="([\d.]+)" width="([\d.]+)" height="([\
 
 // Projetos que aparecem no vídeo, na ordem (escolha do autor: sem Solek, Endhos, Rômulo Tuan e Centro de Isoladas)
 const REEL_PROJECTS = ['prumo', 'agenda-emi', 'emile-vitoria', 'arouche', 'louise-reis', 'cw-imports']
+// Grade de cenas em batidas (compasso 4/4): nome antigo 0–4, wordmark 4–12, pilares 12–24,
+// símbolo 24–36, sistema (paleta e tipografia) 36–48, projetos a partir de 48 (duas batidas
+// cada) e assinatura nas 10 batidas finais.
+const SYS = 36
+const PROJ = 48
+const PER = 2
+const BEATS = PROJ + REEL_PROJECTS.length * PER + 10
+// Paleta e tipografia da marca (brand/DESIGN_TOKENS.json e BRAND_GUIDELINES.md)
+const PALETTE = [['Carbon', '#0D0D0D', '#F3F0EA'], ['Graphite', '#1C1C1C', '#F3F0EA'], ['Concrete', '#A1A1A1', '#0D0D0D'], ['Paper', '#F3F0EA', '#0D0D0D'], ['Signal Orange', '#FF6A2B', '#0D0D0D'], ['White', '#FFFFFF', '#0D0D0D']]
+const TYPE = [
+  ['Archivo', 'Display', 'font:900 180px/1 Archivo;letter-spacing:-.045em;text-transform:uppercase'],
+  ['Space Grotesk', 'Títulos e interface', 'font:700 124px/1 Grotesk;letter-spacing:-.025em'],
+  ['Manrope', 'Texto', 'font:500 124px/1 Manrope;letter-spacing:-.01em'],
+  ['IBM Plex Mono', 'Rótulos técnicos', 'font:500 92px/1 Mono;letter-spacing:.04em;text-transform:uppercase']
+]
 // Quanto subir a captura (em px do quadro) para o assunto não ficar atrás da faixa com o nome
 const SHIFT = { 'emile-vitoria': 560 }
 const projects = REEL_PROJECTS.map(slug => visibleProjects.find(p => p.slug === slug)).filter(Boolean).map((p, i) => ({ n: String(i + 1).padStart(2, '0'), name: p.name, cat: p.category, src: img(p.mobile[0].src), shift: SHIFT[p.slug] || 0 }))
@@ -50,6 +65,7 @@ const domain = site.defaultUrl.replace(/^https?:\/\/(www\.)?/, '')
 const html = `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><style>
 @font-face{font-family:Archivo;src:url(${font('@fontsource-variable/archivo', 'archivo-latin-wght-normal.woff2')});font-weight:100 900}
 @font-face{font-family:Grotesk;src:url(${font('@fontsource-variable/space-grotesk', 'space-grotesk-latin-wght-normal.woff2')});font-weight:300 700}
+@font-face{font-family:Manrope;src:url(${font('@fontsource-variable/manrope', 'manrope-latin-wght-normal.woff2')});font-weight:200 800}
 @font-face{font-family:Mono;src:url(${font('@fontsource/ibm-plex-mono', 'ibm-plex-mono-latin-500-normal.woff2')});font-weight:500}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:1080px;height:1920px;overflow:hidden;background:#0D0D0D}
@@ -68,6 +84,11 @@ body{--carbon:#0D0D0D;--paper:#F3F0EA;--orange:#FF6A2B;--graphite:#1C1C1C;font-f
 .wall p{display:block}
 .wall .o{color:transparent;-webkit-text-stroke:3px var(--ink)}
 .dot{display:inline-block;width:.2em;height:.2em;margin-left:.045em;background:var(--dot,var(--orange))}
+/* cena 6: sistema — paleta em faixas e folha de tipos */
+.band{position:absolute;left:0;right:0;height:200px;padding:0 80px;display:flex;justify-content:space-between;align-items:center;transform-origin:0 50%}
+.band b{font:900 64px/1 Archivo;letter-spacing:-.04em;text-transform:uppercase}
+.spec{position:absolute;left:80px;right:80px;height:270px;border-top:2px solid var(--carbon);padding-top:22px;white-space:nowrap}
+.spec p{margin-top:26px}
 /* cena 4: projetos */
 .shot{position:absolute;left:0;top:0;width:100%;height:auto}
 .plate{position:absolute;left:0;right:0;bottom:0;height:640px;background:var(--carbon);padding:44px 80px 0;display:grid;grid-template-columns:auto 1fr;gap:0 40px;align-content:start}
@@ -110,6 +131,13 @@ body{--carbon:#0D0D0D;--paper:#F3F0EA;--orange:#FF6A2B;--graphite:#1C1C1C;font-f
   <p class="center" style="top:1356px"><span class="label" id="symCap" style="background:var(--carbon);padding:14px 22px;display:inline-block">Thierry · ponto · Studio</span></p>
 </section>
 
+<!-- 6 · sistema: paleta e tipografia (entra entre o símbolo e os projetos) -->
+<section class="sc" id="s6" style="background:var(--carbon)">
+  <div id="pal">${PALETTE.map(([name, hex, ink], i) => `<div class="band" id="band${i}" style="top:${300 + i * 200}px;background:${hex};color:${ink}"><b>${name}</b><span class="label">${hex}</span></div>`).join('')}
+    <i style="position:absolute;left:0;right:0;top:300px;border-top:1px solid rgba(243,240,234,.28)"></i><i style="position:absolute;left:0;right:0;top:1500px;border-top:1px solid rgba(243,240,234,.28)"></i></div>
+  <div id="typ" style="position:absolute;inset:0;background:var(--paper);color:var(--carbon)">${TYPE.map(([name, role, css], i) => `<div class="spec" id="spec${i}" style="top:${340 + i * 290}px"><span class="label" style="display:flex;justify-content:space-between"><span>0${i + 1} — ${role}</span><span style="text-transform:none">Aa</span></span><p style="${css}">${name}</p></div>`).join('')}</div>
+</section>
+
 <!-- 4 · projetos reais -->
 <section class="sc" id="s4" style="background:var(--carbon)">
   ${projects.map((p, i) => `<img class="shot" id="shot${i}" src="${p.src}" style="display:none">`).join('')}
@@ -131,7 +159,7 @@ body{--carbon:#0D0D0D;--paper:#F3F0EA;--orange:#FF6A2B;--graphite:#1C1C1C;font-f
 
 <div id="flash" style="position:absolute;inset:0;background:#FF6A2B;display:none;z-index:9"></div>
 <script>
-const FPS = ${FPS}, SPB = 60 / ${BPM}, BEATS = ${BEATS}
+const FPS = ${FPS}, SPB = 60 / ${BPM}, BEATS = ${BEATS}, SYS = ${SYS}, PROJ = ${PROJ}, PER = ${PER}
 window.TOTAL = BEATS * SPB
 const P = ${JSON.stringify(projects)}
 const $ = id => document.getElementById(id)
@@ -151,11 +179,11 @@ let lastPillar = -1
 
 window.render = (f) => {
   const t = f / FPS, b = t / SPB
-  const END = 32 + P.length // a assinatura começa quando os projetos acabam
-  const scene = b < 4 ? 0 : b < 12 ? 1 : b < 24 ? 2 : b < 32 ? 3 : b < END ? 4 : 5
-  for (let i = 0; i < 6; i++) show($('s' + i), i === scene)
+  const END = PROJ + P.length * PER // a assinatura começa quando os projetos acabam
+  const scene = b < 4 ? 0 : b < 12 ? 1 : b < 24 ? 2 : b < SYS ? 3 : b < PROJ ? 6 : b < END ? 4 : 5
+  for (let i = 0; i < 7; i++) show($('s' + i), i === scene)
   // HUD: cor conforme o fundo e contador de tempo
-  const dark = scene === 0 || scene === 3 || scene === 4 || (scene === 2 && Math.floor((b - 12) / 4) === 0)
+  const dark = scene === 0 || scene === 3 || scene === 4 || (scene === 6 && b < SYS + 6) || (scene === 2 && Math.floor((b - 12) / 4) === 0)
   const ink = dark ? '#F3F0EA' : '#0D0D0D'
   for (const el of [$('hudT'), $('hudB'), $('grid')]) el.style.color = ink
   $('hudT').style.visibility = scene === 4 ? 'hidden' : 'visible'
@@ -163,7 +191,7 @@ window.render = (f) => {
   const ff = n => String(n).padStart(2, '0')
   $('tc').textContent = ff(Math.floor(t / 60)) + ':' + ff(Math.floor(t) % 60) + ':' + ff(f % FPS)
   // clarão de um quadro e meio nas trocas de cena
-  const cuts = [4, 12, 24, 32, END]
+  const cuts = [4, 12, 24, SYS, SYS + 6, PROJ, END]
   $('flash').style.display = cuts.some(c => b >= c && b < c + 0.12) ? 'block' : 'none'
 
   if (scene === 0) {
@@ -219,13 +247,29 @@ window.render = (f) => {
     $('symDot').style.transformOrigin = '100px 100px'
     $('symDot').style.transform = 'scale(' + (1 + 6 * (1 - expo(at(b, 26, 0.5)))) + ')'
     $('symCap').style.visibility = b >= 27 ? 'visible' : 'hidden'
-    const shown = Math.floor(at(b, 28, 3.5) * 20)
+    const shown = Math.floor(at(b, 28, SYS - 28.5) * 20)
     for (const el of $('tiles').children) el.style.visibility = ORDER[+el.dataset.i] < shown ? 'visible' : 'hidden'
   }
   if (scene === 4) {
-    const i = Math.min(P.length - 1, Math.floor(b - 32)), local = b - 32 - i
+    const i = Math.min(P.length - 1, Math.floor((b - PROJ) / PER)), local = (b - PROJ - i * PER) / PER
     P.forEach((_, j) => { const el = $('shot' + j); el.style.display = j === i ? 'block' : 'none'; if (j === i) el.style.transform = 'translateY(' + (60 * (1 - expo(local * 1.6)) - P[i].shift) + 'px) scale(1.04)' })
     $('pnum').textContent = P[i].n; $('pname').textContent = P[i].name; $('pcat').textContent = P[i].cat
+  }
+  if (scene === 6) {
+    // paleta: uma faixa por batida; depois a folha de tipos, uma família por batida
+    const type = b >= SYS + 6
+    show($('typ'), type)
+    for (let i = 0; i < 6; i++) {
+      const el = $('band' + i), p = expo(at(b, SYS + i, 0.5))
+      el.style.visibility = b >= SYS + i ? 'visible' : 'hidden'
+      el.style.clipPath = 'inset(0 ' + (100 - 100 * p) + '% 0 0)'
+    }
+    for (let i = 0; i < 4; i++) {
+      const el = $('spec' + i), p = expo(at(b, SYS + 6 + i, 0.5))
+      el.style.visibility = b >= SYS + 6 + i ? 'visible' : 'hidden'
+      el.querySelector('p').style.transform = 'translateX(' + (-60 * (1 - p)) + 'px)'
+      el.style.clipPath = 'inset(0 ' + (100 - 100 * p) + '% 0 0)'
+    }
   }
   if (scene === 5) {
     $('eWord').style.clipPath = 'inset(0 ' + (100 - 100 * expo(at(b, END, 1))) + '% 0 0)'
@@ -276,9 +320,9 @@ await browser.close()
 
 const final = path.join(out, 'reels-rebranding-thierry-studio.mp4')
 if (process.env.MUSICA) {
-  // trilha do usuário: corta a partir de INICIO, na duração do vídeo, com fade de saída de 1 s
+  // trilha do usuário: corta a partir de INICIO, na duração do vídeo, com fade de saída de 1,5 s
   const dur = total / FPS
-  const r = spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', silent, '-ss', String(process.env.INICIO || 0), '-i', process.env.MUSICA, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-af', `afade=t=in:d=0.05,afade=t=out:st=${(dur - 1).toFixed(2)}:d=1`, '-t', dur.toFixed(2), '-movflags', '+faststart', final], { stdio: 'inherit' })
+  const r = spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', silent, '-ss', String(process.env.INICIO || 0), '-i', process.env.MUSICA, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-af', `afade=t=in:d=0.3,afade=t=out:st=${(dur - 1.5).toFixed(2)}:d=1.5`, '-t', dur.toFixed(2), '-movflags', '+faststart', final], { stdio: 'inherit' })
   if (r.status !== 0) process.exit(r.status ?? 1)
 } else {
   fs.copyFileSync(silent, final)
