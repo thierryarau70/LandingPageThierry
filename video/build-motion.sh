@@ -5,6 +5,7 @@
 #      VIDEO=site bash video/build-motion.sh             Resultado: video/out/site/stories-site-thierry.mp4
 #      VIDEO=curto bash video/build-motion.sh            Resultado: video/out/curto/stories-curto-thierry.mp4 (30–45 s)
 # REUSAR_VOZ=1 remonta com a narração já gerada em out/<vídeo>/ (sem gastar crédito)
+# SEM_TRILHA=1 deixa só a narração (o vídeo "ia" já sai sem trilha por padrão)
 set -euo pipefail
 cd "$(dirname "$0")"
 export VIDEO="${VIDEO:-motion}"
@@ -15,6 +16,7 @@ case "$VIDEO" in
   curto) FINAL="$OUT/stories-curto-thierry.mp4"; PAGE="site.html?v=curto" ;; # mesmas cenas do stories completo
   *) FINAL="$OUT/reels-$VIDEO-thierry.mp4" ;;
 esac
+[[ "$VIDEO" == ia ]] && SEM_TRILHA="${SEM_TRILHA:-1}"
 [[ -n "${REUSAR_VOZ:-}" ]] || node narrar-motion.mjs "${1:-}"
 
 LEAD=0.4; GAP=0.5; TAIL=1.6   # mesmos valores das páginas (motion.html, site.html)
@@ -36,6 +38,13 @@ while read -r file dur; do
   t=$(node -e "console.log($t+$dur+$GAP)"); i=$((i+1))
 done < <(OUT=$OUT node -e 'require("./"+process.env.OUT+"/narracao.json").scenes.forEach(s=>console.log(s.file, s.duration))')
 mix=""; for ((k=0;k<i;k++)); do mix+="[a$k]"; done
+if [[ -n "${SEM_TRILHA:-}" ]]; then
+  # só a voz, com o mesmo ganho e limitador da versão com trilha
+  ffmpeg -y -loglevel error -i $OUT/video.mp4 -i $OUT/trilha.wav "${inputs[@]}" \
+    -filter_complex "${filters}${mix}amix=inputs=$i:normalize=0,apad,volume=1.6,alimiter=limit=0.95[aud]" \
+    -map 0:v -map "[aud]" -c:v copy -c:a aac -b:a 192k -shortest -movflags +faststart "$FINAL"
+  echo "pronto (sem trilha): video/$FINAL"; exit 0
+fi
 ffmpeg -y -loglevel error -i $OUT/video.mp4 -i $OUT/trilha.wav "${inputs[@]}" \
   -filter_complex "${filters}${mix}amix=inputs=$i:normalize=0,apad,volume=1.6,asplit[v1][v2];[1:a]volume=1.3[m];[m][v1]sidechaincompress=threshold=0.05:ratio=2.5:attack=30:release=400[duck];[duck][v2]amix=inputs=2:normalize=0,alimiter=limit=0.95[aud]" \
   -map 0:v -map "[aud]" -c:v copy -c:a aac -b:a 192k -shortest -movflags +faststart "$FINAL"

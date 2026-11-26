@@ -46,23 +46,56 @@ SCRIPTS.curto = [
   ['social', 'Quer ver meus trabalhos? Me segue no Instagram, e dá uma olhada em Thierry Araújo dev ponto com ponto br.'],
   ['close', 'Me chama no WhatsApp, e bora colocar o seu negócio no ar!']
 ]
+// apresentação "sistema com IA ou landing page?" (ia.html): visual escuro e tecnológico, sem preço e sem citar projetos
+SCRIPTS.ia = [
+  ['hook', 'Você quer um sistema integrado com inteligência artificial?'],
+  ['choice', 'Ou só precisa de uma landing page?'],
+  ['hub', 'Olha só cinco coisas que a inteligência artificial pode fazer pelo seu negócio.'],
+  ['f1', 'Um. Atender seus clientes no WhatsApp, vinte e quatro horas por dia, respondendo preço, horário e endereço na hora.'],
+  ['f2', 'Dois. Marcar horários e montar orçamentos sozinha, sem você digitar nada.'],
+  ['f3', 'Três. Entender o que cada cliente quer, e te mostrar quem está pronto para fechar.'],
+  ['f4', 'Quatro. Transformar um áudio em informação organizada. Você fala, e o sistema anota.'],
+  ['f5', 'Cinco. Criar relatórios, emails e conteúdos automáticos, no tom da sua marca.'],
+  ['landing', 'E se você só precisa de uma landing page ou catálogo, eu também faço: rápida, bonita e pronta para vender.'],
+  ['close', 'Me manda uma mensagem, e vamos fechar o seu orçamento.']
+]
+// "como funciona um agente de IA" (agente.html): design branco do site, exemplos e convite para contato
+SCRIPTS.agente = [
+  ['hook', 'Você sabe o que é um agente de inteligência artificial?'],
+  ['what', 'Não é um robô que só responde. O agente entende o pedido, decide o que fazer, e executa a tarefa sozinho.'],
+  ['how', 'Funciona assim: ele recebe a mensagem, consulta as ferramentas do seu negócio, como agenda, planilha e sistema, e age.'],
+  ['ex1', 'Por exemplo: um cliente pede um horário às onze da noite. O agente confere a agenda, marca, e manda a confirmação.'],
+  ['ex2', 'Chegou um pedido no WhatsApp? Ele monta o orçamento, envia o link de pagamento e atualiza o estoque.'],
+  ['ex3', 'E no fim do dia, te manda um resumo com as vendas, os atendimentos e quem precisa de retorno.'],
+  ['you', 'E eu posso produzir um agente desses, sob medida para o seu negócio.'],
+  ['close', 'É só entrar em contato. Me chama no WhatsApp.']
+]
 const SCRIPT = SCRIPTS[VIDEO]
 if (!SCRIPT) throw new Error(`roteiro desconhecido: ${VIDEO}`)
 const voiceId = process.argv[2] || 'd703f08d1ef34302a36945aa3efc7b3f' // Murilo (pt-BR, masculina)
-const SPEED = 1 // velocidade natural: mais devagar soava robótico
-const PAUSE = 0.4 // pausa entre as cenas na narração contínua (s)
+const SPEED = 1 // velocidade natural: abaixo de 1 a voz do Murilo soa robótica
+const PAUSE = VIDEO === 'ia' || VIDEO === 'agente' ? 0.5 : 0.4 // pausa entre as cenas na narração contínua (s)
 
 // API v3 de voz da HeyGen (a v1 é desligada em 31/10/2026)
+// VOZ_GRATIS=1 usa o modelo gratuito (heygen-voice-1-turbo-free: não gasta crédito de API, tem limite diário)
+const GRATIS = !!process.env.VOZ_GRATIS
 const speak = async text => {
-  const res = await fetch('https://api.heygen.com/v3/voices/speech', {
-    method: 'POST', headers: { 'X-Api-Key': KEY, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ voice_id: voiceId, text, language: 'pt', speed: SPEED, force_regenerate: true })
-  })
+  const res = GRATIS
+    ? await fetch('https://api.heygen.com/v3/models/audio/tts', {
+        method: 'POST', headers: { 'X-Api-Key': KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ voice_id: voiceId, text, model: 'heygen-voice-1-turbo-free', language: 'pt', with_timestamps: true })
+      })
+    : await fetch('https://api.heygen.com/v3/voices/speech', {
+        method: 'POST', headers: { 'X-Api-Key': KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ voice_id: voiceId, text, language: 'pt', speed: SPEED, force_regenerate: true })
+      })
   const r = await res.json()
   if (!res.ok || !r.data?.audio_url) throw new Error(`voz: ${res.status} ${JSON.stringify(r).slice(0, 300)}`)
   const audio = await fetch(r.data.audio_url)
   if (!audio.ok) throw new Error(`download: ${audio.status}`)
-  const words = (r.data.word_timestamps ?? []).filter(w => !/^<.*>$/.test(w.word)).map(w => ({ w: w.word, s: w.start, e: w.end }))
+  const raw = GRATIS ? (r.data.original_words ?? []).map(w => ({ word: w.text, start: w.start_time, end: w.end_time })) : (r.data.word_timestamps ?? [])
+  // o modelo gratuito devolve a tag [pause] como a palavra "pause"
+  const words = raw.filter(w => !/^<.*>$|^\[.*\]$/.test(w.word) && !(GRATIS && w.word === 'pause')).map(w => ({ w: w.word, s: w.start, e: w.end }))
   return { buf: Buffer.from(await audio.arrayBuffer()), duration: r.data.duration, words }
 }
 const countWords = text => text.split(/\s+/).filter(Boolean).length
@@ -74,7 +107,8 @@ const result = { voice_id: voiceId, scenes: [] }
 if (!only) {
   // narração contínua: o texto todo numa fala só, para a entonação seguir de uma frase para a outra;
   // depois cada cena é recortada pelo tempo das palavras
-  const full = await speak(SCRIPT.map(([, text]) => text).join(` <break time="${PAUSE}s"/> `))
+  // o modelo gratuito não aceita <break>: a pausa entre as cenas vira a tag [pause]
+  const full = await speak(SCRIPT.map(([, text]) => text).join(GRATIS ? ' [pause] ' : ` <break time="${PAUSE}s"/> `))
   const fullFile = path.join(out, 'completa.wav'); fs.writeFileSync(fullFile, full.buf)
   const counts = SCRIPT.map(([, text]) => countWords(text))
   if (counts.reduce((x, y) => x + y) !== full.words.length) throw new Error(`palavras não batem (${counts.reduce((x, y) => x + y)} no roteiro, ${full.words.length} na voz); use CENAS=... para gerar fala por fala`)

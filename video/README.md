@@ -33,3 +33,25 @@ VIDEO=site REUSAR_VOZ=1 bash video/build-motion.sh # remonta sem gerar a voz de 
 O roteiro fica em `narrar-motion.mjs` (`SCRIPTS.site`) e as cenas em `site.html`. Resultado: `video/out/site/stories-site-thierry.mp4`.
 
 Versão curta (~44 s), com as mesmas cenas e os pontos principais: `VIDEO=curto bash video/build-motion.sh` (roteiro em `SCRIPTS.curto`). Resultado: `video/out/curto/stories-curto-thierry.mp4`.
+
+## "Sistema com IA ou landing page?"
+
+Vídeo vertical de ~56 s, escuro e tecnológico (campo ASCII, grade em perspectiva, HUD e textos que se decodificam). Ele pergunta se o cliente quer um sistema com IA ou só uma landing page, mostra 5 funções da IA, cada uma com uma demonstração animada (atendimento no WhatsApp 24h, agenda e orçamentos, clientes prontos para fechar, áudio que vira dados, relatórios e emails automáticos), oferece a landing page ou catálogo como alternativa (sem preço) e fecha com o pedido de orçamento pelo WhatsApp. A narração é do Murilo na velocidade natural (abaixo de 1 soa robótica), sem trilha (`SEM_TRILHA=1` é o padrão desse vídeo).
+
+```bash
+VIDEO=ia bash video/build-motion.sh              # gera a voz e monta o vídeo
+VIDEO=ia REUSAR_VOZ=1 bash video/build-motion.sh # remonta sem gerar a voz de novo
+```
+
+O roteiro fica em `narrar-motion.mjs` (`SCRIPTS.ia`) e as cenas em `ia.html`. Resultado: `video/out/ia/reels-ia-thierry.mp4`. Se o `fetch` do Node não passar pelo proxy da sessão, rode com `NODE_USE_ENV_PROXY=1`.
+
+## "Como funciona um agente de IA"
+
+Reels vertical de ~50 s no design branco do site (fundo `#f5f7fc`, roxo `#5745cb`, campo ASCII claro e textos que se decodificam). Ele explica o que é um agente de IA comparando com um robô comum (entende, decide e executa), mostra como funciona (recebe a mensagem, consulta agenda, planilha e sistema, e age) e dá três exemplos animados: horário marcado às 23h, pedido no WhatsApp com orçamento, link de pagamento e estoque, e o resumo do dia. Fecha com "eu crio o seu agente" e o contato pelo WhatsApp. A narração é do Murilo, com a trilha sintetizada por baixo.
+
+```bash
+VIDEO=agente VOZ_GRATIS=1 bash video/build-motion.sh # gera a voz pelo modelo gratuito da HeyGen e monta o vídeo
+VIDEO=agente REUSAR_VOZ=1 bash video/build-motion.sh # remonta sem gerar a voz de novo
+```
+
+`VOZ_GRATIS=1` usa o modelo gratuito da HeyGen (`heygen-voice-1-turbo-free`), que não gasta crédito de API mas tem limite diário. O roteiro fica em `narrar-motion.mjs` (`SCRIPTS.agente`) e as cenas em `agente.html`. Resultado: `video/out/agente/reels-agente-thierry.mp4`.
