@@ -58,7 +58,7 @@ export const services: Service[] = [
     description: 'Sistemas personalizados, plataformas SaaS, dashboards, ferramentas internas e soluções voltadas à operação empresarial.',
     examples: [
       'Aplicativos de gestão com agenda, finanças e relatórios',
-      'Aplicativos que funcionam sem internet e sincronizam depois',
+      'Plataformas de estudo com videoaulas, questões e simulados',
       'Plataformas por assinatura com área do cliente'
     ],
     benefits: [
@@ -68,7 +68,7 @@ export const services: Service[] = [
     ],
     cta: 'Quero um sistema sob medida',
     topic: 'um sistema sob medida',
-    related: ['agenda-emi', 'protocolo-iatf', 'prumo']
+    related: ['agenda-emi', 'centro-de-isoladas', 'prumo']
   },
   {
     id: 'inteligencia-artificial',
@@ -87,7 +87,7 @@ export const services: Service[] = [
     ],
     cta: 'Quero aplicar IA no meu negócio',
     topic: 'uma solução com inteligência artificial',
-    related: ['prumo', 'agenda-emi', 'protocolo-iatf']
+    related: ['prumo', 'agenda-emi']
   },
   {
     id: 'automacao-e-integracoes',

@@ -11,8 +11,9 @@ if (!niche) throw createError({ statusCode: 404, statusMessage: 'Página não en
 
 const waSuffix = ` (vim pela página para ${niche.label})`
 const contact = waLink(`Olá, Thierry! Vi a página para ${niche.label} e quero um orçamento.`)
-// Projetos mais próximos do negócio do visitante; sem indicação, os três primeiros em destaque
-const related = (niche.projects.map(findProject).filter(p => !!p).length ? niche.projects.map(findProject).filter(p => !!p) : featuredProjects).slice(0, 3)
+// Projetos mais próximos do negócio do visitante, completados com os destaques até formar três
+const near = niche.projects.map(findProject).filter(p => !!p)
+const related = [...near, ...featuredProjects.filter(p => !near.includes(p))].slice(0, 3)
 // Título com o trecho de destaque marcado
 const [before, after] = niche.title.split(niche.highlight)
 

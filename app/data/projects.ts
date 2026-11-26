@@ -241,6 +241,30 @@ export const projects: Project[] = [
     ...media('raphael-solek', 'Dr. Raphael Solek')
   },
   {
+    slug: 'centro-de-isoladas',
+    name: 'Centro de Isoladas',
+    category: 'Site e plataforma de estudos para cursinho',
+    pillars: ['Design', 'Software'],
+    summary: 'Site do cursinho preparatório de Boa Vista (RR) com foco em UFRR e UERR: turmas presenciais, cursos online e plataforma de estudos com videoaulas, questões e simulados.',
+    context: 'O Centro de Isoladas (CDI) é um cursinho preparatório de Boa Vista (RR) que trabalha com isoladas: aulas por disciplina, com professor especialista em cada área e foco nos vestibulares da UFRR e da UERR.',
+    problem: 'O cursinho precisava divulgar as turmas presenciais, do 5º ano ao pré-vestibular, e ao mesmo tempo oferecer um lugar para o aluno estudar fora da sala e acompanhar o próprio progresso.',
+    solution: 'Um site que apresenta as turmas, o método, os professores, os aprovados e os aulões, ligado a uma plataforma online com videoaulas, banco de questões com resolução comentada, simulados cronometrados no modelo da UFRR e desempenho por disciplina. A matrícula começa pelo contato do próprio site.',
+    features: [
+      'Cinco turmas presenciais, do 5º ano ao pré-vestibular',
+      'Cursos online com videoaulas e materiais de apoio',
+      'Banco de questões com resolução comentada',
+      'Simulados cronometrados no modelo da UFRR',
+      'Desempenho do aluno por disciplina',
+      'Páginas de professores, aprovados, aulões e guias',
+      'Área do aluno com login'
+    ],
+    delivery: ['Design', 'Desenvolvimento do site', 'Desenvolvimento da área do aluno'],
+    stack: ['Nuxt', 'Vue', 'Nuxt Image'],
+    status: 'No ar',
+    url: 'https://www.centrodeisoladas.com.br',
+    ...media('centro-de-isoladas', 'Centro de Isoladas', 'isoladas', false)
+  },
+  {
     slug: 'protocolo-iatf',
     name: 'Protocolo IATF',
     category: 'Aplicativo para veterinários',
@@ -262,7 +286,9 @@ export const projects: Project[] = [
     stack: ['Nuxt', 'Vue', 'PWA (instalável e offline)'],
     status: 'Produto no ar',
     url: 'https://protocolo-iatf.vercel.app',
-    ...media('protocolo-iatf', 'Protocolo IATF')
+    ...media('protocolo-iatf', 'Protocolo IATF'),
+    // fora do portfólio a pedido do autor (26/11/2026); remova a linha abaixo para voltar a exibir
+    hidden: true
   },
   {
     slug: 'louise-reis',

@@ -10,8 +10,8 @@ Data: 26/11/2026 · Escopo: identidade visual, redesign completo do site, cases,
   Pentagram e Behance). Também foram localizados o LinkedIn e o GitHub públicos.
 - **Repositório:** Nuxt 4.6 + Vue 3.5 + TypeScript, CSS próprio, 15 projetos cadastrados, rastreamento por Pixel/GA4,
   páginas de anúncio `/para/<nicho>` e versão em inglês.
-- **Projetos:** os 11 projetos do portfólio foram abertos um a um; o conteúdo real de cada página e a stack detectável
-  (com evidência) alimentam os cases. Foram feitas 44 capturas reais (desktop e mobile) em `public/projetos`.
+- **Projetos:** os projetos do portfólio foram abertos um a um; o conteúdo real de cada página e a stack detectável
+  (com evidência) alimentam os cases. Foram feitas capturas reais (desktop e mobile) em `public/projetos`.
 
 ### Identidade visual (Fases 02–04)
 - Três conceitos de logotipo em SVG vetorial (`brand/logos`): **A** monograma estrutural TA, **B** wordmark THIERRY.,
@@ -84,7 +84,8 @@ Capturas desktop e mobile: [`docs/screenshots`](screenshots).
 - **Radar de Clientes:** confirmado como projeto seu por publicação no LinkedIn, mas `radardecliente.com.br` responde 404 e
   o projeto já havia sido retirado do portfólio em um commit anterior. Ficou fora.
 - **Agente Marcos:** nenhuma fonte pública encontrada. Ficou fora.
-- **Centro de Isoladas:** está no ar, mas marcado como oculto "até o projeto estar pronto" no código anterior. Ficou fora.
+- **Centro de Isoladas:** incluído a seu pedido, com o domínio `centrodeisoladas.com.br`, no lugar do Protocolo IATF,
+  que ficou oculto (`hidden: true` em `app/data/projects.ts`).
 - **Attletto Teams:** 404. **Agrovet:** fora da lista curada do site atual. Ambos ficaram fora.
 - **CW Imports:** os depoimentos exibidos no catálogo estão rotulados como "exemplo"; não foram usados como prova social.
 - **Depoimentos, logotipos de clientes, métricas e certificações:** não há material autorizado; nada foi inventado.
@@ -96,8 +97,9 @@ Capturas desktop e mobile: [`docs/screenshots`](screenshots).
 
 1. **Retrato profissional** — ao ter um, salve em `public/brand/` e informe o caminho em `photo` (`app/data/site.ts`).
 2. **Publicação** — nada foi publicado. Um push em `main` dispara o deploy da Vercel; aguarda sua autorização.
-3. **Projetos fora do portfólio:** Radar de Clientes, Centro de Isoladas e Agrovet só entram se você pedir (e com qual
-   status). Já confirmados por você: 4 anos de experiência, site só em português e sem preço na página inicial.
+3. **Projetos fora do portfólio:** Radar de Clientes e Agrovet só entram se você pedir (e com qual status); o Protocolo
+   IATF está oculto e volta removendo `hidden: true`. Já confirmados por você: 4 anos de experiência, site só em
+   português e sem preço na página inicial.
 4. **Tecnologias dos cases** foram detectadas pelo que é visível nos sites publicados; complete `stack` em
    `app/data/projects.ts` se quiser citar backend e serviços.
 5. **Resultados dos cases:** o campo `results` existe e a seção aparece sozinha quando houver números verificáveis.

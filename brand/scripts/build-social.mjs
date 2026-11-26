@@ -309,7 +309,7 @@ add('stories/story-institucional.png', STORY, doc(...STORY, 'carbon', `
   ${bottom(`${WHATSAPP} · ${SITE}`, 34)}
   <div style="height:270px"></div>`))
 
-const iatf = findProject('protocolo-iatf')
+const iatf = findProject('romulo-tuan') // projeto 03 dos destaques
 add('stories/story-projeto.png', STORY, doc(...STORY, 'paper', `
   <div style="height:190px"></div>
   ${top('Projeto no ar', 'Nº 03')}
@@ -323,12 +323,12 @@ add('stories/story-projeto.png', STORY, doc(...STORY, 'paper', `
         </div>
         <div>
           <p class="head" style="font-size:40px">${iatf.category}</p>
-          <p style="font-size:28px;line-height:1.42;margin-top:18px" class="mute">O protocolo inteiro pelo celular, do D0 ao D45, mesmo sem internet no curral.</p>
+          <p style="font-size:28px;line-height:1.42;margin-top:18px" class="mute">Método, formação, planos e contratação direta pelo WhatsApp.</p>
         </div>
       </div>
       <figure class="frame" style="min-height:0;border-bottom:0">${img(iatf.mobile[0].src, 'w')}</figure>
     </div>
-    <div class="rule-t" style="padding-top:34px">${title(['Protocolo', 'IATF.'], 180)}</div>
+    <div class="rule-t" style="padding-top:34px">${title(['Rômulo', 'Tuan.'], 180)}</div>
   </main>
   ${bottom(domain(iatf.url), 34)}
   <div style="height:270px"></div>`))

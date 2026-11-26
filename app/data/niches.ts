@@ -39,7 +39,7 @@ export const niches: Niche[] = [
     title: 'Um site para o seu curso que enche as turmas.',
     highlight: 'enche as turmas',
     text: 'Landing pages para cursinhos, escolas e professores: turmas, matrículas, cursos online e contato pelo WhatsApp em uma página rápida e bonita.',
-    projects: [],
+    projects: ['centro-de-isoladas'],
     pointsTitle: 'Feito para quem vende cursos',
     points: [
       { title: 'Turmas e matrículas', text: 'Datas, horários e vagas organizados para o aluno decidir rápido.' },
