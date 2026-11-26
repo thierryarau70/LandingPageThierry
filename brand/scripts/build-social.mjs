@@ -20,7 +20,7 @@ const file = p => pathToFileURL(path.join(root, p)).href
 const { findProject } = await import(file('app/data/projects.ts'))
 const { services } = await import(file('app/data/services.ts'))
 const { site } = await import(file('app/data/site.ts'))
-const { processSteps } = await import(file('app/data/process.ts'))
+const { processSteps, differentials } = await import(file('app/data/process.ts'))
 
 const SITE = 'thierryaraujodev.com.br'
 const HANDLE = site.social[0].handle
@@ -292,6 +292,202 @@ add('posts/case-agenda-emi-03.png', POST, doc(...POST, 'carbon', `
   </main>
   ${bottom(`${emi.status} · ${domain(emi.url)}`)}`))
 
+// ---- Carrossel de rebranding: apresentação da nova identidade (6 slides) -----------------------
+// Logo principal empilhada (THIERRY. + fio + STUDIO), lida do arquivo vetorial oficial
+const primarySvg = fs.readFileSync(path.join(root, 'brand/logos/primary.svg'), 'utf8').replace(/<title>.*?<\/title>/, '')
+const primary = (width, ink = 'currentColor') =>
+  primarySvg.replace(/width="[\d.]+" height="[\d.]+"/, `style="display:block;width:${width}px;height:auto"`).replaceAll('fill="#0D0D0D"', `fill="${ink}"`).replace('fill="#FF6A2B"', 'style="fill:var(--dot)"')
+const swipe = `<p class="label" style="display:flex;justify-content:flex-end;align-items:center;gap:14px">Arraste ${arrow('right')}</p>`
+const PALETTE = [['Carbon', '#0D0D0D'], ['Graphite', '#1C1C1C'], ['Concrete', '#A1A1A1'], ['Paper', '#F3F0EA'], ['Signal Orange', '#FF6A2B'], ['White', '#FFFFFF']]
+const TYPE = [
+  ['Display', 'Archivo', 'font:900 84px/1 Archivo;letter-spacing:-.045em;text-transform:uppercase'],
+  ['Títulos e interface', 'Space Grotesk', 'font:700 62px/1 Space Grotesk;letter-spacing:-.025em'],
+  ['Texto', 'Manrope', 'font:500 62px/1 Manrope;letter-spacing:-.01em'],
+  ['Rótulos técnicos', 'IBM Plex Mono', 'font:500 46px/1 IBM Plex Mono;letter-spacing:.04em;text-transform:uppercase']
+]
+const REBRAND_PILLARS = [['Design', 'Sites, landing pages e identidade'], ['Software', 'Sistemas, SaaS e automações'], ['Inteligência', 'Agentes de IA, documentos e atendimento']]
+
+add('posts/rebrand-01.png', POST, doc(...POST, 'carbon', `
+  ${top('Nova identidade', '01/06')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
+    <div>
+      <p class="label mute">Antes</p>
+      <p class="head" style="font-size:46px;margin-top:16px;position:relative;display:inline-block;color:var(--mute)">Thierry Araújo — Dev web<i style="position:absolute;left:-10px;right:-10px;top:52%;height:7px;background:#FF6A2B"></i></p>
+    </div>
+    <div>
+      <p class="label" style="display:flex;align-items:center;margin-bottom:40px"><i class="sq"></i>Agora</p>
+      ${primary(952)}
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
+      <p class="head" style="font-size:44px;max-width:640px">Mesmo profissional.<br>Nova marca.</p>
+      ${swipe}
+    </div>
+  </main>
+  ${bottom(HANDLE)}`))
+
+add('posts/rebrand-02.png', POST, doc(...POST, 'paper', `
+  ${top('O nome', '02/06')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
+    ${title(['Thierry', 'ponto', 'Studio.'], 172)}
+    <div>
+      <p class="head" style="font-size:44px;max-width:900px">O estúdio de engenharia digital de Thierry Araújo.</p>
+      ${tb([['Lê-se', 'Thierry Studio'], ['Assinatura', site.tagline], ['O ponto', 'Quadrado e laranja. Fecha o nome e todos os títulos.'], ['Base', `${site.location.city} — ${site.location.state}`]], 'font-size:30px;margin-top:36px;--tbw:26%')}
+    </div>
+    ${swipe}
+  </main>
+  ${bottom(HANDLE)}`))
+
+add('posts/rebrand-03.png', POST, doc(...POST, 'carbon', `
+  ${top('O símbolo', '03/06')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
+    ${title(['T ponto S.'], 150)}
+    <div style="display:grid;grid-template-columns:520px 1fr;gap:56px;align-items:center">
+      <div class="frame" style="width:520px;height:520px;display:grid;place-items:center;background:transparent">${mark(330)}</div>
+      <ol style="list-style:none" class="rule-t">
+        ${[['T', 'Thierry'], ['', 'Ponto'], ['S', 'Studio']].map(([k, v]) => `<li class="rule-b" style="display:grid;grid-template-columns:96px 1fr;align-items:center;padding:34px 0"><span class="display" style="font-size:84px;line-height:.8">${k || '<i style="display:block;width:30px;height:30px;background:#FF6A2B"></i>'}</span><span class="head" style="font-size:44px">${v}</span></li>`).join('')}
+      </ol>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
+      <p style="font-size:29px;line-height:1.42;max-width:640px" class="mute">O T e o S ficam em diagonal. O ponto quadrado é a dobradiça entre os dois.</p>
+      ${swipe}
+    </div>
+  </main>
+  ${bottom(HANDLE)}`))
+
+add('posts/rebrand-04.png', POST, doc(...POST, 'paper', `
+  ${top('O sistema', '04/06')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:46px 0 40px">
+    <div>
+      <p class="label" style="margin-bottom:18px">01 / Paleta</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--rule)">
+        ${PALETTE.map(([name, hex], i) => `<div style="height:150px;background:${hex};color:${i < 2 ? '#F3F0EA' : '#0D0D0D'};padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between;${i % 3 ? 'border-left:1px solid #0D0D0D;' : ''}${i > 2 ? 'border-top:1px solid #0D0D0D' : ''}"><span class="head" style="font-size:30px">${name}</span><span class="label">${hex}</span></div>`).join('')}
+      </div>
+    </div>
+    <div>
+      <p class="label" style="margin-bottom:18px">02 / Tipografia</p>
+      <div class="rule-t">
+        ${TYPE.map(([role, name, style]) => `<div class="rule-b" style="display:grid;grid-template-columns:1fr auto;align-items:center;gap:24px;padding:24px 0;white-space:nowrap"><span style="${style}">${name}</span><span class="label mute">${role}</span></div>`).join('')}
+      </div>
+    </div>
+    ${swipe}
+  </main>
+  ${bottom(HANDLE)}`))
+
+add('posts/rebrand-05.png', POST, doc(...POST, 'signal', `
+  ${top('O que o estúdio faz', '05/06')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
+    ${title(['Design.', 'Software.', 'Inteligência.'], 170)}
+    <ol style="list-style:none" class="rule-t">
+      ${REBRAND_PILLARS.map(([a, b], i) => `<li class="rule-b" style="display:grid;grid-template-columns:90px 300px 1fr;align-items:center;padding:30px 0"><span class="label">0${i + 1}</span><span class="head" style="font-size:46px">${a}</span><span style="font-size:28px;line-height:1.3;font-weight:600">${b}</span></li>`).join('')}
+    </ol>
+    ${swipe}
+  </main>
+  ${bottom(HANDLE)}`))
+
+add('posts/rebrand-06.png', POST, doc(...POST, 'carbon', `
+  ${top('Contato', '06/06')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
+    ${title(['Inicie', 'seu', 'projeto.'], 230)}
+    <div style="display:grid;grid-template-columns:1fr 330px;gap:40px;align-items:end">
+      ${tb([['Instagram', HANDLE], ['WhatsApp', WHATSAPP], ['Site', SITE]], 'font-size:27px;--tbw:32%')}
+      <div style="background:#FF6A2B;color:#0D0D0D;padding:26px 26px 22px">
+        <p class="head" style="font-size:38px;line-height:1.05">Inicie seu projeto</p>
+        <p class="label" style="margin-top:22px;display:flex;justify-content:space-between;align-items:center">Link na bio ${arrow('up')}</p>
+      </div>
+    </div>
+  </main>
+  ${bottom(COORDS)}`))
+
+// ---- Carrossel de venda: do que o negócio precisa até o contato (6 slides) ---------------------
+// Sem preço e sem prazo fixos: cada projeto recebe proposta própria. Etapas, diferenciais e
+// projetos vêm de app/data; os projetos são os mesmos escolhidos para o Reels de rebranding.
+const CASES = [
+  ['“Quero ser encontrado e receber contatos.”', 'Landing page ou site'],
+  ['“Quero organizar agenda, finanças e pedidos.”', 'Software sob medida'],
+  ['“Quero atender fora do horário comercial.”', 'Agente de IA'],
+  ['“Quero parar de repetir a mesma tarefa.”', 'Automação']
+]
+const SALES_PROJECTS = ['prumo', 'agenda-emi', 'emile-vitoria', 'arouche', 'louise-reis', 'cw-imports'].map(findProject).filter(Boolean)
+const SALES_WHY = [0, 1, 4, 6].map(i => differentials[i])
+
+add('posts/venda-01.png', POST, doc(...POST, 'carbon', `
+  ${top('Para o seu negócio', '01/06')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
+    ${title(['Site,', 'sistema', 'ou IA?'], 240)}
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
+      <p class="head" style="font-size:48px;max-width:620px">O que o seu negócio precisa agora.</p>
+      ${mosaic(220)}
+    </div>
+    ${swipe}
+  </main>
+  ${bottom(HANDLE)}`))
+
+add('posts/venda-02.png', POST, doc(...POST, 'paper', `
+  ${top('O ponto de partida', '02/06')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
+    ${title(['Qual é', 'o seu caso?'], 150)}
+    <div class="rule-t">
+      ${CASES.map(([need, fix]) => `<div class="rule-b" style="display:grid;grid-template-columns:1fr 330px;gap:28px;align-items:center;padding:30px 0">
+        <p class="head" style="font-size:38px">${need}</p>
+        <p class="label" style="background:var(--ink);color:var(--bg);padding:22px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px">${fix} ${arrow('right')}</p></div>`).join('')}
+    </div>
+    ${swipe}
+  </main>
+  ${bottom(HANDLE)}`))
+
+add('posts/venda-03.png', POST, doc(...POST, 'carbon', `
+  ${top('O processo', '03/06')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
+    ${title(['Como', 'funciona.'], 170)}
+    <ol style="list-style:none" class="rule-t">
+      ${processSteps.map(st => `<li class="rule-b" style="display:grid;grid-template-columns:170px 1fr;align-items:center;padding:28px 0">
+        <span class="display" style="font-size:110px;line-height:.8">${st.number}</span>
+        <span><span class="head" style="font-size:46px;display:block">${st.title}</span><span style="font-size:28px;line-height:1.35;display:block;margin-top:8px" class="mute">${st.output}</span></span></li>`).join('')}
+    </ol>
+    ${swipe}
+  </main>
+  ${bottom(HANDLE)}`))
+
+add('posts/venda-04.png', POST, doc(...POST, 'paper', `
+  ${top('Projetos no ar', '04/06')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:46px 0 40px">
+    ${title(['Trabalhos reais.'], 104)}
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px 24px">
+      ${SALES_PROJECTS.map((p, i) => `<figure style="min-width:0"><div class="frame" style="height:216px">${img(p.cover.src)}</div><figcaption class="label" style="display:flex;gap:14px;margin-top:12px;font-size:19px;white-space:nowrap;overflow:hidden"><span class="mute">0${i + 1}</span><span>${esc(p.name)}</span></figcaption></figure>`).join('')}
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:40px">
+      <p class="label mute">Cases completos em ${SITE}</p>
+      ${swipe}
+    </div>
+  </main>
+  ${bottom(HANDLE)}`))
+
+add('posts/venda-05.png', POST, doc(...POST, 'carbon', `
+  ${top('Por que aqui', '05/06')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
+    ${title(['Direto', 'com quem', 'faz.'], 180)}
+    <ol style="list-style:none" class="rule-t">
+      ${SALES_WHY.map((d, i) => `<li class="rule-b" style="display:grid;grid-template-columns:70px 1fr;align-items:baseline;padding:24px 0"><span class="label" style="color:#FF6A2B">0${i + 1}</span><span class="head" style="font-size:38px">${d.title}</span></li>`).join('')}
+    </ol>
+    ${swipe}
+  </main>
+  ${bottom(HANDLE)}`))
+
+add('posts/venda-06.png', POST, doc(...POST, 'signal', `
+  ${top('Próximo passo', '06/06')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
+    ${title(['Conte', 'sua ideia.'], 210)}
+    <p class="head" style="font-size:46px;max-width:860px">Você recebe uma proposta com escopo, prazo e investimento.</p>
+    <div style="display:grid;grid-template-columns:1fr 330px;gap:40px;align-items:end">
+      ${tb([['Instagram', HANDLE], ['WhatsApp', WHATSAPP], ['Site', SITE]], 'font-size:27px;--tbw:32%')}
+      <div style="background:#0D0D0D;color:#F3F0EA;padding:26px 26px 22px">
+        <p class="head" style="font-size:38px;line-height:1.05">Inicie seu projeto</p>
+        <p class="label" style="margin-top:22px;display:flex;justify-content:space-between;align-items:center">Link na bio ${arrow('up')}</p>
+      </div>
+    </div>
+  </main>
+  ${bottom(COORDS)}`))
+
 // ---- Stories (1080 × 1920; conteúdo entre 250 px do topo e 340 px da base) -------------------
 add('stories/story-institucional.png', STORY, doc(...STORY, 'carbon', `
   <div class="abs hatch" style="left:0;right:0;top:0;height:190px;opacity:.14"></div>
@@ -466,7 +662,7 @@ await browser.close()
 fs.rmSync(tmp, { recursive: true, force: true })
 
 // Otimização opcional (Pillow): paleta de 256 cores nas peças chapadas; peças com fotografia ficam intactas.
-const flat = pieces.filter(p => !/projeto|case-agenda-emi-0[12]|story-projeto/.test(p.name) && (!only || p.name.includes(only))).map(p => path.join(out, p.name))
+const flat = pieces.filter(p => !/projeto|case-agenda-emi-0[12]|story-projeto|venda-04/.test(p.name) && (!only || p.name.includes(only))).map(p => path.join(out, p.name))
 if (flat.length) {
   const py = 'import sys\nfrom PIL import Image\nfor f in sys.argv[1:]:\n    Image.open(f).convert("RGB").quantize(colors=256, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).save(f, optimize=True)\n'
   const r = spawnSync('python3', ['-c', py, ...flat], { stdio: 'ignore' })
