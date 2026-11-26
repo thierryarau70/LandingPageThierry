@@ -7,13 +7,17 @@
 //   INICIO = (instante da entrada da batida na música) − 4 batidas: a marca nova entra na batida 4.
 //   STILLS=1 node video/rebranding.mjs              # só quadros de conferência (um por batida par)
 //
+// Roteiro (batidas): 0–4 nome antigo · 4–12 wordmark em travelling e recuo · 12–36 seis projetos
+// (um compasso cada, com a tela web e a de celular) · 36–48 três faixas em movimento (Design,
+// Software, Inteligência) · 48–60 sistema (padrão do símbolo, paleta, tipografia) · 60–70 chamada.
+//
 // Saída: video/out/rebranding/reels-rebranding-thierry-studio.mp4
 import fs from 'node:fs'
 import path from 'node:path'
 import { spawn, spawnSync } from 'node:child_process'
 import { createRequire } from 'node:module'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-import { GLYPHS, poly, symbol, wordmark } from '../brand/scripts/geometry.mjs'
+import { symbol, wordmark } from '../brand/scripts/geometry.mjs'
 
 const { chromium } = createRequire(import.meta.url)('playwright')
 const dir = path.dirname(fileURLToPath(import.meta.url))
@@ -29,10 +33,6 @@ const { site } = await import(pathToFileURL(path.join(root, 'app/data/site.ts'))
 const font = (pkg, f) => pathToFileURL(path.join(root, 'node_modules', pkg, 'files', f)).href
 const img = p => pathToFileURL(path.join(root, 'public', p)).href
 
-// Letras do wordmark, uma a uma, com a posição de cada uma (mesma métrica de geometry.mjs)
-const WORD = [['T', 9], ['H', 10], ['I', 10], ['E', 9], ['R', 5], ['R', 5], ['Y', 0]]
-let x = 0
-const letters = WORD.map(([ch, gap]) => { const l = { d: GLYPHS[ch].shapes.map(p => poly(p, x, 0)).join('') }; x += GLYPHS[ch].w + gap; return l })
 const wm = wordmark()
 const sym = symbol()
 const studio = fs.readFileSync(path.join(root, 'brand/logos/primary.svg'), 'utf8')
@@ -41,13 +41,23 @@ const rule = studio.match(/<rect x="0" y="([\d.]+)" width="([\d.]+)" height="([\
 
 // Projetos que aparecem no vídeo, na ordem (escolha do autor: sem Solek, Endhos, Rômulo Tuan e Centro de Isoladas)
 const REEL_PROJECTS = ['prumo', 'agenda-emi', 'emile-vitoria', 'arouche', 'louise-reis', 'cw-imports']
-// Grade de cenas em batidas (compasso 4/4): nome antigo 0–4, wordmark 4–12, pilares 12–24,
-// símbolo 24–36, sistema (paleta e tipografia) 36–48, projetos a partir de 48 (duas batidas
-// cada) e assinatura nas 10 batidas finais.
-const SYS = 36
-const PROJ = 48
-const PER = 2
-const BEATS = PROJ + REEL_PROJECTS.length * PER + 10
+// Grade de cenas em batidas (compasso 4/4)
+const WORK = 12 // início dos projetos
+const PER = 4 // batidas por projeto (um compasso)
+const projects = REEL_PROJECTS.map(slug => visibleProjects.find(p => p.slug === slug)).filter(Boolean).map((p, i) => ({
+  n: String(i + 1).padStart(2, '0'),
+  name: p.name,
+  cat: p.category,
+  pillars: p.pillars,
+  status: p.status,
+  domain: (p.url || '').replace(/^https?:\/\/(www\.)?/, '').replace(/\/.*$/, ''),
+  desk: img(p.desktop[0].src),
+  mob: img(p.mobile[0].src)
+}))
+const BANDS = WORK + projects.length * PER // 36: três faixas em movimento
+const SYS = BANDS + 12 // 48: sistema
+const END = SYS + 12 // 60: chamada final
+const BEATS = END + 10
 // Paleta e tipografia da marca (brand/DESIGN_TOKENS.json e BRAND_GUIDELINES.md)
 const PALETTE = [['Carbon', '#0D0D0D', '#F3F0EA'], ['Graphite', '#1C1C1C', '#F3F0EA'], ['Concrete', '#A1A1A1', '#0D0D0D'], ['Paper', '#F3F0EA', '#0D0D0D'], ['Signal Orange', '#FF6A2B', '#0D0D0D'], ['White', '#FFFFFF', '#0D0D0D']]
 const TYPE = [
@@ -56,11 +66,15 @@ const TYPE = [
   ['Manrope', 'Texto', 'font:500 124px/1 Manrope;letter-spacing:-.01em'],
   ['IBM Plex Mono', 'Rótulos técnicos', 'font:500 92px/1 Mono;letter-spacing:.04em;text-transform:uppercase']
 ]
-// Quanto subir a captura (em px do quadro) para o assunto não ficar atrás da faixa com o nome
-const SHIFT = { 'emile-vitoria': 560 }
-const projects = REEL_PROJECTS.map(slug => visibleProjects.find(p => p.slug === slug)).filter(Boolean).map((p, i) => ({ n: String(i + 1).padStart(2, '0'), name: p.name, cat: p.category, src: img(p.mobile[0].src), shift: SHIFT[p.slug] || 0 }))
+// Três faixas horizontais: fundo, tinta, cor do ponto, legenda e posição do texto dentro da faixa
+const MARQUEE = [
+  { word: 'Design', cap: 'Sites · landing pages · identidade', bg: '#0D0D0D', fg: '#F3F0EA', dot: '#FF6A2B', capTop: 244, runTop: 290 },
+  { word: 'Software', cap: 'Sistemas · SaaS · automações', bg: '#F3F0EA', fg: '#0D0D0D', dot: '#FF6A2B', capTop: 150, runTop: 196 },
+  { word: 'Inteligência', cap: 'Agentes de IA · documentos · atendimento', bg: '#FF6A2B', fg: '#0D0D0D', dot: '#F3F0EA', capTop: 12, runTop: 74 }
+]
 const handle = site.social[0].handle
 const domain = site.defaultUrl.replace(/^https?:\/\/(www\.)?/, '')
+const symSvg = (fill, dot = '#FF6A2B') => `<path fill="${fill}" d="${sym.d}"/><rect x="${sym.dot.x}" y="${sym.dot.y}" width="${sym.dot.size}" height="${sym.dot.size}" fill="${dot}"/>`
 
 const html = `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><style>
 @font-face{font-family:Archivo;src:url(${font('@fontsource-variable/archivo', 'archivo-latin-wght-normal.woff2')});font-weight:100 900}
@@ -75,29 +89,42 @@ body{--carbon:#0D0D0D;--paper:#F3F0EA;--orange:#FF6A2B;--graphite:#1C1C1C;font-f
 .display{font:900 100px/.95 Archivo;letter-spacing:-.045em;text-transform:uppercase;white-space:nowrap}
 .grid{position:absolute;inset:0 80px;display:grid;grid-template-columns:repeat(6,1fr);pointer-events:none;z-index:5}
 .grid i{border-left:1px solid currentColor;opacity:.1}.grid i:last-child{border-right:1px solid currentColor}
-.hud{position:absolute;left:80px;right:80px;display:flex;justify-content:space-between;z-index:6}
-.hud.t{top:236px}.hud.b{bottom:356px}
 .sq{display:inline-block;width:20px;height:20px;background:var(--orange);margin-right:16px;vertical-align:-1px}
 .center{position:absolute;left:0;right:0;text-align:center}
-/* cena 2: parede de palavras */
-.wall{position:absolute;left:80px;right:80px;top:330px}
-.wall p{display:block}
-.wall .o{color:transparent;-webkit-text-stroke:3px var(--ink)}
 .dot{display:inline-block;width:.2em;height:.2em;margin-left:.045em;background:var(--dot,var(--orange))}
-/* cena 6: sistema — paleta em faixas e folha de tipos */
-.band{position:absolute;left:0;right:0;height:200px;padding:0 80px;display:flex;justify-content:space-between;align-items:center;transform-origin:0 50%}
+/* linha do tempo: o ponto quadrado percorre o vídeo inteiro */
+#ph{position:absolute;left:80px;right:80px;top:1556px;height:2px;background:currentColor;opacity:.28;z-index:6}
+#phDot{position:absolute;left:80px;top:1548px;width:18px;height:18px;background:var(--orange);z-index:6}
+/* projetos: tela web, tela de celular e ficha */
+.pj-top{position:absolute;left:80px;right:80px;top:236px;display:flex;justify-content:space-between}
+.pj-num{position:absolute;left:80px;top:310px;font:900 220px/.8 Archivo;letter-spacing:-.05em}
+.pj-meta{position:absolute;left:390px;right:80px;top:306px}
+.pj-name{font:900 62px/.95 Archivo;letter-spacing:-.04em;text-transform:uppercase;margin-top:16px}
+.pj-desk{position:absolute;left:80px;top:540px;width:1000px;height:625px;overflow:hidden;border:1px solid rgba(243,240,234,.28);border-right:0;display:none}
+.pj-desk img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transform-origin:50% 0}
+.pj-mob{position:absolute;right:80px;top:880px;width:340px;height:620px;overflow:hidden;border:10px solid var(--carbon);outline:1px solid rgba(243,240,234,.28);background:var(--graphite);display:none}
+.pj-mob img{width:100%;display:block}
+.pj-info{position:absolute;left:80px;top:1250px;width:540px}
+.pj-info p+p{margin-top:18px}
+/* três faixas em movimento */
+.band3{position:absolute;left:0;width:1080px;height:640px;overflow:hidden}
+.band3 .cap{position:absolute;left:80px}
+.band3 .run{position:absolute;left:0;white-space:nowrap;display:flex;font:900 240px/1 Archivo;letter-spacing:-.045em;text-transform:uppercase}
+.band3 .run span{display:block;padding-right:.3em}
+/* sistema: padrão do símbolo, paleta em faixas e folha de tipos */
+#pat{position:absolute;left:0;top:15px;width:1080px;display:grid;grid-template-columns:repeat(4,270px);grid-auto-rows:270px}
+#pat div{display:grid;place-items:center;border:1px solid rgba(243,240,234,.12);visibility:hidden}
+.band{position:absolute;left:0;right:0;height:200px;padding:0 80px;display:flex;justify-content:space-between;align-items:center}
 .band b{font:900 64px/1 Archivo;letter-spacing:-.04em;text-transform:uppercase}
 .spec{position:absolute;left:80px;right:80px;height:270px;border-top:2px solid var(--carbon);padding-top:22px;white-space:nowrap}
 .spec p{margin-top:26px}
-/* cena 4: projetos */
-.shot{position:absolute;left:0;top:0;width:100%;height:auto}
-.plate{position:absolute;left:0;right:0;bottom:0;height:640px;background:var(--carbon);padding:44px 80px 0;display:grid;grid-template-columns:auto 1fr;gap:0 40px;align-content:start}
-.plate .num{font:900 220px/.8 Archivo;letter-spacing:-.05em;grid-row:span 2}
-.plate .name{font:900 64px/.95 Archivo;letter-spacing:-.04em;text-transform:uppercase;align-self:end}
+/* chamada final */
+.ml{display:block;overflow:hidden}.ml b{display:block;font-weight:900}
+.erow{display:grid;grid-template-columns:270px 1fr;align-items:baseline;border-top:2px solid var(--carbon);padding:28px 0;font:700 46px/1 Grotesk;letter-spacing:-.02em;white-space:nowrap}
+.erow:last-child{border-bottom:2px solid var(--carbon)}
 </style></head><body>
 <div class="grid" id="grid">${'<i></i>'.repeat(6)}</div>
-<div class="hud t label" id="hudT"><span><i class="sq"></i>THIERRY. STUDIO</span><span id="tc">00:00:00</span></div>
-<div class="hud b label" id="hudB"><span>REBRAND — 2026</span><span>02°49′N 60°40′W</span></div>
+<div id="ph"></div><div id="phDot"></div>
 
 <!-- 0 · antes -->
 <section class="sc" id="s0" style="background:var(--carbon)">
@@ -106,181 +133,198 @@ body{--carbon:#0D0D0D;--paper:#F3F0EA;--orange:#FF6A2B;--graphite:#1C1C1C;font-f
   <p class="center label" id="next" style="top:940px;color:#A1A1A1">nova identidade ↓</p>
 </section>
 
-<!-- 1 · o wordmark é montado letra a letra -->
-<section class="sc" id="s1" style="background:var(--paper);color:var(--carbon)">
-  <svg viewBox="0 0 ${wm.width} 146" style="position:absolute;left:80px;top:770px;width:920px;overflow:visible">
-    ${letters.map((l, i) => `<path id="l${i}" fill="#0D0D0D" fill-rule="evenodd" d="${l.d}"/>`).join('')}
+<!-- 1 · o wordmark passa em travelling, letra por letra, e a câmera recua até a assinatura inteira -->
+<section class="sc" id="s1">
+  <svg id="wsvg" viewBox="0 0 ${wm.width} 146" style="position:absolute;left:0;top:0;width:${wm.width}px;height:146px;overflow:visible;transform-origin:0 0">
+    <path fill="currentColor" fill-rule="evenodd" d="${wm.d}"/>
     <rect id="wdot" x="${wm.dot.x}" y="${wm.dot.y}" width="26" height="26" fill="#FF6A2B"/>
-    <rect id="wrule" x="0" y="${rule[1]}" width="${rule[2]}" height="${rule[3]}" fill="#0D0D0D"/>
-    <path id="wstudio" fill="#0D0D0D" d="${studioPath}"/>
+    <rect id="wrule" x="0" y="${rule[1]}" width="${rule[2]}" height="${rule[3]}" fill="currentColor"/>
+    <path id="wstudio" fill="currentColor" d="${studioPath}"/>
   </svg>
 </section>
 
-<!-- 2 · três pilares em parede de palavras -->
-<section class="sc" id="s2"><div class="wall display" id="wall"></div><p class="label" id="cap" style="position:absolute;left:80px;right:80px;bottom:420px"></p></section>
+<!-- 2 · projetos: um por compasso, com a tela web e a de celular -->
+<section class="sc" id="s2" style="background:var(--carbon)">
+  <p class="pj-top label"><span><i class="sq"></i>Trabalhos reais</span><span id="pjCount"></span></p>
+  <p class="pj-num" id="pjNum"></p>
+  <div class="pj-meta"><p class="label" id="pjCat" style="color:#A1A1A1"></p><p class="pj-name" id="pjName"></p></div>
+  ${projects.map((p, i) => `<div class="pj-desk" id="desk${i}"><img src="${p.desk}"></div>`).join('')}
+  ${projects.map((p, i) => `<div class="pj-mob" id="mob${i}"><img src="${p.mob}"></div>`).join('')}
+  <div class="pj-info label" id="pjInfo"><p id="pjStatus"></p><p id="pjPillars" style="color:#A1A1A1"></p><p id="pjDomain"></p></div>
+</section>
 
-<!-- 3 · símbolo T.S -->
+<!-- 3 · o que o estúdio faz: três faixas correndo em sentidos alternados -->
 <section class="sc" id="s3" style="background:var(--carbon)">
-  <div id="tiles" style="position:absolute;inset:300px 80px 420px;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(5,1fr);gap:0"></div>
-  <svg viewBox="0 0 200 200" style="position:absolute;left:190px;top:580px;width:700px;overflow:visible">
-    <rect x="-20" y="-20" width="240" height="240" fill="#0D0D0D" id="symbg"/>
-    <path id="symT" fill="#F3F0EA" d="${poly(GLYPHS.T.shapes[0])}"/>
-    <path id="symS" fill="#F3F0EA" d="${poly(GLYPHS.S.shapes[0], 122, 100)}"/>
-    <rect id="symDot" x="${sym.dot.x}" y="${sym.dot.y}" width="26" height="26" fill="#FF6A2B"/>
-  </svg>
-  <p class="center" style="top:1356px"><span class="label" id="symCap" style="background:var(--carbon);padding:14px 22px;display:inline-block">Thierry · ponto · Studio</span></p>
+  ${MARQUEE.map((m, i) => `<div class="band3" id="mq${i}" style="top:${i * 640}px;background:${m.bg};color:${m.fg};--dot:${m.dot}">
+    <p class="cap label" style="top:${m.capTop}px">0${i + 1} — ${m.cap}</p>
+    <div class="run" id="run${i}" style="top:${m.runTop}px">${`<span>${m.word}<i class="dot"></i></span>`.repeat(8)}</div></div>`).join('')}
 </section>
 
-<!-- 6 · sistema: paleta e tipografia (entra entre o símbolo e os projetos) -->
-<section class="sc" id="s6" style="background:var(--carbon)">
+<!-- 4 · sistema: padrão do símbolo T.S, paleta e tipografia -->
+<section class="sc" id="s4" style="background:var(--carbon)">
+  <div id="symLayer">
+    <div id="pat">${Array.from({ length: 28 }, (_, i) => `<div data-d="${(i % 4) + Math.floor(i / 4)}"><svg viewBox="0 0 200 200" style="width:46%">${symSvg('#2E2E2E')}</svg></div>`).join('')}</div>
+    <div id="bigSym" style="position:absolute;left:190px;top:580px;width:700px;height:700px;background:var(--carbon);display:grid;place-items:center"><svg viewBox="0 0 200 200" style="width:74%;overflow:visible">${symSvg('#F3F0EA')}</svg></div>
+    <p class="center" style="top:1320px"><span class="label" id="symCap" style="background:var(--carbon);padding:14px 22px;display:inline-block">Thierry · ponto · Studio</span></p>
+  </div>
   <div id="pal">${PALETTE.map(([name, hex, ink], i) => `<div class="band" id="band${i}" style="top:${300 + i * 200}px;background:${hex};color:${ink}"><b>${name}</b><span class="label">${hex}</span></div>`).join('')}
     <i style="position:absolute;left:0;right:0;top:300px;border-top:1px solid rgba(243,240,234,.28)"></i><i style="position:absolute;left:0;right:0;top:1500px;border-top:1px solid rgba(243,240,234,.28)"></i></div>
   <div id="typ" style="position:absolute;inset:0;background:var(--paper);color:var(--carbon)">${TYPE.map(([name, role, css], i) => `<div class="spec" id="spec${i}" style="top:${340 + i * 290}px"><span class="label" style="display:flex;justify-content:space-between"><span>0${i + 1} — ${role}</span><span style="text-transform:none">Aa</span></span><p style="${css}">${name}</p></div>`).join('')}</div>
 </section>
 
-<!-- 4 · projetos reais -->
-<section class="sc" id="s4" style="background:var(--carbon)">
-  ${projects.map((p, i) => `<img class="shot" id="shot${i}" src="${p.src}" style="display:none">`).join('')}
-  <div class="plate"><p class="num" id="pnum"></p><p class="label" id="pcat" style="color:#A1A1A1;align-self:start;padding-top:6px"></p><p class="name" id="pname"></p></div>
-  <p class="label" style="position:absolute;left:80px;top:236px;background:var(--carbon);padding:14px 18px;z-index:7"><i class="sq"></i>Trabalhos reais</p>
-</section>
-
-<!-- 5 · assinatura -->
+<!-- 5 · chamada final -->
 <section class="sc" id="s5" style="background:var(--paper);color:var(--carbon)">
-  <svg viewBox="0 0 ${wm.width} 146" style="position:absolute;left:140px;top:720px;width:800px;overflow:visible">
+  <div class="display" style="position:absolute;left:80px;top:300px;font-size:186px;line-height:.95">
+    <span class="ml"><b id="e0">Inicie</b></span><span class="ml"><b id="e1">seu</b></span><span class="ml"><b id="e2">projeto<i class="dot"></i></b></span>
+  </div>
+  <div style="position:absolute;left:80px;right:80px;top:900px">
+    <div class="erow" id="er0"><span class="label">Instagram</span><span>${handle}</span></div>
+    <div class="erow" id="er1"><span class="label">Site</span><span>${domain}</span></div>
+  </div>
+  <svg viewBox="0 0 ${wm.width} 146" style="position:absolute;left:80px;top:1240px;width:560px;overflow:visible">
     <g id="eWord"><path fill="#0D0D0D" fill-rule="evenodd" d="${wm.d}"/></g>
     <rect id="eDot" x="${wm.dot.x}" y="${wm.dot.y}" width="26" height="26" fill="#FF6A2B"/>
     <rect id="eRule" x="0" y="${rule[1]}" width="${rule[2]}" height="${rule[3]}" fill="#0D0D0D"/>
     <path id="eStudio" fill="#0D0D0D" d="${studioPath}"/>
   </svg>
-  <p class="center" id="eTag" style="top:1010px;font:700 46px/1 Grotesk;letter-spacing:-.02em">Design. Software. Inteligência.</p>
-  <div id="eInfo" style="position:absolute;left:140px;right:140px;top:1180px;border-top:2px solid #0D0D0D;padding-top:26px;display:flex;justify-content:space-between" class="label"><span>${handle}</span><span>${domain}</span></div>
+  <p class="label" id="eTag" style="position:absolute;left:80px;top:1440px">Design. Software. Inteligência.</p>
 </section>
 
 <div id="flash" style="position:absolute;inset:0;background:#FF6A2B;display:none;z-index:9"></div>
 <script>
-const FPS = ${FPS}, SPB = 60 / ${BPM}, BEATS = ${BEATS}, SYS = ${SYS}, PROJ = ${PROJ}, PER = ${PER}
+const FPS = ${FPS}, SPB = 60 / ${BPM}, BEATS = ${BEATS}, WORK = ${WORK}, PER = ${PER}, BANDS = ${BANDS}, SYS = ${SYS}, END = ${END}
 window.TOTAL = BEATS * SPB
-const P = ${JSON.stringify(projects)}
+const P = ${JSON.stringify(projects.map(({ desk, mob, ...p }) => p))}
 const $ = id => document.getElementById(id)
 const clamp = v => Math.max(0, Math.min(1, v))
 const expo = p => (p >= 1 ? 1 : 1 - Math.pow(2, -10 * p))
 const at = (b, start, dur = 1) => clamp((b - start) / dur)
-const show = (el, on) => { el.style.display = on ? 'block' : 'none' }
-const PILLARS = [
-  { word: 'Design', fit: 4.36, bg: '#0D0D0D', fg: '#F3F0EA', dot: '#FF6A2B', cap: 'Sites · landing pages · identidade' },
-  { word: 'Software', fit: 6.22, bg: '#F3F0EA', fg: '#0D0D0D', dot: '#FF6A2B', cap: 'Sistemas · SaaS · automações' },
-  { word: 'Inteligência', fit: 7.9, bg: '#FF6A2B', fg: '#0D0D0D', dot: '#F3F0EA', cap: 'Agentes de IA · documentos · atendimento' }
-]
-// peças do símbolo repetidas ao fundo (ordem fixa, sem aleatoriedade entre execuções)
-const ORDER = [7, 2, 13, 18, 0, 11, 5, 16, 9, 3, 14, 19, 1, 12, 6, 17, 10, 4, 15, 8]
-$('tiles').innerHTML = ORDER.map((_, i) => '<div data-i="' + i + '" style="display:grid;place-items:center;border:1px solid rgba(243,240,234,.12);visibility:hidden"><svg viewBox="0 0 200 200" style="width:44%"><path fill="#2E2E2E" d="${sym.d}"/><rect x="87" y="87" width="26" height="26" fill="#FF6A2B"/></svg></div>').join('')
-let lastPillar = -1
+const lerp = (a, b, p) => a + (b - a) * p
+const show = (el, on, as = 'block') => { el.style.display = on ? as : 'none' }
+const vis = (el, on) => { el.style.visibility = on ? 'visible' : 'hidden' }
+const itemW = []
+const TH = ${JSON.stringify(MARQUEE.map(({ bg, fg, dot }) => ({ bg, fg, dot })))}
+let lastProject = -1
 
 window.render = (f) => {
   const t = f / FPS, b = t / SPB
-  const END = PROJ + P.length * PER // a assinatura começa quando os projetos acabam
-  const scene = b < 4 ? 0 : b < 12 ? 1 : b < 24 ? 2 : b < SYS ? 3 : b < PROJ ? 6 : b < END ? 4 : 5
-  for (let i = 0; i < 7; i++) show($('s' + i), i === scene)
-  // HUD: cor conforme o fundo e contador de tempo
-  const dark = scene === 0 || scene === 3 || scene === 4 || (scene === 6 && b < SYS + 6) || (scene === 2 && Math.floor((b - 12) / 4) === 0)
+  const scene = b < 4 ? 0 : b < WORK ? 1 : b < BANDS ? 2 : b < SYS ? 3 : b < END ? 4 : 5
+  for (let i = 0; i < 6; i++) show($('s' + i), i === scene)
+  // tinta da malha e da linha do tempo conforme o fundo
+  const dark = scene === 0 || scene === 2 || scene === 3 || (scene === 1 && b >= 11) || (scene === 4 && b < SYS + 8)
   const ink = dark ? '#F3F0EA' : '#0D0D0D'
-  for (const el of [$('hudT'), $('hudB'), $('grid')]) el.style.color = ink
-  $('hudT').style.visibility = scene === 4 ? 'hidden' : 'visible'
-  $('hudB').style.visibility = scene === 4 ? 'hidden' : 'visible'
-  const ff = n => String(n).padStart(2, '0')
-  $('tc').textContent = ff(Math.floor(t / 60)) + ':' + ff(Math.floor(t) % 60) + ':' + ff(f % FPS)
+  $('grid').style.color = ink; $('ph').style.color = ink
+  const line = scene !== 3 && scene !== 4
+  vis($('ph'), line); vis($('phDot'), line)
+  $('phDot').style.transform = 'translateX(' + (902 * b / BEATS) + 'px)'
   // clarão de um quadro e meio nas trocas de cena
-  const cuts = [4, 12, 24, SYS, SYS + 6, PROJ, END]
-  $('flash').style.display = cuts.some(c => b >= c && b < c + 0.12) ? 'block' : 'none'
+  const cuts = [4, WORK, BANDS, BANDS + 6, BANDS + 9, SYS, SYS + 4, SYS + 8, END]
+  show($('flash'), cuts.some(c => b >= c && b < c + 0.12))
 
   if (scene === 0) {
     const old = 'Thierry Araújo — Dev web'
     $('oldText').textContent = old.slice(0, Math.round(at(b, 0.25, 1.25) * old.length))
     $('strike').style.width = expo(at(b, 2, 0.6)) * ($('old').offsetWidth + 24) + 'px'
     $('old').style.color = b >= 2.4 ? '#6E6E6E' : '#F3F0EA'
-    $('next').style.visibility = b >= 3 ? 'visible' : 'hidden'
-    const beat = b % 1
-    $('pulse').style.transform = 'scale(' + (1 + 0.5 * (1 - expo(beat * 2.2))) + ')'
+    vis($('next'), b >= 3)
+    $('pulse').style.transform = 'scale(' + (1 + 0.5 * (1 - expo((b % 1) * 2.2))) + ')'
   }
   if (scene === 1) {
-    for (let i = 0; i < 7; i++) {
-      const p = at(b, 4 + i * 0.5, 0.42)
-      $('l' + i).style.visibility = b >= 4 + i * 0.5 ? 'visible' : 'hidden'
-      $('l' + i).style.transform = 'translateY(' + (-70 * (1 - expo(p))) + 'px)'
-    }
-    const d = at(b, 8, 0.5)
-    $('wdot').style.visibility = b >= 8 ? 'visible' : 'hidden'
+    // travelling: a cada batida a câmera salta para o trecho seguinte do wordmark
+    const big = 7.6, fit = 920 / ${wm.width}
+    const stops = [0, 142, 288, 432]
+    const k = Math.min(3, Math.floor(b - 4))
+    const from = stops[Math.max(0, k - 1)], to = stops[k]
+    const panX = k === 0 ? to : lerp(from, to, expo(at(b, 4 + k, 0.55)))
+    const z = expo(at(b, 8, 0.7)) // recuo da câmera
+    const s = lerp(big, fit, z)
+    const tx = lerp(80 - panX * big, 80, z), ty = lerp(580, 770, z)
+    $('wsvg').style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + s + ')'
     $('wdot').style.transformOrigin = '${wm.dot.x + 13}px ${wm.dot.y + 13}px'
-    $('wdot').style.transform = 'scale(' + (1 + 5 * (1 - expo(d))) + ')'
+    $('wdot').style.transform = 'scale(' + (b < 8.5 ? 1 : 1 + 4 * (1 - expo(at(b, 8.5, 0.5)))) + ')'
+    vis($('wrule'), b >= 9)
     $('wrule').style.transformOrigin = '0 0'
     $('wrule').style.transform = 'scaleX(' + expo(at(b, 9, 0.8)) + ')'
-    $('wstudio').style.visibility = b >= 10 ? 'visible' : 'hidden'
+    vis($('wstudio'), b >= 10)
     $('wstudio').style.transform = 'translateX(' + (40 * (1 - expo(at(b, 10, 0.5)))) + 'px)'
+    const inv = b >= 11 // última batida: a mesma assinatura sobre Carbon
+    $('s1').style.background = inv ? '#0D0D0D' : '#F3F0EA'
+    $('s1').style.color = inv ? '#F3F0EA' : '#0D0D0D'
   }
   if (scene === 2) {
-    const k = Math.min(2, Math.floor((b - 12) / 4)), pl = PILLARS[k], local = b - 12 - k * 4
-    const size = 920 / pl.fit
-    const lh = k === 2 ? 1.1 : 0.95 // a palavra com acento precisa de mais entrelinha
-    const rows = Math.floor(1130 / (size * lh))
-    if (k !== lastPillar) {
-      lastPillar = k
-      $('wall').innerHTML = Array.from({ length: rows }, () => '<p>' + pl.word + '<span class="dot"></span></p>').join('')
+    const i = Math.min(P.length - 1, Math.floor((b - WORK) / PER)), l = b - WORK - i * PER, p = P[i]
+    if (i !== lastProject) {
+      lastProject = i
+      $('pjCount').textContent = p.n + '/' + String(P.length).padStart(2, '0')
+      $('pjNum').textContent = p.n; $('pjCat').textContent = p.cat; $('pjName').textContent = p.name
+      $('pjStatus').innerHTML = '<i class="sq"></i>' + p.status
+      $('pjPillars').innerHTML = p.pillars.map(x => '<span style="color:#FF6A2B">+</span> ' + x).join('&nbsp;&nbsp;&nbsp;')
+      $('pjDomain').textContent = p.domain
     }
-    $('s2').style.background = pl.bg; $('s2').style.color = pl.fg
-    $('wall').style.fontSize = size + 'px'; $('wall').style.lineHeight = lh; $('wall').style.setProperty('--dot', pl.dot); $('wall').style.setProperty('--ink', pl.fg)
-    // a linha cheia desce uma posição a cada meia batida; as outras ficam em contorno
-    const active = Math.min(rows - 1, Math.floor(local * 2 * rows / 8))
-    ;[...$('wall').children].forEach((row, i) => {
-      row.className = i === active ? '' : 'o'
-      row.style.visibility = i <= Math.floor(local * rows / 1.2) || local > 1.2 ? 'visible' : 'hidden'
-      row.querySelector('.dot').style.visibility = i === active ? 'visible' : 'hidden'
-    })
-    $('cap').textContent = pl.cap
+    P.forEach((_, j) => { show($('desk' + j), j === i); show($('mob' + j), j === i) })
+    // batida 0: a tela web entra pela direita; batida 1: o celular sobe; batida 2: a ficha
+    $('desk' + i).style.transform = 'translateX(' + (1080 * (1 - expo(at(l, 0, 0.6)))) + 'px)'
+    $('desk' + i).firstChild.style.transform = 'scale(' + (1 + 0.05 * l / PER) + ')'
+    $('mob' + i).style.transform = 'translateY(' + (1100 * (1 - expo(at(l, 1, 0.6)))) + 'px)'
+    $('mob' + i).firstChild.style.transform = 'translateY(' + (-60 * at(l, 1.2, PER - 1.2)) + 'px)'
+    $('pjName').style.clipPath = 'inset(0 ' + (100 - 100 * expo(at(l, 0.15, 0.6))) + '% 0 0)'
+    vis($('pjStatus'), l >= 2); vis($('pjPillars'), l >= 2.25); vis($('pjDomain'), l >= 2.5)
   }
   if (scene === 3) {
-    $('symT').style.visibility = b >= 24 ? 'visible' : 'hidden'
-    $('symT').style.transform = 'translate(' + (-90 * (1 - expo(at(b, 24, 0.5)))) + 'px,' + (-90 * (1 - expo(at(b, 24, 0.5)))) + 'px)'
-    $('symS').style.visibility = b >= 25 ? 'visible' : 'hidden'
-    $('symS').style.transform = 'translate(' + (90 * (1 - expo(at(b, 25, 0.5)))) + 'px,' + (90 * (1 - expo(at(b, 25, 0.5)))) + 'px)'
-    $('symDot').style.visibility = b >= 26 ? 'visible' : 'hidden'
-    $('symDot').style.transformOrigin = '100px 100px'
-    $('symDot').style.transform = 'scale(' + (1 + 6 * (1 - expo(at(b, 26, 0.5)))) + ')'
-    $('symCap').style.visibility = b >= 27 ? 'visible' : 'hidden'
-    const shown = Math.floor(at(b, 28, SYS - 28.5) * 20)
-    for (const el of $('tiles').children) el.style.visibility = ORDER[+el.dataset.i] < shown ? 'visible' : 'hidden'
+    const lb = b - BANDS
+    for (let i = 0; i < 3; i++) {
+      const band = $('mq' + i), run = $('run' + i), start = i, right = i === 1
+      // as cores das faixas giram duas vezes ao longo da cena
+      const th = TH[(i + (lb < 6 ? 0 : lb < 9 ? 1 : 2)) % 3]
+      band.style.background = th.bg; band.style.color = th.fg; band.style.setProperty('--dot', th.dot)
+      vis(band, lb >= start)
+      band.style.transform = 'translateX(' + ((right ? 1 : -1) * 1080 * (1 - expo(at(lb, start, 0.6)))) + 'px)'
+      if (!itemW[i]) itemW[i] = run.firstChild.getBoundingClientRect().width
+      // o texto anda um passo a cada batida (30% da palavra), com arrancada e freio
+      const off = (itemW[i] * 0.3 * (Math.floor(lb) + expo((lb % 1) * 1.4))) % itemW[i]
+      run.style.transform = 'translateX(' + (right ? off - itemW[i] : -off) + 'px)'
+    }
   }
   if (scene === 4) {
-    const i = Math.min(P.length - 1, Math.floor((b - PROJ) / PER)), local = (b - PROJ - i * PER) / PER
-    P.forEach((_, j) => { const el = $('shot' + j); el.style.display = j === i ? 'block' : 'none'; if (j === i) el.style.transform = 'translateY(' + (60 * (1 - expo(local * 1.6)) - P[i].shift) + 'px) scale(1.04)' })
-    $('pnum').textContent = P[i].n; $('pname').textContent = P[i].name; $('pcat').textContent = P[i].cat
-  }
-  if (scene === 6) {
-    // paleta: uma faixa por batida; depois a folha de tipos, uma família por batida
-    const type = b >= SYS + 6
-    show($('typ'), type)
-    for (let i = 0; i < 6; i++) {
-      const el = $('band' + i), p = expo(at(b, SYS + i, 0.5))
-      el.style.visibility = b >= SYS + i ? 'visible' : 'hidden'
-      el.style.clipPath = 'inset(0 ' + (100 - 100 * p) + '% 0 0)'
-    }
-    for (let i = 0; i < 4; i++) {
-      const el = $('spec' + i), p = expo(at(b, SYS + 6 + i, 0.5))
-      el.style.visibility = b >= SYS + 6 + i ? 'visible' : 'hidden'
-      el.querySelector('p').style.transform = 'translateX(' + (-60 * (1 - p)) + 'px)'
-      el.style.clipPath = 'inset(0 ' + (100 - 100 * p) + '% 0 0)'
+    const lb = b - SYS
+    show($('symLayer'), lb < 4); show($('pal'), lb >= 4 && lb < 8); show($('typ'), lb >= 8)
+    if (lb < 4) {
+      // o padrão varre a tela em diagonal; depois o símbolo é carimbado no centro
+      for (const el of $('pat').children) vis(el, lb * 8 >= +el.dataset.d)
+      vis($('bigSym'), lb >= 2)
+      $('bigSym').style.transform = 'scale(' + (1 + 0.3 * (1 - expo(at(lb, 2, 0.5)))) + ')'
+      vis($('symCap'), lb >= 3)
+    } else if (lb < 8) {
+      for (let i = 0; i < 6; i++) {
+        const el = $('band' + i)
+        vis(el, lb >= 4 + i * 0.5)
+        el.style.clipPath = 'inset(0 ' + (100 - 100 * expo(at(lb, 4 + i * 0.5, 0.4))) + '% 0 0)'
+      }
+    } else {
+      for (let i = 0; i < 4; i++) {
+        const el = $('spec' + i), p = expo(at(lb, 8 + i, 0.5))
+        vis(el, lb >= 8 + i)
+        el.querySelector('p').style.transform = 'translateX(' + (-60 * (1 - p)) + 'px)'
+        el.style.clipPath = 'inset(0 ' + (100 - 100 * p) + '% 0 0)'
+      }
     }
   }
   if (scene === 5) {
-    $('eWord').style.clipPath = 'inset(0 ' + (100 - 100 * expo(at(b, END, 1))) + '% 0 0)'
-    $('eDot').style.visibility = b >= END + 1 ? ((b >= END + 4 && b % 1 > 0.5) ? 'hidden' : 'visible') : 'hidden'
+    for (let i = 0; i < 3; i++) $('e' + i).style.transform = 'translateY(' + (105 * (1 - expo(at(b, END + i * 0.5, 0.6)))) + '%)'
+    for (let i = 0; i < 2; i++) {
+      vis($('er' + i), b >= END + 2 + i)
+      $('er' + i).style.clipPath = 'inset(0 ' + (100 - 100 * expo(at(b, END + 2 + i, 0.5))) + '% 0 0)'
+    }
+    vis($('eWord'), b >= END + 4)
+    $('eWord').style.clipPath = 'inset(0 ' + (100 - 100 * expo(at(b, END + 4, 0.8))) + '% 0 0)'
+    vis($('eDot'), b >= END + 5 && !(b >= END + 8 && b % 1 > 0.5))
     $('eDot').style.transformOrigin = '${wm.dot.x + 13}px ${wm.dot.y + 13}px'
-    $('eDot').style.transform = 'scale(' + (1 + 5 * (1 - expo(at(b, END + 1, 0.5)))) + ')'
+    $('eDot').style.transform = 'scale(' + (1 + 5 * (1 - expo(at(b, END + 5, 0.5)))) + ')'
+    vis($('eRule'), b >= END + 6)
     $('eRule').style.transformOrigin = '0 0'
-    $('eRule').style.transform = 'scaleX(' + expo(at(b, END + 2, 0.8)) + ')'
-    $('eStudio').style.visibility = b >= END + 2.5 ? 'visible' : 'hidden'
-    $('eTag').style.visibility = b >= END + 3 ? 'visible' : 'hidden'
-    $('eInfo').style.visibility = b >= END + 4 ? 'visible' : 'hidden'
+    $('eRule').style.transform = 'scaleX(' + expo(at(b, END + 6, 0.8)) + ')'
+    vis($('eStudio'), b >= END + 6.5)
+    vis($('eTag'), b >= END + 7)
   }
 }
 </script></body></html>`
