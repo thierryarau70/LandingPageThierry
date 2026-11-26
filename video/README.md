@@ -55,3 +55,16 @@ VIDEO=agente REUSAR_VOZ=1 bash video/build-motion.sh # remonta sem gerar a voz d
 ```
 
 `VOZ_GRATIS=1` usa o modelo gratuito da HeyGen (`heygen-voice-1-turbo-free`), que não gasta crédito de API mas tem limite diário. O roteiro fica em `narrar-motion.mjs` (`SCRIPTS.agente`) e as cenas em `agente.html`. Resultado: `video/out/agente/reels-agente-thierry.mp4`.
+
+## Reels de rebranding (THIERRY. Studio)
+
+Vídeo vertical de 24 s (48 batidas a 120 BPM) apresentando a nova identidade: o nome antigo riscado, o wordmark montado letra a letra, os três pilares em parede de palavras, o símbolo T.S, projetos reais e a assinatura final. Não tem narração; os cortes seguem uma grade de batidas para sincronizar com a música.
+
+```bash
+node video/rebranding.mjs                                          # 120 BPM, mudo
+BPM=122 node video/rebranding.mjs                                  # outro andamento
+BPM=122 MUSICA=trilha.mp3 INICIO=12.5 node video/rebranding.mjs    # com trilha, a partir de 12,5 s da música
+STILLS=1 node video/rebranding.mjs                                 # só quadros de conferência
+```
+
+Os projetos que aparecem ficam em `REEL_PROJECTS`, no topo de `rebranding.mjs`. As cenas usam a geometria da marca (`brand/scripts/geometry.mjs`) e as capturas de `public/projetos`. Resultado: `video/out/rebranding/reels-rebranding-thierry-studio.mp4`. A trilha é escolhida por quem publica; confira os direitos de uso da música no Instagram.
