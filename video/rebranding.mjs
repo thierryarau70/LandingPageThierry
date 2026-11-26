@@ -41,7 +41,9 @@ const rule = studio.match(/<rect x="0" y="([\d.]+)" width="([\d.]+)" height="([\
 
 // Projetos que aparecem no vídeo, na ordem (escolha do autor: sem Solek, Endhos, Rômulo Tuan e Centro de Isoladas)
 const REEL_PROJECTS = ['prumo', 'agenda-emi', 'emile-vitoria', 'arouche', 'louise-reis', 'cw-imports']
-const projects = REEL_PROJECTS.map(slug => visibleProjects.find(p => p.slug === slug)).filter(Boolean).map((p, i) => ({ n: String(i + 1).padStart(2, '0'), name: p.name, cat: p.category, src: img(p.mobile[0].src) }))
+// Quanto subir a captura (em px do quadro) para o assunto não ficar atrás da faixa com o nome
+const SHIFT = { 'emile-vitoria': 560 }
+const projects = REEL_PROJECTS.map(slug => visibleProjects.find(p => p.slug === slug)).filter(Boolean).map((p, i) => ({ n: String(i + 1).padStart(2, '0'), name: p.name, cat: p.category, src: img(p.mobile[0].src), shift: SHIFT[p.slug] || 0 }))
 const handle = site.social[0].handle
 const domain = site.defaultUrl.replace(/^https?:\/\/(www\.)?/, '')
 
@@ -67,7 +69,7 @@ body{--carbon:#0D0D0D;--paper:#F3F0EA;--orange:#FF6A2B;--graphite:#1C1C1C;font-f
 .wall .o{color:transparent;-webkit-text-stroke:3px var(--ink)}
 .dot{display:inline-block;width:.2em;height:.2em;margin-left:.045em;background:var(--dot,var(--orange))}
 /* cena 4: projetos */
-.shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+.shot{position:absolute;left:0;top:0;width:100%;height:auto}
 .plate{position:absolute;left:0;right:0;bottom:0;height:640px;background:var(--carbon);padding:44px 80px 0;display:grid;grid-template-columns:auto 1fr;gap:0 40px;align-content:start}
 .plate .num{font:900 220px/.8 Archivo;letter-spacing:-.05em;grid-row:span 2}
 .plate .name{font:900 64px/.95 Archivo;letter-spacing:-.04em;text-transform:uppercase;align-self:end}
@@ -222,7 +224,7 @@ window.render = (f) => {
   }
   if (scene === 4) {
     const i = Math.min(P.length - 1, Math.floor(b - 32)), local = b - 32 - i
-    P.forEach((_, j) => { const el = $('shot' + j); el.style.display = j === i ? 'block' : 'none'; if (j === i) el.style.transform = 'translateY(' + (60 * (1 - expo(local * 1.6))) + 'px) scale(1.04)' })
+    P.forEach((_, j) => { const el = $('shot' + j); el.style.display = j === i ? 'block' : 'none'; if (j === i) el.style.transform = 'translateY(' + (60 * (1 - expo(local * 1.6)) - P[i].shift) + 'px) scale(1.04)' })
     $('pnum').textContent = P[i].n; $('pname').textContent = P[i].name; $('pcat').textContent = P[i].cat
   }
   if (scene === 5) {
