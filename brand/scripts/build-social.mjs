@@ -398,20 +398,19 @@ add('posts/rebrand-06.png', POST, doc(...POST, 'carbon', `
   </main>
   ${bottom(COORDS)}`))
 
-// ---- Carrossel de venda: do que o negócio precisa até o contato (6 slides) ---------------------
-// Sem preço e sem prazo fixos: cada projeto recebe proposta própria. Etapas, diferenciais e
-// projetos vêm de app/data; os projetos são os mesmos escolhidos para o Reels de rebranding.
+// ---- Carrossel de venda: do que o negócio precisa até o contato (5 slides) ---------------------
+// Sem preço e sem prazo fixos: cada projeto recebe proposta própria. Etapas e diferenciais vêm
+// de app/data. Por escolha do autor, o carrossel não mostra projetos.
 const CASES = [
   ['“Quero ser encontrado e receber contatos.”', 'Landing page ou site'],
   ['“Quero organizar agenda, finanças e pedidos.”', 'Software sob medida'],
   ['“Quero atender fora do horário comercial.”', 'Agente de IA'],
   ['“Quero parar de repetir a mesma tarefa.”', 'Automação']
 ]
-const SALES_PROJECTS = ['prumo', 'agenda-emi', 'emile-vitoria', 'arouche', 'louise-reis', 'cw-imports'].map(findProject).filter(Boolean)
 const SALES_WHY = [0, 1, 4, 6].map(i => differentials[i])
 
 add('posts/venda-01.png', POST, doc(...POST, 'carbon', `
-  ${top('Para o seu negócio', '01/06')}
+  ${top('Para o seu negócio', '01/05')}
   <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
     ${title(['Site,', 'sistema', 'ou IA?'], 240)}
     <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
@@ -423,7 +422,7 @@ add('posts/venda-01.png', POST, doc(...POST, 'carbon', `
   ${bottom(HANDLE)}`))
 
 add('posts/venda-02.png', POST, doc(...POST, 'paper', `
-  ${top('O ponto de partida', '02/06')}
+  ${top('O ponto de partida', '02/05')}
   <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
     ${title(['Qual é', 'o seu caso?'], 150)}
     <div class="rule-t">
@@ -436,7 +435,7 @@ add('posts/venda-02.png', POST, doc(...POST, 'paper', `
   ${bottom(HANDLE)}`))
 
 add('posts/venda-03.png', POST, doc(...POST, 'carbon', `
-  ${top('O processo', '03/06')}
+  ${top('O processo', '03/05')}
   <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
     ${title(['Como', 'funciona.'], 170)}
     <ol style="list-style:none" class="rule-t">
@@ -448,22 +447,8 @@ add('posts/venda-03.png', POST, doc(...POST, 'carbon', `
   </main>
   ${bottom(HANDLE)}`))
 
-add('posts/venda-04.png', POST, doc(...POST, 'paper', `
-  ${top('Projetos no ar', '04/06')}
-  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:46px 0 40px">
-    ${title(['Trabalhos reais.'], 104)}
-    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px 24px">
-      ${SALES_PROJECTS.map((p, i) => `<figure style="min-width:0"><div class="frame" style="height:216px">${img(p.cover.src)}</div><figcaption class="label" style="display:flex;gap:14px;margin-top:12px;font-size:19px;white-space:nowrap;overflow:hidden"><span class="mute">0${i + 1}</span><span>${esc(p.name)}</span></figcaption></figure>`).join('')}
-    </div>
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:40px">
-      <p class="label mute">Cases completos em ${SITE}</p>
-      ${swipe}
-    </div>
-  </main>
-  ${bottom(HANDLE)}`))
-
-add('posts/venda-05.png', POST, doc(...POST, 'carbon', `
-  ${top('Por que aqui', '05/06')}
+add('posts/venda-04.png', POST, doc(...POST, 'carbon', `
+  ${top('Por que aqui', '04/05')}
   <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
     ${title(['Direto', 'com quem', 'faz.'], 180)}
     <ol style="list-style:none" class="rule-t">
@@ -473,8 +458,8 @@ add('posts/venda-05.png', POST, doc(...POST, 'carbon', `
   </main>
   ${bottom(HANDLE)}`))
 
-add('posts/venda-06.png', POST, doc(...POST, 'signal', `
-  ${top('Próximo passo', '06/06')}
+add('posts/venda-05.png', POST, doc(...POST, 'signal', `
+  ${top('Próximo passo', '05/05')}
   <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
     ${title(['Conte', 'sua ideia.'], 210)}
     <p class="head" style="font-size:46px;max-width:860px">Você recebe uma proposta com escopo, prazo e investimento.</p>
@@ -487,6 +472,27 @@ add('posts/venda-06.png', POST, doc(...POST, 'signal', `
     </div>
   </main>
   ${bottom(COORDS)}`))
+
+// ---- Anúncio para grupos de WhatsApp (classificados): uma imagem só, legível em miniatura -----
+const AD_SERVICES = ['Sites profissionais e landing pages', 'Lojas virtuais e catálogos digitais', 'Sistemas de gestão empresarial', 'Sistemas de agendamento', 'Chatbots e agentes de IA', 'Automação de processos e atendimento', 'Sistemas sob demanda']
+const AD_POINTS = ['Design profissional', 'Integração com WhatsApp', 'SEO', 'Suporte técnico']
+add('whatsapp/anuncio-grupo.png', POST, doc(...POST, 'carbon', `
+  ${top(`${site.location.city} — ${site.location.state}`, 'Atendimento em todo o Brasil')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:40px 0 36px">
+    <div>
+      ${title(['Sites,', 'sistemas e IA.'], 150)}
+      <p class="head" style="font-size:36px;margin-top:22px">Sob medida para o seu negócio.</p>
+    </div>
+    <ol style="list-style:none" class="rule-t">
+      ${AD_SERVICES.map((t, i) => `<li class="rule-b" style="display:grid;grid-template-columns:70px 1fr;align-items:baseline;padding:11px 0"><span class="label" style="color:#FF6A2B">0${i + 1}</span><span class="head" style="font-size:30px">${t}</span></li>`).join('')}
+    </ol>
+    <p class="label" style="display:flex;flex-wrap:wrap;gap:10px;font-size:19px">${AD_POINTS.map(t => `<span style="border:1px solid var(--rule);padding:12px 16px">${t}</span>`).join('')}</p>
+    <div style="background:#FF6A2B;color:#0D0D0D;padding:26px 30px;display:flex;justify-content:space-between;align-items:center;gap:30px">
+      <div style="white-space:nowrap"><p class="label" style="font-size:19px">Orçamento sem compromisso</p><p class="head" style="font-size:34px;margin-top:8px">Chame no WhatsApp</p></div>
+      <p class="display" style="font-size:62px;white-space:nowrap">${WHATSAPP}</p>
+    </div>
+  </main>
+  <footer class="bar bottom label" style="font-size:17px;white-space:nowrap">${logo(30)}<span class="mute">${SITE} · ${HANDLE}</span></footer>`))
 
 // ---- Stories (1080 × 1920; conteúdo entre 250 px do topo e 340 px da base) -------------------
 add('stories/story-institucional.png', STORY, doc(...STORY, 'carbon', `
@@ -662,7 +668,7 @@ await browser.close()
 fs.rmSync(tmp, { recursive: true, force: true })
 
 // Otimização opcional (Pillow): paleta de 256 cores nas peças chapadas; peças com fotografia ficam intactas.
-const flat = pieces.filter(p => !/projeto|case-agenda-emi-0[12]|story-projeto|venda-04/.test(p.name) && (!only || p.name.includes(only))).map(p => path.join(out, p.name))
+const flat = pieces.filter(p => !/projeto|case-agenda-emi-0[12]|story-projeto/.test(p.name) && (!only || p.name.includes(only))).map(p => path.join(out, p.name))
 if (flat.length) {
   const py = 'import sys\nfrom PIL import Image\nfor f in sys.argv[1:]:\n    Image.open(f).convert("RGB").quantize(colors=256, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).save(f, optimize=True)\n'
   const r = spawnSync('python3', ['-c', py, ...flat], { stdio: 'ignore' })
