@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { site } from '~/data/site'
 
+// Largura de cada palavra (com o ponto), em em: usada para ajustar a linha à largura da tela no celular
+const fit = [4.36, 6.22, 7.9]
+
 const meta = [
   `${site.location.city} — ${site.location.state} / ${site.location.country}`,
   'Atendimento em todo o Brasil',
@@ -21,7 +24,7 @@ const meta = [
       <div class="hero-stage">
         <h1 id="hero-title" class="t-display hero-title">
           <span class="sr-only">{{ site.brand }}, de {{ site.name }} — sites, sistemas personalizados e inteligência artificial: </span>
-          <span v-for="(word, i) in ['Design', 'Software', 'Inteligência']" :key="word" class="line"><span>{{ word }}<span class="dot hero-dot" :style="{ '--i': i }" aria-hidden="true" /><span class="sr-only">. </span></span></span>
+          <span v-for="(word, i) in ['Design', 'Software', 'Inteligência']" :key="word" class="line" :style="{ '--fit': fit[i] }"><span>{{ word }}<span class="dot hero-dot" :style="{ '--i': i }" aria-hidden="true" /><span class="sr-only">. </span></span></span>
         </h1>
         <HeroComposition class="hero-art" />
       </div>
@@ -51,6 +54,10 @@ const meta = [
 .hero-title { font-size: var(--mega); line-height: 0.95; }
 .hero-dot { animation: stamp 0.5s var(--ease-brand) both; animation-delay: calc(0.35s + var(--i) * 0.14s); transform-origin: 0 100%; }
 .hero-art { margin-top: clamp(1.5rem, 5vw, 2.5rem); }
+@media (width < 64rem) {
+  /* Composição de cartaz: cada linha do título é ajustada à largura da tela */
+  .hero-title .line { font-size: calc((100vw - 2 * var(--gutter)) / var(--fit)); line-height: 0.93; }
+}
 @media (width >= 64rem) {
   /* A composição ocupa o espaço à direita das duas primeiras linhas (mais curtas) do título */
   .hero-art { position: absolute; right: 0; margin: 0; height: calc(var(--mega) * 1.52); top: calc(clamp(1.75rem, 3.4vw, 4rem) + var(--mega) * 0.13); width: auto; }

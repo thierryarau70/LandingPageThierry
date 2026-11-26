@@ -58,6 +58,7 @@ const related = (slugs: string[]) => slugs.map(findProject).filter(p => !!p)
 }
 @media (width >= 48rem) { .service__summary { grid-template-columns: calc((100% - 11 * var(--gap)) / 12) minmax(0, 1fr) auto; } }
 .service__title { font-size: clamp(1.3rem, 6.1vw, 6rem); line-height: 1; }
+@media (width < 48rem) { .service__title { font-size: clamp(1.3rem, 8vw, 3rem); } }
 .service__summary:hover { background: var(--color-carbon); color: var(--color-paper); padding-inline: clamp(0.5rem, 1.2vw, 1.25rem); }
 .service__toggle { position: relative; width: clamp(1.5rem, 2.6vw, 2.75rem); aspect-ratio: 1; display: block; }
 .service__toggle i { position: absolute; inset: 0; margin: auto; background: currentColor; transition: transform 0.45s var(--ease-brand), background-color 0.25s; }
