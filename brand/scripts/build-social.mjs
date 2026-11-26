@@ -20,7 +20,7 @@ const file = p => pathToFileURL(path.join(root, p)).href
 const { findProject } = await import(file('app/data/projects.ts'))
 const { services } = await import(file('app/data/services.ts'))
 const { site } = await import(file('app/data/site.ts'))
-const { processSteps } = await import(file('app/data/process.ts'))
+const { processSteps, differentials } = await import(file('app/data/process.ts'))
 
 const SITE = 'thierryaraujodev.com.br'
 const HANDLE = site.social[0].handle
@@ -398,6 +398,96 @@ add('posts/rebrand-06.png', POST, doc(...POST, 'carbon', `
   </main>
   ${bottom(COORDS)}`))
 
+// ---- Carrossel de venda: do que o negócio precisa até o contato (6 slides) ---------------------
+// Sem preço e sem prazo fixos: cada projeto recebe proposta própria. Etapas, diferenciais e
+// projetos vêm de app/data; os projetos são os mesmos escolhidos para o Reels de rebranding.
+const CASES = [
+  ['“Quero ser encontrado e receber contatos.”', 'Landing page ou site'],
+  ['“Quero organizar agenda, finanças e pedidos.”', 'Software sob medida'],
+  ['“Quero atender fora do horário comercial.”', 'Agente de IA'],
+  ['“Quero parar de repetir a mesma tarefa.”', 'Automação']
+]
+const SALES_PROJECTS = ['prumo', 'agenda-emi', 'emile-vitoria', 'arouche', 'louise-reis', 'cw-imports'].map(findProject).filter(Boolean)
+const SALES_WHY = [0, 1, 4, 6].map(i => differentials[i])
+
+add('posts/venda-01.png', POST, doc(...POST, 'carbon', `
+  ${top('Para o seu negócio', '01/06')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
+    ${title(['Site,', 'sistema', 'ou IA?'], 240)}
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
+      <p class="head" style="font-size:48px;max-width:620px">O que o seu negócio precisa agora.</p>
+      ${mosaic(220)}
+    </div>
+    ${swipe}
+  </main>
+  ${bottom(HANDLE)}`))
+
+add('posts/venda-02.png', POST, doc(...POST, 'paper', `
+  ${top('O ponto de partida', '02/06')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
+    ${title(['Qual é', 'o seu caso?'], 150)}
+    <div class="rule-t">
+      ${CASES.map(([need, fix]) => `<div class="rule-b" style="display:grid;grid-template-columns:1fr 330px;gap:28px;align-items:center;padding:30px 0">
+        <p class="head" style="font-size:38px">${need}</p>
+        <p class="label" style="background:var(--ink);color:var(--bg);padding:22px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px">${fix} ${arrow('right')}</p></div>`).join('')}
+    </div>
+    ${swipe}
+  </main>
+  ${bottom(HANDLE)}`))
+
+add('posts/venda-03.png', POST, doc(...POST, 'carbon', `
+  ${top('O processo', '03/06')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
+    ${title(['Como', 'funciona.'], 170)}
+    <ol style="list-style:none" class="rule-t">
+      ${processSteps.map(st => `<li class="rule-b" style="display:grid;grid-template-columns:170px 1fr;align-items:center;padding:28px 0">
+        <span class="display" style="font-size:110px;line-height:.8">${st.number}</span>
+        <span><span class="head" style="font-size:46px;display:block">${st.title}</span><span style="font-size:28px;line-height:1.35;display:block;margin-top:8px" class="mute">${st.output}</span></span></li>`).join('')}
+    </ol>
+    ${swipe}
+  </main>
+  ${bottom(HANDLE)}`))
+
+add('posts/venda-04.png', POST, doc(...POST, 'paper', `
+  ${top('Projetos no ar', '04/06')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:46px 0 40px">
+    ${title(['Trabalhos reais.'], 104)}
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px 24px">
+      ${SALES_PROJECTS.map((p, i) => `<figure style="min-width:0"><div class="frame" style="height:216px">${img(p.cover.src)}</div><figcaption class="label" style="display:flex;gap:14px;margin-top:12px;font-size:19px;white-space:nowrap;overflow:hidden"><span class="mute">0${i + 1}</span><span>${esc(p.name)}</span></figcaption></figure>`).join('')}
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:40px">
+      <p class="label mute">Cases completos em ${SITE}</p>
+      ${swipe}
+    </div>
+  </main>
+  ${bottom(HANDLE)}`))
+
+add('posts/venda-05.png', POST, doc(...POST, 'carbon', `
+  ${top('Por que aqui', '05/06')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
+    ${title(['Direto', 'com quem', 'faz.'], 180)}
+    <ol style="list-style:none" class="rule-t">
+      ${SALES_WHY.map((d, i) => `<li class="rule-b" style="display:grid;grid-template-columns:70px 1fr;align-items:baseline;padding:24px 0"><span class="label" style="color:#FF6A2B">0${i + 1}</span><span class="head" style="font-size:38px">${d.title}</span></li>`).join('')}
+    </ol>
+    ${swipe}
+  </main>
+  ${bottom(HANDLE)}`))
+
+add('posts/venda-06.png', POST, doc(...POST, 'signal', `
+  ${top('Próximo passo', '06/06')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
+    ${title(['Conte', 'sua ideia.'], 210)}
+    <p class="head" style="font-size:46px;max-width:860px">Você recebe uma proposta com escopo, prazo e investimento.</p>
+    <div style="display:grid;grid-template-columns:1fr 330px;gap:40px;align-items:end">
+      ${tb([['Instagram', HANDLE], ['WhatsApp', WHATSAPP], ['Site', SITE]], 'font-size:27px;--tbw:32%')}
+      <div style="background:#0D0D0D;color:#F3F0EA;padding:26px 26px 22px">
+        <p class="head" style="font-size:38px;line-height:1.05">Inicie seu projeto</p>
+        <p class="label" style="margin-top:22px;display:flex;justify-content:space-between;align-items:center">Link na bio ${arrow('up')}</p>
+      </div>
+    </div>
+  </main>
+  ${bottom(COORDS)}`))
+
 // ---- Stories (1080 × 1920; conteúdo entre 250 px do topo e 340 px da base) -------------------
 add('stories/story-institucional.png', STORY, doc(...STORY, 'carbon', `
   <div class="abs hatch" style="left:0;right:0;top:0;height:190px;opacity:.14"></div>
@@ -572,7 +662,7 @@ await browser.close()
 fs.rmSync(tmp, { recursive: true, force: true })
 
 // Otimização opcional (Pillow): paleta de 256 cores nas peças chapadas; peças com fotografia ficam intactas.
-const flat = pieces.filter(p => !/projeto|case-agenda-emi-0[12]|story-projeto/.test(p.name) && (!only || p.name.includes(only))).map(p => path.join(out, p.name))
+const flat = pieces.filter(p => !/projeto|case-agenda-emi-0[12]|story-projeto|venda-04/.test(p.name) && (!only || p.name.includes(only))).map(p => path.join(out, p.name))
 if (flat.length) {
   const py = 'import sys\nfrom PIL import Image\nfor f in sys.argv[1:]:\n    Image.open(f).convert("RGB").quantize(colors=256, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).save(f, optimize=True)\n'
   const r = spawnSync('python3', ['-c', py, ...flat], { stdio: 'ignore' })
