@@ -62,13 +62,15 @@ Tudo fica em `brand/scripts/build-social.mjs`, na seção **PEÇAS**:
 ## Bio sugerida
 
 ```
-Desenvolvimento de Software & IA
-Sites • Sistemas • Automações
+Estúdio de engenharia digital de Thierry Araújo
+Sites • Sistemas • Automações com IA
 Tecnologia sob medida para empresas.
 Inicie seu projeto ↓
 ```
 
-120 caracteres com as quebras de linha (o limite do Instagram é 150). Link do perfil: `thierryaraujodev.com.br`.
+142 caracteres com as quebras de linha (o limite do Instagram é 150). Link do perfil: `thierryaraujodev.com.br`.
+
+Campo **Nome** do perfil (pesquisável, até 64 caracteres): `THIERRY. Studio · Sites, Sistemas e IA`.
 
 ## Legendas-modelo
 

@@ -20,7 +20,7 @@ const meta = [
 
       <div class="hero-stage">
         <h1 id="hero-title" class="t-display hero-title">
-          <span class="sr-only">{{ site.name }} — sites, sistemas personalizados e inteligência artificial: </span>
+          <span class="sr-only">{{ site.brand }}, de {{ site.name }} — sites, sistemas personalizados e inteligência artificial: </span>
           <span v-for="(word, i) in ['Design', 'Software', 'Inteligência']" :key="word" class="line"><span>{{ word }}<span class="dot hero-dot" :style="{ '--i': i }" aria-hidden="true" /><span class="sr-only">. </span></span></span>
         </h1>
         <HeroComposition class="hero-art" />

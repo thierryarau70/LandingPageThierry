@@ -1,4 +1,4 @@
-# THIERRY. — Digital Engineering Studio
+# THIERRY. Studio
 
 Site de Thierry Araújo (sites, sistemas e inteligência artificial), feito com Nuxt 4, Vue 3, TypeScript e Tailwind CSS 4.
 

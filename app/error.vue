@@ -3,7 +3,7 @@ import type { NuxtError } from '#app'
 
 const props = defineProps<{ error: NuxtError }>()
 const notFound = computed(() => props.error?.statusCode === 404)
-useSeoMeta({ title: () => (notFound.value ? 'Página não encontrada | Thierry Araújo' : 'Erro | Thierry Araújo'), robots: 'noindex' })
+useSeoMeta({ title: () => (notFound.value ? 'Página não encontrada | THIERRY. Studio' : 'Erro | THIERRY. Studio'), robots: 'noindex' })
 const home = () => clearError({ redirect: '/' })
 </script>
 

@@ -1,6 +1,6 @@
 // Gera os logotipos em SVG vetorial (brand/logos) a partir de geometry.mjs.
 // Uso: node brand/scripts/build-logos.mjs
-// O descritor "DIGITAL ENGINEERING STUDIO" é convertido em contornos (IBM Plex Mono, licença OFL),
+// A palavra "STUDIO" é convertida em contornos (IBM Plex Mono, licença OFL),
 // então os arquivos não dependem de fonte instalada.
 import fs from 'node:fs'
 import path from 'node:path'
@@ -46,7 +46,9 @@ const p = (d, fill) => `<path fill="${fill}" fill-rule="evenodd" d="${d}"/>`
 const sq = (dot, fill) => `<rect x="${dot.x}" y="${dot.y}" width="${dot.size}" height="${dot.size}" fill="${fill}"/>`
 const write = (name, content) => { fs.writeFileSync(path.join(out, name), content); console.log('logo', name) }
 
-const TITLE = 'Thierry Araújo — Digital Engineering Studio'
+const TITLE = 'THIERRY. Studio'
+// Tamanho de fonte para uma altura de maiúscula desejada (IBM Plex Mono: 698/1000)
+const capSize = cap => cap / 0.698
 
 // ---- Conceito B (recomendado): wordmark THIERRY. -------------------------------------------
 function wordmarkSvg(ink, dotColor) {
@@ -54,24 +56,28 @@ function wordmarkSvg(ink, dotColor) {
   return svg(w.width, w.height, p(w.d, ink) + sq(w.dot, dotColor), 'THIERRY.')
 }
 
-function primarySvg(ink, dotColor, sub = ink) {
+// Versão principal (empilhada): wordmark + fio estrutural + STUDIO alinhado à direita. 562 × 146.
+function stacked() {
   const w = wordmark()
-  const desc = outline('DIGITAL ENGINEERING STUDIO', { y: 100 + 24 + 13.6, size: 19.5, width: w.width })
-  return svg(w.width, 138, p(w.d, ink) + sq(w.dot, dotColor) + p(desc.d, sub), TITLE)
+  const size = capSize(24)
+  const x = w.width - outline('STUDIO', { size, tracking: 0.22 }).width
+  return { w, word: outline('STUDIO', { x, y: 146, size, tracking: 0.22 }), rule: { x: 0, y: 132.5, width: +(x - 16).toFixed(1), height: 3 }, height: 146 }
+}
+function primarySvg(ink, dotColor, sub = ink) {
+  const { w, word, rule, height } = stacked()
+  return svg(w.width, height, p(w.d, ink) + sq(w.dot, dotColor) + `<rect x="${rule.x}" y="${rule.y}" width="${rule.width}" height="${rule.height}" fill="${sub}"/>` + p(word.d, sub), TITLE)
 }
 
-function horizontalSvg(ink, dotColor, sub = ink) {
+// Versão horizontal: THIERRY. pesado + STUDIO leve, na mesma altura. A caixa tem 2 unidades de folga
+// acima e abaixo para as curvas do S e do O, que ultrapassam a linha de base e a altura das maiúsculas.
+function horizontal() {
   const w = wordmark()
-  const x = w.width + 34
-  const lines = ['DIGITAL', 'ENGINEERING', 'STUDIO']
-  const size = 25
-  const cap = outline('D', { size }).capHeight
-  // três linhas: topo alinhado ao topo das letras, base alinhada à linha de base
-  const gap = (100 - cap * 3) / 2
-  const texts = lines.map((t, i) => outline(t, { x: x + 30, y: cap + i * (cap + gap), size, tracking: 0.16 }))
-  const width = x + 30 + Math.max(...texts.map(t => t.width))
-  return svg(+width.toFixed(1), 100,
-    p(w.d, ink) + sq(w.dot, dotColor) + `<rect x="${x}" y="0" width="3" height="100" fill="${sub}"/>` + texts.map(t => p(t.d, sub)).join(''), TITLE)
+  const word = outline('STUDIO', { x: w.width + 40, y: 100, size: capSize(100), tracking: 0.02 })
+  return { w, word, width: +(w.width + 40 + word.width).toFixed(1) }
+}
+function horizontalSvg(ink, dotColor, sub = ink) {
+  const { w, word, width } = horizontal()
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -2 ${width} 104" width="${width}" height="104" role="img" aria-label="${TITLE}"><title>${TITLE}</title>${p(w.d, ink) + sq(w.dot, dotColor) + p(word.d, sub)}</svg>\n`
 }
 
 function symbolSvg(ink, dotColor) {
@@ -103,8 +109,8 @@ write('concept-b.svg', primarySvg(COLORS.carbon, COLORS.orange))
 
 // ---- Conceito A: monograma estrutural TA ---------------------------------------------------
 function lockup(markBody, ink, sub) {
-  const name = outline('THIERRY ARAÚJO', { x: 132, y: 43, size: 34, tracking: 0.14 })
-  const desc = outline('DIGITAL ENGINEERING STUDIO', { x: 132, y: 84, size: 17, tracking: 0.2 })
+  const name = outline('THIERRY STUDIO', { x: 132, y: 43, size: 34, tracking: 0.14 })
+  const desc = outline('ENGENHARIA DIGITAL', { x: 132, y: 84, size: 17, tracking: 0.2 })
   const width = 132 + Math.max(name.width, desc.width)
   return svg(+width.toFixed(1), 100, markBody + p(name.d, ink) + `<rect x="132" y="56" width="${(width - 132).toFixed(1)}" height="2" fill="${sub}"/>` + p(desc.d, sub), TITLE)
 }
@@ -129,9 +135,14 @@ write('instagram-avatar-light.svg', badgeSvg({ size: 1080, ratio: 0.44, bg: COLO
 {
   const w = wordmark()
   const s = symbol()
+  const h = horizontal()
+  const st = stacked()
   const ts = `// Gerado por brand/scripts/build-logos.mjs — não editar à mão.
 export const brandWordmark = { width: ${w.width}, height: ${w.height}, path: '${w.d}', dot: ${JSON.stringify(w.dot)} } as const
 export const brandSymbol = { width: ${s.width}, height: ${s.height}, path: '${s.d}', dot: ${JSON.stringify(s.dot)} } as const
+// THIERRY. Studio: versão horizontal (viewBox 0 -2 largura 104) e empilhada (562 × 146)
+export const brandLockup = { width: ${h.width}, studio: '${h.word.d}' } as const
+export const brandStacked = { height: ${st.height}, rule: ${JSON.stringify(st.rule)}, studio: '${st.word.d}' } as const
 export const brandMonogram = '${poly(MONOGRAM_TA)}'
 export const brandModular = { dark: '${MODULAR.dark.map(c => poly(c)).join('')}', signal: '${poly(MODULAR.signal)}' } as const
 `
