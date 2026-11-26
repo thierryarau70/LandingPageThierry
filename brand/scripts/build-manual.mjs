@@ -170,7 +170,7 @@ pages.push(page('Conceito criativo', `
 pages.push(page('Moodboard', `
   <div class="mood">
     <div class="m m1 carbon"><p class="display" style="text-transform:none">Aa</p><span class="label">Tipografia monumental</span></div>
-    <div class="m m2"><img src="${file('public/portfolio/solek-morais.webp')}"><span class="label tag">Trabalho real em preto e branco</span></div>
+    <div class="m m2"><img src="${file('public/portfolio/emile.webp')}"><span class="label tag">Trabalho real em preto e branco</span></div>
     <div class="m m3 hatch"></div>
     <div class="m m4 signalbg"><span class="label">Sinal</span></div>
     <div class="m m5 carbon">${mosaic(C.graphite, C.orange)}</div>
@@ -325,8 +325,8 @@ pages.push(page('Direção fotográfica', `
       <p class="label mt-s signal-ink">Pendência: ainda não existe retrato profissional. Enquanto isso, a seção “Sobre” usa a placa com o símbolo.</p>
     </div>
     <div class="photo">
-      <figure><img src="${file('public/projetos/solek-morais/desktop.webp')}"><figcaption class="label">Captura real — cor</figcaption></figure>
-      <figure><img class="bw" src="${file('public/projetos/solek-morais/desktop.webp')}"><figcaption class="label">Tratamento editorial — P&B, contraste +20%</figcaption></figure>
+      <figure><img src="${file('public/projetos/emile-vitoria/desktop.webp')}"><figcaption class="label">Captura real — cor</figcaption></figure>
+      <figure><img class="bw" src="${file('public/projetos/emile-vitoria/desktop.webp')}"><figcaption class="label">Tratamento editorial — P&B, contraste +20%</figcaption></figure>
       <figure class="ph"><div class="ph__frame"><span class="label">4 : 5</span></div><figcaption class="label">Retrato: proporção e enquadramento</figcaption></figure>
       <figure><img src="${file('public/projetos/agenda-emi/mobile.webp')}" style="object-position:top"><figcaption class="label">Aplicativos: captura em 390 × 844</figcaption></figure>
     </div>

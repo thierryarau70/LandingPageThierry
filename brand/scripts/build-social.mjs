@@ -162,7 +162,7 @@ function projectPost({ n, slug, theme = 'paper', shot = 'desktop' }) {
     ${bottom(`${p.status} · ${SITE}`)}`)
 }
 add('posts/projeto-01.png', POST, projectPost({ n: '04', slug: 'prumo' }))
-add('posts/projeto-02.png', POST, projectPost({ n: '08', slug: 'solek-morais' }))
+add('posts/projeto-02.png', POST, projectPost({ n: '08', slug: 'emile-vitoria' }))
 
 // ---- Anúncio de serviços (a única peça inteira em laranja do feed) ----------------------------
 add('posts/servico-01.png', POST, doc(...POST, 'signal', `

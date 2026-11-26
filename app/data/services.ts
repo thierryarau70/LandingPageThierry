@@ -30,7 +30,7 @@ export const services: Service[] = [
     ],
     cta: 'Quero uma landing page',
     topic: 'uma landing page',
-    related: ['emile-vitoria', 'raphael-solek', 'arouche']
+    related: ['emile-vitoria', 'romulo-tuan', 'arouche']
   },
   {
     id: 'sites-institucionais',
@@ -49,7 +49,7 @@ export const services: Service[] = [
     ],
     cta: 'Quero um site institucional',
     topic: 'um site institucional',
-    related: ['solek-morais', 'endhos', 'louise-reis']
+    related: ['louise-reis', 'centro-de-isoladas']
   },
   {
     id: 'software-sob-medida',
