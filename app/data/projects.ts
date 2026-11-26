@@ -215,7 +215,9 @@ export const projects: Project[] = [
     stack: ['Nuxt', 'Vue', 'Tailwind CSS'],
     status: 'No ar',
     url: 'https://clinicaendhos.vercel.app',
-    ...media('endhos', 'Endhos Medicina Integrada')
+    ...media('endhos', 'Endhos Medicina Integrada'),
+    // aguardando a resposta do cliente: volta a aparecer quando ele autorizar
+    hidden: true
   },
   {
     slug: 'raphael-solek',
@@ -231,7 +233,9 @@ export const projects: Project[] = [
     stack: ['Nuxt', 'Vue', 'Tailwind CSS'],
     status: 'No ar',
     url: 'https://raphaelsolek.vercel.app',
-    ...media('raphael-solek', 'Dr. Raphael Solek')
+    ...media('raphael-solek', 'Dr. Raphael Solek'),
+    // aguardando a resposta do cliente: volta a aparecer quando ele autorizar
+    hidden: true
   },
   {
     slug: 'centro-de-isoladas',
@@ -304,7 +308,9 @@ export const projects: Project[] = [
     stack: ['Nuxt', 'Vue', 'Tailwind CSS', 'Pré-renderização'],
     status: 'No ar',
     url: 'https://escritoriosolek.vercel.app',
-    ...media('solek-morais', 'Solek & Morais Advogados')
+    ...media('solek-morais', 'Solek & Morais Advogados'),
+    // aguardando a resposta do cliente: volta a aparecer quando ele autorizar
+    hidden: true
   },
   {
     slug: 'cw-imports',

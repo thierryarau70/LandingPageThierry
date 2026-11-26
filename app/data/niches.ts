@@ -21,7 +21,7 @@ export const niches: Niche[] = [
     title: 'Um site para a sua clínica que transforma visitas em agendamentos.',
     highlight: 'transforma visitas em agendamentos',
     text: 'Landing pages para clínicas, consultórios e profissionais de saúde: tratamentos explicados com clareza, resultados, dúvidas frequentes e agendamento pelo WhatsApp.',
-    projects: ['emile-vitoria', 'endhos', 'louise-reis'],
+    projects: ['emile-vitoria', 'louise-reis'],
     pointsTitle: 'Feito para a rotina de uma clínica',
     points: [
       { title: 'Tratamentos bem explicados', text: 'Cada serviço com descrição clara, para o paciente entender antes de marcar.' },
@@ -57,7 +57,7 @@ export const niches: Niche[] = [
     title: 'Um site profissional para o seu serviço receber mais pedidos.',
     highlight: 'receber mais pedidos',
     text: 'Landing pages para advogados, salões, oficinas, arquitetos, personal trainers e outros prestadores de serviço, com orçamento pelo WhatsApp.',
-    projects: ['solek-morais', 'raphael-solek', 'romulo-tuan'],
+    projects: ['romulo-tuan'],
     pointsTitle: 'Feito para quem vende serviço',
     points: [
       { title: 'Serviços em destaque', text: 'O que você faz, para quem e como funciona, explicado em poucos segundos.' },

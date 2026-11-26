@@ -12,6 +12,10 @@ const legacyRedirects: Record<string, string> = {
   '/en/projects': '/projetos'
 }
 
+// Cases ocultos (aguardando autorização do cliente): o endereço antigo leva à lista de projetos.
+// Redirecionamento temporário, porque a página volta quando o projeto for liberado.
+const hiddenCases = ['endhos', 'raphael-solek', 'solek-morais']
+
 // Domínio anterior: continua ligado ao projeto na Vercel e leva, com 308, à mesma página no domínio novo.
 const previousHost = '(?:www\\.)?thierryaraujodev\\.com\\.br'
 const currentOrigin = 'https://www.thierrystudio.com.br'
@@ -33,9 +37,10 @@ export default defineNuxtConfig({
       routes: ['/', '/projetos', '/privacidade', '/para/clinicas', '/para/cursos', '/para/servicos', '/sitemap.xml']
     }
   },
-  routeRules: Object.fromEntries(
-    Object.entries(legacyRedirects).map(([from, to]) => [from, { redirect: { to, statusCode: 301 } }])
-  ),
+  routeRules: Object.fromEntries([
+    ...Object.entries(legacyRedirects).map(([from, to]) => [from, { redirect: { to, statusCode: 301 } }]),
+    ...hiddenCases.map(slug => [`/projetos/${slug}`, { redirect: { to: '/projetos', statusCode: 302 } }])
+  ]),
   vite: { plugins: [tailwindcss()] },
   css: ['~/assets/css/main.css'],
   runtimeConfig: {

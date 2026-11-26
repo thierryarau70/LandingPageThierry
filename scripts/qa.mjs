@@ -97,6 +97,14 @@ for (const width of WIDTHS) {
     const res = await page.request.get(BASE + from, { maxRedirects: 0 })
     check(`redirecionamento ${from} → ${to}`, res.status() === 301 && res.headers().location === to, `${res.status()} ${res.headers().location ?? ''}`)
   }
+  // cases ocultos: o endereço antigo leva à lista e o projeto não aparece mais nela nem no sitemap
+  const sitemap = await (await page.request.get(BASE + '/sitemap.xml')).text()
+  const listing = await (await page.request.get(BASE + '/projetos')).text()
+  for (const slug of ['endhos', 'raphael-solek', 'solek-morais']) {
+    const res = await page.request.get(`${BASE}/projetos/${slug}`, { maxRedirects: 0 })
+    check(`case oculto /projetos/${slug} → /projetos`, res.status() === 302 && res.headers().location === '/projetos', `${res.status()} ${res.headers().location ?? ''}`)
+    check(`case oculto ${slug} fora da lista e do sitemap`, !sitemap.includes(`/projetos/${slug}`) && !listing.includes(`/projetos/${slug}`))
+  }
   const nf = await page.request.get(BASE + '/pagina-que-nao-existe')
   check('página inexistente responde 404', nf.status() === 404, String(nf.status()))
 

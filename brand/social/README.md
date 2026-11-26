@@ -33,7 +33,7 @@ Tudo fica em `brand/scripts/build-social.mjs`, na seção **PEÇAS**:
 | Pasta | Arquivo | Medida | Uso |
 | --- | --- | --- | --- |
 | `posts/` | `institucional-01` a `-04` | 1080 × 1350 | Post institucional, quatro variações de título e composição |
-| `posts/` | `projeto-01`, `projeto-02` | 1080 × 1350 | Apresentação de projeto no ar (Prumo, Solek & Morais) |
+| `posts/` | `projeto-01`, `projeto-02` | 1080 × 1350 | Apresentação de projeto no ar (Prumo, Dra. Emile Vitória) |
 | `posts/` | `servico-01` | 1080 × 1350 | Anúncio de serviços (a única peça inteira em laranja) |
 | `posts/` | `carrossel-agente-ia-01` a `-04` | 1080 × 1350 | Carrossel educativo: capa, dois slides de conteúdo e CTA |
 | `posts/` | `case-agenda-emi-01` a `-03` | 1080 × 1350 | Case study: capa, problema e solução, funcionalidades e CTA |
