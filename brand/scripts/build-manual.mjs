@@ -380,7 +380,7 @@ pages.push(page('Materiais comerciais', `
     <figure class="mat__p"><img src="${social('proposal/proposta-interna.png')}"><figcaption class="label">Proposta — escopo, prazo e investimento</figcaption></figure>
     <div class="mat__cards">
       <div class="card carbon">${svgFile('primary-on-dark.svg').replace('<svg', '<svg style="width:68%"')}<p class="label">Engenharia digital</p></div>
-      <div class="card"><p class="heading">Thierry Araújo</p><p class="label mute">Desenvolvimento de software e IA</p><p class="label">(95) 99143-2677<br>thierryaraujodev.com.br<br>@thierryaraujo.dev</p>${sym(C.carbon, C.orange, 'class="card__sym"')}</div>
+      <div class="card"><p class="heading">Thierry Araújo</p><p class="label mute">Desenvolvimento de software e IA</p><p class="label">(95) 99143-2677<br>thierryaraujodev.com.br<br>@thierrystudio.co</p>${sym(C.carbon, C.orange, 'class="card__sym"')}</div>
       <span class="label">Cartão de visita — 90 × 50 mm</span>
       <div class="letter"><div class="letter__top">${wm(C.carbon, C.orange, 'style="width:26mm"')}<span class="label">Fol. 01</span></div><i></i><i></i><i style="width:60%"></i><div class="letter__foot label">Thierry Araújo · CNPJ 69.676.386/0001-52 · Boa Vista — RR</div></div>
       <span class="label">Papel timbrado</span>
@@ -390,7 +390,7 @@ pages.push(page('Materiais comerciais', `
 // 23 — Assinatura de e-mail
 const signature = (dark) => `<table class="sig ${dark ? 'sig--dark' : ''}" cellpadding="0" cellspacing="0"><tr>
   <td class="sig__mark">${sym(dark ? C.paper : C.carbon, C.orange, 'width="44" height="44"')}</td>
-  <td class="sig__body"><p class="sig__name">Thierry Araújo</p><p class="sig__role">THIERRY. Studio · Software e IA</p><p class="sig__line">(95) 99143-2677 · thierryaraujodev.com.br</p><p class="sig__line">Boa Vista — RR / Brasil · @thierryaraujo.dev</p></td></tr></table>`
+  <td class="sig__body"><p class="sig__name">Thierry Araújo</p><p class="sig__role">THIERRY. Studio · Software e IA</p><p class="sig__line">(95) 99143-2677 · thierryaraujodev.com.br</p><p class="sig__line">Boa Vista — RR / Brasil · @thierrystudio.co</p></td></tr></table>`
 pages.push(page('Assinatura de e-mail', `
   <div class="cols c-4-8">
     <div>${h('Assinatura<br>de e-mail', 'sm')}
@@ -408,7 +408,7 @@ pages.push(page('Considerações finais', `
     <div class="cols c-3 mt">
       <div><p class="label">Três regras que resumem o manual</p><ul class="list"><li>O ponto final é quadrado e laranja. Sempre.</li><li>Duas superfícies, um sinal: Carbon, Paper e pouco laranja.</li><li>Conteúdo real: projetos reais, números reais, voz na primeira pessoa.</li></ul></div>
       <div><p class="label">Arquivos da marca</p><ul class="list"><li>brand/logos — SVG vetoriais (3 conceitos e versões)</li><li>brand/exports — PNG transparentes, avatar, favicon</li><li>brand/social — templates de Instagram e proposta</li><li>brand/DESIGN_TOKENS.json · BRAND_GUIDELINES.md</li></ul></div>
-      <div><p class="label">Próximos passos</p><ul class="list"><li>Produzir o retrato profissional conforme a página 18</li><li>Registrar depoimentos autorizados de clientes</li><li>Revisar este manual a cada mudança de posicionamento</li></ul><p class="label mt-s">thierryaraujodev.com.br · @thierryaraujo.dev · (95) 99143-2677</p></div>
+      <div><p class="label">Próximos passos</p><ul class="list"><li>Produzir o retrato profissional conforme a página 18</li><li>Registrar depoimentos autorizados de clientes</li><li>Revisar este manual a cada mudança de posicionamento</li></ul><p class="label mt-s">thierryaraujodev.com.br · @thierrystudio.co · (95) 99143-2677</p></div>
     </div>
   </div>`, { theme: 'carbon' }))
 
@@ -567,7 +567,7 @@ fs.writeFileSync(path.join(root, 'brand/email-signature.html'), `<!-- Assinatura
       <p style="margin:0;font-weight:700;font-size:15px;color:#0D0D0D">Thierry Araújo</p>
       <p style="margin:0 0 4px;font-size:12px;color:#55524C">THIERRY. Studio · Software e IA</p>
       <p style="margin:0;font-size:12px;line-height:1.5;color:#0D0D0D">(95) 99143-2677 · <a href="https://thierryaraujodev.com.br" style="color:#0D0D0D">thierryaraujodev.com.br</a></p>
-      <p style="margin:0;font-size:12px;line-height:1.5;color:#0D0D0D">Boa Vista — RR / Brasil · <a href="https://www.instagram.com/thierryaraujo.dev/" style="color:#0D0D0D">@thierryaraujo.dev</a></p>
+      <p style="margin:0;font-size:12px;line-height:1.5;color:#0D0D0D">Boa Vista — RR / Brasil · <a href="https://www.instagram.com/thierrystudio.co/" style="color:#0D0D0D">@thierrystudio.co</a></p>
     </td>
   </tr>
 </table>

@@ -25,7 +25,7 @@ export const site = {
     email: 'thierryaraujo309@gmail.com'
   },
   social: [
-    { id: 'instagram', label: 'Instagram', handle: '@thierryaraujo.dev', url: 'https://www.instagram.com/thierryaraujo.dev/' },
+    { id: 'instagram', label: 'Instagram', handle: '@thierrystudio.co', url: 'https://www.instagram.com/thierrystudio.co/' },
     { id: 'linkedin', label: 'LinkedIn', handle: '/in/thierryarauj0', url: 'https://www.linkedin.com/in/thierryarauj0/' },
     { id: 'github', label: 'GitHub', handle: '/thierryarau70', url: 'https://github.com/thierryarau70' }
   ],

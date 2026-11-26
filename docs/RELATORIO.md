@@ -5,7 +5,7 @@ Data: 26/11/2026 · Escopo: identidade visual, redesign completo do site, cases,
 ## 1. O que foi feito
 
 ### Pesquisa (Fase 01)
-- **Bright Data** (CLI autenticada com a chave do ambiente): perfil e 10 publicações do Instagram `@thierryaraujo.dev`
+- **Bright Data** (CLI autenticada com a chave do ambiente): perfil e 10 publicações do Instagram `@thierryaraujo.dev` (hoje `@thierrystudio.co`)
   (bio, legendas, capas), o site atual e as referências de design (Awwwards/brutalism, Siteinspire, Godly, Studio Feixen,
   Pentagram e Behance). Também foram localizados o LinkedIn e o GitHub públicos.
 - **Repositório:** Nuxt 4.6 + Vue 3.5 + TypeScript, CSS próprio, 15 projetos cadastrados, rastreamento por Pixel/GA4,
