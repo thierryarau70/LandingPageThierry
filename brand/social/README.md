@@ -38,7 +38,7 @@ Tudo fica em `brand/scripts/build-social.mjs`, na seção **PEÇAS**:
 | `posts/` | `carrossel-agente-ia-01` a `-04` | 1080 × 1350 | Carrossel educativo: capa, dois slides de conteúdo e CTA |
 | `posts/` | `case-agenda-emi-01` a `-03` | 1080 × 1350 | Case study: capa, problema e solução, funcionalidades e CTA |
 | `posts/` | `rebrand-01` a `-06` | 1080 × 1350 | Carrossel de apresentação da nova identidade: capa (antes e agora), o nome, o símbolo T.S, paleta e tipografia, os três pilares e CTA |
-| `posts/` | `venda-01` a `-06` | 1080 × 1350 | Carrossel de venda: capa (site, sistema ou IA?), qual é o seu caso, processo, trabalhos reais, diferenciais e CTA. Sem preço nem prazo fixos |
+| `posts/` | `venda-01` a `-05` | 1080 × 1350 | Carrossel de venda: capa (site, sistema ou IA?), qual é o seu caso, processo, diferenciais e CTA. Sem preço nem prazo fixos e sem projetos |
 | `stories/` | `story-institucional`, `story-projeto` | 1080 × 1920 | Story com CTA e story de projeto no ar |
 | `reels/` | `reel-capa-01`, `reel-capa-02` | 1080 × 1920 | Capas de reels |
 | `highlights/` | `destaque-01` a `-05` | 1080 × 1920 | Capas dos destaques: Projetos, Serviços, Sobre, Processo, Contato |
