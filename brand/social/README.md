@@ -71,7 +71,7 @@ Tecnologia sob medida para empresas.
 Inicie seu projeto ↓
 ```
 
-142 caracteres com as quebras de linha (o limite do Instagram é 150). Link do perfil: `thierryaraujodev.com.br`.
+142 caracteres com as quebras de linha (o limite do Instagram é 150). Link do perfil: `thierrystudio.com.br`.
 
 Campo **Nome** do perfil (pesquisável, até 64 caracteres): `THIERRY. Studio · Sites, Sistemas e IA`.
 

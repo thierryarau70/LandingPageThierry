@@ -150,7 +150,7 @@ window.render = (frame) => {
   $('bname').textContent = decode('Thierry Araújo', span(t, 0.3, 1.2), frame)
   $('brole').textContent = decode('Desenvolvedor web', span(t, 0.7, 1.2), frame)
   $('brand').style.opacity = Math.min(span(t, 0.2, 0.5), 1 - span(t, TOTAL - 0.8, 0.5))
-  $('foot').innerHTML = `<b>thierryaraujodev.com.br</b> · PT / EN`
+  $('foot').innerHTML = `<b>thierrystudio.com.br</b> · PT / EN`
   $('foot').style.opacity = Math.min(span(t, 1.5, 0.6), 1 - span(t, S.close[0] - 0.3, 0.3))
   $('avatar').style.opacity = q.get('av') ? Math.min(span(t, 0.6, 0.6), 1 - span(t, TOTAL - 0.9, 0.5)) : 0
 
@@ -204,7 +204,7 @@ window.render = (frame) => {
     const a = S.close[0]
     $('c1').textContent = decode('Vamos colocar seu', span(t, a - 0.2, 1.0), frame)
     $('c2').textContent = decode('negócio no ar?', span(t, a + 0.1, 1.0), frame)
-    $('c3').textContent = decode('thierryaraujodev.com.br', span(t, a + 0.6, 1.4), frame)
+    $('c3').textContent = decode('thierrystudio.com.br', span(t, a + 0.6, 1.4), frame)
     const p = ease(span(t, a + 2.2, 0.8))
     $('cta').style.opacity = p; $('cta').style.transform = `translateY(${(1 - p) * 50}px) scale(${0.9 + 0.1 * p})`
     $('c4').textContent = decode('Chamar no WhatsApp', span(t, a + 2.4, 1), frame)

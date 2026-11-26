@@ -93,7 +93,7 @@ h1 b{display:inline-block;width:.2em;height:.2em;background:${COLORS.orange};mar
 <div class="top">${fs.readFileSync(path.join(logos, 'horizontal-on-dark.svg'), 'utf8').replace(/<title>.*?<\/title>/, '').replace(/width="[\d.]+" height="[\d.]+"/, 'height="58"')}<span>Engenharia digital</span></div>
 <h1>Design<b></b><br>Software<b></b><br>Inteligência<b></b></h1>
 <svg class="mosaic" viewBox="0 0 100 100"><path fill="${COLORS.graphite}" d="${MODULAR.dark.map(c => poly(c)).join('')}"/><path fill="${COLORS.orange}" d="${poly(MODULAR.signal)}"/></svg>
-<div class="bottom"><span>Sites · Sistemas · Inteligência artificial</span><span>Boa Vista — RR / Brasil</span><span>thierryaraujodev.com.br</span></div>
+<div class="bottom"><span>Sites · Sistemas · Inteligência artificial</span><span>Boa Vista — RR / Brasil</span><span>thierrystudio.com.br</span></div>
 </body></html>`
 const ogFile = path.join(os.tmpdir(), 'thierry-og-image.html')
 fs.writeFileSync(ogFile, og)
