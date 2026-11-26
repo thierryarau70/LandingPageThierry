@@ -8,14 +8,23 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "typecheck": "nuxt typecheck"
+    "typecheck": "nuxt typecheck",
+    "qa": "node scripts/qa.mjs",
+    "brand": "node brand/scripts/build-logos.mjs && node brand/scripts/build-exports.mjs && node brand/scripts/build-social.mjs && node brand/scripts/build-manual.mjs"
   },
   "dependencies": {
+    "@fontsource-variable/archivo": "^5.3.0",
+    "@fontsource-variable/manrope": "^5.3.0",
+    "@fontsource-variable/space-grotesk": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
     "nuxt": "^4.6.0",
     "vue": "latest",
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.3.5",
+    "opentype.js": "^2.0.0",
+    "tailwindcss": "^4.3.5",
     "typescript": "^5.9.3",
     "vue-tsc": "^3.3.12"
   }
