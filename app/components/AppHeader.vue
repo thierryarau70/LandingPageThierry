@@ -60,7 +60,7 @@ onBeforeUnmount(() => {
   <header class="theme-paper site-header sticky top-0 z-50 border-b border-line">
     <div class="wrap flex h-(--header-h) items-stretch">
       <NuxtLink :to="{ path: '/' }" class="flex items-center pr-6 lg:pr-10" :aria-label="`${site.brand} — página inicial`" @click="close(false)">
-        <BrandMark variant="lockup" class="h-3.5 w-auto sm:h-4 xl:h-[1.15rem]" />
+        <BrandMark variant="lockup" class="h-[0.95rem] w-auto sm:h-4 xl:h-[1.15rem]" />
       </NuxtLink>
 
       <p class="t-label hidden items-center whitespace-nowrap border-l border-line px-6 text-muted 2xl:flex">{{ site.tagline }}</p>

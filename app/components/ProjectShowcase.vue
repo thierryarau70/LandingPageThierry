@@ -67,6 +67,9 @@ const domain = computed(() => props.project.url?.replace(/^https?:\/\/(www\.)?/,
 .showcase__media:hover .showcase__cue, .showcase__media:focus-visible .showcase__cue { transform: none; }
 .showcase__body { display: grid; gap: 0.9rem; }
 .showcase__title { font-size: clamp(1.6rem, 2.9vw, 3.25rem); line-height: 0.92; letter-spacing: -0.04em; text-wrap: balance; }
+@media (width < 48rem) { .showcase__title { font-size: clamp(1.75rem, 8.4vw, 3rem); } }
+/* Sem hover (toque): a chamada "Ver case" fica sempre visível */
+@media (hover: none) { .showcase__cue { transform: none; } }
 .showcase__title a { background: linear-gradient(var(--color-signal), var(--color-signal)) 0 100% / 0 0.08em no-repeat; transition: background-size 0.45s var(--ease-brand); }
 .showcase__title a:hover { background-size: 100% 0.08em; }
 

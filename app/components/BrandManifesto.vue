@@ -35,6 +35,7 @@ const statements = [
 
 <style scoped>
 .manifesto__title { font-size: clamp(1.6rem, 8.5vw, 10rem); line-height: 1; }
+@media (width < 48rem) { .manifesto__title { font-size: 11.4vw; } }
 .manifesto__hatch { position: absolute; top: 0; right: 0; width: min(34vw, 30rem); height: 100%; color: var(--color-carbon); opacity: 0.16; mask-image: linear-gradient(to left, #000, transparent); }
 .manifesto__item { display: grid; gap: 1.25rem; align-content: start; padding-block: 1.5rem 2rem; border-bottom: 1px solid var(--rule); }
 @media (width >= 48rem) {

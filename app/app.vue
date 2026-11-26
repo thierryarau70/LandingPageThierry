@@ -11,6 +11,7 @@ useHead({ link: [{ rel: 'preload', as: 'font', type: 'font/woff2', href: archivo
     <AppHeader />
     <NuxtPage />
     <AppFooter />
+    <MobileCta />
   </div>
 </template>
 

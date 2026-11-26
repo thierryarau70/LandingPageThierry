@@ -127,6 +127,14 @@
   color: var(--fg);
 }
 
+/* No celular os títulos ocupam mais da largura: a mesma presença que têm no desktop */
+@media (width < 48rem) {
+  :root {
+    --text-giant: clamp(2rem, 10.2vw, 5rem);
+    --text-huge: clamp(2rem, 9.2vw, 4rem);
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
