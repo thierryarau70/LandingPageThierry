@@ -32,7 +32,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       // Preencha pelas variáveis de ambiente da Vercel (Settings > Environment Variables)
-      siteUrl: 'https://thierryaraujodev.com.br', // pode ser trocado por NUXT_PUBLIC_SITE_URL
+      siteUrl: 'https://www.thierryaraujodev.com.br', // pode ser trocado por NUXT_PUBLIC_SITE_URL
       metaPixelId: '', // NUXT_PUBLIC_META_PIXEL_ID
       gaId: '' // NUXT_PUBLIC_GA_ID, ex.: G-XXXXXXXXXX
     }

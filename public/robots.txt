@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://thierryaraujodev.com.br/sitemap.xml
+Sitemap: https://www.thierryaraujodev.com.br/sitemap.xml
