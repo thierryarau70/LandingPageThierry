@@ -79,6 +79,50 @@ export const projects: Project[] = [
     delivery: 'Design, desenvolvimento e integração com WhatsApp.'
   },
   {
+    name: 'Solek & Morais Advogados',
+    category: 'Site para escritório de advocacia',
+    description: 'Site institucional do escritório Solek & Morais Advogados Associados, em Boa Vista (RR): o escritório, áreas de atuação, profissionais, artigos e contato, com visual editorial e conteúdo informativo dentro das regras de publicidade da OAB.',
+    url: 'https://escritoriosolek.vercel.app',
+    image: '/portfolio/solek-morais.webp',
+    video: '/portfolio/solek-morais.mp4',
+    tags: ['Site institucional', 'Advocacia', 'Artigos', 'WhatsApp'],
+    goal: 'Apresentar o escritório, as áreas de atuação e os profissionais com sobriedade e levar o contato para o WhatsApp.',
+    delivery: 'Design, desenvolvimento, textos e migração do conteúdo do site antigo.'
+  },
+  {
+    name: 'Endhos Medicina Integrada',
+    category: 'Site para clínica médica',
+    description: 'Site da clínica de endoscopia e especialidades médicas em Boa Vista (RR): especialidades, exames com busca e preparo, corpo clínico, convênios, estrutura e agendamento pelo WhatsApp da recepção.',
+    url: 'https://clinicaendhos.vercel.app',
+    image: '/portfolio/endhos.webp',
+    video: '/portfolio/endhos.mp4',
+    tags: ['Site institucional', 'Saúde', 'Exames', 'Agendamento'],
+    goal: 'Reunir especialidades, exames, convênios e corpo clínico num só lugar e levar o paciente a agendar pelo WhatsApp.',
+    delivery: 'Design, desenvolvimento e organização do conteúdo da clínica.'
+  },
+  {
+    name: 'Dr. Raphael Solek',
+    category: 'Site para advogado',
+    description: 'Landing page do advogado Dr. Raphael Solek, em Boa Vista (RR): áreas de atuação, trajetória acadêmica e profissional, princípios de atuação e contato direto pelo WhatsApp.',
+    url: 'https://raphaelsolek.vercel.app',
+    image: '/portfolio/raphael-solek.webp',
+    video: '/portfolio/raphael-solek.mp4',
+    tags: ['Landing page', 'Advocacia', 'Marca pessoal', 'WhatsApp'],
+    goal: 'Apresentar a trajetória e as áreas de atuação do advogado e facilitar o primeiro contato pelo WhatsApp.',
+    delivery: 'Design, desenvolvimento e textos da landing page.'
+  },
+  {
+    name: 'Rômulo Tuan',
+    category: 'Site para personal trainer',
+    description: 'Landing page do personal trainer Rômulo Tuan, em Boa Vista (RR): treinamento de força, hipertrofia e exercício aplicado à saúde, com metodologia, formação e certificados, planos, dúvidas e contratação direto pelo WhatsApp.',
+    url: 'https://personalrt.vercel.app',
+    image: '/portfolio/romulo-tuan.webp',
+    video: '/portfolio/romulo-tuan.mp4',
+    tags: ['Landing page', 'Personal trainer', 'Planos', 'WhatsApp'],
+    goal: 'Mostrar o método, a formação e os planos do personal e levar o aluno a contratar pelo WhatsApp.',
+    delivery: 'Design, identidade visual, desenvolvimento e textos da landing page.'
+  },
+  {
     name: 'Dra. Louise Reis',
     category: 'Site para dentista',
     description: 'Site da dentista especialista em harmonização orofacial em Boa Vista (RR): facetas, clareamento, toxina botulínica, preenchimentos e rinomodelação, com índice de tratamentos e agendamento de avaliação pelo WhatsApp.',
@@ -177,6 +221,26 @@ export const projects: Project[] = [
   }
 ]
 
+// Projetos das páginas novas, na ordem em que aparecem. A página inicial mostra os primeiros
+// HOME_PROJECTS e leva para /projetos, que mostra todos.
+export const portfolioUrls = [
+  'https://www.draemilevitoria.com.br',
+  'https://escritoriosolek.vercel.app',
+  'https://clinicaendhos.vercel.app',
+  'https://raphaelsolek.vercel.app',
+  'https://personalrt.vercel.app',
+  'https://www.arouchemodaintima.com.br',
+  'https://agenda-emi.vercel.app',
+  'https://www.dralouisereis.com.br',
+  'https://cw-imports-catalogo.vercel.app',
+  'https://protocolo-iatf.vercel.app',
+  'https://www.plataformaprumo.com.br'
+]
+export const HOME_PROJECTS = 6
+export const portfolio = portfolioUrls
+  .map(url => projects.find(p => p.url === url))
+  .filter((p): p is Project => !!p && !p.hidden)
+
 export interface Testimonial {
   name: string
   role: string
@@ -208,8 +272,8 @@ export const niches: Niche[] = [
     title: 'Um site para a sua clínica que transforma visitas em agendamentos.',
     highlight: 'transforma visitas em agendamentos',
     text: 'Landing pages para clínicas, consultórios e profissionais de saúde: tratamentos explicados com clareza, resultados, dúvidas frequentes e agendamento pelo WhatsApp.',
-    shots: ['/portfolio/emile.webp', '/portfolio/arouche.webp'],
-    projects: ['Dra. Emile Vitória'],
+    shots: ['/portfolio/emile.webp', '/portfolio/endhos.webp'],
+    projects: ['Dra. Emile Vitória', 'Endhos Medicina Integrada', 'Dra. Louise Reis'],
     pointsTitle: 'Feito para a rotina de uma clínica',
     points: [
       { ico: '🦷', title: 'Tratamentos bem explicados', text: 'Cada serviço com descrição clara, para o paciente entender antes de marcar.' },
@@ -246,8 +310,8 @@ export const niches: Niche[] = [
     title: 'Um site profissional para o seu serviço receber mais pedidos.',
     highlight: 'receber mais pedidos',
     text: 'Landing pages para advogados, salões, oficinas, arquitetos, personal trainers e outros prestadores de serviço, com orçamento pelo WhatsApp.',
-    shots: ['/portfolio/emile.webp', '/portfolio/arouche.webp'],
-    projects: [],
+    shots: ['/portfolio/solek-morais.webp', '/portfolio/raphael-solek.webp'],
+    projects: ['Solek & Morais Advogados', 'Dr. Raphael Solek', 'Rômulo Tuan'],
     pointsTitle: 'Feito para quem vende serviço',
     points: [
       { ico: '🧰', title: 'Serviços em destaque', text: 'O que você faz, para quem e como funciona, explicado em poucos segundos.' },
