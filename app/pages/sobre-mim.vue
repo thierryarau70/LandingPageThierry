@@ -16,7 +16,7 @@ useSeoMeta({ title: () => t.value.mePage.seoTitle, description: () => t.value.me
       <section class="profile-information" aria-labelledby="stack-title">
         <h2 id="stack-title">{{ t.mePage.stackTitle }}</h2>
         <p>{{ t.mePage.stack }}</p>
-        <a class="profile-text-link" href="mailto:thierryaraujo309@gmail.com">{{ t.mePage.email }} <span aria-hidden="true">↗</span></a>
+        <a class="profile-text-link" href="mailto:thierryaraujo309@gmail.com">{{ t.mePage.email }} <UiIcon name="arrow-up-right" /></a>
       </section>
     </div>
   </main>
