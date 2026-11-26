@@ -1,6 +1,6 @@
 # THIERRY. — Identidade para Instagram
 
-Extensão da identidade visual para o perfil [@thierryaraujo.dev](https://www.instagram.com/thierryaraujo.dev/).
+Extensão da identidade visual para o perfil [@thierrystudio.co](https://www.instagram.com/thierrystudio.co/).
 **Nada foi publicado nem alterado no Instagram:** os arquivos desta pasta são modelos para você publicar quando quiser.
 
 ## Como regenerar
