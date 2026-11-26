@@ -473,6 +473,27 @@ add('posts/venda-05.png', POST, doc(...POST, 'signal', `
   </main>
   ${bottom(COORDS)}`))
 
+// ---- Anúncio para grupos de WhatsApp (classificados): uma imagem só, legível em miniatura -----
+const AD_SERVICES = ['Sites profissionais e landing pages', 'Lojas virtuais e catálogos digitais', 'Sistemas de gestão empresarial', 'Sistemas de agendamento', 'Chatbots e agentes de IA', 'Automação de processos e atendimento', 'Sistemas sob demanda']
+const AD_POINTS = ['Design profissional', 'Integração com WhatsApp', 'SEO', 'Suporte técnico']
+add('whatsapp/anuncio-grupo.png', POST, doc(...POST, 'carbon', `
+  ${top(`${site.location.city} — ${site.location.state}`, 'Atendimento em todo o Brasil')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:40px 0 36px">
+    <div>
+      ${title(['Sites,', 'sistemas e IA.'], 150)}
+      <p class="head" style="font-size:36px;margin-top:22px">Sob medida para o seu negócio.</p>
+    </div>
+    <ol style="list-style:none" class="rule-t">
+      ${AD_SERVICES.map((t, i) => `<li class="rule-b" style="display:grid;grid-template-columns:70px 1fr;align-items:baseline;padding:11px 0"><span class="label" style="color:#FF6A2B">0${i + 1}</span><span class="head" style="font-size:30px">${t}</span></li>`).join('')}
+    </ol>
+    <p class="label" style="display:flex;flex-wrap:wrap;gap:10px;font-size:19px">${AD_POINTS.map(t => `<span style="border:1px solid var(--rule);padding:12px 16px">${t}</span>`).join('')}</p>
+    <div style="background:#FF6A2B;color:#0D0D0D;padding:26px 30px;display:flex;justify-content:space-between;align-items:center;gap:30px">
+      <div style="white-space:nowrap"><p class="label" style="font-size:19px">Orçamento sem compromisso</p><p class="head" style="font-size:34px;margin-top:8px">Chame no WhatsApp</p></div>
+      <p class="display" style="font-size:62px;white-space:nowrap">${WHATSAPP}</p>
+    </div>
+  </main>
+  <footer class="bar bottom label" style="font-size:17px;white-space:nowrap">${logo(30)}<span class="mute">${SITE} · ${HANDLE}</span></footer>`))
+
 // ---- Stories (1080 × 1920; conteúdo entre 250 px do topo e 340 px da base) -------------------
 add('stories/story-institucional.png', STORY, doc(...STORY, 'carbon', `
   <div class="abs hatch" style="left:0;right:0;top:0;height:190px;opacity:.14"></div>
