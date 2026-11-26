@@ -1,0 +1,68 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "$description": "THIERRY. — Digital Engineering Studio. Fonte dos tokens usados em app/assets/css/main.css (bloco @theme).",
+  "color": {
+    "carbon": { "$type": "color", "$value": "#0D0D0D", "$description": "Fundo principal escuro; texto sobre claro" },
+    "graphite": { "$type": "color", "$value": "#1C1C1C", "$description": "Superfícies secundárias e módulos sobre Carbon" },
+    "concrete": { "$type": "color", "$value": "#A1A1A1", "$description": "Texto de apoio sobre fundo escuro (7,5:1). Não usar como texto sobre Paper" },
+    "paper": { "$type": "color", "$value": "#F3F0EA", "$description": "Fundo principal claro; texto sobre escuro" },
+    "signal": { "$type": "color", "$value": "#FF6A2B", "$description": "Signal Orange: ponto final, CTA, marcadores. Texto sobre ele sempre em Carbon" },
+    "signal-deep": { "$type": "color", "$value": "#A83C0C", "$description": "Laranja para texto pequeno sobre Paper (5,6:1)" },
+    "ink-soft": { "$type": "color", "$value": "#55524C", "$description": "Texto de apoio sobre Paper (6,8:1)" },
+    "white": { "$type": "color", "$value": "#FFFFFF", "$description": "Campos de formulário em foco e respiro pontual" }
+  },
+  "theme": {
+    "paper": { "bg": "{color.paper}", "fg": "{color.carbon}", "mute": "{color.ink-soft}", "rule": "{color.carbon}", "accent": "{color.signal}", "accent-ink": "{color.signal-deep}", "dot": "{color.signal}" },
+    "carbon": { "bg": "{color.carbon}", "fg": "{color.paper}", "mute": "{color.concrete}", "rule": "rgb(243 240 234 / 0.28)", "accent": "{color.signal}", "accent-ink": "{color.signal}", "dot": "{color.signal}" },
+    "signal": { "bg": "{color.signal}", "fg": "{color.carbon}", "mute": "#3B1503", "rule": "{color.carbon}", "accent": "{color.carbon}", "accent-ink": "{color.carbon}", "dot": "{color.paper}" }
+  },
+  "font": {
+    "family": {
+      "display": { "$type": "fontFamily", "$value": ["Archivo Variable", "Arial Black", "system-ui", "sans-serif"], "$description": "Títulos monumentais — peso 900, caixa alta" },
+      "heading": { "$type": "fontFamily", "$value": ["Space Grotesk Variable", "Segoe UI", "system-ui", "sans-serif"], "$description": "Subtítulos, botões e interface — peso 500–700" },
+      "sans": { "$type": "fontFamily", "$value": ["Manrope Variable", "Segoe UI", "system-ui", "sans-serif"], "$description": "Texto corrido — peso 400–500" },
+      "mono": { "$type": "fontFamily", "$value": ["IBM Plex Mono", "ui-monospace", "Menlo", "monospace"], "$description": "Rótulos técnicos — peso 500, caixa alta" }
+    },
+    "license": "SIL Open Font License 1.1 (uso comercial permitido) — pacotes @fontsource, servidos pelo próprio site",
+    "size": {
+      "mega": { "$value": "clamp(2rem, 10.6vw, 11.9rem)", "lineHeight": 0.95, "use": "Hero" },
+      "giant": { "$value": "clamp(2.05rem, 8.2vw, 9.25rem)", "lineHeight": 0.96, "use": "Títulos de seção" },
+      "huge": { "$value": "clamp(2rem, 5.4vw, 5.75rem)", "lineHeight": 0.98, "use": "Títulos secundários" },
+      "title": { "$value": "clamp(1.375rem, 1.1rem + 1.3vw, 2.5rem)", "lineHeight": 1.05 },
+      "subtitle": { "$value": "clamp(1.125rem, 1rem + 0.5vw, 1.5rem)", "lineHeight": 1.2 },
+      "lead": { "$value": "clamp(1.0625rem, 0.98rem + 0.42vw, 1.4375rem)", "lineHeight": 1.45 },
+      "body": { "$value": "clamp(0.9688rem, 0.94rem + 0.14vw, 1.0938rem)", "lineHeight": 1.62 },
+      "small": { "$value": "0.875rem", "lineHeight": 1.5 },
+      "label": { "$value": "clamp(0.6875rem, 0.66rem + 0.1vw, 0.8125rem)", "lineHeight": 1.3 }
+    },
+    "tracking": { "display": "-0.045em", "heading": "-0.025em", "label": "0.08em" }
+  },
+  "layout": {
+    "columns": { "mobile": 4, "desktop": 12, "breakpoint": "48rem" },
+    "container": "112rem",
+    "gutter": "clamp(1rem, 2.6vw, 2.5rem)",
+    "gap": "clamp(0.75rem, 1.4vw, 1.5rem)",
+    "section-y": "clamp(4.5rem, 9vw, 10rem)",
+    "header-height": "3.75rem",
+    "breakpoints": { "xs": "26.25rem", "sm": "40rem", "md": "48rem", "lg": "64rem", "xl": "80rem", "2xl": "96rem", "3xl": "120rem" }
+  },
+  "shape": {
+    "radius": "0",
+    "border": "1px",
+    "dot": { "size": "0.2em", "$description": "Ponto final quadrado em todo título" },
+    "chamfer": "45deg",
+    "hatch": "repeating-linear-gradient(-45deg, currentColor 0 1px, transparent 1px 8px)",
+    "halftone": "radial-gradient(currentColor 1px, transparent 1.3px) / 7px 7px"
+  },
+  "motion": {
+    "ease": "cubic-bezier(0.2, 0.7, 0.1, 1)",
+    "duration": { "fast": "200ms", "base": "400ms", "reveal": "800ms" },
+    "marquee": "48s linear infinite",
+    "reduced-motion": "todas as animações e transições são desativadas"
+  },
+  "logo": {
+    "units": { "capHeight": 100, "stem": 26, "bar": 22, "chamfer": 14, "dot": 26, "wordmark": "562 × 100", "symbol": "86 × 100" },
+    "clearSpace": "2X (X = lado do ponto)",
+    "minSize": { "primary": "160px / 40mm", "wordmark": "64px / 18mm", "symbol": "16px / 5mm" }
+  }
+}

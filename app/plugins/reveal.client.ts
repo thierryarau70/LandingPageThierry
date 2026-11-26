@@ -1,37 +1,31 @@
-// Faz os blocos da página aparecerem suavemente conforme o visitante rola.
-// Só esconde o que ainda está fora da tela, então nada "pisca" no carregamento.
-const SELECTOR = [
-  '.sales-section-title', '.sales-steps li', '.sales-project', '.sales-includes>li', '.sales-price-card',
-  '.sales-extras>div', '.sales-about>*', '.profile-questions details', '.sales-close>*',
-  '.profile-project', '.profile-detail-heading'
-].join(',')
-
+// Revelação progressiva ao rolar. O conteúdo já vem visível do servidor: só é escondido o que
+// ainda está abaixo da dobra quando o JavaScript assume, então nada "pisca" e nada some sem JS.
 export default defineNuxtPlugin((nuxtApp) => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return
 
   const io = new IntersectionObserver((entries) => {
     for (const e of entries) {
       if (!e.isIntersecting) continue
-      e.target.classList.add('is-visible')
+      e.target.classList.add('is-in')
       io.unobserve(e.target)
     }
-  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 })
+  }, { rootMargin: '0px 0px -6% 0px', threshold: 0.08 })
 
   const setup = () => {
-    const els = document.querySelectorAll<HTMLElement>(SELECTOR)
     const groups = new Map<Element | null, number>()
-    els.forEach((el) => {
-      if (el.classList.contains('reveal')) return
-      if (el.getBoundingClientRect().top < window.innerHeight) return
-      // Itens irmãos entram em sequência
+    document.querySelectorAll<HTMLElement>('[data-reveal]:not([data-reveal-ready])').forEach((el) => {
+      el.dataset.revealReady = '1'
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.92) { el.classList.add('is-in'); return }
+      // Irmãos entram em sequência
       const i = groups.get(el.parentElement) ?? 0
       groups.set(el.parentElement, i + 1)
-      el.style.setProperty('--reveal-delay', `${Math.min(i, 6) * 90}ms`)
-      el.classList.add('reveal')
+      el.style.setProperty('--reveal-delay', `${Math.min(i, 5) * 80}ms`)
       io.observe(el)
     })
+    document.documentElement.classList.add('has-reveal')
   }
 
-  nuxtApp.hook('page:finish', () => { requestAnimationFrame(setup) })
   nuxtApp.hook('app:mounted', () => { requestAnimationFrame(setup) })
+  nuxtApp.hook('page:finish', () => { requestAnimationFrame(setup) })
+  nuxtApp.hook('page:transition:finish', () => { requestAnimationFrame(setup) })
 })

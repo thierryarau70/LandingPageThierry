@@ -1,3 +1,17 @@
+import tailwindcss from '@tailwindcss/vite'
+
+// URLs antigas (site anterior e versão em inglês) levam às seções equivalentes do site novo.
+const legacyRedirects: Record<string, string> = {
+  '/sobre': '/#servicos',
+  '/sobre-mim': '/#sobre',
+  '/faq': '/#faq',
+  '/en': '/',
+  '/en/about': '/#servicos',
+  '/en/about-me': '/#sobre',
+  '/en/faq': '/#faq',
+  '/en/projects': '/projetos'
+}
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: false },
@@ -7,9 +21,13 @@ export default defineNuxtConfig({
     // Páginas geradas no build e servidas direto da CDN (sem esperar o servidor montar a cada visita)
     prerender: {
       crawlLinks: true,
-      routes: ['/', '/en', '/sobre', '/faq', '/projetos', '/sobre-mim', '/en/about', '/en/faq', '/en/projects', '/en/about-me', '/para/clinicas', '/para/cursos', '/para/servicos', '/sitemap.xml']
+      routes: ['/', '/projetos', '/privacidade', '/para/clinicas', '/para/cursos', '/para/servicos', '/sitemap.xml']
     }
   },
+  routeRules: Object.fromEntries(
+    Object.entries(legacyRedirects).map(([from, to]) => [from, { redirect: { to, statusCode: 301 } }])
+  ),
+  vite: { plugins: [tailwindcss()] },
   css: ['~/assets/css/main.css'],
   runtimeConfig: {
     public: {
@@ -20,26 +38,19 @@ export default defineNuxtConfig({
     }
   },
   app: {
+    pageTransition: { name: 'page', mode: 'out-in' },
     head: {
       htmlAttrs: { lang: 'pt-BR' },
-      title: 'Thierry Araújo | Landing Pages que vendem',
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Landing pages profissionais, rápidas e feitas para converter. Escolha seu plano e fale comigo direto no WhatsApp.' },
-        { name: 'theme-color', content: '#0b0b1a' },
-        { property: 'og:title', content: 'Thierry Araújo | Landing Pages que vendem' },
-        { property: 'og:description', content: 'Sua página no ar em poucos dias. Veja os planos e peça seu orçamento.' },
-        { property: 'og:type', content: 'website' }
-      ],
-      script: [
-        // Aplica o tema antes de desenhar a página (evita piscar claro no modo escuro)
-        { innerHTML: "try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}", tagPosition: 'head' }
+        { name: 'theme-color', content: '#0D0D0D' },
+        { name: 'format-detection', content: 'telephone=no' }
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }
-        // a folha de fontes entra por server/plugins/loader.ts, sem bloquear a primeira pintura
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32.png' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+        { rel: 'manifest', href: '/site.webmanifest' }
       ]
     }
   }
