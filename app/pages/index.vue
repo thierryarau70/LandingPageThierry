@@ -7,6 +7,8 @@ const h = computed(() => t.value.home)
 const selectedProjects = computed(() => portfolio
   .slice(0, HOME_PROJECTS)
   .map(p => ({ ...p, ...t.value.projects[p.url] })))
+// Os que não cabem na página inicial viram um cartão no fim da grade, com os nomes
+const restProjects = computed(() => portfolio.slice(HOME_PROJECTS))
 const projectsPath = computed(() => t.value.pageNav[2]!.to)
 const domain = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/.*$/, '')
 const contact = computed(() => waLink(h.value.contact))
@@ -84,8 +86,13 @@ useSeoMeta({ title: () => h.value.seoTitle, description: () => h.value.seoDescri
             <p>{{ project.goal }}</p>
           </div>
         </a>
+        <NuxtLink v-if="restProjects.length" class="sales-more" :to="projectsPath">
+          <small>{{ h.moreCount(restProjects.length) }}</small>
+          <strong>{{ h.allProjects(portfolio.length) }}</strong>
+          <em>{{ restProjects.map(p => p.name).join(' · ') }}</em>
+          <span aria-hidden="true"><UiIcon name="arrow-right" /></span>
+        </NuxtLink>
       </div>
-      <NuxtLink v-if="portfolio.length > selectedProjects.length" class="sales-more" :to="projectsPath">{{ h.allProjects(portfolio.length) }} <span aria-hidden="true"><UiIcon name="arrow-right" /></span></NuxtLink>
     </section>
 
     <section id="incluso" class="sales-section sales-offer" aria-labelledby="offer-title">

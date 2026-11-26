@@ -222,7 +222,7 @@ export const projects: Project[] = [
 ]
 
 // Projetos das páginas novas, na ordem em que aparecem. A página inicial mostra os primeiros
-// HOME_PROJECTS e leva para /projetos, que mostra todos.
+// HOME_PROJECTS e um cartão que leva para /projetos, onde aparecem todos.
 export const portfolioUrls = [
   'https://www.draemilevitoria.com.br',
   'https://escritoriosolek.vercel.app',
@@ -236,7 +236,7 @@ export const portfolioUrls = [
   'https://protocolo-iatf.vercel.app',
   'https://www.plataformaprumo.com.br'
 ]
-export const HOME_PROJECTS = 6
+export const HOME_PROJECTS = 7
 export const portfolio = portfolioUrls
   .map(url => projects.find(p => p.url === url))
   .filter((p): p is Project => !!p && !p.hidden)
