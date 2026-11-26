@@ -44,7 +44,7 @@ const year = new Date().getFullYear()
 
     <div class="wrap">
       <NuxtLink :to="{ path: '/' }" class="block border-t border-line pt-6 md:pt-10" :aria-label="`${site.brand} — voltar ao início`">
-        <BrandMark class="h-auto w-full" />
+        <BrandMark variant="stacked" class="h-auto w-full" />
       </NuxtLink>
     </div>
 

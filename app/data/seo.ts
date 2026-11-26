@@ -5,12 +5,12 @@ import { services } from './services'
 import { site } from './site'
 
 export const seo = {
-  siteName: site.signature,
-  defaultTitle: 'Thierry Araújo | Sites, sistemas e IA em Boa Vista (RR)',
-  titleTemplate: '%s | Thierry Araújo',
-  defaultDescription: 'Desenvolvimento de sites, landing pages, sistemas personalizados, automações e agentes de inteligência artificial. De Boa Vista, Roraima, para empresas de todo o Brasil.',
+  siteName: site.brand,
+  defaultTitle: 'THIERRY. Studio | Sites, sistemas e IA em Boa Vista (RR)',
+  titleTemplate: '%s | THIERRY. Studio',
+  defaultDescription: 'THIERRY. Studio, de Thierry Araújo: sites, landing pages, sistemas personalizados, automações e agentes de inteligência artificial. De Boa Vista, Roraima, para todo o Brasil.',
   ogImage: '/og-image.jpg',
-  ogImageAlt: 'THIERRY. — Digital Engineering Studio: Design. Software. Inteligência.',
+  ogImageAlt: 'THIERRY. Studio — Design. Software. Inteligência.',
   locale: 'pt_BR'
 } as const
 
@@ -29,7 +29,8 @@ export const organizationSchema = (base: string) => ({
       '@type': 'WebSite',
       '@id': `${base}/#website`,
       url: base,
-      name: site.signature,
+      name: site.brand,
+      alternateName: site.name,
       inLanguage: 'pt-BR',
       publisher: { '@id': `${base}/#person` }
     },
@@ -46,7 +47,8 @@ export const organizationSchema = (base: string) => ({
     {
       '@type': 'ProfessionalService',
       '@id': `${base}/#service`,
-      name: site.signature,
+      name: site.brand,
+      alternateName: site.name,
       description: seo.defaultDescription,
       url: base,
       image: base + seo.ogImage,

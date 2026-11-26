@@ -26,7 +26,8 @@ const SITE = 'thierryaraujodev.com.br'
 const HANDLE = site.social[0].handle
 const WHATSAPP = site.contact.whatsappLabel
 const COORDS = site.location.coords.label
-const BIO = ['Desenvolvimento de Software & IA', 'Sites • Sistemas • Automações', 'Tecnologia sob medida para empresas.', 'Inicie seu projeto ↓']
+const BIO = ['Estúdio de engenharia digital de Thierry Araújo', 'Sites • Sistemas • Automações com IA', 'Tecnologia sob medida para empresas.', 'Inicie seu projeto ↓']
+const PROFILE_NAME = 'THIERRY. Studio · Sites, Sistemas e IA'
 
 // ---- Base: fontes, tokens e elementos do sistema gráfico -------------------------------------
 const font = (family, pkg, f, weight) =>
@@ -79,10 +80,10 @@ body>*:not(.cols):not(.abs){position:relative}
 `
 
 const svg = (w, h, body, style) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" style="display:block;${style}">${body}</svg>`
-const logo = (height = 30, ink = 'currentColor') => {
-  const w = wordmark()
-  return svg(w.width, w.height, `<path fill="${ink}" fill-rule="evenodd" d="${w.d}"/><rect x="${w.dot.x}" y="${w.dot.y}" width="${w.dot.size}" height="${w.dot.size}" style="fill:var(--dot)"/>`, `height:${height}px;width:auto`)
-}
+// Assinatura THIERRY. STUDIO (versão horizontal), lida do arquivo vetorial oficial
+const lockupSvg = fs.readFileSync(path.join(root, 'brand/logos/horizontal.svg'), 'utf8').replace(/<title>.*?<\/title>/, '')
+const logo = (height = 30, ink = 'currentColor') =>
+  lockupSvg.replace(/width="[\d.]+" height="[\d.]+"/, `style="display:block;height:${height}px;width:auto"`).replaceAll('fill="#0D0D0D"', `fill="${ink}"`).replace('fill="#FF6A2B"', 'style="fill:var(--dot)"')
 const mark = (height = 120, ink = 'currentColor', dot = 'var(--dot)') => {
   const s = symbol()
   return svg(s.width, s.height, `<path fill="${ink}" d="${s.d}"/><rect x="${s.dot.x}" y="${s.dot.y}" width="${s.dot.size}" height="${s.dot.size}" style="fill:${dot}"/>`, `height:${height}px;width:auto`)
@@ -113,7 +114,7 @@ const add = (name, [w, h], html, opts = {}) => pieces.push({ name, w, h, html, .
 // =============================== PEÇAS ========================================================
 
 // ---- Post institucional (com variações de título, tema e composição) -------------------------
-function institutional({ n, theme, lines, fit = 180, art = 'mosaic', kicker = 'Digital Engineering Studio', flip = false }) {
+function institutional({ n, theme, lines, fit = 180, art = 'mosaic', kicker = 'Engenharia digital', flip = false }) {
   const arts = {
     mosaic: mosaic(flip ? 400 : 240),
     mark: `<div class="frame" style="width:290px;height:290px;display:grid;place-items:center;background:transparent">${mark(150)}</div>`,
@@ -295,7 +296,7 @@ add('posts/case-agenda-emi-03.png', POST, doc(...POST, 'carbon', `
 add('stories/story-institucional.png', STORY, doc(...STORY, 'carbon', `
   <div class="abs hatch" style="left:0;right:0;top:0;height:190px;opacity:.14"></div>
   <div style="height:190px"></div>
-  ${top('Digital Engineering Studio', COORDS)}
+  ${top('Engenharia digital', COORDS)}
   <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:70px 0 60px">
     ${title(['Software', 'que', 'resolve.'], 230)}
     <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
@@ -385,7 +386,7 @@ add('proposal/proposta-capa.png', A4, doc(...A4, 'carbon', `
       ${tb([['Projeto', '—'], ['Data', '—'], ['Validade', '—'], ['Responsável', site.name], ['Folha', '01 / 02']], 'font-size:24px')}
     </div>
   </main>
-  <footer class="bar bottom label">${logo(40)}<span class="mute">Digital Engineering Studio · ${COORDS}</span></footer>`, { m: 80 }), { scale: 2 })
+  <footer class="bar bottom label">${logo(40)}<span class="mute">Engenharia digital · ${COORDS}</span></footer>`, { m: 80 }), { scale: 2 })
 
 const field = (n, name, body) => `<section class="rule-t" style="display:grid;grid-template-columns:300px 1fr;gap:30px;padding:26px 0 30px"><h2 class="label" style="display:flex;align-items:flex-start"><i class="sq" style="margin-top:6px"></i>${n} / ${name}</h2><div>${body}</div></section>`
 add('proposal/proposta-interna.png', A4, doc(...A4, 'paper', `
@@ -417,7 +418,8 @@ const feedHtml = () => {
       ${badge}
       <div>
         <p class="head" style="font-size:40px">${HANDLE.replace('@', '')}</p>
-        <p style="font-size:25px;line-height:1.42;margin-top:12px;font-weight:600">${BIO.join('<br>')}</p>
+        <p style="font-size:24px;margin-top:8px;font-weight:700">${PROFILE_NAME}</p>
+        <p style="font-size:23px;line-height:1.4;margin-top:8px;font-weight:500">${BIO.join('<br>')}</p>
         <p class="label mute" style="margin-top:12px;font-size:19px">${SITE}</p>
       </div>
     </header>

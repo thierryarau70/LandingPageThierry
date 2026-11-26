@@ -48,7 +48,7 @@ const pad = n => String(n).padStart(2, '0')
 let pageNo = 0
 const page = (title, body, { theme = 'paper', bare = false } = {}) => {
   pageNo++
-  const chrome = bare ? '' : `<header class="chrome"><span><i class="sq"></i>${pad(pageNo)} / ${title}</span><span>Thierry Araújo — Manual de identidade visual</span></header>
+  const chrome = bare ? '' : `<header class="chrome"><span><i class="sq"></i>${pad(pageNo)} / ${title}</span><span>THIERRY. Studio — Manual de identidade visual</span></header>
   <footer class="chrome"><span>Design. Software. Inteligência.</span><span>02°49′N 60°40′W</span><span>${pad(pageNo)} / ${TOTAL}</span></footer>`
   return `<section class="page ${theme}${bare ? ' bare' : ''}">${chrome}<div class="body">${body}</div></section>`
 }
@@ -94,11 +94,11 @@ const construction = () => {
 const clearspace = () => {
   const w = wordmark()
   const X = 26
-  return `<svg viewBox="${-X * 2 - 30} ${-X * 2 - 30} ${w.width + X * 4 + 60} ${138 + X * 4 + 60}" class="construction">
-    <rect x="${-X * 2}" y="${-X * 2}" width="${w.width + X * 4}" height="${138 + X * 4}" fill="none" stroke="${C.orange}" stroke-width="1.2" stroke-dasharray="6 5"/>
-    ${[[-X * 2, -X * 2], [w.width + X, -X * 2], [-X * 2, 138 + X], [w.width + X, 138 + X]].map(([x, y]) => `<rect x="${x}" y="${y}" width="${X}" height="${X}" fill="${C.orange}" opacity=".85"/><rect x="${x + (x < 0 ? X : -X)}" y="${y}" width="${X}" height="${X}" fill="${C.orange}" opacity=".3"/>`).join('')}
-    ${svgFile('primary.svg').replace('<svg', `<svg x="0" y="0" width="${w.width}" height="138"`)}
-    <g class="dim"><text x="${-X}" y="${-X * 2 - 10}" text-anchor="middle">2X</text><text x="${w.width / 2}" y="${138 + X * 2 + 22}" text-anchor="middle">Área de proteção = 2X em todos os lados · X = lado do ponto final</text></g></svg>`
+  return `<svg viewBox="${-X * 2 - 30} ${-X * 2 - 30} ${w.width + X * 4 + 60} ${146 + X * 4 + 60}" class="construction">
+    <rect x="${-X * 2}" y="${-X * 2}" width="${w.width + X * 4}" height="${146 + X * 4}" fill="none" stroke="${C.orange}" stroke-width="1.2" stroke-dasharray="6 5"/>
+    ${[[-X * 2, -X * 2], [w.width + X, -X * 2], [-X * 2, 146 + X], [w.width + X, 146 + X]].map(([x, y]) => `<rect x="${x}" y="${y}" width="${X}" height="${X}" fill="${C.orange}" opacity=".85"/><rect x="${x + (x < 0 ? X : -X)}" y="${y}" width="${X}" height="${X}" fill="${C.orange}" opacity=".3"/>`).join('')}
+    ${svgFile('primary.svg').replace('<svg', `<svg x="0" y="0" width="${w.width}" height="146"`)}
+    <g class="dim"><text x="${-X}" y="${-X * 2 - 10}" text-anchor="middle">2X</text><text x="${w.width / 2}" y="${146 + X * 2 + 22}" text-anchor="middle">Área de proteção = 2X em todos os lados · X = lado do ponto final</text></g></svg>`
 }
 
 const shots = {
@@ -116,9 +116,9 @@ const pages = []
 pages.push(page('Capa', `
   <div class="cover">
     <div class="cover__top label"><span><i class="sq"></i>Manual de identidade visual</span><span>Versão 1.0 — 2026</span></div>
-    ${wm(C.paper, C.orange, 'class="cover__wm"')}
+    ${svgFile('primary-on-dark.svg').replace('<svg', '<svg class="cover__wm"')}
     <div class="cover__bottom">
-      <p class="heading">Digital Engineering Studio</p>
+      <p class="heading">Engenharia digital</p>
       <p class="label">Design. Software. Inteligência.</p>
       <p class="label mute">Thierry Araújo · Boa Vista — RR / Brasil · 02°49′N 60°40′W</p>
     </div>
@@ -131,7 +131,7 @@ pages.push(page('Apresentação da marca', `
   <div class="cols c-7-5">
     <div>
       ${h('Uma marca<br>com nome<br>próprio')}
-      <p class="lead mt">THIERRY. é a identidade de Thierry Araújo, desenvolvedor de software em Boa Vista, Roraima. A marca continua ligada diretamente ao nome do profissional: quem conversa com o cliente é quem projeta e programa.</p>
+      <p class="lead mt">THIERRY. Studio é a identidade de Thierry Araújo, desenvolvedor de software em Boa Vista, Roraima. A marca continua ligada diretamente ao nome do profissional: quem conversa com o cliente é quem projeta e programa.</p>
       <p class="text mt-s">Este manual reúne as regras para aplicar a identidade no site, no Instagram e em materiais comerciais. Ele registra as três propostas de logotipo desenvolvidas, a escolha recomendada e o sistema que mantém tudo coerente: cor, tipografia, malha e elementos gráficos.</p>
     </div>
     <ol class="toc">${toc.map((t, i) => `<li><span>${pad(i + 1)}</span>${t}</li>`).join('')}</ol>
@@ -142,7 +142,7 @@ pages.push(page('Posicionamento', `
   <div class="cols c-5-7">
     <div>
       ${h('Estúdio<br>independente<br>de engenharia<br>digital', 'sm')}
-      <p class="text mt">“Digital Engineering Studio” descreve o posicionamento criativo da marca pessoal: o cuidado de estúdio aplicado à engenharia de software. Não afirma a existência de uma equipe ou de uma empresa de grande porte.</p>
+      <p class="text mt">“Studio” descreve o posicionamento criativo da marca pessoal: o cuidado de estúdio aplicado à engenharia de software. Não afirma a existência de uma equipe ou de uma empresa de grande porte.</p>
     </div>
     <div class="stack">
       <div class="rowline"><span class="label">Quem</span><p class="heading">Thierry Araújo, desenvolvedor de software. Atendimento direto, sem intermediários.</p></div>
@@ -157,7 +157,7 @@ pages.push(page('Posicionamento', `
 // 04 — Conceito criativo
 pages.push(page('Conceito criativo', `
   <div class="concept">
-    <p class="label"><i class="sq"></i>Modern Brutalism — Digital Engineering Studio</p>
+    <p class="label"><i class="sq"></i>Modern Brutalism — THIERRY. Studio</p>
     ${h('Tecnologia não é<br>decoração<b class="dot"></b><span class="gap"></span>É estrutura', 'xl')}
     <div class="cols c-3 mt">
       <div class="cell"><span class="label">01 / Estrutura aparente</span><p class="text">Malha de 12 colunas visível, divisores de 1 px, numeração de seções. O layout mostra como foi construído, como o concreto mostra a fôrma.</p></div>
@@ -197,7 +197,7 @@ pages.push(proposal('A', 'Monograma<br>estrutural', monogram(C.carbon, 'class="s
   'As letras T e A unidas por uma viga única: o pilar do T à esquerda, a empena do A à direita. É uma evolução, em desenho chapado e ortogonal, da ligadura TA que já aparece no avatar atual do Instagram.',
   ['Continuidade com a marca atual', 'Leitura de engenharia e arquitetura', 'Funciona em tamanhos pequenos'], ['Depende do nome ao lado para ser lido', 'Monogramas TA são comuns', 'Menos espaço para o ponto final'], 'Alternativa — indicada para selos e carimbos'))
 pages.push(proposal('B', 'Wordmark<br>brutalista', `<div class="stage__wm">${svgFile('primary.svg')}</div>`, svgFile('horizontal.svg'),
-  'O nome THIERRY em alfabeto próprio, desenhado sobre módulos: hastes de 26, traços de 22, chanfros de 45° nos dois R. O ponto final é um quadrado laranja encaixado sob o braço do Y — o elemento mais reconhecível da marca.',
+  'O nome THIERRY em alfabeto próprio, acompanhado da palavra STUDIO em peso leve,, desenhado sobre módulos: hastes de 26, traços de 22, chanfros de 45° nos dois R. O ponto final é um quadrado laranja encaixado sob o braço do Y — o elemento mais reconhecível da marca.',
   ['Assinatura direta: o nome é a marca', 'O ponto vira sistema (títulos, CTAs, ícone)', 'Reduz bem para “T.”'], ['Pede espaço horizontal', 'Exige a versão “T.” em áreas quadradas'], 'Recomendado — aplicado no website'))
 pages.push(proposal('C', 'Símbolo<br>modular', mosaic(C.carbon, C.orange, 'class="stage__mark"'), svgFile('concept-c-lockup.svg'),
   'Uma malha 4 × 4 ocupada por blocos de tamanhos diferentes, como a planta de um sistema: módulos grandes, componentes menores, um vazio e uma unidade de sinal. Funciona sem o nome e gera padrões por repetição e rotação.',
@@ -243,7 +243,7 @@ pages.push(page('Área de proteção', `
 pages.push(page('Tamanho mínimo', `
   ${h('Legível até<br>o limite', 'sm')}
   <div class="cols c-3 mt sizes">
-    <div class="cell"><div class="size">${svgFile('primary.svg').replace('<svg', '<svg style="width:42mm"')}</div><span class="label">Principal com descritor</span><p class="text">Mínimo: 160 px no digital · 40 mm no impresso. Abaixo disso, retire o descritor.</p></div>
+    <div class="cell"><div class="size">${svgFile('primary.svg').replace('<svg', '<svg style="width:42mm"')}</div><span class="label">Principal (empilhada)</span><p class="text">Mínimo: 160 px no digital · 40 mm no impresso. Abaixo disso, use o wordmark sem STUDIO.</p></div>
     <div class="cell"><div class="size">${wm(C.carbon, C.orange, 'style="width:18mm"')}</div><span class="label">Wordmark</span><p class="text">Mínimo: 64 px no digital · 18 mm no impresso.</p></div>
     <div class="cell"><div class="size">${sym(C.carbon, C.orange, 'style="height:5mm"')}&nbsp;&nbsp;${svgFile('favicon.svg').replace('<svg', '<svg style="width:4.3mm"')}</div><span class="label">Símbolo</span><p class="text">Mínimo: 16 px no digital · 5 mm no impresso. É a forma usada em favicon e avatar.</p></div>
   </div>`))
@@ -379,7 +379,7 @@ pages.push(page('Materiais comerciais', `
     <figure class="mat__p"><img src="${social('proposal/proposta-capa.png')}"><figcaption class="label">Proposta — capa (A4)</figcaption></figure>
     <figure class="mat__p"><img src="${social('proposal/proposta-interna.png')}"><figcaption class="label">Proposta — escopo, prazo e investimento</figcaption></figure>
     <div class="mat__cards">
-      <div class="card carbon">${wm(C.paper, C.orange, 'style="width:62%"')}<p class="label">Digital Engineering Studio</p></div>
+      <div class="card carbon">${svgFile('primary-on-dark.svg').replace('<svg', '<svg style="width:68%"')}<p class="label">Engenharia digital</p></div>
       <div class="card"><p class="heading">Thierry Araújo</p><p class="label mute">Desenvolvimento de software e IA</p><p class="label">(95) 99143-2677<br>thierryaraujodev.com.br<br>@thierryaraujo.dev</p>${sym(C.carbon, C.orange, 'class="card__sym"')}</div>
       <span class="label">Cartão de visita — 90 × 50 mm</span>
       <div class="letter"><div class="letter__top">${wm(C.carbon, C.orange, 'style="width:26mm"')}<span class="label">Fol. 01</span></div><i></i><i></i><i style="width:60%"></i><div class="letter__foot label">Thierry Araújo · CNPJ 69.676.386/0001-52 · Boa Vista — RR</div></div>
@@ -390,7 +390,7 @@ pages.push(page('Materiais comerciais', `
 // 23 — Assinatura de e-mail
 const signature = (dark) => `<table class="sig ${dark ? 'sig--dark' : ''}" cellpadding="0" cellspacing="0"><tr>
   <td class="sig__mark">${sym(dark ? C.paper : C.carbon, C.orange, 'width="34" height="40"')}</td>
-  <td class="sig__body"><p class="sig__name">Thierry Araújo</p><p class="sig__role">Desenvolvimento de software e IA</p><p class="sig__line">(95) 99143-2677 · thierryaraujodev.com.br</p><p class="sig__line">Boa Vista — RR / Brasil · @thierryaraujo.dev</p></td></tr></table>`
+  <td class="sig__body"><p class="sig__name">Thierry Araújo</p><p class="sig__role">THIERRY. Studio · Software e IA</p><p class="sig__line">(95) 99143-2677 · thierryaraujodev.com.br</p><p class="sig__line">Boa Vista — RR / Brasil · @thierryaraujo.dev</p></td></tr></table>`
 pages.push(page('Assinatura de e-mail', `
   <div class="cols c-4-8">
     <div>${h('Assinatura<br>de e-mail', 'sm')}
@@ -404,7 +404,7 @@ pages.push(page('Assinatura de e-mail', `
 // 24 — Considerações finais
 pages.push(page('Considerações finais', `
   <div class="final">
-    ${wm(C.paper, C.orange, 'class="final__wm"')}
+    ${svgFile('primary-on-dark.svg').replace('<svg', '<svg class="final__wm"')}
     <div class="cols c-3 mt">
       <div><p class="label">Três regras que resumem o manual</p><ul class="list"><li>O ponto final é quadrado e laranja. Sempre.</li><li>Duas superfícies, um sinal: Carbon, Paper e pouco laranja.</li><li>Conteúdo real: projetos reais, números reais, voz na primeira pessoa.</li></ul></div>
       <div><p class="label">Arquivos da marca</p><ul class="list"><li>brand/logos — SVG vetoriais (3 conceitos e versões)</li><li>brand/exports — PNG transparentes, avatar, favicon</li><li>brand/social — templates de Instagram e proposta</li><li>brand/DESIGN_TOKENS.json · BRAND_GUIDELINES.md</li></ul></div>
@@ -458,10 +458,10 @@ footer.chrome{bottom:8mm;padding-top:3.2mm;border-top:1px solid var(--rule);colo
 /* capa */
 .cover{position:absolute;inset:0;padding:14mm}
 .cover__top{display:flex;justify-content:space-between;padding-bottom:4mm;border-bottom:1px solid rgba(243,240,234,.3)}
-.cover__wm{position:absolute;left:14mm;right:14mm;top:52mm;width:269mm}
+.cover__wm{position:absolute;left:14mm;right:14mm;top:44mm;width:269mm;height:auto}
 .cover__bottom{position:absolute;left:14mm;right:14mm;bottom:14mm;display:grid;grid-template-columns:1fr 1fr 1fr;align-items:end;border-top:1px solid rgba(243,240,234,.3);padding-top:5mm}
 .cover__bottom .heading{font-size:6mm}.cover__bottom p:nth-child(2){text-align:center}.cover__bottom p:nth-child(3){text-align:right}
-.cover__hatch{position:absolute;left:14mm;right:14mm;top:112mm;height:52mm;color:${C.paper};opacity:.16;background-image:repeating-linear-gradient(-45deg,currentColor 0 1px,transparent 1px 9px)}
+.cover__hatch{position:absolute;left:14mm;right:14mm;top:134mm;height:34mm;color:${C.paper};opacity:.16;background-image:repeating-linear-gradient(-45deg,currentColor 0 1px,transparent 1px 9px)}
 /* texturas */
 .hatch{background-image:repeating-linear-gradient(-45deg,currentColor 0 1px,transparent 1px 8px)}
 .halftone{background-image:radial-gradient(currentColor 1.1px,transparent 1.4px);background-size:7px 7px}
@@ -554,7 +554,7 @@ footer.chrome{bottom:8mm;padding-top:3.2mm;border-top:1px solid var(--rule);colo
 .final{display:flex;flex-direction:column;justify-content:space-between;height:100%}.final__wm{width:100%}.final .list li{color:${C.paper}}
 `
 
-const html = `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Thierry Araújo — Manual de Identidade Visual</title><style>${css}</style></head><body>${pages.join('\n')}</body></html>`
+const html = `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>THIERRY. Studio — Manual de Identidade Visual</title><style>${css}</style></head><body>${pages.join('\n')}</body></html>`
 const htmlFile = path.join(os.tmpdir(), 'thierry-manual.html')
 fs.writeFileSync(htmlFile, html)
 
@@ -565,7 +565,7 @@ fs.writeFileSync(path.join(root, 'brand/email-signature.html'), `<!-- Assinatura
     <td style="padding-right:14px;border-right:2px solid #FF6A2B;vertical-align:middle"><img src="https://thierryaraujodev.com.br/brand/symbol-email.png" width="34" height="40" alt="THIERRY." style="display:block;border:0"></td>
     <td style="padding-left:14px">
       <p style="margin:0;font-weight:700;font-size:15px;color:#0D0D0D">Thierry Araújo</p>
-      <p style="margin:0 0 4px;font-size:12px;color:#55524C">Desenvolvimento de software e IA</p>
+      <p style="margin:0 0 4px;font-size:12px;color:#55524C">THIERRY. Studio · Software e IA</p>
       <p style="margin:0;font-size:12px;line-height:1.5;color:#0D0D0D">(95) 99143-2677 · <a href="https://thierryaraujodev.com.br" style="color:#0D0D0D">thierryaraujodev.com.br</a></p>
       <p style="margin:0;font-size:12px;line-height:1.5;color:#0D0D0D">Boa Vista — RR / Brasil · <a href="https://www.instagram.com/thierryaraujo.dev/" style="color:#0D0D0D">@thierryaraujo.dev</a></p>
     </td>

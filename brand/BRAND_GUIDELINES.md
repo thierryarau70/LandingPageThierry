@@ -1,10 +1,10 @@
-# THIERRY. — Digital Engineering Studio
+# THIERRY. Studio
 
 Guia rápido da identidade visual de **Thierry Araújo**. A versão completa, com mockups e aplicações, está em
 [`guidelines/Thierry_Araujo_Manual_Identidade_Visual.pdf`](guidelines/Thierry_Araujo_Manual_Identidade_Visual.pdf) (24 páginas).
 
-- **Assinatura:** THIERRY.
-- **Complemento:** Digital Engineering Studio — posicionamento criativo da marca pessoal; não afirma equipe nem empresa de grande porte.
+- **Nome da marca:** THIERRY. Studio (lê-se "Thierry Studio"; o ponto quadrado laranja é a assinatura visual).
+- **Posicionamento:** estúdio independente de engenharia digital — marca pessoal de Thierry Araújo; não afirma equipe nem empresa de grande porte.
 - **Assinatura comercial:** Design. Software. Inteligência.
 - **Conceito:** Modern Brutalism — estrutura aparente, duas superfícies e um sinal, forma com regra.
 
@@ -25,10 +25,10 @@ quadrado — que organiza títulos, botões, favicon e avatar. A redução dele 
 
 | Uso | SVG (`brand/logos`) | PNG (`brand/exports`) |
 | --- | --- | --- |
-| Logo principal (fundos claros) | `primary.svg` · `primary-on-light.svg` | `logo-light.png` |
+| Logo principal, empilhada (fundos claros) | `primary.svg` · `primary-on-light.svg` | `logo-light.png` |
 | Logo principal (fundos escuros) | `primary-on-dark.svg` | `logo-dark.png` |
-| Horizontal | `horizontal.svg` · `horizontal-on-dark.svg` | `logo-horizontal-light.png` · `logo-horizontal-dark.png` |
-| Wordmark sem descritor | `wordmark.svg` · `wordmark-on-dark.svg` | — |
+| Horizontal: THIERRY. pesado + STUDIO leve | `horizontal.svg` · `horizontal-on-dark.svg` | `logo-horizontal-light.png` · `logo-horizontal-dark.png` |
+| Wordmark sem STUDIO (espaços reduzidos) | `wordmark.svg` · `wordmark-on-dark.svg` | — |
 | Símbolo isolado | `symbol.svg` · `symbol-on-dark.svg` · `symbol-monochrome.svg` | `symbol-light.png` · `symbol-dark.png` |
 | Monocromática | `monochrome.svg` · `monochrome-white.svg` | `logo-monochrome-black.png` · `logo-monochrome-white.png` |
 | Favicon | `favicon.svg` · `favicon-light.svg` | `favicon.svg` (cópia) |
@@ -40,7 +40,7 @@ Os PNGs têm fundo transparente (exceto avatar e favicon) e já incluem a área 
 
 - **Construção:** altura 100, haste 26, traço 22, chanfro de 45° com 14, ponto 26 × 26.
 - **Área de proteção:** 2X em todos os lados (X = lado do ponto). Mínimo absoluto de 1X em favicon e avatar.
-- **Tamanho mínimo:** principal com descritor 160 px / 40 mm · wordmark 64 px / 18 mm · símbolo 16 px / 5 mm.
+- **Tamanho mínimo:** principal empilhada 160 px / 40 mm · wordmark 64 px / 18 mm · símbolo 16 px / 5 mm.
 - **Não fazer:** distorcer, inclinar, trocar a cor ou arredondar o ponto, usar em contorno, aplicar sombra ou gradiente,
   usar branco sobre laranja, redigitar o nome em fonte.
 

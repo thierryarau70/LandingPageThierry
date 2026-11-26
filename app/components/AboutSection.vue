@@ -11,6 +11,7 @@ const specialties = [
 ]
 
 const sheet = [
+  { label: 'Estúdio', value: site.brand },
   { label: 'Responsável', value: site.name },
   { label: 'Atuação', value: 'Desenvolvimento de software e IA' },
   { label: 'Base', value: `${site.location.city} — ${site.location.state}, ${site.location.country}` },

@@ -2,9 +2,10 @@
 
 export const site = {
   name: 'Thierry Araújo',
-  brand: 'THIERRY.',
-  descriptor: 'Digital Engineering Studio',
-  signature: 'Thierry Araújo — Digital Engineering Studio',
+  brand: 'THIERRY. Studio',
+  // posicionamento: estúdio independente de engenharia digital (marca pessoal, não uma equipe)
+  descriptor: 'Estúdio de engenharia digital',
+  signature: 'THIERRY. Studio — engenharia digital por Thierry Araújo',
   tagline: 'Design. Software. Inteligência.',
   role: 'Desenvolvedor de software',
   defaultUrl: 'https://www.thierryaraujodev.com.br',

@@ -59,11 +59,11 @@ onBeforeUnmount(() => {
 <template>
   <header class="theme-paper site-header sticky top-0 z-50 border-b border-line">
     <div class="wrap flex h-(--header-h) items-stretch">
-      <NuxtLink :to="{ path: '/' }" class="flex items-center pr-6 lg:pr-10" :aria-label="`${site.signature} — página inicial`" @click="close(false)">
-        <BrandMark class="h-[1.15rem] w-auto md:h-5" />
+      <NuxtLink :to="{ path: '/' }" class="flex items-center pr-6 lg:pr-10" :aria-label="`${site.brand} — página inicial`" @click="close(false)">
+        <BrandMark variant="lockup" class="h-3.5 w-auto sm:h-4 xl:h-[1.15rem]" />
       </NuxtLink>
 
-      <p class="t-label hidden items-center border-l border-line px-6 text-muted xl:flex">{{ site.descriptor }}</p>
+      <p class="t-label hidden items-center whitespace-nowrap border-l border-line px-6 text-muted 2xl:flex">{{ site.tagline }}</p>
 
       <nav class="ml-auto hidden items-stretch lg:flex" aria-label="Navegação principal">
         <NuxtLink v-for="(item, i) in nav" :key="item.hash" :to="linkTo(item.hash)" class="nav-link t-label" :aria-current="active === item.hash ? 'location' : undefined">
@@ -101,7 +101,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .nav-link {
-  position: relative; display: flex; align-items: center; gap: 0.6em; padding-inline: clamp(0.85rem, 1.4vw, 1.5rem);
+  position: relative; display: flex; white-space: nowrap; align-items: center; gap: 0.6em; padding-inline: clamp(0.85rem, 1.4vw, 1.5rem);
   border-left: 1px solid var(--rule); transition: background-color 0.25s, color 0.25s;
 }
 .nav-link::after {
@@ -112,16 +112,16 @@ onBeforeUnmount(() => {
 .nav-link:hover span { color: var(--color-concrete); }
 .nav-link[aria-current]::after { transform: none; }
 .header-cta {
-  display: none; margin-left: auto; align-items: center; gap: 0.75em; padding-inline: clamp(1rem, 1.6vw, 1.75rem);
+  display: none; margin-left: auto; white-space: nowrap; align-items: center; gap: 0.75em; padding-inline: clamp(1rem, 1.6vw, 1.75rem);
   background: var(--color-signal); color: var(--color-carbon); border-left: 1px solid var(--rule);
   transition: background-color 0.25s, color 0.25s;
 }
 .header-cta:hover { background: var(--color-carbon); color: var(--color-paper); }
 .header-cta svg { transition: transform 0.35s var(--ease-brand); }
 .header-cta:hover svg { transform: translate3d(0.15rem, -0.15rem, 0); }
-@media (width >= 26.25rem) { .header-cta { display: flex; } }
+@media (width >= 32rem) { .header-cta { display: flex; } }
 @media (width >= 64rem) { .header-cta { margin-left: 0; } .menu-toggle { display: none !important; } }
-@media (width < 26.25rem) { .menu-toggle { margin-left: auto; } }
+@media (width < 32rem) { .menu-toggle { margin-left: auto; } }
 .menu-toggle { display: flex; align-items: center; gap: 0.85em; padding-inline: 1rem; margin-right: calc(var(--gutter) * -1); border-left: 1px solid var(--rule); min-width: 6.75rem; justify-content: space-between; }
 .menu-icon { position: relative; display: block; width: 1.25rem; height: 0.625rem; }
 .menu-icon i { position: absolute; left: 0; right: 0; height: 2px; background: currentColor; transition: transform 0.35s var(--ease-brand), top 0.35s var(--ease-brand); }

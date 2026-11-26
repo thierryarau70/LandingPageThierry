@@ -1,4 +1,4 @@
-# Relatório do redesign — THIERRY. Digital Engineering Studio
+# Relatório do redesign — THIERRY. Studio
 
 Data: 26/11/2026 · Escopo: identidade visual, redesign completo do site, cases, SEO, materiais de Instagram e manual em PDF.
 

@@ -7,7 +7,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
-import { COLORS, MODULAR, poly, wordmark } from './geometry.mjs'
+import { COLORS, MODULAR, poly } from './geometry.mjs'
 
 const { chromium } = createRequire(import.meta.url)('playwright')
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
@@ -60,7 +60,7 @@ await png('symbol.svg', path.join(pub, 'brand/symbol-email.png'), { width: 69 })
 for (const f of ['primary.svg', 'primary-on-dark.svg', 'symbol.svg']) fs.copyFileSync(path.join(logos, f), path.join(pub, 'brand', f))
 
 fs.writeFileSync(path.join(pub, 'site.webmanifest'), JSON.stringify({
-  name: 'Thierry Araújo — Digital Engineering Studio',
+  name: 'THIERRY. Studio',
   short_name: 'THIERRY.',
   lang: 'pt-BR',
   start_url: '/',
@@ -75,7 +75,6 @@ fs.writeFileSync(path.join(pub, 'site.webmanifest'), JSON.stringify({
 
 // ---- Open Graph 1200 × 630 --------------------------------------------------------------------
 const font = (pkg, file) => 'file://' + path.join(root, 'node_modules', pkg, 'files', file)
-const w = wordmark(0, 0, 0.62)
 const og = `<!doctype html><html><head><meta charset="utf-8"><style>
 @font-face{font-family:Archivo;src:url(${font('@fontsource-variable/archivo', 'archivo-latin-wght-normal.woff2')});font-weight:100 900}
 @font-face{font-family:Mono;src:url(${font('@fontsource/ibm-plex-mono', 'ibm-plex-mono-latin-500-normal.woff2')});font-weight:500}
@@ -91,7 +90,7 @@ h1 b{display:inline-block;width:.2em;height:.2em;background:${COLORS.orange};mar
 .mosaic{position:absolute;right:48px;top:166px;width:214px;height:214px}
 </style></head><body>
 <div class="grid">${'<i></i>'.repeat(12)}</div>
-<div class="top"><svg width="${w.width}" height="${w.height}" viewBox="0 0 ${w.width} ${w.height}"><path fill="${COLORS.paper}" fill-rule="evenodd" d="${w.d}"/><rect x="${w.dot.x}" y="${w.dot.y}" width="${w.dot.size}" height="${w.dot.size}" fill="${COLORS.orange}"/></svg><span>Digital Engineering Studio</span></div>
+<div class="top">${fs.readFileSync(path.join(logos, 'horizontal-on-dark.svg'), 'utf8').replace(/<title>.*?<\/title>/, '').replace(/width="[\d.]+" height="[\d.]+"/, 'height="58"')}<span>Engenharia digital</span></div>
 <h1>Design<b></b><br>Software<b></b><br>Inteligência<b></b></h1>
 <svg class="mosaic" viewBox="0 0 100 100"><path fill="${COLORS.graphite}" d="${MODULAR.dark.map(c => poly(c)).join('')}"/><path fill="${COLORS.orange}" d="${poly(MODULAR.signal)}"/></svg>
 <div class="bottom"><span>Sites · Sistemas · Inteligência artificial</span><span>Boa Vista — RR / Brasil</span><span>thierryaraujodev.com.br</span></div>
