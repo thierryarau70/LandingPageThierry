@@ -95,7 +95,7 @@ const pt = {
     title: 'Perguntas frequentes', sub: 'Preço, prazo e o que está incluído.'
   },
   projectsPage: {
-    seoTitle: 'Projetos | Thierry Araújo', seoDescription: 'Sites para dentistas, advogados, clínicas e lojas, além de apps e plataformas: Emile Vitória, Solek & Morais Advogados, Endhos Medicina Integrada, Dr. Raphael Solek, Arouche Moda Íntima, Agenda Emi e outros projetos de Thierry Araújo.',
+    seoTitle: 'Projetos | Thierry Araújo', seoDescription: 'Sites para dentistas, advogados, clínicas e lojas, além de apps e plataformas: Emile Vitória, Solek & Morais Advogados, Endhos Medicina Integrada, Dr. Raphael Solek, Rômulo Tuan Personal Trainer, Arouche Moda Íntima, Agenda Emi e outros projetos de Thierry Araújo.',
     title: 'Ideias que já estão no ar.', sub: 'Sites e plataformas que conectam negócios, pessoas e oportunidades.',
     open: (name: string) => `${name} — abrir site em nova aba`
   },
@@ -163,6 +163,7 @@ const en: Messages = {
     'https://escritoriosolek.vercel.app': { category: 'Law firm website', goal: 'Present the firm, its practice areas and its lawyers with a sober look and bring contacts to WhatsApp.' },
     'https://clinicaendhos.vercel.app': { category: 'Medical clinic website', goal: 'Bring specialties, exams, health plans and the medical team together and lead patients to book on WhatsApp.' },
     'https://raphaelsolek.vercel.app': { category: 'Lawyer website', goal: 'Present the lawyer\'s background and practice areas and make the first contact on WhatsApp easy.' },
+    'https://personalrt.vercel.app': { category: 'Personal trainer website', goal: 'Show the trainer\'s method, background and plans and lead clients to sign up on WhatsApp.' },
     'https://www.dralouisereis.com.br': { category: 'Dentist website', goal: 'Present smile and facial treatments with an elegant look and lead patients to book an evaluation.' },
     'https://www.arouchemodaintima.com.br': { category: 'Online catalog', goal: 'Showcase the store\'s products and take orders on WhatsApp, no sign-up needed.' },
     'https://agenda-emi.vercel.app': { category: 'App for dentists', goal: 'Appointments with reminders and the practice\'s finances in one app, no notebook or spreadsheet.' },
@@ -221,7 +222,7 @@ const en: Messages = {
     title: 'Frequently asked questions', sub: 'Price, timeline and what\'s included.'
   },
   projectsPage: {
-    seoTitle: 'Projects | Thierry Araújo', seoDescription: 'Websites for dentists, lawyers, clinics and stores, plus apps and platforms: Emile Vitória, Solek & Morais Advogados, Endhos Medicina Integrada, Dr. Raphael Solek, Arouche Moda Íntima, Agenda Emi and other projects by Thierry Araújo.',
+    seoTitle: 'Projects | Thierry Araújo', seoDescription: 'Websites for dentists, lawyers, clinics and stores, plus apps and platforms: Emile Vitória, Solek & Morais Advogados, Endhos Medicina Integrada, Dr. Raphael Solek, Rômulo Tuan Personal Trainer, Arouche Moda Íntima, Agenda Emi and other projects by Thierry Araújo.',
     title: 'Ideas that are already live.', sub: 'Websites and platforms that connect businesses, people and opportunities.',
     open: (name: string) => `${name} — open website in a new tab`
   },

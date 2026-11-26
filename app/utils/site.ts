@@ -112,6 +112,17 @@ export const projects: Project[] = [
     delivery: 'Design, desenvolvimento e textos da landing page.'
   },
   {
+    name: 'Rômulo Tuan',
+    category: 'Site para personal trainer',
+    description: 'Landing page do personal trainer Rômulo Tuan, em Boa Vista (RR): treinamento de força, hipertrofia e exercício aplicado à saúde, com metodologia, formação e certificados, planos, dúvidas e contratação direto pelo WhatsApp.',
+    url: 'https://personalrt.vercel.app',
+    image: '/portfolio/romulo-tuan.webp',
+    video: '/portfolio/romulo-tuan.mp4',
+    tags: ['Landing page', 'Personal trainer', 'Planos', 'WhatsApp'],
+    goal: 'Mostrar o método, a formação e os planos do personal e levar o aluno a contratar pelo WhatsApp.',
+    delivery: 'Design, identidade visual, desenvolvimento e textos da landing page.'
+  },
+  {
     name: 'Dra. Louise Reis',
     category: 'Site para dentista',
     description: 'Site da dentista especialista em harmonização orofacial em Boa Vista (RR): facetas, clareamento, toxina botulínica, preenchimentos e rinomodelação, com índice de tratamentos e agendamento de avaliação pelo WhatsApp.',
@@ -217,6 +228,7 @@ export const portfolioUrls = [
   'https://escritoriosolek.vercel.app',
   'https://clinicaendhos.vercel.app',
   'https://raphaelsolek.vercel.app',
+  'https://personalrt.vercel.app',
   'https://www.arouchemodaintima.com.br',
   'https://agenda-emi.vercel.app',
   'https://www.dralouisereis.com.br',
@@ -299,7 +311,7 @@ export const niches: Niche[] = [
     highlight: 'receber mais pedidos',
     text: 'Landing pages para advogados, salões, oficinas, arquitetos, personal trainers e outros prestadores de serviço, com orçamento pelo WhatsApp.',
     shots: ['/portfolio/solek-morais.webp', '/portfolio/raphael-solek.webp'],
-    projects: ['Solek & Morais Advogados', 'Dr. Raphael Solek'],
+    projects: ['Solek & Morais Advogados', 'Dr. Raphael Solek', 'Rômulo Tuan'],
     pointsTitle: 'Feito para quem vende serviço',
     points: [
       { ico: '🧰', title: 'Serviços em destaque', text: 'O que você faz, para quem e como funciona, explicado em poucos segundos.' },
