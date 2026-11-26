@@ -6,7 +6,7 @@ import { breadcrumbSchema } from '~/data/seo'
 const { base } = useSiteUrl()
 usePageSeo({
   title: 'Projetos',
-  description: 'Sites, aplicativos por assinatura, catálogos e plataformas com inteligência artificial desenvolvidos por Thierry Araújo: Prumo, Agenda Emi, Protocolo IATF, Solek & Morais Advogados e outros.',
+  description: 'Sites, aplicativos por assinatura, catálogos e plataformas com inteligência artificial desenvolvidos por Thierry Araújo: Prumo, Agenda Emi, Rômulo Tuan, Solek & Morais Advogados e outros.',
   schema: [breadcrumbSchema(base, [{ name: 'Início', path: '/' }, { name: 'Projetos', path: '/projetos' }])]
 })
 

@@ -1,7 +1,8 @@
 // Verificação do site publicado localmente (node .output/server/index.mjs).
 // Uso: BASE=http://localhost:4173 node scripts/qa.mjs [--shots]
 // Confere: erros de console, overflow horizontal em 8 larguras, links internos, imagens quebradas,
-// áreas de toque, hierarquia de títulos, menu mobile, redirecionamentos e o formulário de briefing.
+// áreas de toque, hierarquia de títulos, menu mobile, redirecionamentos, o formulário de briefing
+// e o filtro da página de projetos (com animações ligadas).
 // Com --shots grava capturas desktop e mobile em docs/screenshots.
 import fs from 'node:fs'
 import path from 'node:path'
@@ -145,7 +146,32 @@ for (const width of WIDTHS) {
   await ctx.close()
 }
 
-// 4. Capturas
+// 4. Filtro de projetos com animações ligadas: os cards continuam visíveis ao trocar de aba e ao voltar
+{
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } })
+  const page = await ctx.newPage()
+  await page.goto(BASE + '/projetos', { waitUntil: 'networkidle' })
+  await page.waitForTimeout(600)
+  const visible = async () => {
+    // rola a lista inteira para disparar a revelação e conta os cards realmente visíveis
+    await page.evaluate(async () => { for (let y = 0; y < document.documentElement.scrollHeight; y += 500) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 60)) } })
+    await page.waitForTimeout(1900) // atraso em cascata (até 400 ms) + transição de 700–800 ms
+    return page.evaluate(() => [...document.querySelectorAll('main article.showcase')].filter(el => +getComputedStyle(el).opacity > 0.99).length)
+  }
+  const bad = []
+  for (const name of ['Design', 'Inteligência', 'Software', 'Automação', 'Todos', 'Inteligência', 'Todos']) {
+    const button = page.locator('button.filter', { hasText: name })
+    await page.evaluate(() => window.scrollTo(0, 0))
+    await button.click()
+    const expected = Number((await button.locator('.filter__count').innerText()).trim())
+    const got = await visible()
+    if (got !== expected) bad.push(`${name}: ${got}/${expected}`)
+  }
+  check('filtro de projetos: cards visíveis em todas as abas e ao voltar', bad.length === 0, bad.join(', '))
+  await ctx.close()
+}
+
+// 5. Capturas
 if (SHOTS) {
   const dir = path.join(root, 'docs/screenshots')
   fs.mkdirSync(dir, { recursive: true })
