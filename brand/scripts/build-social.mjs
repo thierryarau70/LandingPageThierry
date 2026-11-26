@@ -557,6 +557,27 @@ function reel({ n, theme, lines, fit, kicker }) {
 add('reels/reel-capa-01.png', STORY, reel({ n: '01', theme: 'carbon', lines: ['Design', 'não é', 'decoração.'], fit: 190, kicker: 'Manifesto' }))
 add('reels/reel-capa-02.png', STORY, reel({ n: '02', theme: 'paper', lines: ['Tecnologia', 'para', 'negócios', 'reais.'], fit: 180, kicker: 'Engenharia digital' }))
 
+// Capa do Reel de rebranding: nome antigo riscado, título e a assinatura nova, tudo na área do feed.
+add('reels/reel-capa-rebranding.png', STORY, doc(...STORY, 'carbon', `
+  <div class="abs hatch" style="left:0;right:0;top:0;height:285px;opacity:.16"></div>
+  <div class="abs hatch" style="left:0;right:0;bottom:0;height:285px;opacity:.16"></div>
+  <i class="reg" style="left:19px;top:272px"></i><i class="reg" style="right:19px;top:272px"></i><i class="reg" style="left:19px;bottom:272px"></i><i class="reg" style="right:19px;bottom:272px"></i>
+  <div style="height:285px"></div>
+  ${top('Nova identidade', 'Reels · Rebranding')}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 50px">
+    <div>
+      <p class="label mute">Antes</p>
+      <p class="head" style="font-size:46px;margin-top:16px;position:relative;display:inline-block;color:var(--mute)">Thierry Araújo — Dev web<i style="position:absolute;left:-10px;right:-10px;top:52%;height:7px;background:#FF6A2B"></i></p>
+    </div>
+    ${title(['Nova', 'marca.'], 250)}
+    <div>
+      <p class="label" style="display:flex;align-items:center;margin-bottom:36px"><i class="sq"></i>Agora</p>
+      ${primary(952)}
+    </div>
+  </main>
+  <footer class="bar bottom label"><span>Design. Software. Inteligência.</span><span class="mute">${HANDLE}</span></footer>
+  <div style="height:285px"></div>`))
+
 // ---- Capas de destaques (1080 × 1920; tudo dentro do círculo central de ~540 px) -------------
 const highlights = [['01', 'Projetos', 'carbon'], ['02', 'Serviços', 'paper'], ['03', 'Sobre', 'carbon'], ['04', 'Processo', 'paper'], ['05', 'Contato', 'signal']]
 for (const [n, name, theme] of highlights) {

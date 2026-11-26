@@ -41,7 +41,7 @@ Tudo fica em `brand/scripts/build-social.mjs`, na seção **PEÇAS**:
 | `posts/` | `venda-01` a `-05` | 1080 × 1350 | Carrossel de venda: capa (site, sistema ou IA?), qual é o seu caso, processo, diferenciais e CTA. Sem preço nem prazo fixos e sem projetos |
 | `whatsapp/` | `anuncio-grupo` | 1080 × 1350 | Anúncio para grupos de WhatsApp (classificados): serviços, diferenciais e telefone |
 | `stories/` | `story-institucional`, `story-projeto` | 1080 × 1920 | Story com CTA e story de projeto no ar |
-| `reels/` | `reel-capa-01`, `reel-capa-02` | 1080 × 1920 | Capas de reels |
+| `reels/` | `reel-capa-01`, `reel-capa-02`, `reel-capa-rebranding` | 1080 × 1920 | Capas de reels |
 | `highlights/` | `destaque-01` a `-05` | 1080 × 1920 | Capas dos destaques: Projetos, Serviços, Sobre, Processo, Contato |
 | `proposal/` | `proposta-capa`, `proposta-interna` | 2480 × 3508 (A4 a 300 dpi) | Proposta comercial: capa e folha de escopo, prazo e investimento |
 | `feed-preview/` | `feed-preview` | 1080 × 1650 | Simulação do perfil com nove publicações |
