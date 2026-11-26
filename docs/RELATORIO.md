@@ -96,8 +96,8 @@ Capturas desktop e mobile: [`docs/screenshots`](screenshots).
 
 1. **Retrato profissional** — ao ter um, salve em `public/brand/` e informe o caminho em `photo` (`app/data/site.ts`).
 2. **Publicação** — nada foi publicado. Um push em `main` dispara o deploy da Vercel; aguarda sua autorização.
-3. **Confirmações de conteúdo:** anos de experiência; se a versão em inglês deve voltar; se Radar de Clientes, Centro de
-   Isoladas e Agrovet devem entrar (e com qual status); se o preço deve aparecer também na página inicial.
+3. **Projetos fora do portfólio:** Radar de Clientes, Centro de Isoladas e Agrovet só entram se você pedir (e com qual
+   status). Já confirmados por você: 4 anos de experiência, site só em português e sem preço na página inicial.
 4. **Tecnologias dos cases** foram detectadas pelo que é visível nos sites publicados; complete `stack` em
    `app/data/projects.ts` se quiser citar backend e serviços.
 5. **Resultados dos cases:** o campo `results` existe e a seção aparece sozinha quando houver números verificáveis.
