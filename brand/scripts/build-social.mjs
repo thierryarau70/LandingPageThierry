@@ -22,7 +22,7 @@ const { services } = await import(file('app/data/services.ts'))
 const { site } = await import(file('app/data/site.ts'))
 const { processSteps, differentials } = await import(file('app/data/process.ts'))
 
-const SITE = 'thierryaraujodev.com.br'
+const SITE = 'thierrystudio.com.br'
 const HANDLE = site.social[0].handle
 const WHATSAPP = site.contact.whatsappLabel
 const COORDS = site.location.coords.label
