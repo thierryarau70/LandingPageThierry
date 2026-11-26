@@ -21,13 +21,13 @@ const [p1, p2, p3, p4, p5, p6] = featuredProjects
 
         <div class="grid-12 gap-y-16">
           <ProjectShowcase v-if="p2" class="col-span-4 md:col-span-7" :project="p2" :number="projectNumber(p2.slug)" shot="desktop" />
-          <ProjectShowcase v-if="p3" class="col-span-4 md:col-span-5" :project="p3" :number="projectNumber(p3.slug)" shot="mobile" />
+          <ProjectShowcase v-if="p3" class="col-span-4 md:col-span-5" :project="p3" :number="projectNumber(p3.slug)" shot="desktop" />
         </div>
 
         <ProjectShowcase v-if="p4" :project="p4" :number="projectNumber(p4.slug)" layout="split" shot="desktop" />
 
         <div class="grid-12 gap-y-16">
-          <ProjectShowcase v-if="p5" class="col-span-4 md:col-span-5" :project="p5" :number="projectNumber(p5.slug)" shot="mobile" />
+          <ProjectShowcase v-if="p5" class="col-span-4 md:col-span-5" :project="p5" :number="projectNumber(p5.slug)" shot="desktop" />
           <ProjectShowcase v-if="p6" class="col-span-4 md:col-span-7" :project="p6" :number="projectNumber(p6.slug)" shot="desktop" />
         </div>
       </div>
