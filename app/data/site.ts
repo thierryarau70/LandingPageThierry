@@ -7,7 +7,7 @@ export const site = {
   signature: 'Thierry Araújo — Digital Engineering Studio',
   tagline: 'Design. Software. Inteligência.',
   role: 'Desenvolvedor de software',
-  defaultUrl: 'https://thierryaraujodev.com.br',
+  defaultUrl: 'https://www.thierryaraujodev.com.br',
   cnpj: '69.676.386/0001-52',
   experienceYears: 4,
   location: {
