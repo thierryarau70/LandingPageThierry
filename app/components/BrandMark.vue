@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Logotipo vetorial THIERRY. Studio. As letras usam a cor do texto; o ponto usa a cor de destaque do tema.
-// wordmark: só THIERRY. · lockup: THIERRY. STUDIO em linha · stacked: THIERRY. com STUDIO abaixo · symbol: T.
+// wordmark: só THIERRY. · lockup: THIERRY. STUDIO em linha · stacked: THIERRY. com STUDIO abaixo · symbol: T.S
 import { brandLockup, brandStacked, brandSymbol, brandWordmark } from '~/data/brand.generated'
 
 const props = withDefaults(defineProps<{ variant?: 'wordmark' | 'lockup' | 'stacked' | 'symbol', title?: string }>(), { variant: 'wordmark' })

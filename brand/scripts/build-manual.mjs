@@ -32,14 +32,14 @@ const mosaic = (dark = C.carbon, signal = C.orange, attrs = '') =>
 const monogram = (ink = C.carbon, attrs = '') => `<svg ${attrs} viewBox="0 0 100 100"><path fill="${ink}" d="${poly(MONOGRAM_TA)}"/></svg>`
 
 // Padrões derivados do símbolo e do mosaico
-const patternT = (ink, dot, n = 6) => {
+const patternT = (ink, dot, n = 5) => {
   const s = symbol()
   let out = ''
   for (let r = 0; r < 4; r++) for (let c = 0; c < n; c++) {
-    const x = c * 130 + (r % 2 ? 65 : 0); const y = r * 140
+    const x = c * 240 + (r % 2 ? 120 : 0); const y = r * 240
     out += `<g transform="translate(${x} ${y})"><path fill="${ink}" d="${s.d}"/><rect x="${s.dot.x}" y="${s.dot.y}" width="26" height="26" fill="${(r + c) % 3 === 0 ? dot : ink}"/></g>`
   }
-  return `<svg viewBox="0 0 ${n * 130} 540" preserveAspectRatio="xMidYMid slice">${out}</svg>`
+  return `<svg viewBox="0 0 ${n * 240} 940" preserveAspectRatio="xMidYMid slice">${out}</svg>`
 }
 
 // ---- Conteúdo ---------------------------------------------------------------------------------
@@ -198,7 +198,7 @@ pages.push(proposal('A', 'Monograma<br>estrutural', monogram(C.carbon, 'class="s
   ['Continuidade com a marca atual', 'Leitura de engenharia e arquitetura', 'Funciona em tamanhos pequenos'], ['Depende do nome ao lado para ser lido', 'Monogramas TA são comuns', 'Menos espaço para o ponto final'], 'Alternativa — indicada para selos e carimbos'))
 pages.push(proposal('B', 'Wordmark<br>brutalista', `<div class="stage__wm">${svgFile('primary.svg')}</div>`, svgFile('horizontal.svg'),
   'O nome THIERRY em alfabeto próprio, acompanhado da palavra STUDIO em peso leve,, desenhado sobre módulos: hastes de 26, traços de 22, chanfros de 45° nos dois R. O ponto final é um quadrado laranja encaixado sob o braço do Y — o elemento mais reconhecível da marca.',
-  ['Assinatura direta: o nome é a marca', 'O ponto vira sistema (títulos, CTAs, ícone)', 'Reduz bem para “T.”'], ['Pede espaço horizontal', 'Exige a versão “T.” em áreas quadradas'], 'Recomendado — aplicado no website'))
+  ['Assinatura direta: o nome é a marca', 'O ponto vira sistema (títulos, CTAs, ícone)', 'Gera o símbolo T.S (T · ponto · S)'], ['Pede espaço horizontal', 'Exige o símbolo T.S em áreas quadradas'], 'Recomendado — aplicado no website'))
 pages.push(proposal('C', 'Símbolo<br>modular', mosaic(C.carbon, C.orange, 'class="stage__mark"'), svgFile('concept-c-lockup.svg'),
   'Uma malha 4 × 4 ocupada por blocos de tamanhos diferentes, como a planta de um sistema: módulos grandes, componentes menores, um vazio e uma unidade de sinal. Funciona sem o nome e gera padrões por repetição e rotação.',
   ['Independente do nome', 'Gera padrões e texturas', 'Fala de sistemas e modularidade'], ['Abstrato: não identifica o profissional sozinho', 'Perde detalhe abaixo de 20 px'], 'Alternativa — adotada como elemento gráfico de apoio'))
@@ -209,7 +209,7 @@ pages.push(page('Logotipo recomendado', `
     <div class="stage carbon">${svgFile('primary-on-dark.svg').replace('<svg', '<svg class="stage__primary"')}<span class="label stage__tag">Logo principal</span></div>
     <div>
       ${h('Conceito B', 'sm')}
-      <p class="text mt">O wordmark é a proposta mais forte porque faz o que as outras não fazem: mantém a marca ligada ao nome, é legível sem explicação e entrega um elemento de sistema — o ponto quadrado — que organiza títulos, botões, favicon e avatar. O monograma e o mosaico ficam como apoio.</p>
+      <p class="text mt">O wordmark é a proposta mais forte porque faz o que as outras não fazem: mantém a marca ligada ao nome, é legível sem explicação e entrega um elemento de sistema — o ponto quadrado — que organiza títulos e botões e vira a dobradiça do símbolo T.S (THIERRY · ponto · STUDIO), usado em favicon e avatar. O monograma e o mosaico ficam como apoio.</p>
       <div class="variants">
         <div class="v">${svgFile('horizontal.svg')}<span class="label">Horizontal</span></div>
         <div class="v v--s">${sym()}<span class="label">Símbolo</span></div>
@@ -245,7 +245,7 @@ pages.push(page('Tamanho mínimo', `
   <div class="cols c-3 mt sizes">
     <div class="cell"><div class="size">${svgFile('primary.svg').replace('<svg', '<svg style="width:42mm"')}</div><span class="label">Principal (empilhada)</span><p class="text">Mínimo: 160 px no digital · 40 mm no impresso. Abaixo disso, use o wordmark sem STUDIO.</p></div>
     <div class="cell"><div class="size">${wm(C.carbon, C.orange, 'style="width:18mm"')}</div><span class="label">Wordmark</span><p class="text">Mínimo: 64 px no digital · 18 mm no impresso.</p></div>
-    <div class="cell"><div class="size">${sym(C.carbon, C.orange, 'style="height:5mm"')}&nbsp;&nbsp;${svgFile('favicon.svg').replace('<svg', '<svg style="width:4.3mm"')}</div><span class="label">Símbolo</span><p class="text">Mínimo: 16 px no digital · 5 mm no impresso. É a forma usada em favicon e avatar.</p></div>
+    <div class="cell"><div class="size">${sym(C.carbon, C.orange, 'style="height:8mm"')}&nbsp;&nbsp;&nbsp;${svgFile('favicon.svg').replace('<svg', '<svg style="width:6mm"')}</div><span class="label">Símbolo T.S</span><p class="text">Mínimo: 32 px no digital · 8 mm no impresso. Abaixo de 48 px, use a versão compacta (a do favicon), com o ponto maior.</p></div>
   </div>`))
 
 // 13 — Monocromáticas
@@ -370,7 +370,7 @@ pages.push(page('Aplicação no Instagram', `
     <div class="ig__side"><div class="ig__v">
       ${['stories/story-institucional.png', 'reels/reel-capa-01.png', 'highlights/destaque-01-projetos.png'].map(f => `<img src="${social(f)}">`).join('')}
     </div>
-    <div class="ig__t"><p class="label">Regras no feed</p><ul class="list"><li>Fundos Carbon e Paper em xadrez; no máximo uma peça laranja a cada nove</li><li>Numeração de publicações (Nº 01) e de slides (01/04)</li><li>Imagens reais dos projetos, nunca banco de imagens</li><li>Avatar: símbolo T. sobre Carbon</li></ul><p class="label mt-s mute">Templates em brand/social · nada foi publicado automaticamente</p></div></div>
+    <div class="ig__t"><p class="label">Regras no feed</p><ul class="list"><li>Fundos Carbon e Paper em xadrez; no máximo uma peça laranja a cada nove</li><li>Numeração de publicações (Nº 01) e de slides (01/04)</li><li>Imagens reais dos projetos, nunca banco de imagens</li><li>Avatar: símbolo T.S sobre Carbon</li></ul><p class="label mt-s mute">Templates em brand/social · nada foi publicado automaticamente</p></div></div>
   </div>`, { theme: 'carbon' }))
 
 // 22 — Materiais comerciais
@@ -389,12 +389,12 @@ pages.push(page('Materiais comerciais', `
 
 // 23 — Assinatura de e-mail
 const signature = (dark) => `<table class="sig ${dark ? 'sig--dark' : ''}" cellpadding="0" cellspacing="0"><tr>
-  <td class="sig__mark">${sym(dark ? C.paper : C.carbon, C.orange, 'width="34" height="40"')}</td>
+  <td class="sig__mark">${sym(dark ? C.paper : C.carbon, C.orange, 'width="44" height="44"')}</td>
   <td class="sig__body"><p class="sig__name">Thierry Araújo</p><p class="sig__role">THIERRY. Studio · Software e IA</p><p class="sig__line">(95) 99143-2677 · thierryaraujodev.com.br</p><p class="sig__line">Boa Vista — RR / Brasil · @thierryaraujo.dev</p></td></tr></table>`
 pages.push(page('Assinatura de e-mail', `
   <div class="cols c-4-8">
     <div>${h('Assinatura<br>de e-mail', 'sm')}
-      <p class="text mt">Tabela HTML simples, compatível com Gmail, Outlook e Apple Mail. Símbolo em PNG de 68 × 80 px (exibido a 34 × 40), nome em negrito, demais linhas em cinza. Fonte do sistema (Arial/Helvetica) para não depender de webfont.</p>
+      <p class="text mt">Tabela HTML simples, compatível com Gmail, Outlook e Apple Mail. Símbolo em PNG de 88 × 88 px (exibido a 44 × 44), nome em negrito, demais linhas em cinza. Fonte do sistema (Arial/Helvetica) para não depender de webfont.</p>
       <table class="spec mt-s"><tr><td>Nome</td><td>Arial Bold 15 px · #0D0D0D</td></tr><tr><td>Cargo</td><td>Arial 12 px · #55524C</td></tr><tr><td>Contatos</td><td>Arial 12 px · #0D0D0D</td></tr><tr><td>Divisor</td><td>2 px · #FF6A2B</td></tr><tr><td>Largura máx.</td><td>420 px</td></tr></table>
       <p class="label mute mt-s">Código pronto em brand/email-signature.html</p>
     </div>
@@ -562,7 +562,7 @@ fs.writeFileSync(htmlFile, html)
 fs.writeFileSync(path.join(root, 'brand/email-signature.html'), `<!-- Assinatura de e-mail — Thierry Araújo. Hospede brand/exports/symbol-light.png e troque o src abaixo pela URL pública. -->
 <table cellpadding="0" cellspacing="0" style="font-family:Arial,Helvetica,sans-serif;max-width:420px">
   <tr>
-    <td style="padding-right:14px;border-right:2px solid #FF6A2B;vertical-align:middle"><img src="https://thierryaraujodev.com.br/brand/symbol-email.png" width="34" height="40" alt="THIERRY." style="display:block;border:0"></td>
+    <td style="padding-right:14px;border-right:2px solid #FF6A2B;vertical-align:middle"><img src="https://thierryaraujodev.com.br/brand/symbol-email.png" width="44" height="44" alt="THIERRY. Studio" style="display:block;border:0"></td>
     <td style="padding-left:14px">
       <p style="margin:0;font-weight:700;font-size:15px;color:#0D0D0D">Thierry Araújo</p>
       <p style="margin:0 0 4px;font-size:12px;color:#55524C">THIERRY. Studio · Software e IA</p>

@@ -57,7 +57,7 @@ const [lat, lng] = site.location.coords.label.split(' ')
 .c-coords p { display: grid; gap: 0.2em; text-align: right; font-size: max(0.5625rem, 2.9cqw); }
 .cross { width: 26%; flex: none; }
 .c-symbol { grid-area: 2 / 4 / 3 / 5; display: grid; place-items: center; border: 1px solid var(--color-carbon); --d: 2; }
-.c-symbol svg { width: 44%; height: auto; }
+.c-symbol svg { width: 62%; height: auto; }
 .c-dot { grid-area: 2 / 5 / 3 / 6; background: var(--color-signal); --d: 3; }
 .c-hatch { grid-area: 3 / 1 / 4 / 2; border: 1px solid var(--color-carbon); --d: 4; }
 .c-diagram { grid-area: 3 / 2 / 4 / 5; border: 1px solid var(--color-carbon); display: grid; place-items: center; --d: 5; }

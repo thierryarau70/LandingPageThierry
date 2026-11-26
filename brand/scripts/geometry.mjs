@@ -33,7 +33,9 @@ export const GLYPHS = {
       [[26, 22], [56, 22], [56, 39], [26, 39]] // contraforma (fill-rule evenodd)
     ]
   },
-  Y: { w: 88, shapes: [[[0, 0], [29, 0], [44, 27], [59, 0], [88, 0], [57, 54], [57, 100], [31, 100], [31, 54]]] }
+  Y: { w: 88, shapes: [[[0, 0], [29, 0], [44, 27], [59, 0], [88, 0], [57, 54], [57, 100], [31, 100], [31, 54]]] },
+  // S do símbolo T.S: mesmas hastes (26) e traços (22), com quatro chanfros de 45°
+  S: { w: 78, shapes: [[[14, 0], [78, 0], [78, 22], [26, 22], [26, 39], [64, 39], [78, 53], [78, 86], [64, 100], [0, 100], [0, 78], [52, 78], [52, 61], [14, 61], [0, 47], [0, 14]]] }
 }
 
 // Espaço depois de cada letra de THIERRY (ajuste óptico, não métrico).
@@ -55,15 +57,19 @@ export function wordmark(dx = 0, dy = 0, s = 1) {
   return { d, dot, width: n((yStart + 90) * s), height: n(100 * s) }
 }
 
-// Símbolo "T." — redução do wordmark (86 × 100 em escala 1).
-export function symbol(dx = 0, dy = 0, s = 1) {
-  return {
-    d: GLYPHS.T.shapes.map(p => poly(p, dx, dy, s)).join(''),
-    dot: { x: n(dx + 60 * s), y: n(dy + 74 * s), size: n(26 * s) },
-    width: n(86 * s),
-    height: n(100 * s)
-  }
-}
+// Símbolo T.S — THIERRY · ponto · STUDIO. O T e o S ficam em diagonal e o ponto quadrado é a
+// dobradiça entre os dois (200 × 200 em escala 1).
+const tsMark = (dx, dy, s, box, sx, sy, dotX, dotY, dotSize) => ({
+  d: poly(GLYPHS.T.shapes[0], dx, dy, s) + poly(GLYPHS.S.shapes[0], dx + sx * s, dy + sy * s, s),
+  dot: { x: n(dx + dotX * s), y: n(dy + dotY * s), size: n(dotSize * s) },
+  width: n(box * s),
+  height: n(box * s)
+})
+export const symbol = (dx = 0, dy = 0, s = 1) => tsMark(dx, dy, s, 200, 122, 100, 87, 87, 26)
+
+// Versão compacta para tamanhos pequenos (favicon, até ~48 px): letras mais próximas e ponto maior,
+// encaixado sob o braço do T como o ponto sob o Y no wordmark (176 × 176 em escala 1).
+export const symbolCompact = (dx = 0, dy = 0, s = 1) => tsMark(dx, dy, s, 176, 98, 76, 60, 38, 34)
 
 // Conceito A — monograma estrutural TA (100 × 100): viga compartilhada, pilar do T e empena do A.
 export const MONOGRAM_TA = [[0, 0], [100, 0], [100, 100], [80, 100], [80, 63.6], [60, 100], [40, 100], [84, 20], [32, 20], [32, 100], [10, 100], [10, 20], [0, 20]]

@@ -6,7 +6,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import opentype from 'opentype.js'
-import { COLORS, MODULAR, MONOGRAM_TA, poly, symbol, wordmark } from './geometry.mjs'
+import { COLORS, MODULAR, MONOGRAM_TA, poly, symbol, symbolCompact, wordmark } from './geometry.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 const out = path.join(root, 'brand/logos')
@@ -82,14 +82,15 @@ function horizontalSvg(ink, dotColor, sub = ink) {
 
 function symbolSvg(ink, dotColor) {
   const s = symbol()
-  return svg(s.width, s.height, p(s.d, ink) + sq(s.dot, dotColor), 'THIERRY. — símbolo')
+  return svg(s.width, s.height, p(s.d, ink) + sq(s.dot, dotColor), 'THIERRY. Studio — símbolo T.S')
 }
 
 // Símbolo dentro de um quadrado (favicon, avatar, selos). `pad` em unidades do símbolo.
-export function badgeSvg({ size = 512, bg = COLORS.carbon, ink = COLORS.paper, dotColor = COLORS.orange, ratio = 0.5, extra = '' } = {}) {
-  const s0 = symbol()
+export function badgeSvg({ size = 512, bg = COLORS.carbon, ink = COLORS.paper, dotColor = COLORS.orange, ratio = 0.5, extra = '', compact = false } = {}) {
+  const make = compact ? symbolCompact : symbol
+  const s0 = make()
   const scale = (size * ratio) / s0.height
-  const s = symbol((size - s0.width * scale) / 2, (size - s0.height * scale) / 2, scale)
+  const s = make((size - s0.width * scale) / 2, (size - s0.height * scale) / 2, scale)
   return svg(size, size, `<rect width="${size}" height="${size}" fill="${bg}"/>${extra}` + p(s.d, ink) + sq(s.dot, dotColor), 'THIERRY.')
 }
 
@@ -124,12 +125,14 @@ write('concept-c.svg', svg(100, 100, modC, 'Símbolo modular'))
 write('concept-c-lockup.svg', lockup(modC, COLORS.carbon, COLORS.carbon))
 
 // ---- Favicon e avatar -------------------------------------------------------------------------
-write('favicon.svg', badgeSvg({ size: 64, ratio: 0.62 }))
-write('favicon-light.svg', badgeSvg({ size: 64, ratio: 0.62, bg: COLORS.paper, ink: COLORS.carbon }))
+write('favicon.svg', badgeSvg({ size: 64, ratio: 0.8, compact: true }))
+write('favicon-light.svg', badgeSvg({ size: 64, ratio: 0.8, bg: COLORS.paper, ink: COLORS.carbon, compact: true }))
+write('symbol-compact.svg', (() => { const c = symbolCompact(); return svg(c.width, c.height, p(c.d, COLORS.carbon) + sq(c.dot, COLORS.orange), 'THIERRY. Studio — símbolo T.S compacto') })())
+write('symbol-compact-on-dark.svg', (() => { const c = symbolCompact(); return svg(c.width, c.height, p(c.d, COLORS.paper) + sq(c.dot, COLORS.orange), 'THIERRY. Studio — símbolo T.S compacto') })())
 // Avatar do Instagram: símbolo dentro da área segura do recorte circular, com marcas de registro.
 const tick = (x, y) => `<path d="M${x - 14} ${y}H${x + 14}M${x} ${y - 14}V${y + 14}" stroke="${COLORS.concrete}" stroke-width="2" opacity=".55"/>`
-write('instagram-avatar.svg', badgeSvg({ size: 1080, ratio: 0.44, extra: [tick(270, 270), tick(810, 270), tick(270, 810), tick(810, 810)].join('') }))
-write('instagram-avatar-light.svg', badgeSvg({ size: 1080, ratio: 0.44, bg: COLORS.paper, ink: COLORS.carbon }))
+write('instagram-avatar.svg', badgeSvg({ size: 1080, ratio: 0.46, extra: [tick(270, 270), tick(810, 270), tick(270, 810), tick(810, 810)].join('') }))
+write('instagram-avatar-light.svg', badgeSvg({ size: 1080, ratio: 0.46, bg: COLORS.paper, ink: COLORS.carbon }))
 
 // ---- Geometria para o site (componente BrandMark): gerado, não editar à mão --------------------
 {

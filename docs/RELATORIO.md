@@ -15,7 +15,7 @@ Data: 26/11/2026 · Escopo: identidade visual, redesign completo do site, cases,
 
 ### Identidade visual (Fases 02–04)
 - Três conceitos de logotipo em SVG vetorial (`brand/logos`): **A** monograma estrutural TA, **B** wordmark THIERRY.,
-  **C** símbolo modular. Recomendado e aplicado: **B**, com o símbolo reduzido **T.**
+  **C** símbolo modular. Recomendado e aplicado: **B**, com o símbolo **T.S** (o antigo "T." foi trocado depois que a busca reversa encontrou marcas com o mesmo arranjo)
 - Exports em PNG transparente, avatar do Instagram, favicons, imagem Open Graph e manifesto.
 - Tokens (`brand/DESIGN_TOKENS.json` ↔ `app/assets/css/main.css`), tipografia (Archivo, Space Grotesk, Manrope,
   IBM Plex Mono — todas OFL, servidas pelo próprio site) e sistema gráfico (malha, ponto quadrado, carimbo técnico,
