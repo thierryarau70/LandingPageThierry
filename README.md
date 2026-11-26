@@ -4,7 +4,7 @@ Site de divulgação e venda de landing pages feito com Nuxt 4 + TypeScript.
 
 - WhatsApp e e-mail: `app/utils/site.ts`
 - Planos, serviços e FAQ: `app/utils/site.ts`
-- Portfólio: `projects` e `portfolioUrls` (ordem; a página inicial mostra os 6 primeiros) em `app/utils/site.ts`. Miniatura em vídeo: `node scripts/gravar-miniatura.mjs <url> public/portfolio/<nome>.mp4`
+- Portfólio: `projects` e `portfolioUrls` (ordem; a página inicial mostra os 7 primeiros) em `app/utils/site.ts`. Miniatura em vídeo: `node scripts/gravar-miniatura.mjs <url> public/portfolio/<nome>.mp4`
 - Estilos: `app/assets/css/main.css`
 
 ## Rodar
