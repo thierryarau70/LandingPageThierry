@@ -61,8 +61,8 @@
     "reduced-motion": "todas as animações e transições são desativadas"
   },
   "logo": {
-    "units": { "capHeight": 100, "stem": 26, "bar": 22, "chamfer": 14, "dot": 26, "wordmark": "562 × 100", "symbol": "86 × 100" },
+    "units": { "capHeight": 100, "stem": 26, "bar": 22, "chamfer": 14, "dot": 26, "wordmark": "562 × 100", "symbol": "200 × 200 (T.S) · compacto 176 × 176" },
     "clearSpace": "2X (X = lado do ponto)",
-    "minSize": { "primary": "160px / 40mm", "wordmark": "64px / 18mm", "symbol": "16px / 5mm" }
+    "minSize": { "primary": "160px / 40mm", "wordmark": "64px / 18mm", "symbol": "32px / 8mm" }
   }
 }

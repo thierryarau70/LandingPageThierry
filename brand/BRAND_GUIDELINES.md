@@ -19,7 +19,8 @@ Três propostas foram desenhadas em SVG vetorial (sem texto em fonte: tudo é co
 | C — Símbolo modular | `logos/concept-c.svg` | Malha 4 × 4 com blocos de tamanhos diferentes: a planta de um sistema | Elemento gráfico de apoio |
 
 **Por que o B:** mantém a marca ligada ao nome, é legível sem explicação e entrega um elemento de sistema — o ponto
-quadrado — que organiza títulos, botões, favicon e avatar. A redução dele é o símbolo **T.**
+quadrado — que organiza títulos, botões, favicon e avatar. O símbolo é o **T.S** — THIERRY · ponto · STUDIO: o T e o S em diagonal, com o ponto quadrado como dobradiça. Abaixo de 48 px usa-se a versão
+compacta (`symbol-compact.svg`, a mesma do favicon).
 
 ### Arquivos
 
@@ -29,7 +30,7 @@ quadrado — que organiza títulos, botões, favicon e avatar. A redução dele 
 | Logo principal (fundos escuros) | `primary-on-dark.svg` | `logo-dark.png` |
 | Horizontal: THIERRY. pesado + STUDIO leve | `horizontal.svg` · `horizontal-on-dark.svg` | `logo-horizontal-light.png` · `logo-horizontal-dark.png` |
 | Wordmark sem STUDIO (espaços reduzidos) | `wordmark.svg` · `wordmark-on-dark.svg` | — |
-| Símbolo isolado | `symbol.svg` · `symbol-on-dark.svg` · `symbol-monochrome.svg` | `symbol-light.png` · `symbol-dark.png` |
+| Símbolo T.S | `symbol.svg` · `symbol-on-dark.svg` · `symbol-monochrome.svg` · `symbol-compact.svg` | `symbol-light.png` · `symbol-dark.png` |
 | Monocromática | `monochrome.svg` · `monochrome-white.svg` | `logo-monochrome-black.png` · `logo-monochrome-white.png` |
 | Favicon | `favicon.svg` · `favicon-light.svg` | `favicon.svg` (cópia) |
 | Avatar do Instagram | `instagram-avatar.svg` · `instagram-avatar-light.svg` | `instagram-avatar.png` (1080 × 1080) |
@@ -40,7 +41,7 @@ Os PNGs têm fundo transparente (exceto avatar e favicon) e já incluem a área 
 
 - **Construção:** altura 100, haste 26, traço 22, chanfro de 45° com 14, ponto 26 × 26.
 - **Área de proteção:** 2X em todos os lados (X = lado do ponto). Mínimo absoluto de 1X em favicon e avatar.
-- **Tamanho mínimo:** principal empilhada 160 px / 40 mm · wordmark 64 px / 18 mm · símbolo 16 px / 5 mm.
+- **Tamanho mínimo:** principal empilhada 160 px / 40 mm · wordmark 64 px / 18 mm · símbolo 32 px / 8 mm.
 - **Não fazer:** distorcer, inclinar, trocar a cor ou arredondar o ponto, usar em contorno, aplicar sombra ou gradiente,
   usar branco sobre laranja, redigitar o nome em fonte.
 
