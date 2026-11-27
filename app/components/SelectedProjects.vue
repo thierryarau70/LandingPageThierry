@@ -3,6 +3,8 @@ import { featuredProjects, projectNumber, visibleProjects } from '~/data/project
 
 // Ritmo editorial: largura total, par assimétrico 7/5, bloco dividido, par assimétrico 5/7.
 const [p1, p2, p3, p4, p5, p6] = featuredProjects
+// Do sétimo destaque em diante: os agentes de IA, em uma fileira própria.
+const agents = featuredProjects.slice(6)
 </script>
 
 <template>
@@ -29,6 +31,16 @@ const [p1, p2, p3, p4, p5, p6] = featuredProjects
         <div class="grid-12 gap-y-16">
           <ProjectShowcase v-if="p5" class="col-span-4 md:col-span-5" :project="p5" :number="projectNumber(p5.slug)" shot="desktop" />
           <ProjectShowcase v-if="p6" class="col-span-4 md:col-span-7" :project="p6" :number="projectNumber(p6.slug)" shot="desktop" />
+        </div>
+
+        <div v-if="agents.length">
+          <div class="flex flex-wrap items-end justify-between gap-x-10 gap-y-3" data-reveal>
+            <p class="t-label flex items-center gap-3"><span class="inline-block size-2 bg-accent" aria-hidden="true" />Agentes de IA</p>
+            <p class="max-w-[44ch] text-muted text-pretty">Agentes que leem, organizam e avisam antes do prazo. No ar, desenvolvidos para a MAOBA.</p>
+          </div>
+          <div class="grid-12 mt-8 gap-y-16 md:mt-10">
+            <ProjectShowcase v-for="p in agents" :key="p.slug" class="col-span-4 md:col-span-6 lg:col-span-4" :project="p" :number="projectNumber(p.slug)" shot="desktop" />
+          </div>
         </div>
       </div>
 
