@@ -227,7 +227,8 @@ export const projects: Project[] = [
     stack: ['Nuxt', 'Vue'],
     status: 'Produto no ar',
     url: 'https://agentemarcos.maoba.com.br/apresentacao',
-    ...media('agente-marcos', 'Marcos', 'agente-marcos', false)
+    ...media('agente-marcos', 'Marcos', 'agente-marcos', false),
+    featured: 7
   },
   {
     slug: 'agente-leo',
@@ -251,7 +252,8 @@ export const projects: Project[] = [
     stack: ['Nuxt', 'Vue'],
     status: 'Produto no ar',
     url: 'https://agenteleo.maoba.com.br',
-    ...panel('agente-leo', 'Léo')
+    ...panel('agente-leo', 'Léo'),
+    featured: 8
   },
   {
     slug: 'agente-as',
@@ -274,7 +276,8 @@ export const projects: Project[] = [
     stack: ['Nuxt', 'Vue'],
     status: 'Produto no ar',
     url: 'https://agenteas.maoba.com.br',
-    ...panel('agente-as', 'Ás')
+    ...panel('agente-as', 'Ás'),
+    featured: 9
   },
   {
     slug: 'nexo-frotas',
