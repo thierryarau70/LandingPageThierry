@@ -480,14 +480,14 @@ const AGENTS = [
     ['Encontra as licitações do seu perfil', 'Busca no PNCP todo dia, com o motivo de cada recomendação.'],
     ['Lê o edital com citação', 'Exigências por categoria, com a página de onde vieram.'],
     ['Organiza o que você acompanha', 'Prazos, tarefas, documentos e avisos de vencimento.']] },
-  { slug: 'agente-leo', kicker: 'Gestor de demandas', shot: 'desktop', lead: 'Lê as demandas que chegam, organiza por processo e avisa cada pessoa da equipe.', points: [
-    ['Lê WhatsApp e e-mail', 'A IA separa o que é trabalho do que é pessoal.'],
-    ['Entende os documentos', 'PDFs, fotos e planilhas viram ações, prazos e urgência.'],
-    ['Avisa a pessoa certa', 'Cada setor recebe só a sua parte, com confirmação.']] },
-  { slug: 'agente-marcos', kicker: 'Assistente de convênios', shot: 'painel', lead: 'Acompanha os convênios federais no TransfereGov e avisa antes que o prazo vença.', points: [
-    ['Confere o TransfereGov todo dia', 'Situação, vigência, valores, desembolsos, aditivos e prorrogações.'],
-    ['Avisa antes do prazo', 'Por e-mail, no celular e no WhatsApp.'],
-    ['Responde em português', 'Você pergunta pelo WhatsApp e recebe os dados oficiais.']] },
+  { slug: 'agente-leo', kicker: 'Gestor de demandas', shot: 'desktop', tag: 'Tudo pelo WhatsApp', lead: 'Recebe as demandas e cobra os gestores, tudo pelo WhatsApp.', points: [
+    ['Lê o que chega no WhatsApp', 'Mensagens, PDFs, fotos e planilhas viram demandas com prazo.'],
+    ['Manda mensagem para o gestor', 'Cada responsável recebe só a sua parte, no próprio WhatsApp.'],
+    ['Cobra até a resposta', 'Com confirmação de recebimento e lembrete do prazo.']] },
+  { slug: 'agente-marcos', kicker: 'Assistente de convênios', shot: 'painel', tag: 'Tudo pelo WhatsApp', lead: 'Tudo sobre os seus convênios federais, direto no WhatsApp.', points: [
+    ['Pergunte pelo WhatsApp', 'Em português, com resposta na hora e os dados oficiais do TransfereGov.'],
+    ['Receba os avisos no WhatsApp', 'Vigência e prestação de contas antes do prazo. Também por e-mail.'],
+    ['Peça pela conversa', 'Relatório em PDF, lembrete ou o registro de um ofício por foto.']] },
   { slug: 'nexo-frotas', kicker: 'Gestão de frotas', shot: 'desktop', lead: 'Frota, combustível e contratos no mesmo lugar, com o registro de quem fez o quê.', points: [
     ['Do pedido à autorização', 'Solicitação, aprovação e autorização com regras fixas.'],
     ['Conferido no posto', 'O posto valida a autorização antes de abastecer.'],
@@ -515,6 +515,7 @@ AGENTS.forEach((a, i) => add(`posts/agentes-0${i + 2}.png`, POST, doc(...POST, i
         <div>
           <p class="label" style="display:flex;align-items:center"><i class="sq"></i>${a.p.status}</p>
           ${title([esc(a.p.name) + '.'], 190, { style: 'margin-top:26px' })}
+          ${a.tag ? `<p style="display:inline-block;background:#FF6A2B;color:#0D0D0D;padding:16px 22px 18px;margin-top:30px"><span class="label" style="display:block;font-size:17px">Diferencial</span><span class="head" style="display:block;font-size:34px;margin-top:6px">${a.tag}</span></p>` : ''}
         </div>
         <p class="head" style="font-size:36px;line-height:1.16">${a.lead}</p>
       </div>
