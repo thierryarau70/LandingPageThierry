@@ -59,6 +59,16 @@ const media = (slug: string, name: string, file = slug, video = true) => {
   return { ...s, cover: { ...s.cover, src: `/portfolio/${file}.webp` }, video: video ? `/portfolio/${file}.mp4` : undefined }
 }
 
+// Produtos com painel de acesso restrito: as capturas públicas são a tela de entrada e a de primeiro acesso.
+const panel = (slug: string, name: string) => ({
+  cover: { src: `/portfolio/${slug}.webp`, alt: `Tela de entrada de ${name}`, width: 1200, height: 616 },
+  desktop: [{ src: `/projetos/${slug}/desktop.webp`, alt: `${name}: tela de entrada no computador`, width: 1440, height: 900 }],
+  mobile: [
+    { src: `/projetos/${slug}/mobile.webp`, alt: `${name}: tela de entrada no celular`, width: 780, height: 1688 },
+    { src: `/projetos/${slug}/mobile-2.webp`, alt: `${name}: primeiro acesso no celular`, width: 780, height: 1688 }
+  ]
+})
+
 export const projects: Project[] = [
   {
     slug: 'prumo',
@@ -193,6 +203,103 @@ export const projects: Project[] = [
     url: 'https://www.arouchemodaintima.com.br',
     ...media('arouche', 'Arouche Moda Íntima'),
     featured: 6
+  },
+  {
+    slug: 'agente-marcos',
+    name: 'Marcos',
+    category: 'Assistente de IA para convênios federais',
+    pillars: ['Software', 'Inteligência', 'Automação'],
+    summary: 'Assistente de convênios da MAOBA: acompanha convênios, propostas e emendas no TransfereGov e avisa por e-mail, celular e WhatsApp antes que a vigência ou a prestação de contas vençam.',
+    context: 'O Marcos é o assistente de convênios da MAOBA, empresa de engenharia e obras de Boa Vista (RR) que também cria soluções em produtividade. Ele foi feito para prefeituras, gabinetes parlamentares e consultorias que respondem por recursos federais.',
+    problem: 'No meio de dezenas de convênios, a vigência e a prestação de contas de cada um vencem em datas diferentes. Acompanhar tudo à mão no TransfereGov deixa prazos passarem despercebidos.',
+    solution: 'Um painel e um assistente no WhatsApp que consultam os dados abertos do TransfereGov, comparam cada coleta com a anterior e avisam a equipe antes dos prazos. A pessoa pergunta em português e recebe a resposta com os dados oficiais. O Marcos só lê o sistema do governo e pede confirmação antes de qualquer ação.',
+    features: [
+      'Alertas de vigência com 120, 90, 60 e 30 dias de antecedência',
+      'Alertas de prestação de contas com 60, 30, 15 e 7 dias',
+      'Avisos por e-mail, no celular e no WhatsApp',
+      'Mudanças oficiais detectadas: desembolso, termo aditivo, prorrogação, situação e valor',
+      'Assistente no WhatsApp que responde em português com os dados oficiais',
+      'Relatório em PDF e lembretes criados pela conversa',
+      'Tarefas, documentos e histórico de contatos por convênio',
+      'Emendas impositivas, discricionárias e PIX, por município e por parlamentar'
+    ],
+    delivery: ['Desenvolvimento', 'Inteligência artificial', 'Automação'],
+    stack: ['Nuxt', 'Vue'],
+    status: 'Produto no ar',
+    url: 'https://agentemarcos.maoba.com.br/apresentacao',
+    ...media('agente-marcos', 'Marcos', 'agente-marcos', false)
+  },
+  {
+    slug: 'agente-leo',
+    name: 'Léo',
+    category: 'Agente de IA para gestão de demandas',
+    pillars: ['Software', 'Inteligência', 'Automação'],
+    summary: 'Gestor de demandas da MAOBA: mensagens de WhatsApp e e-mails viram demandas com prazo, setor responsável e cobrança automática.',
+    context: 'O Léo nasceu na frente de produtividade da MAOBA, empresa de engenharia e obras de Boa Vista (RR) que atende prefeituras, órgãos públicos e empresas.',
+    problem: 'Ofícios chegavam pelo WhatsApp e se perdiam no meio de outras conversas, e-mails ficavam sem encaminhamento e prazos venciam sem que o setor responsável soubesse.',
+    solution: 'Um agente de IA que lê o que chega por WhatsApp e e-mail, separa o que é trabalho do que é pessoal e transforma mensagens e documentos em demandas com prazo e dono. Cada setor recebe só a sua parte, confirma o recebimento e é cobrado até a resposta.',
+    features: [
+      'Leitura das mensagens de WhatsApp e dos e-mails',
+      'IA que separa o que é trabalho do que é pessoal',
+      'PDFs, fotos e planilhas transformados em ações, prazos e urgência',
+      'Demandas organizadas por processo',
+      'Aviso ao setor responsável, com confirmação de recebimento',
+      'Cobrança automática até a resposta',
+      'Painel de demandas, prazos e avisos'
+    ],
+    delivery: ['Desenvolvimento', 'Inteligência artificial', 'Automação'],
+    stack: ['Nuxt', 'Vue'],
+    status: 'Produto no ar',
+    url: 'https://agenteleo.maoba.com.br',
+    ...panel('agente-leo', 'Léo')
+  },
+  {
+    slug: 'agente-as',
+    name: 'Ás',
+    category: 'Agente de IA para licitações públicas',
+    pillars: ['Software', 'Inteligência', 'Automação'],
+    summary: 'Agente de licitações da MAOBA: encontra oportunidades no PNCP pelo perfil da empresa, lê o edital com citação de página e organiza prazos, tarefas e documentos.',
+    context: 'O Ás é a plataforma da MAOBA para empresas que participam de licitações públicas. A MAOBA atua em engenharia e obras em Boa Vista (RR) e mantém uma frente de soluções em produtividade.',
+    problem: 'Quem disputa licitações precisa acompanhar as publicações todos os dias, ler editais longos atrás das exigências e manter certidões e documentos dentro da validade.',
+    solution: 'Um painel em que o agente reúne as licitações publicadas em fontes oficiais e recomenda as compatíveis com o perfil da empresa, sempre com o motivo. A IA lê o edital, separa as exigências por categoria e indica a página de onde veio cada informação. As análises são preliminares e passam por revisão humana.',
+    features: [
+      'Busca diária de licitações no PNCP, recomendadas pelo perfil da empresa',
+      'Motivo de cada recomendação',
+      'Leitura do edital com IA, com a página de origem de cada informação',
+      'Exigências organizadas por categoria e comparadas com os documentos da empresa',
+      'Acompanhamento das licitações: prazos, tarefas e documentos',
+      'Avisos de abertura, de certidão a vencer e de edital retificado'
+    ],
+    delivery: ['Desenvolvimento', 'Inteligência artificial', 'Automação'],
+    stack: ['Nuxt', 'Vue'],
+    status: 'Produto no ar',
+    url: 'https://agenteas.maoba.com.br',
+    ...panel('agente-as', 'Ás')
+  },
+  {
+    slug: 'nexo-frotas',
+    name: 'Nexo',
+    category: 'Plataforma de gestão de frotas e combustível',
+    pillars: ['Software', 'Automação'],
+    summary: 'Plataforma da MAOBA para prefeituras, órgãos públicos e empresas controlarem veículos, condutores, viagens, abastecimentos, cotas de combustível e contratos com postos.',
+    context: 'O Nexo é a plataforma de gestão de frotas da MAOBA, empresa de engenharia e obras de Boa Vista (RR), feita para organizações que controlam o combustível por secretaria, departamento e setor.',
+    problem: 'Entre pedir e pagar um abastecimento, o processo passa por quem solicita, quem aprova, quem autoriza, o posto e quem confere. Sem um registro único, fica difícil saber quem fez o quê e conferir preço, volume e saldo de cota.',
+    solution: 'Uma plataforma que organiza o caminho do pedido ao abastecimento: solicitação, aprovação, autorização, validação no posto, registro e conferência. Saldo de cota, contrato vigente, condutor habilitado e veículo autorizado são regras fixas do sistema, e cada etapa fica registrada com quem a fez.',
+    features: [
+      'Solicitação, aprovação e autorização de abastecimento, com registro de cada etapa',
+      'Validação da autorização no posto antes de abastecer',
+      'Regras fixas: saldo de cota, contrato vigente, condutor habilitado e veículo autorizado',
+      'Sinalização de preço acima do contrato e de volume acima do tanque',
+      'Painel da organização, Portal do Condutor e Portal do Posto',
+      'Permissões por secretaria, departamento e setor',
+      'Trilha de auditoria, com correções por estorno ou retificação',
+      'Abastecimento registrado sem internet, com aprovação posterior'
+    ],
+    delivery: ['Desenvolvimento', 'Automação'],
+    stack: ['Nuxt', 'Vue'],
+    status: 'Produto no ar',
+    url: 'https://nexo.maoba.com.br',
+    ...panel('nexo-frotas', 'Nexo')
   },
   {
     slug: 'endhos',

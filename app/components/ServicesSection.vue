@@ -39,7 +39,7 @@ const related = (slugs: string[]) => slugs.map(findProject).filter(p => !!p)
                 <BrutalistButton :href="waLink(waMessages.service(s.topic))" variant="solid" arrow="up-right">{{ s.cta }}</BrutalistButton>
                 <p v-if="related(s.related).length" class="t-label flex flex-wrap items-center gap-x-4 gap-y-2 text-muted">
                   Na prática
-                  <NuxtLink v-for="p in related(s.related)" :key="p.slug" :to="`/projetos/${p.slug}`" class="link-line text-ink">{{ p.name }}</NuxtLink>
+                  <NuxtLink v-for="p in related(s.related)" :key="p.slug" :to="`/projetos/${p.slug}`" class="link-line min-w-6 justify-center text-ink">{{ p.name }}</NuxtLink>
                 </p>
               </div>
             </div>

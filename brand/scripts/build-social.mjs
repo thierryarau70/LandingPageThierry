@@ -473,6 +473,74 @@ add('posts/venda-05.png', POST, doc(...POST, 'signal', `
   </main>
   ${bottom(COORDS)}`))
 
+// ---- Carrossel dos agentes e do Nexo (6 slides): produtos no ar desenvolvidos para a MAOBA -------
+// Textos tirados das páginas públicas de cada produto; a imagem é o painel real da tela de entrada.
+const AGENTS = [
+  { slug: 'agente-as', kicker: 'Agente de licitações', shot: 'desktop', lead: 'Encontra oportunidades, lê o edital e compara as exigências com os documentos da empresa.', points: [
+    ['Encontra as licitações do seu perfil', 'Busca no PNCP todo dia, com o motivo de cada recomendação.'],
+    ['Lê o edital com citação', 'Exigências por categoria, com a página de onde vieram.'],
+    ['Organiza o que você acompanha', 'Prazos, tarefas, documentos e avisos de vencimento.']] },
+  { slug: 'agente-leo', kicker: 'Gestor de demandas', shot: 'desktop', lead: 'Lê as demandas que chegam, organiza por processo e avisa cada pessoa da equipe.', points: [
+    ['Lê WhatsApp e e-mail', 'A IA separa o que é trabalho do que é pessoal.'],
+    ['Entende os documentos', 'PDFs, fotos e planilhas viram ações, prazos e urgência.'],
+    ['Avisa a pessoa certa', 'Cada setor recebe só a sua parte, com confirmação.']] },
+  { slug: 'agente-marcos', kicker: 'Assistente de convênios', shot: 'painel', lead: 'Acompanha os convênios federais no TransfereGov e avisa antes que o prazo vença.', points: [
+    ['Confere o TransfereGov todo dia', 'Situação, vigência, valores, desembolsos, aditivos e prorrogações.'],
+    ['Avisa antes do prazo', 'Por e-mail, no celular e no WhatsApp.'],
+    ['Responde em português', 'Você pergunta pelo WhatsApp e recebe os dados oficiais.']] },
+  { slug: 'nexo-frotas', kicker: 'Gestão de frotas', shot: 'desktop', lead: 'Frota, combustível e contratos no mesmo lugar, com o registro de quem fez o quê.', points: [
+    ['Do pedido à autorização', 'Solicitação, aprovação e autorização com regras fixas.'],
+    ['Conferido no posto', 'O posto valida a autorização antes de abastecer.'],
+    ['Cada unidade no seu espaço', 'Permissões por secretaria, departamento e setor, com trilha de auditoria.']] }
+].map(a => ({ ...a, p: findProject(a.slug) }))
+const AGENTS_TOTAL = String(AGENTS.length + 2).padStart(2, '0')
+
+add('posts/agentes-01.png', POST, doc(...POST, 'carbon', `
+  ${top('Projetos no ar', `01/${AGENTS_TOTAL}`)}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
+    ${title(['Agentes', 'de IA', 'no ar.'], 230)}
+    <p class="head" style="font-size:44px;max-width:860px">Três agentes e uma plataforma que desenvolvi para a MAOBA.</p>
+    <div style="display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end">
+      ${tb(AGENTS.map((a, i) => [`0${i + 1}`, `${esc(a.p.name)} — ${a.kicker.toLowerCase()}`]), 'font-size:29px;--tbw:17%')}
+      ${swipe}
+    </div>
+  </main>
+  ${bottom(HANDLE)}`))
+
+AGENTS.forEach((a, i) => add(`posts/agentes-0${i + 2}.png`, POST, doc(...POST, i % 2 ? 'carbon' : 'paper', `
+  ${top(a.kicker, `0${i + 2}/${AGENTS_TOTAL}`)}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:40px 0 34px">
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 486px;gap:40px">
+      <div style="display:flex;flex-direction:column;justify-content:space-between;min-width:0">
+        <div>
+          <p class="label" style="display:flex;align-items:center"><i class="sq"></i>${a.p.status}</p>
+          ${title([esc(a.p.name) + '.'], 190, { style: 'margin-top:26px' })}
+        </div>
+        <p class="head" style="font-size:36px;line-height:1.16">${a.lead}</p>
+      </div>
+      <figure class="frame" style="height:580px"><img src="${file(`public/projetos/${a.slug}/${a.shot}.webp`)}" alt="" style="display:block;height:100%;width:auto;max-width:none"></figure>
+    </div>
+    <ol style="list-style:none" class="rule-t">
+      ${a.points.map(([t, d], n) => `<li class="rule-b" style="display:grid;grid-template-columns:70px 1fr;align-items:baseline;padding:20px 0"><span class="label" style="color:var(--accent)">0${n + 1}</span><span><span class="head" style="font-size:35px;display:block">${t}</span><span class="mute" style="font-size:25px;line-height:1.38;display:block;margin-top:8px">${d}</span></span></li>`).join('')}
+    </ol>
+  </main>
+  ${bottom(domain(a.p.url))}`)))
+
+add(`posts/agentes-${AGENTS_TOTAL}.png`, POST, doc(...POST, 'signal', `
+  ${top('Próximo passo', `${AGENTS_TOTAL}/${AGENTS_TOTAL}`)}
+  <main class="grow" style="display:flex;flex-direction:column;justify-content:space-between;padding:54px 0 44px">
+    ${title(['Quer um', 'agente', 'assim?'], 210)}
+    <p class="head" style="font-size:44px;max-width:880px">Conheça estes produtos ou peça um agente feito para o processo da sua empresa.</p>
+    <div style="display:grid;grid-template-columns:1fr 330px;gap:40px;align-items:end">
+      ${tb([['Instagram', HANDLE], ['WhatsApp', WHATSAPP], ['Site', SITE]], 'font-size:27px;--tbw:32%')}
+      <div style="background:#0D0D0D;color:#F3F0EA;padding:26px 26px 22px">
+        <p class="head" style="font-size:38px;line-height:1.05">Inicie seu projeto</p>
+        <p class="label" style="margin-top:22px;display:flex;justify-content:space-between;align-items:center">Link na bio ${arrow('up')}</p>
+      </div>
+    </div>
+  </main>
+  ${bottom(COORDS)}`))
+
 // ---- Anúncio para grupos de WhatsApp (classificados): uma imagem só, legível em miniatura -----
 const AD_SERVICES = ['Sites profissionais e landing pages', 'Lojas virtuais e catálogos digitais', 'Sistemas de gestão empresarial', 'Sistemas de agendamento', 'Chatbots e agentes de IA', 'Automação de processos e atendimento', 'Sistemas sob demanda']
 const AD_POINTS = ['Design profissional', 'Integração com WhatsApp', 'SEO', 'Suporte técnico']
