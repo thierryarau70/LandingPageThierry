@@ -223,7 +223,7 @@ export const projects: Project[] = [
       'Tarefas, documentos e histórico de contatos por convênio',
       'Emendas impositivas, discricionárias e PIX, por município e por parlamentar'
     ],
-    delivery: ['Design', 'Desenvolvimento'],
+    delivery: ['Desenvolvimento', 'Inteligência artificial', 'Automação'],
     stack: ['Nuxt', 'Vue'],
     status: 'Produto no ar',
     url: 'https://agentemarcos.maoba.com.br/apresentacao',
@@ -247,7 +247,7 @@ export const projects: Project[] = [
       'Cobrança automática até a resposta',
       'Painel de demandas, prazos e avisos'
     ],
-    delivery: ['Design', 'Desenvolvimento'],
+    delivery: ['Desenvolvimento', 'Inteligência artificial', 'Automação'],
     stack: ['Nuxt', 'Vue'],
     status: 'Produto no ar',
     url: 'https://agenteleo.maoba.com.br',
@@ -270,7 +270,7 @@ export const projects: Project[] = [
       'Acompanhamento das licitações: prazos, tarefas e documentos',
       'Avisos de abertura, de certidão a vencer e de edital retificado'
     ],
-    delivery: ['Design', 'Desenvolvimento'],
+    delivery: ['Desenvolvimento', 'Inteligência artificial', 'Automação'],
     stack: ['Nuxt', 'Vue'],
     status: 'Produto no ar',
     url: 'https://agenteas.maoba.com.br',
@@ -280,7 +280,7 @@ export const projects: Project[] = [
     slug: 'nexo-frotas',
     name: 'Nexo',
     category: 'Plataforma de gestão de frotas e combustível',
-    pillars: ['Design', 'Software'],
+    pillars: ['Software', 'Automação'],
     summary: 'Plataforma da MAOBA para prefeituras, órgãos públicos e empresas controlarem veículos, condutores, viagens, abastecimentos, cotas de combustível e contratos com postos.',
     context: 'O Nexo é a plataforma de gestão de frotas da MAOBA, empresa de engenharia e obras de Boa Vista (RR), feita para organizações que controlam o combustível por secretaria, departamento e setor.',
     problem: 'Entre pedir e pagar um abastecimento, o processo passa por quem solicita, quem aprova, quem autoriza, o posto e quem confere. Sem um registro único, fica difícil saber quem fez o quê e conferir preço, volume e saldo de cota.',
@@ -295,7 +295,7 @@ export const projects: Project[] = [
       'Trilha de auditoria, com correções por estorno ou retificação',
       'Abastecimento registrado sem internet, com aprovação posterior'
     ],
-    delivery: ['Design', 'Desenvolvimento'],
+    delivery: ['Desenvolvimento', 'Automação'],
     stack: ['Nuxt', 'Vue'],
     status: 'Produto no ar',
     url: 'https://nexo.maoba.com.br',
