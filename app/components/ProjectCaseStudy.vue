@@ -18,6 +18,8 @@ const sheet = computed(() => [
   { label: 'Status', value: props.project.status },
   ...(props.project.url ? [{ label: 'Acesso', value: domain.value!, href: props.project.url }] : [])
 ])
+// segunda captura de computador: produtos com painel fechado só têm a tela de entrada
+const inner = computed(() => props.project.desktop[1])
 const chapters = computed(() => [
   { title: 'Contexto', text: props.project.context },
   { title: 'Problema identificado', text: props.project.problem },
@@ -78,15 +80,19 @@ const chapters = computed(() => [
         </ol>
 
         <div class="grid-12 mt-16 items-start gap-y-(--gap) md:mt-24">
-          <figure class="shot col-span-4 md:col-span-8" data-reveal="clip">
-            <img :src="project.desktop[1]!.src" :alt="project.desktop[1]!.alt" :width="project.desktop[1]!.width" :height="project.desktop[1]!.height" loading="lazy" decoding="async">
+          <figure v-if="inner" class="shot col-span-4 md:col-span-8" data-reveal="clip">
+            <img :src="inner.src" :alt="inner.alt" :width="inner.width" :height="inner.height" loading="lazy" decoding="async">
             <figcaption class="t-label text-muted"><span>Fig. 02</span><span>Seção interna — computador</span></figcaption>
           </figure>
-          <div class="col-span-4 grid grid-cols-2 gap-(--gap) md:col-span-4">
+          <div class="col-span-4 grid grid-cols-2 gap-(--gap)" :class="inner ? 'md:col-span-4' : 'md:col-span-6'">
             <figure v-for="(m, i) in project.mobile" :key="m.src" class="shot shot--mobile" data-reveal="clip">
               <img :src="m.src" :alt="m.alt" :width="m.width" :height="m.height" loading="lazy" decoding="async">
-              <figcaption class="t-label text-muted"><span>Fig. 0{{ i + 3 }}</span><span>390 × 844</span></figcaption>
+              <figcaption class="t-label text-muted"><span>Fig. 0{{ i + (inner ? 3 : 2) }}</span><span>390 × 844</span></figcaption>
             </figure>
+          </div>
+          <div v-if="!inner" class="col-span-4 self-end border-t border-line pt-4 md:col-span-5 md:col-start-8" data-reveal>
+            <p class="t-label flex items-center gap-3"><span class="inline-block size-2 bg-accent" aria-hidden="true" />Painel com acesso restrito</p>
+            <p class="t-heading mt-4 text-subtitle text-pretty">O painel é aberto só para os clientes do produto. As capturas mostram as telas públicas: a entrada e o primeiro acesso.</p>
           </div>
         </div>
       </div>

@@ -68,7 +68,7 @@ export const services: Service[] = [
     ],
     cta: 'Quero um sistema sob medida',
     topic: 'um sistema sob medida',
-    related: ['agenda-emi', 'centro-de-isoladas', 'prumo']
+    related: ['agenda-emi', 'nexo-frotas', 'prumo']
   },
   {
     id: 'inteligencia-artificial',
@@ -87,7 +87,7 @@ export const services: Service[] = [
     ],
     cta: 'Quero aplicar IA no meu negócio',
     topic: 'uma solução com inteligência artificial',
-    related: ['prumo', 'agenda-emi']
+    related: ['agente-marcos', 'agente-leo', 'agente-as']
   },
   {
     id: 'automacao-e-integracoes',
@@ -106,6 +106,6 @@ export const services: Service[] = [
     ],
     cta: 'Quero automatizar um processo',
     topic: 'automação e integração de processos',
-    related: ['prumo', 'agenda-emi']
+    related: ['prumo', 'agente-leo', 'agenda-emi']
   }
 ]

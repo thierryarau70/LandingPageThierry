@@ -13,7 +13,7 @@ const { chromium } = createRequire(import.meta.url)('playwright')
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const BASE = process.env.BASE || 'http://localhost:4173'
 const SHOTS = process.argv.includes('--shots')
-const PAGES = ['/', '/projetos', '/projetos/prumo', '/projetos/agenda-emi', '/para/clinicas', '/privacidade']
+const PAGES = ['/', '/projetos', '/projetos/prumo', '/projetos/agenda-emi', '/projetos/agente-marcos', '/projetos/agente-as', '/para/clinicas', '/privacidade']
 const WIDTHS = [320, 375, 430, 768, 1024, 1440, 1920, 2560]
 
 const results = []
